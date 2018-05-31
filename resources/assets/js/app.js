@@ -16,7 +16,9 @@ import fontawesome from '@fortawesome/fontawesome'
 /* SweetAlert */
 window.swal = require('sweetalert2');
 
+import VueFilter from 'vue-filter';
 import Vue from 'vue';
+Vue.use(VueFilter);
 import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue);
 window.Vue = require('vue');

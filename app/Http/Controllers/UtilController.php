@@ -9,17 +9,30 @@ use Alert;
 
 class UtilController extends Controller
 {
-    public function ordenDetalles($id)
-    {
-      $odcd = Ordendecompradetalle::with('ordendecompra:id,codigo','mtp:id,sku,nombre')->findOrFail($id);
-      return $odcd;
-    }
+  public function getCatCodigo($categoria)
+  {
+    $codcat = \App\Categoria::find($categoria);
+    return $codcat;
+  }
 
-    public function ordenCompraAprobar($id)
-    {
-      $orden = Ordendecompra::findOrFail($id);
-      $orden->update(['aprobada' => 1]);
-      alert()->success('Aprobada','Orden Aprobada');
-      return redirect('ordendecompras');
-    }
+  public function getSCatCodigo($categoria)
+  {
+    $codscat = \App\Subcategoria::where('categoria_id','=',$categoria)->get();
+    return $codscat->toJson();
+  }
+
+
+  public function ordenDetalles($id)
+  {
+    $odcd = Ordendecompradetalle::with('ordendecompra:id,codigo','mtp:id,sku,nombre')->findOrFail($id);
+    return $odcd;
+  }
+
+  public function ordenCompraAprobar($id)
+  {
+    $orden = Ordendecompra::findOrFail($id);
+    $orden->update(['aprobada' => 1]);
+    alert()->success('Aprobada','Orden Aprobada');
+    return redirect('ordendecompras');
+  }
 }

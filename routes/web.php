@@ -52,6 +52,9 @@ Route::get('/getMT', function() {
 });
 Route::get('/getODCD/{id}', 'UtilController@ordenDetalles')->name('getODCD');
 
+/* Util Controller */
+Route::get('/getCatCodigo/{categoria}', 'UtilController@getCatCodigo');
+Route::get('/getSCatCodigo/{categoria}', 'UtilController@getSCatCodigo');
 
 /* Factory's */
 Route::get('/newProveedores', function() {
