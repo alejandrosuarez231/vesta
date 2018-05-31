@@ -24,8 +24,15 @@ class UtilController extends Controller
 
   public function ordenDetalles($id)
   {
-    $odcd = Ordendecompradetalle::with('ordendecompra:id,codigo','mtp:id,sku,nombre')->findOrFail($id);
-    return $odcd;
+    $odcd = Ordendecompradetalle::with('ordendecompra:id,codigo','producto:id,sku,nombre')->where('ordendecompra_id','=',$id)->get();
+
+    $detalles = collect();
+    foreach ($odcd as $value) {
+      $detalles->push(['producto' => $value->producto->nombre, 'codigo' => $value->producto->sku, 'cantidad' => $value->cantidad ]);
+    }
+    // dd($odcd);
+    return $detalles;
+    // return $odcd->only('cantidad','producto');
   }
 
   public function ordenCompraAprobar($id)
@@ -35,4 +42,5 @@ class UtilController extends Controller
     alert()->success('Aprobada','Orden Aprobada');
     return redirect('ordendecompras');
   }
+
 }

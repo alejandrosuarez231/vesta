@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid">
+<div id="app" class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-md-8">
       <h4>Ordenes de Compras</h4>
@@ -25,7 +25,6 @@
               <th>ID</th>
               <th>Codigo</th>
               <th>Fecha</th>
-              <th>Proveedor</th>
               <th>Prioridad</th>
               <th>Acciones</th>
             </tr>
@@ -36,7 +35,6 @@
               <td>{{ $element->id }}</td>
               <td>{{ $element->codigo }}</td>
               <td>{{ $element->fecha }}</td>
-              <td>{{ $element->proveedor->nombre }}</td>
               <td>{{ $element->prioridad }}</td>
               <td>
                 <a href="#" class="btn btn-sm btn-info" title="Ver" data-toggle="modal" data-target=".bd-example-modal-lg" @click="getDetalles({{ $element->id }})">Detalles</a>
@@ -60,9 +58,25 @@
       <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
-            <template>
-              <b-table striped hover :items="items" :fields="fields"></b-table>
-            </template>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th class="text-center">SKU</th>
+                  <th class="text-center">Cantidad</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in detalles">
+                  <td class="text-uppercase">@{{ item.producto }}</td>
+                  <td class="text-center">@{{ item.codigo }}</td>
+                  <td class="text-center">@{{ item.cantidad }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
           </div>
         </div>
       </div>
@@ -74,19 +88,21 @@
 
 @section('scripts')
 <script>
-  export default {
-  data () {
-    return {
-      // Note 'isActive' is left out and will not appear in the rendered table
-      fields: [ 'first_name', 'last_name', 'age' ],
-      items: [
-        { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-        { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-        { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-        { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
-      ]
+  var app = new Vue({
+    el: '#app',
+    data: {
+      detalles: []
+    },
+    methods: {
+      getDetalles: function(orden) {
+        console.log(orden);
+        axios.get('/getODCD/' + orden)
+        .then( response => {
+          console.log(response.data);
+          this.detalles = response.data;
+        })
+      }
     }
-  }
-}
+  })
 </script>
 @endsection

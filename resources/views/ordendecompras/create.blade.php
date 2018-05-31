@@ -83,7 +83,7 @@
   var app = new Vue({
     el: '#app',
     mounted(){
-      axios.get('/getMT').then(response => { this.lists = response.data });
+      axios.get('/getPro').then(response => { this.lists = response.data });
     },
     data: {
       codigo: '',

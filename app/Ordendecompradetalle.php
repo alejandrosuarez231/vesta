@@ -35,9 +35,14 @@ class Ordendecompradetalle extends Model
    *
    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
    */
-  public function mtp()
+  /**
+   * Ordendecompradetalle belongs to Producto.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+   */
+  public function Producto()
   {
-    // belongsTo(RelatedModel, foreignKey = mtp_id, keyOnRelatedModel = id)
-    return $this->belongsTo(Mtp::class,'producto_id');
+    // belongsTo(RelatedModel, foreignKey = producto_id, keyOnRelatedModel = id)
+    return $this->belongsTo(Producto::class);
   }
 }

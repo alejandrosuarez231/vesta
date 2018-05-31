@@ -47,8 +47,8 @@ Route::get('/ordendecompras/odcdetalles/create', 'OrdendecompradetalleController
 
 
 /* Route for Vue */
-Route::get('/getMT', function() {
-  return \DB::table('mtps')->selectRaw('nombre AS label, id AS value')->get();
+Route::get('/getPro', function() {
+  return \DB::table('productos')->selectRaw('nombre AS label, id AS value')->get();
 });
 Route::get('/getODCD/{id}', 'UtilController@ordenDetalles')->name('getODCD');
 

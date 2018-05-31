@@ -9,14 +9,13 @@
   </div>
 
   <div class="row justify-content-center">
-    <div class="col-md offset-1">
+    <div class="col-md-7 offset-1">
       {!! Form::open(['url'=>'productos','method'=>'POST']) !!}
       <div class="form-row">
         <div class="form-group mr-1">
           {!! Form::label('sku', 'SKU', ['class'=>'form-control-label font-weight-bold']) !!}
           <input class="form-control" type="hidden" name="sku" value="" placeholder="COD SKU" v-model="sku" readonly>
           <input class="form-control" type="text" name="sku" :value="sku | implode" placeholder="COD SKU" readonly>
-
           <span class="text-danger"><small>@if ($errors->has('sku')) {{ $errors->first('sku') }} @endif</small></span>
         </div>
         <div class="form-group mr-1">
@@ -60,11 +59,11 @@
           <span class="text-secondary font-weight-bold"><small>Propiedad - largo</small></span>
         </div>
         <div class="form-group mr-1">
-          <input class="form-control text-right" type="number" name="largosup" value="" placeholder="Largo IZQ" v-model="largoizq">
+          <input class="form-control text-right" type="number" name="largoizq" value="" placeholder="Largo IZQ" v-model="largoizq">
           <span class="text-secondary font-weight-bold"><small>Propiedad - largo IZQ</small></span>
         </div>
         <div class="form-group mr-1">
-          <input class="form-control text-right" type="number" name="largoinf" value="" placeholder="Largo DER" v-model="largoder">
+          <input class="form-control text-right" type="number" name="largoder" value="" placeholder="Largo DER" v-model="largoder">
           <span class="text-secondary font-weight-bold"><small>Propiedad - largo DER</small></span>
         </div>
       </div>
@@ -116,8 +115,8 @@
       <a class="btn btn-warning" href="{{ url('/home') }}" title="Cancelar"><i class="fas fa-ban text-danger font-weight-bold"></i> Cancelar</a>
       {!! Form::close() !!}
     </div>
-    <div class="col-md-6">
-      <pre>
+    <div class="col-md-4">
+
         <p>
           Producto Tipo: @{{ producto_tipo }} <br>
           SKU: @{{ sku }} <br>
@@ -137,7 +136,7 @@
           Cant. MIN: @{{ min }} <br>
           Cant. MAX: @{{ max }} <br>
         </p>
-      </pre>
+
     </div>
   </div>
 </div>

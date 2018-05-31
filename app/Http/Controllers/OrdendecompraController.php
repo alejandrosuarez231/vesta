@@ -46,7 +46,6 @@ class OrdendecompraController extends Controller
         $orden = new Ordendecompra;
         $orden->codigo = $request->codigo;
         $orden->fecha = $request->fecha;
-        $orden->proveedor_id = $request->proveedor_id;
         $orden->prioridad = $request->prioridad;
         $orden->aprobada = 0;
         $orden->save();

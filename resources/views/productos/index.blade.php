@@ -27,35 +27,27 @@
               <th>SKU</th>
               <th>Categoria</th>
               <th>Sub Categoria</th>
-              <th>Tipo</th>
               <th>Nombre</th>
               <th>Descripción</th>
               <th>Unidad</th>
-              <th>Proveedor</th>
-              <th>Largo</th>
-              <th>Ancho</th>
-              <th>Área</th>
-              <th>Espesor</th>
+              <th>Propiedades</th>
               <th>Importado</th>
               <th>Min</th>
               <th>Max</th>
             </tr>
           </thead>
           <tbody>
-            @foreach ($mtps as $element)
+            @foreach ($productos as $element)
             <tr>
               <td>{{ $element->sku }}</td>
               <td>{{ $element->categoria->nombre }}</td>
               <td>{{ $element->subcategoria->nombre }}</td>
-              <td>{{ $element->tipo }}</td>
               <td>{{ $element->nombre }}</td>
               <td>{{ $element->descripcion }}</td>
               <td>{{ $element->unidad->nombre }}</td>
-              <td>{{ $element->proveedor->nombre }}</td>
-              <td>{{ $element->largo }}</td>
-              <td>{{ $element->ancho }}</td>
-              <td>{{ $element->area }}</td>
-              <td>{{ $element->espesor }}</td>
+              <td>
+                <a class="btn btn-sm btn-info" href="#" title="">Ver Propiedades</a>
+              </td>
               <td>{{ $element->importado }}</td>
               <td>{{ $element->min }}</td>
               <td>{{ $element->max }}</td>

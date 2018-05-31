@@ -14,8 +14,8 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $productos = Producto::with('categoria:id,nombre','subcategoria:id,nombre','unidad:id,nombre','proveedor:id,nombre')->paginate();
-        return view('productos.index', compact('productos'));
+      $productos = Producto::with('categoria:id,nombre','subcategoria:id,nombre','unidad:id,nombre','proveedor:id,nombre')->paginate();
+      return view('productos.index', compact('productos'));
     }
 
     /**
@@ -25,7 +25,7 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        return view('productos.create');
+      return view('productos.create');
     }
 
     /**
@@ -36,26 +36,38 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'sku' => 'required|unique:productos|max:20',
-            'categoria_id' => 'required',
-            'subcategoria_id' => 'required',
-            'tipo' => 'required',
-            'nombre' => 'required',
-            'descripcion' => 'required',
-            'unidad_id' => 'required',
-            'proveedor_id' => 'required',
-            'largo' => 'required|numeric',
-            'ancho' => 'required|numeric',
-            'area' => 'nullable|numeric',
-            'espesor' => 'nullable|numeric',
-            'importado' => 'required',
-            'min' => 'required|min:1',
-            'max' => 'required|min:1'
-        ]);
-        Producto::create($request->all());
-        alert()->success('Registro creado','Materia prima nueva');
-        return redirect('productos');
+      // dd($request->all());
+      $validatedData = $request->validate([
+        'sku' => 'required|unique:productos|max:20',
+        'categoria_id' => 'required',
+        'subcategoria_id' => 'required',
+        'nombre' => 'required',
+        'descripcion' => 'required',
+        'unidad_id' => 'required',
+        'importado' => 'required',
+        'min' => 'required|min:1',
+        'max' => 'required|min:1'
+      ]);
+
+      $producto = Producto::create($request->all());
+
+      $propiedades = \App\Propiedade::create([
+        'producto_id' => $producto->id,
+        'largo' => $request->largo,
+        'largo_izq' => $request->largoizq,
+        'largo_der' => $request->largoder,
+        'ancho' => $request->ancho,
+        'anchosup' => $request->anchosup,
+        'anchoinf' => $request->anchoinf,
+        'mec1' => $request->mec1,
+        'mec2' => $request->mec2
+      ]);
+
+      $setPropiedades = Producto::findOrFail($producto->id);
+      $setPropiedades->update(['propiedades' => $propiedades->id]);
+
+      alert()->success('Registro creado','Nuevo Producto Registrado');
+      return redirect('productos');
     }
 
     /**
@@ -66,7 +78,7 @@ class ProductoController extends Controller
      */
     public function show($id)
     {
-        return view('productos.show');
+      return view('productos.show');
     }
 
     /**
@@ -77,7 +89,7 @@ class ProductoController extends Controller
      */
     public function edit($id)
     {
-        return view('productos.edit');
+      return view('productos.edit');
     }
 
     /**
@@ -102,4 +114,4 @@ class ProductoController extends Controller
     {
         //
     }
-}
+  }

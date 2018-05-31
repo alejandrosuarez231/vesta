@@ -26,7 +26,7 @@
                             <ul class="nav">
 
                                 <li class="nav-item"><a class="nav-link" href="{{ route('ordendecompras.index') }}" title="Orden de compra">Solicitud de Compra</a></li>
-                                <li class="nav-item"><a class="nav-link" href="" title="Compras">Pedido de Compras</a></li>
+                                <!-- <li class="nav-item"><a class="nav-link" href="" title="Compras">Pedido de Compras</a></li> -->
 
                                 <li class="nav-item"><a class="nav-link" href="{{ route('ordendecompras.index') }}" title="Orden de compra">Orde de Compra</a></li>
                                 <li class="nav-item"><a class="nav-link" href="" title="Compras">Compras</a></li>
