@@ -21,6 +21,9 @@ import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue);
 window.Vue = require('vue');
 
+import VeeValidate from 'vee-validate';
+Vue.use(VeeValidate);
+
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'

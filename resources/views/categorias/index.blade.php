@@ -25,7 +25,7 @@
             <tr>
               <th>Tipo</th>
               <th>Nombre</th>
-              <th>Descripción</th>
+              <th>Acronimo</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -34,7 +34,7 @@
             <tr>
               <td>{{ $element->tipo }}</td>
               <td>{{ $element->nombre }}</td>
-              <td>{{ $element->descripcion }}</td>
+              <td class="text-uppercase">{{ $element->acronimo }}</td>
               <td class="text-center">
                 <a href="{{ route('categorias.edit',['id'=>$element->id]) }}" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
               </td>

@@ -36,6 +36,11 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'tipo' => 'required',
+            'nombre' => 'required',
+            'acronimo' => 'required',
+        ]);
         Categoria::create($request->all());
         alert()->success('Registro Creado','Categoria Nueva');
         return redirect('/categorias');
@@ -76,7 +81,7 @@ class CategoriaController extends Controller
         $categoria = Categoria::findOrFail($id);
         $categoria->tipo = $request->tipo;
         $categoria->nombre = $request->nombre;
-        $categoria->descripcion = $request->descripcion;
+        $categoria->acronimo = $request->acronimo;
         $categoria->save();
         alert()->success('Registro Actualizado','Categoria Actualizada');
         return redirect('/categorias');

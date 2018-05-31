@@ -15,7 +15,7 @@
         {!! Form::text('nombre', $unidad->nombre, ['class'=>'form-control col-md-4','placeholder'=>'Nombre de la Unidad']) !!}
       </div>
       <button type="submit" class="btn btn-primary" title="Actualizar"><i class="far fa-edit"></i> Actualizar</button>
-      <a class="btn btn-warning" href="{{ url('/home') }}" title="Cancelar"><i class="fas fa-ban"></i> Cancelar</a>
+      <a class="btn btn-warning text-danger" href="{{ url('/unidades') }}" title="Cancelar"><i class="fas fa-ban"></i> Cancelar</a>
       {!! Form::close() !!}
     </div>
   </div>

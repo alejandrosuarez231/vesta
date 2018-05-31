@@ -16,13 +16,13 @@
         {!! Form::text('nombre', $subcategoria->nombre, ['class'=>'form-control col-md-4','placeholder'=>'Nombre de la Sub-Categoria']) !!}
         {!! $errors->first('categoria_id', '<p class="help-block text-danger">:message</p>') !!}
       </div>
-      <div class="form-group  {{ $errors->has('descripcion') ? 'has-error' : '' }}">
-        {!! Form::label('descripcion', 'Descripcion', ['class'=>'form-control-label']) !!}
-        {!! Form::text('descripcion', null, ['class'=>'form-control col-md-4','placeholder'=>'Nombre de la Sub-Categoria']) !!}
-        {!! $errors->first('descripcion', '<p class="help-block text-danger">:message</p>') !!}
+      <div class="form-group  {{ $errors->has('acronimo') ? 'has-error' : '' }}">
+        {!! Form::label('acronimo', 'Acronimo', ['class'=>'form-control-label']) !!}
+        {!! Form::text('acronimo', $subcategoria->acronimo, ['class'=>'form-control col-md-4','placeholder'=>'Nombre de la Sub-Categoria']) !!}
+        {!! $errors->first('acronimo', '<p class="help-block text-danger">:message</p>') !!}
       </div>
       <button type="submit" class="btn btn-primary" title="Actualizar"><i class="far fa-edit"></i> Actualizar</button>
-      <a class="btn btn-warning text-danger" href="{{ url('/home') }}" title="Cancelar"><i class="fas fa-ban"></i> Cancelar</a>
+      <a class="btn btn-warning text-danger" href="{{ url('/subcategorias') }}" title="Cancelar"><i class="fas fa-ban"></i> Cancelar</a>
       {!! Form::close() !!}
     </div>
   </div>

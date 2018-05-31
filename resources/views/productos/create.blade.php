@@ -11,71 +11,37 @@
   <div class="row justify-content-center">
     <div class="col-md offset-1">
       {!! Form::open(['url'=>'productos','method'=>'POST']) !!}
-      <div class="form-row my-3">
-        <label for="" class="form-control-label font-weight-bold mr-4">Tipo de Producto: </label>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="producto_tipo" id="producto_tipo1" value="option1" checked>
-          <label class="form-check-label mr-2" for="producto_tipo1">
-            <abbr title="Materia Prima" class="initialism">MT</abbr>
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="producto_tipo" id="producto_tipo2" value="option2">
-          <label class="form-check-label mr-2" for="producto_tipo2">
-            <abbr title="Producto Semi Elaborado" class="initialism">PSE</abbr>
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="producto_tipo" id="producto_tipo3" value="option3">
-          <label class="form-check-label mr-2" for="exampleRadios3">
-            <abbr title="Producto Terminado" class="initialism">PT</abbr>
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="producto_tipo" id="producto_tipo3" value="option3">
-          <label class="form-check-label mr-2" for="exampleRadios3">
-            <abbr title="Servicio" class="initialism">S</abbr>
-          </label>
-        </div>
-      </div>
       <div class="form-row">
         <div class="form-group mr-1">
           {!! Form::label('sku', 'SKU', ['class'=>'form-control-label font-weight-bold']) !!}
-          {!! Form::text('sku', null, ['class'=>'form-control','placeholder'=>'Codigo SKU']) !!}
+          {!! Form::text('sku', null, ['class'=>'form-control','placeholder'=>'Codigo SKU','v-model'=>'sku']) !!}
           <span class="text-danger"><small>@if ($errors->has('sku')) {{ $errors->first('sku') }} @endif</small></span>
         </div>
         <div class="form-group mr-1">
           {!! Form::label('categoria_id', 'Categoria', ['class'=>'form-control-label font-weight-bold']) !!}
-          {!! Form::select('categoria_id', \App\Categoria::pluck('nombre','id'), null, ['class'=>'form-control', 'placeholder'=>'Selección']) !!}
+          {!! Form::select('categoria_id', \App\Categoria::pluck('nombre','id'), null, ['class'=>'form-control', 'placeholder'=>'Selección','v-model'=>'categoria_id']) !!}
           <span class="text-danger"><small>@if ($errors->has('categoria_id')) {{ $errors->first('categoria_id') }} @endif</small></span>
         </div>
         <div class="form-group mr-1">
           {!! Form::label('subcategoria_id', 'Sub-Categoria', ['class'=>'form-control-label font-weight-bold']) !!}
-          {!! Form::select('subcategoria_id', \App\Subcategoria::pluck('nombre','id'), null, ['class'=>'form-control', 'placeholder'=>'Selección']) !!}
+          {!! Form::select('subcategoria_id', \App\Subcategoria::pluck('nombre','id'), null, ['class'=>'form-control', 'placeholder'=>'Selección','v-model'=>'subcategoria_id']) !!}
           <span class="text-danger"><small>@if ($errors->has('subcategoria_id')) {{ $errors->first('subcategoria_id') }} @endif</small></span>
         </div>
       </div>
-      <div class="form-row">
-        <div class="form-group mr-1">
-          {!! Form::label('tipo', 'Tipo', ['class'=>'form-control-label font-weight-bold']) !!}
-          {!! Form::text('tipo', null, ['class'=>'form-control','placeholder'=>'Tipo']) !!}
-          <span class="text-danger"><small>@if ($errors->has('tipo')) {{ $errors->first('tipo') }} @endif</small></span>
-        </div>
-        <div class="form-group mr-1">
-          {!! Form::label('nombre', 'Nombre', ['class'=>'form-control-label font-weight-bold']) !!}
-          {!! Form::text('nombre', null, ['class'=>'form-control','placeholder'=>'Nombre del Producto']) !!}
-          <span class="text-danger"><small>@if ($errors->has('nombre')) {{ $errors->first('nombre') }} @endif</small></span>
-        </div>
-        <div class="form-group mr-1">
-          {!! Form::label('descripcion', 'Descripcion', ['class'=>'form-control-label font-weight-bold']) !!}
-          {!! Form::textarea('descripcion', null, ['class'=>'form-control','size'=>'30x3','placeholder'=>'Descripción']) !!}
-          <span class="text-danger"><small>@if ($errors->has('descripcion')) {{ $errors->first('descripcion') }} @endif</small></span>
-        </div>
+      <div class="form-group mr-1">
+        {!! Form::label('nombre', 'Nombre', ['class'=>'form-control-label font-weight-bold']) !!}
+        {!! Form::text('nombre', null, ['class'=>'form-control col-md-10','placeholder'=>'Nombre del Producto','v-model'=>'nombre']) !!}
+        <span class="text-danger"><small>@if ($errors->has('nombre')) {{ $errors->first('nombre') }} @endif</small></span>
+      </div>
+      <div class="form-group mr-1">
+        {!! Form::label('descripcion', 'Descripcion', ['class'=>'form-control-label font-weight-bold']) !!}
+        {!! Form::textarea('descripcion', null, ['class'=>'form-control col-md-10','size'=>'30x3','placeholder'=>'Descripción','v-model'=>'descripcion']) !!}
+        <span class="text-danger"><small>@if ($errors->has('descripcion')) {{ $errors->first('descripcion') }} @endif</small></span>
       </div>
       <div class="form-row">
         <div class="form-group mr-3">
           {!! Form::label('unidad_id', 'Unidad', ['class'=>'form-control-label font-weight-bold']) !!}
-          {!! Form::select('unidad_id', \App\Unidad::pluck('nombre','id'), null, ['class'=>'form-control','placeholder'=>'Selección']) !!}
+          {!! Form::select('unidad_id', \App\Unidad::pluck('nombre','id'), null, ['class'=>'form-control','placeholder'=>'Selección','v-model'=>'unidad_id']) !!}
           <span class="text-danger"><small>@if ($errors->has('unidad_id')) {{ $errors->first('unidad_id') }} @endif</small></span>
         </div>
         <div class="form-group mr-1">
@@ -94,40 +60,40 @@
                 <div class="modal-body">
                   <div class="form-row">
                     <div class="form-group mr-1">
-                      {!! Form::number('largo', null, ['class'=>'form-control','placeholder'=>'LARGO']) !!}
+                      {!! Form::number('largo', null, ['class'=>'form-control','placeholder'=>'LARGO','v-model'=>'propiedades.largo']) !!}
                     </div>
                     <div class="form-group mr-1">
-                      {!! Form::number('largoizq', null, ['class'=>'form-control','placeholder'=>'LARGO IZQ']) !!}
+                      {!! Form::number('largoizq', null, ['class'=>'form-control','placeholder'=>'LARGO IZQ','v-model'=>'propiedades.largoizq']) !!}
                     </div>
                     <div class="form-group mr-1">
-                      {!! Form::number('largoder', null, ['class'=>'form-control','placeholder'=>'LARGO DER']) !!}
-                    </div>
-                  </div>
-                  <div class="form-row">
-                    <div class="form-group mr-1">
-                      {!! Form::number('ancho', null, ['class'=>'form-control','placeholder'=>'ANCHO']) !!}
-                    </div>
-                    <div class="form-group mr-1">
-                      {!! Form::number('anchosup', null, ['class'=>'form-control','placeholder'=>'ANCHO SUP']) !!}
-                    </div>
-                    <div class="form-group mr-1">
-                      {!! Form::number('anchoinf', null, ['class'=>'form-control','placeholder'=>'ANCHO INF']) !!}
+                      {!! Form::number('largoder', null, ['class'=>'form-control','placeholder'=>'LARGO DER','v-model'=>'propiedades.largoder']) !!}
                     </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group mr-1">
-                      {!! Form::number('area', null, ['class'=>'form-control','placeholder'=>'AREA']) !!}
+                      {!! Form::number('ancho', null, ['class'=>'form-control','placeholder'=>'ANCHO','v-model'=>'propiedades.ancho']) !!}
                     </div>
                     <div class="form-group mr-1">
-                      {!! Form::number('espesor', null, ['class'=>'form-control','placeholder'=>'Espesor']) !!}
+                      {!! Form::number('anchosup', null, ['class'=>'form-control','placeholder'=>'ANCHO SUP','v-model'=>'propiedades.anchosup']) !!}
+                    </div>
+                    <div class="form-group mr-1">
+                      {!! Form::number('anchoinf', null, ['class'=>'form-control','placeholder'=>'ANCHO INF','v-model'=>'propiedades.anchoinf']) !!}
                     </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group mr-1">
-                      {!! Form::number('mec1', null, ['class'=>'form-control','placeholder'=>'MEC1']) !!}
+                      {!! Form::number('area', null, ['class'=>'form-control','placeholder'=>'AREA','v-model'=>'propiedades.area']) !!}
                     </div>
                     <div class="form-group mr-1">
-                      {!! Form::number('mec2', null, ['class'=>'form-control','placeholder'=>'MEC2']) !!}
+                      {!! Form::number('espesor', null, ['class'=>'form-control','placeholder'=>'Espesor','v-model'=>'propiedades.espesor']) !!}
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group mr-1">
+                      {!! Form::number('mec1', null, ['class'=>'form-control','placeholder'=>'MEC1','v-model'=>'propiedades.mec1']) !!}
+                    </div>
+                    <div class="form-group mr-1">
+                      {!! Form::number('mec2', null, ['class'=>'form-control','placeholder'=>'MEC2','v-model'=>'propiedades.mec2']) !!}
                     </div>
                   </div>
                 </div>
@@ -141,28 +107,7 @@
           <!-- Modal -->
         </div>
       </div>
-      <div class="form-row">
-        <div class="form-group mr-1">
-          {!! Form::label('largo', 'Largo', ['class'=>'form-control-label font-weight-bold']) !!}
-          {!! Form::number('largo', null, ['class'=>'form-control','step'=>'any', 'placeholder'=>'0.00']) !!}
-          <span class="text-danger"><small>@if ($errors->has('largo')) {{ $errors->first('largo') }} @endif</small></span>
-        </div>
-        <div class="form-group mr-1">
-          {!! Form::label('ancho', 'Ancho', ['class'=>'form-control-label font-weight-bold']) !!}
-          {!! Form::number('ancho', null, ['class'=>'form-control','step'=>'any', 'placeholder'=>'0.00']) !!}
-          <span class="text-danger"><small>@if ($errors->has('ancho')) {{ $errors->first('ancho') }} @endif</small></span>
-        </div>
-        <div class="form-group mr-1">
-          {!! Form::label('area', 'Área', ['class'=>'form-control-label font-weight-bold']) !!}
-          {!! Form::number('area', null, ['class'=>'form-control','step'=>'any', 'placeholder'=>'0.00']) !!}
-          <span class="text-danger"><small>@if ($errors->has('area')) {{ $errors->first('area') }} @endif</small></span>
-        </div>
-        <div class="form-group mr-1">
-          {!! Form::label('espesor', 'Espesor', ['class'=>'form-control-label font-weight-bold']) !!}
-          {!! Form::number('espesor', null, ['class'=>'form-control','step'=>'any', 'placeholder'=>'0.00']) !!}
-          <span class="text-danger"><small>@if ($errors->has('espesor')) {{ $errors->first('espesor') }} @endif</small></span>
-        </div>
-      </div>
+
       <div class="form-row">
         <div class="form-group mr-1">
           {!! Form::label('importado', 'Importado', ['class'=>'form-control-label font-weight-bold']) !!}
@@ -184,6 +129,46 @@
       <a class="btn btn-warning" href="{{ url('/home') }}" title="Cancelar"><i class="fas fa-ban text-danger font-weight-bold"></i> Cancelar</a>
       {!! Form::close() !!}
     </div>
+    <div class="col-md">
+      <pre>
+        <p>
+          Producto Tipo: @{{ producto_tipo }} <br>
+          SKU: @{{ sku }} <br>
+          Categoria ID: @{{ categoria_id }} <br>
+          Sub Categoria: @{{ subcategoria_id }} <br>
+          Tipo: @{{ tipo }} <br>
+          Nombre: @{{ nombre }} <br>
+          Descripción: @{{ descripcion }} <br>
+          Unidad ID: @{{ unidad_id }} <br>
+          Propiedades: @{{ propiedades }} <br>
+          Importado: @{{ importado }} <br>
+          Cant. MIN: @{{ min }} <br>
+          Cant. MAX: @{{ max }} <br>
+        </p>
+      </pre>
+    </div>
   </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      producto_tipo: '',
+      sku: '',
+      categoria_id: '',
+      subcategoria_id: '',
+      tipo: '',
+      nombre: '',
+      descripcion: '',
+      unidad_id: '',
+      propiedades: [],
+      importado: '',
+      min: 1,
+      max:1
+    }
+  })
+</script>
 @endsection

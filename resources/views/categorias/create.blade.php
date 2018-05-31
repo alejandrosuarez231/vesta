@@ -9,19 +9,30 @@
       <div class="form-group col-md-6">
         {!! Form::label('tipo', 'Tipo', ['class'=>'form-control-label font-weight-bold']) !!}
         {!! Form::select('tipo', ['MTP'=>'MTP','PSE'=>'PSE','PTE'=>'PTE','SER'=>'SER'], null, ['class'=>'form-control','placeholder'=>'Selección']) !!}
+        {!! $errors->first('tipo', '<small class="help-block text-danger">:message</small>') !!}
       </div>
       <div class="form-group col-md-8">
         {!! Form::label('nombre', 'Nombre', ['class'=>'form-control-label font-weight-bold']) !!}
         {!! Form::text('nombre', null, ['class'=>'form-control']) !!}
+        {!! $errors->first('nombre', '<small class="help-block text-danger">:message</small>') !!}
       </div>
       <div class="form-group col-md-8">
-        {!! Form::label('descripcion', 'Descripcion', ['class'=>'form-control-label font-weight-bold']) !!}
-        {!! Form::text('descripcion', null, ['class'=>'form-control']) !!}
+        {!! Form::label('acronimo', 'Acronimo', ['class'=>'form-control-label font-weight-bold']) !!}
+        {!! Form::text('acronimo', null, ['class'=>'form-control text-uppercase']) !!}
+        {!! $errors->first('acronimo', '<small class="help-block text-danger">:message</small>') !!}
       </div>
-      <button type="submit" class="btn btn-primary" title="Registrar"><i class="fas fa-sign-in-alt"></i></button>
-      <a class="btn btn-warning" href="{{ url('/home') }}" title="Cancelar"><i class="fas fa-ban"></i></a>
+      <button type="submit" class="btn btn-primary" title="Registrar"><i class="fas fa-sign-in-alt"></i> Registrar</button>
+      <a class="btn btn-warning text-danger" href="{{ url('/categorias') }}" title="Cancelar"><i class="fas fa-ban"></i> Cancelar</a>
       {!! Form::close() !!}
     </div>
   </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+  var app = new Vue({
+    el: '#app'
+  })
+</script>
 @endsection

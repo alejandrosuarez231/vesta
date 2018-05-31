@@ -36,9 +36,17 @@ class ProveedoreController extends Controller
      */
     public function store(Request $request)
     {
-        $proveedor = new Proveedore;
-        $proveedor->nombre = $request->nombre;
-        $proveedor->save();
+        $this->validate($request, [
+            'fiscalid' => 'required',
+            'nombre' => 'required',
+            'direccion' => 'required',
+            'telefonos' => 'required',
+            'email' => 'required',
+            'website' => 'nullable',
+            'credito' => 'required'
+        ]);
+
+        Proveedore::create($request->all());
         alert()->success('Registro Creado','Proveedor Nuevo');
         return redirect('/proveedores');
     }
@@ -51,7 +59,7 @@ class ProveedoreController extends Controller
      */
     public function show(Proveedore $proveedore)
     {
-        //
+        return view('proveedores.show', compact('proveedore'));
     }
 
     /**
@@ -75,8 +83,24 @@ class ProveedoreController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'fiscalid' => 'required',
+            'nombre' => 'required',
+            'direccion' => 'required',
+            'telefonos' => 'required',
+            'email' => 'required',
+            'website' => 'nullable',
+            'credito' => 'required'
+        ]);
+
         $proveedor = Proveedore::findOrFail($id);
+        $proveedor->fiscalid = $request->fiscalid;
         $proveedor->nombre = $request->nombre;
+        $proveedor->direccion = $request->direccion;
+        $proveedor->telefonos = $request->telefonos;
+        $proveedor->email = $request->email;
+        $proveedor->website = $request->website;
+        $proveedor->credito = $request->credito;
         $proveedor->save();
         alert()->success('Registro Actualizado','Proveedor Actualizado');
         return redirect('/proveedores');

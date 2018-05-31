@@ -35,6 +35,11 @@ class UnidadController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'acronimo' => 'required',
+            'nombre' => 'required',
+        ]);
+
         $unidad = new Unidad;
         $unidad->acronimo = $request->acronimo;
         $unidad->nombre = $request->nombre;

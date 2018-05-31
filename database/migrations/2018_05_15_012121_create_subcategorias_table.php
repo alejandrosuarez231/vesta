@@ -17,7 +17,7 @@ class CreateSubcategoriasTable extends Migration
             $table->increments('id');
             $table->integer('categoria_id');
             $table->string('nombre',191);
-            $table->string('descripcion',191)->nullable();
+            $table->string('acronimo',6);
             $table->timestamps();
             $table->softDeletes();
         });

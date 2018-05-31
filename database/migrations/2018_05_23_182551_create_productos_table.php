@@ -18,7 +18,6 @@ class CreateProductosTable extends Migration
         $table->string('sku');
         $table->integer('categoria_id');
         $table->integer('subcategoria_id');
-        $table->string('tipo',191)->nullable();
         $table->string('nombre',191);
         $table->string('descripcion',191);
         $table->integer('unidad_id');

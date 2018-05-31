@@ -13,7 +13,7 @@ class SubcategoriaController extends Controller
      */
     public function index()
     {
-        $subcategorias = Subcategoria::with('categoria:id,nombre')->orderBy('nombre')->paginate();
+        $subcategorias = Subcategoria::with('categoria:id,nombre,acronimo')->orderBy('nombre')->paginate();
         return view('subcategorias.index', compact('subcategorias'));
     }
 
@@ -38,13 +38,13 @@ class SubcategoriaController extends Controller
         $request->validate([
             'categoria_id' => 'required',
             'nombre' => 'required|unique:subcategorias',
-            'descripcion' => 'nullable'
+            'acronimo' => 'required'
         ]);
 
         $subcategorias = new Subcategoria;
         $subcategorias->categoria_id = $request->categoria_id;
         $subcategorias->nombre = $request->nombre;
-        $subcategorias->descripcion = $request->descripcion;
+        $subcategorias->acronimo = $request->acronimo;
         $subcategorias->save();
         alert()->success('Registro Creado','Sub-Categoria Nueva');
         return redirect('/subcategorias');
@@ -85,13 +85,13 @@ class SubcategoriaController extends Controller
         $request->validate([
             'categoria_id' => 'required',
             'nombre' => 'required|unique:subcategorias',
-            'descripcion' => 'nullable'
+            'acronimo' => 'required'
         ]);
 
         $subcategoria = Subcategoria::findOrFail($id);
         $subcategoria->categoria_id = $request->categoria_id;
         $subcategoria->nombre = $request->nombre;
-        $subcategoria->descripcion = $request->descripcion;
+        $subcategoria->acronimo = $request->acronimo;
         $subcategoria->save();
         alert()->success('Registro Actualizado','Sub-Categoria Actualizada');
         return redirect('/subcategorias');

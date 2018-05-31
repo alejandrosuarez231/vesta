@@ -18,7 +18,7 @@ class Subcategoria extends Model
    */
   protected $table = 'subcategorias';
 
-  protected $fillable = ['categoria_id','nombre','descripcion'];
+  protected $fillable = ['categoria_id','nombre','acronimo'];
   protected $guarded = ['id'];
   protected $dates = ['created_at','updated_at','deleted_at'];
 

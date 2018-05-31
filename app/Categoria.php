@@ -24,7 +24,7 @@ class Categoria extends Model
   protected $fillable = [
     'tipo',
     'nombre',
-    'descripcion'
+    'acronimo'
   ];
   protected $guarded = ['id'];
   protected $dates = ['created_at','updated_at','deleted_at'];

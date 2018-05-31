@@ -35,7 +35,13 @@
             <tr>
               <td>{{ $element->tipo }}</td>
               <td>{{ $element->categoria->nombre }}</td>
-              <td>{{ @$element->subcategoria->nombre }}</td>
+              <td>
+                @if (isset($element->subcategoria->nombre))
+                  {{ $element->subcategoria->nombre }}
+                @else
+                <span><small class="text-secondary font-weight-bold">None</small></span>
+                @endif
+              </td>
               <td>{{ $element->acronimo }}</td>
               <td>{{ $element->tipologia }}</td>
               <td>

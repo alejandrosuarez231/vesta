@@ -15,9 +15,9 @@ class CreateCategoriasTable extends Migration
     {
         Schema::create('categorias', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('tipo',['MTP','PSE','PTE','SER']);
+            $table->enum('tipo',['MTP','PSE','PTO','SER']);
             $table->string('nombre',80);
-            $table->string('descripcion',191)->nullable();
+            $table->string('acronimo',3);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -25,16 +25,16 @@
             <tr>
               <th>Categoria</th>
               <th>Nombre</th>
-              <th>Descripción</th>
+              <th>Acronimo</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
             @foreach ($subcategorias as $element)
             <tr>
-              <td>{{ $element->categoria->nombre }}</td>
+              <td>{{ $element->categoria->nombre }} <sup class="text-primary text-uppercase">{{ $element->categoria->acronimo }}</sup></td>
               <td>{{ $element->nombre }}</td>
-              <td>{{ $element->descripcion }}</td>
+              <td>{{ $element->acronimo }}</td>
               <td class="text-center">
                 <a href="{{ route('subcategorias.edit',['id'=>$element->id]) }}" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
               </td>
