@@ -39,89 +39,69 @@
         <span class="text-danger"><small>@if ($errors->has('descripcion')) {{ $errors->first('descripcion') }} @endif</small></span>
       </div>
       <div class="form-row">
-        <div class="form-group mr-3">
+        <div class="form-group mr-3 mb-2">
           {!! Form::label('unidad_id', 'Unidad', ['class'=>'form-control-label font-weight-bold']) !!}
           {!! Form::select('unidad_id', \App\Unidad::pluck('nombre','id'), null, ['class'=>'form-control','placeholder'=>'Selección','v-model'=>'unidad_id']) !!}
           <span class="text-danger"><small>@if ($errors->has('unidad_id')) {{ $errors->first('unidad_id') }} @endif</small></span>
         </div>
-        <div class="form-group mr-1">
+        <div class="form-group mr-1 mb-2">
           {!! Form::label('propiedades', 'Propiedades', ['class'=>'form-control-label font-weight-bold']) !!}
-          <button type="button" class="btn btn-success form-control" data-toggle="modal" title="Definir propiedades" data-target="#exampleModal"><i class="fas fa-cogs"></i> Definir</button>
-          <!-- Modal -->
-          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Propiedades</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <div class="form-row">
-                    <div class="form-group mr-1">
-                      {!! Form::number('largo', null, ['class'=>'form-control','placeholder'=>'LARGO','v-model'=>'propiedades.largo']) !!}
-                    </div>
-                    <div class="form-group mr-1">
-                      {!! Form::number('largoizq', null, ['class'=>'form-control','placeholder'=>'LARGO IZQ','v-model'=>'propiedades.largoizq']) !!}
-                    </div>
-                    <div class="form-group mr-1">
-                      {!! Form::number('largoder', null, ['class'=>'form-control','placeholder'=>'LARGO DER','v-model'=>'propiedades.largoder']) !!}
-                    </div>
-                  </div>
-                  <div class="form-row">
-                    <div class="form-group mr-1">
-                      {!! Form::number('ancho', null, ['class'=>'form-control','placeholder'=>'ANCHO','v-model'=>'propiedades.ancho']) !!}
-                    </div>
-                    <div class="form-group mr-1">
-                      {!! Form::number('anchosup', null, ['class'=>'form-control','placeholder'=>'ANCHO SUP','v-model'=>'propiedades.anchosup']) !!}
-                    </div>
-                    <div class="form-group mr-1">
-                      {!! Form::number('anchoinf', null, ['class'=>'form-control','placeholder'=>'ANCHO INF','v-model'=>'propiedades.anchoinf']) !!}
-                    </div>
-                  </div>
-                  <div class="form-row">
-                    <div class="form-group mr-1">
-                      {!! Form::number('area', null, ['class'=>'form-control','placeholder'=>'AREA','v-model'=>'propiedades.area']) !!}
-                    </div>
-                    <div class="form-group mr-1">
-                      {!! Form::number('espesor', null, ['class'=>'form-control','placeholder'=>'Espesor','v-model'=>'propiedades.espesor']) !!}
-                    </div>
-                  </div>
-                  <div class="form-row">
-                    <div class="form-group mr-1">
-                      {!! Form::number('mec1', null, ['class'=>'form-control','placeholder'=>'MEC1','v-model'=>'propiedades.mec1']) !!}
-                    </div>
-                    <div class="form-group mr-1">
-                      {!! Form::number('mec2', null, ['class'=>'form-control','placeholder'=>'MEC2','v-model'=>'propiedades.mec2']) !!}
-                    </div>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                  <button type="button" class="btn btn-primary">Guardar</button>
-                </div>
-              </div>
+          <span class="text-danger font-weight-bold"><small><sup>*</sup> Defina la propiedades del Producto</small></span>
+          <div class="form-row">
+            <div class="form-group mr-1">
+              {!! Form::number('largo', null, ['class'=>'form-control','placeholder'=>'LARGO','v-model'=>'propiedades.largo']) !!}
+            </div>
+            <div class="form-group mr-1">
+              {!! Form::number('largoizq', null, ['class'=>'form-control','placeholder'=>'LARGO IZQ','v-model'=>'propiedades.largoizq']) !!}
+            </div>
+            <div class="form-group mr-1">
+              {!! Form::number('largoder', null, ['class'=>'form-control','placeholder'=>'LARGO DER','v-model'=>'propiedades.largoder']) !!}
             </div>
           </div>
-          <!-- Modal -->
+          <div class="form-row">
+            <div class="form-group mr-1">
+              {!! Form::number('ancho', null, ['class'=>'form-control','placeholder'=>'ANCHO','v-model'=>'propiedades.ancho']) !!}
+            </div>
+            <div class="form-group mr-1">
+              {!! Form::number('anchosup', null, ['class'=>'form-control','placeholder'=>'ANCHO SUP','v-model'=>'propiedades.anchosup']) !!}
+            </div>
+            <div class="form-group mr-1">
+              {!! Form::number('anchoinf', null, ['class'=>'form-control','placeholder'=>'ANCHO INF','v-model'=>'propiedades.anchoinf']) !!}
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group mr-1">
+              {!! Form::number('area', null, ['class'=>'form-control','placeholder'=>'AREA','v-model'=>'propiedades.area']) !!}
+            </div>
+            <div class="form-group mr-1">
+              {!! Form::number('espesor', null, ['class'=>'form-control','placeholder'=>'Espesor','v-model'=>'propiedades.espesor']) !!}
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group mr-1">
+              {!! Form::number('mec1', null, ['class'=>'form-control','placeholder'=>'MEC1','v-model'=>'propiedades.mec1']) !!}
+            </div>
+            <div class="form-group mr-1">
+              {!! Form::number('mec2', null, ['class'=>'form-control','placeholder'=>'MEC2','v-model'=>'propiedades.mec2']) !!}
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group mr-1">
           {!! Form::label('importado', 'Importado', ['class'=>'form-control-label font-weight-bold']) !!}
-          {!! Form::select('importado', [0=>'No',1=>'Si'], null, ['class'=>'form-control','placeholder'=>'Selección']) !!}
+          {!! Form::select('importado', [0=>'No',1=>'Si'], null, ['class'=>'form-control','placeholder'=>'Selección','v-model'=>'importado']) !!}
           <span class="text-danger"><small>@if ($errors->has('importado')) {{ $errors->first('importado') }} @endif</small></span>
         </div>
         <div class="form-group mr-1">
           {!! Form::label('min', 'Existencia Mínima', ['class'=>'form-control-label font-weight-bold']) !!}
-          {!! Form::number('min', null, ['class'=>'form-control','placeholder'=>'1']) !!}
+          {!! Form::number('min', null, ['class'=>'form-control','placeholder'=>'1','v-model'=>'min']) !!}
           <span class="text-danger"><small>@if ($errors->has('min')) {{ $errors->first('min') }} @endif</small></span>
         </div>
         <div class="form-group mr-1">
           {!! Form::label('max', 'Existencia Máxima', ['class'=>'form-control-label font-weight-bold']) !!}
-          {!! Form::number('max', null, ['class'=>'form-control','placeholder'=>'100']) !!}
+          {!! Form::number('max', null, ['class'=>'form-control','placeholder'=>'100','v-model'=>'max']) !!}
           <span class="text-danger"><small>@if ($errors->has('max')) {{ $errors->first('max') }} @endif</small></span>
         </div>
       </div>
@@ -166,8 +146,8 @@
       unidad_id: '',
       propiedades: [],
       importado: '',
-      min: 1,
-      max:1
+      min: '',
+      max: ''
     }
   })
 </script>
