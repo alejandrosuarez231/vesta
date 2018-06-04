@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid">
+<div id="app" class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-md-8">
       <h4>Productos </h4>
@@ -46,7 +46,7 @@
               <td>{{ $element->descripcion }}</td>
               <td>{{ $element->unidad->nombre }}</td>
               <td>
-                <a class="btn btn-sm btn-info" href="#" title="">Ver Propiedades</a>
+                <a class="btn btn-sm btn-info" href="#" title="" @click="getPro({{ $element->id }})">Ver Propiedades</a>
               </td>
               <td>{{ $element->importado }}</td>
               <td>{{ $element->min }}</td>
@@ -70,4 +70,24 @@
   @endif
 
 </div>
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+  var app = new Vue({
+    el: '#app',
+    data: {
+      propiedades: []
+    },
+    methods: {
+      getPro: function(producto){
+        axios.get('/getPropiedades/' + producto)
+        .then( response => {
+          this.propiedades = response.data;
+           swal('Propiedades', JSON.stringify(response.data),'success');
+        })
+      }
+    }
+  })
+</script>
 @endsection

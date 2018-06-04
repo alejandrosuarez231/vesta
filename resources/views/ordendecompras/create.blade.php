@@ -15,7 +15,7 @@
       <div class="form-row">
         <div class="form-group mr-2">
           {!! Form::label('codigo', 'Codigo', ['class'=>'form-control-label']) !!}
-          {!! Form::text('codigo', null, ['class'=>'form-control','placeholder'=>'CODIGO VESTA','v-model'=>'codigo']) !!}
+          {!! Form::text('codigo', null, ['class'=>'form-control-plaintext','placeholder'=>'CODIGO VESTA','v-model'=>'codigo']) !!}
           <span class="text-danger"><small>@if ($errors->has('codigo')) {{ $errors->first('codigo') }} @endif</small></span>
         </div>
         <div class="form-group mr-2">
@@ -86,7 +86,7 @@
       axios.get('/getPro').then(response => { this.lists = response.data });
     },
     data: {
-      codigo: '',
+      codigo: '{{ $ordenNumero }}',
       fecha: '{{ \Illuminate\Support\Carbon::now()->format('Y-m-d') }}',
       proveedor_id: '',
       prioridad: 0,

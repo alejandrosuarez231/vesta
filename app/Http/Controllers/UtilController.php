@@ -25,14 +25,11 @@ class UtilController extends Controller
   public function ordenDetalles($id)
   {
     $odcd = Ordendecompradetalle::with('ordendecompra:id,codigo','producto:id,sku,nombre')->where('ordendecompra_id','=',$id)->get();
-
     $detalles = collect();
     foreach ($odcd as $value) {
       $detalles->push(['producto' => $value->producto->nombre, 'codigo' => $value->producto->sku, 'cantidad' => $value->cantidad ]);
     }
-    // dd($odcd);
     return $detalles;
-    // return $odcd->only('cantidad','producto');
   }
 
   public function ordenCompraAprobar($id)
@@ -41,6 +38,23 @@ class UtilController extends Controller
     $orden->update(['aprobada' => 1]);
     alert()->success('Aprobada','Orden Aprobada');
     return redirect('ordendecompras');
+  }
+
+  public function getPropiedades($producto)
+  {
+    $propiedades = \App\Propiedade::where('producto_id','=',$producto)->get();
+    return $propiedades;
+  }
+
+  public function loadOrdenes($orden)
+  {
+    $ocwd = \App\Ordendecompradetalle::with('ordendecompra:id,codigo,fecha,prioridad,aprobada','producto:id,sku,nombre')
+    ->where('ordendecompra_id',$orden)
+    ->get()
+    ->where('ordendecompra.aprobada',1)
+    ->sortBy('ordendecompra.prioridad')
+    ->sortBy('ordendecompra.fecha');
+    return $ocwd;
   }
 
 }

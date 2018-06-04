@@ -33,7 +33,7 @@
             @foreach ($ordenes as $element)
             <tr>
               <td>{{ $element->id }}</td>
-              <td>{{ $element->codigo }}</td>
+              <td>{{ sprintf("%08d",$element->codigo) }}</td>
               <td>{{ $element->fecha }}</td>
               <td>{{ $element->prioridad }}</td>
               <td>

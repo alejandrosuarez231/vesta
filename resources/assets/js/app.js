@@ -16,16 +16,14 @@ import fontawesome from '@fortawesome/fontawesome'
 /* SweetAlert */
 window.swal = require('sweetalert2');
 
-import VueFilter from 'vue-filter';
-import Vue from 'vue';
-Vue.use(VueFilter);
-import BootstrapVue from 'bootstrap-vue'
-Vue.use(BootstrapVue);
-window.Vue = require('vue');
 
+import Vue from 'vue';
 import VeeValidate from 'vee-validate';
 Vue.use(VeeValidate);
 
+import BootstrapVue from 'bootstrap-vue'
+Vue.use(BootstrapVue);
+window.Vue = require('vue');
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'

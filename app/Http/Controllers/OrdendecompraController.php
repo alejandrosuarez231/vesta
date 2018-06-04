@@ -25,7 +25,9 @@ class OrdendecompraController extends Controller
      */
     public function create()
     {
-        return view('ordendecompras.create');
+        $orden = Ordendecompra::orderByDesc('id')->first();
+        $ordenNumero = (int) $orden->id + 1;
+        return view('ordendecompras.create', compact('ordenNumero'));
     }
 
     /**

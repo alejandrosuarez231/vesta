@@ -51,6 +51,9 @@ class ProductoController extends Controller
 
       $producto = Producto::create($request->all());
 
+      /* Formartear SKU */
+      $producto->update(['sku' => $producto->sku .'-'.sprintf("%'.010d", $producto->id)]);
+
       $propiedades = \App\Propiedade::create([
         'producto_id' => $producto->id,
         'largo' => $request->largo,

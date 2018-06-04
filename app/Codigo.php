@@ -18,6 +18,8 @@ class Codigo extends Model
    * @var array
    */
   protected $fillable = ['tipo','categoria_id','subcategoria_id','acronimo','tipologia'];
+  protected $guarded = ['id'];
+  protected $dates = ['created_at','updated_at','deleted_at'];
 
   /**
    * Codigo belongs to Categoria.

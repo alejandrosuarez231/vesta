@@ -42,4 +42,15 @@ class Proveedore extends Model
     return $this->hasMany(Ordendecompra::class,'proveedor_id');
   }
 
+  /**
+   * Proveedore has many Compra.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function compra()
+  {
+    // hasMany(RelatedModel, foreignKeyOnRelatedModel = proveedore_id, localKey = id)
+    return $this->hasMany(Compra::class);
+  }
+
 }

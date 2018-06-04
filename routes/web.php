@@ -44,17 +44,24 @@ Route::resource('/productos', 'ProductoController');
 Route::resource('/ordendecompras', 'OrdendecompraController');
 Route::get('/odcAprobar/{id}', 'UtilController@ordenCompraAprobar')->name('odc.aprobar');
 Route::get('/ordendecompras/odcdetalles/create', 'OrdendecompradetalleController@create')->name('odcdetalles.create');
+/* Compras */
+Route::resource('/compras', 'CompraController');
+Route::get('/loadOrden/{orden}', 'UtilController@loadOrdenes');
 
 
 /* Route for Vue */
 Route::get('/getPro', function() {
   return \DB::table('productos')->selectRaw('nombre AS label, id AS value')->get();
 });
+Route::get('/proveedoresList', function() {
+  return \DB::table('proveedores')->selectRaw('nombre AS label, id AS value')->get();
+});
 Route::get('/getODCD/{id}', 'UtilController@ordenDetalles')->name('getODCD');
 
 /* Util Controller */
 Route::get('/getCatCodigo/{categoria}', 'UtilController@getCatCodigo');
 Route::get('/getSCatCodigo/{categoria}', 'UtilController@getSCatCodigo');
+Route::get('/getPropiedades/{producto}', 'UtilController@getPropiedades');
 
 /* Factory's */
 Route::get('/newProveedores', function() {
