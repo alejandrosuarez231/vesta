@@ -76,7 +76,8 @@
           </tr>
         </tbody>
       </table>
-      <button type="submit" class="btn btn-primary">Procesar</button>
+      <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Registrar</button>
+      <a class="btn btn-warning" href="{{ url('/compras') }}" title="Cancelar"><i class="fas fa-ban"></i> Cancelar</a>
     </div>
   </div>
   {!! Form::close() !!}
@@ -87,7 +88,7 @@
 <script type="text/javascript">
   const toast = swal.mixin({
     toast: true,
-    position: 'top-end',
+    position: 'middle',
     showConfirmButton: false,
     timer: 3000
   });
@@ -138,9 +139,9 @@
               this.rows.push({ producto: { label: response.data[i].producto.nombre, value: response.data[i].producto.id }, cantidad: response.data[i].cantidad, precio:'' });
             }
             if(response.data.length == 0){
-              this.error = 'No existe la Orden';
+              this.error = 'No existe la Orden o fue procesada';
               this.rows = [{ producto: '', cantidad: '', precio:'' }];
-              toast({ type:'error', title: 'No existe la orden'});
+              toast({ type:'warning', title: 'Verifique el numero de Orden'});
             }
             console.log(response.data);
           });

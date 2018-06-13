@@ -19,13 +19,17 @@ class Producto extends Model
    * @var array
    */
   protected $fillable = [
-    'sku',
+    'sku');
     'categoria_id',
     'subcategoria_id',
-    'tipo',
     'nombre',
     'descripcion',
+    'marca_id',
     'unidad_id',
+    'largo',
+    'ancho',
+    'area',
+    'espesor',
     'propiedades',
     'importado',
     'min',
@@ -84,5 +88,16 @@ class Producto extends Model
   {
     // hasMany(RelatedModel, foreignKeyOnRelatedModel = mtp_id, localKey = id)
     return $this->hasMany(Ordendecompra::class,'producto_id');
+  }
+
+  /**
+   * Producto has many Inventario.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function inventario()
+  {
+    // hasMany(RelatedModel, foreignKeyOnRelatedModel = producto_id, localKey = id)
+    return $this->hasMany(Inventario::class);
   }
 }

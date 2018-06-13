@@ -20,7 +20,12 @@ class CreateProductosTable extends Migration
         $table->integer('subcategoria_id');
         $table->string('nombre',191);
         $table->string('descripcion',191);
+        $table->integer('marca_id');
         $table->integer('unidad_id');
+        $table->decimal('largo',10,2)->nullable();
+        $table->decimal('ancho',10,2)->nullable();
+        $table->decimal('area',10,2)->nullable();
+        $table->decimal('espesor',10,2)->nullable();
         $table->integer('propiedades')->default(0);
         $table->enum('importado',[0,1])->default(0);
         $table->integer('min')->default(1);

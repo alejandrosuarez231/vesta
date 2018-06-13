@@ -17,7 +17,7 @@ class Compra extends Model
    *
    * @var array
    */
-  protected $fillable = ['fecha','ordendecompra_id','proveedore_id','prioridad'];
+  protected $fillable = ['fecha','ordendecompra_id','proveedore_id','prioridad','procesada'];
   protected $guarded = ['id'];
   protected $dates = ['created_at','updated_at','deleted_at'];
 

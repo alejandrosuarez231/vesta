@@ -12,9 +12,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-          CategoriasTableSeeder::class,
-          SubcategoriasTableSeeder::class,
-          UnidadesTableSeeder::class,
+          MaterialesSeeder::class,
+          // CategoriasTableSeeder::class,
+          // SubcategoriasTableSeeder::class,
+          // UnidadesTableSeeder::class,
         ]);
     }
 }

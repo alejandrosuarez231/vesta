@@ -9,6 +9,19 @@ use Alert;
 
 class UtilController extends Controller
 {
+  public function getCategorias()
+  {
+    $categorias = \App\Categoria::all();
+    if($categorias->count() > 0){
+      foreach ($categorias as $key => $value) {
+        $lists[$value->id] = array('id' => $value->id, 'tipo' => $value->tipo, 'nombre' => $value->nombre, 'acronimo' => $value->acronimo);
+      }
+      return $lists;
+    }else {
+      return null;
+    }
+  }
+
   public function getCatCodigo($categoria)
   {
     $codcat = \App\Categoria::find($categoria);
@@ -18,7 +31,15 @@ class UtilController extends Controller
   public function getSCatCodigo($categoria)
   {
     $codscat = \App\Subcategoria::where('categoria_id','=',$categoria)->get();
-    return $codscat->toJson();
+    if($codscat->count() == 0){
+      return null;
+    }else {
+      foreach ($codscat as $key => $value) {
+        $lists[$value->id] = array('id' => $value->id, 'nombre' => $value->nombre,'acronimo' => $value->acronimo);
+      }
+      return $lists;
+    }
+
   }
 
 
@@ -48,13 +69,32 @@ class UtilController extends Controller
 
   public function loadOrdenes($orden)
   {
-    $ocwd = \App\Ordendecompradetalle::with('ordendecompra:id,codigo,fecha,prioridad,aprobada','producto:id,sku,nombre')
+    $ocwd = \App\Ordendecompradetalle::with('ordendecompra:id,codigo,fecha,prioridad,aprobada,procesada','producto:id,sku,nombre')
     ->where('ordendecompra_id',$orden)
     ->get()
+    ->where('ordendecompra.procesada',0)
     ->where('ordendecompra.aprobada',1)
     ->sortBy('ordendecompra.prioridad')
     ->sortBy('ordendecompra.fecha');
+    // dd($ocwd);
     return $ocwd;
+  }
+
+  public function toInventario($compra)
+  {
+    $productos = \App\Compradetalle::where('compra_id',$compra)->get();
+    // dd($productos);
+    $toInventario = collect();
+    foreach ($productos as $key => $value) {
+      $toInventario->push(['fi' =>\Illuminate\Support\Carbon::now(),'compra_id' => $value->compra_id, 'producto_id' => $value->producto_id, 'cantidad' => $value->cantidad, 'precio' => $value->precio]);
+    }
+    // dd($toInventario);
+    foreach ($toInventario as $item) {
+      \App\Inventario::create($item);
+    }
+
+    alert()->success('Registro existoso','Inventario cargado');
+    return redirect('/inventarios');
   }
 
 }

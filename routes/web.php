@@ -47,6 +47,10 @@ Route::get('/ordendecompras/odcdetalles/create', 'OrdendecompradetalleController
 /* Compras */
 Route::resource('/compras', 'CompraController');
 Route::get('/loadOrden/{orden}', 'UtilController@loadOrdenes');
+Route::get('/toInventario/{compra}', 'UtilController@toInventario')->name('toInventario');
+
+/* Inventarios */
+Route::resource('/inventarios', 'InventarioController');
 
 
 /* Route for Vue */
@@ -59,6 +63,7 @@ Route::get('/proveedoresList', function() {
 Route::get('/getODCD/{id}', 'UtilController@ordenDetalles')->name('getODCD');
 
 /* Util Controller */
+Route::get('/getCategorias','UtilController@getCategorias');
 Route::get('/getCatCodigo/{categoria}', 'UtilController@getCatCodigo');
 Route::get('/getSCatCodigo/{categoria}', 'UtilController@getSCatCodigo');
 Route::get('/getPropiedades/{producto}', 'UtilController@getPropiedades');

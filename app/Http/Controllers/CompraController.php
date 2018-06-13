@@ -46,12 +46,18 @@ class CompraController extends Controller
             'cantidad.*' => 'required|min:1',
             'precio.*' => 'required|min:1'
         ]);
+
         $compra = new Compra;
         $compra->fecha = $request->fecha;
         $compra->ordendecompra_id = $request->ordendecompra_id;
         $compra->proveedore_id = $request->proveedore_id;
         $compra->prioridad = $request->prioridad;
         $compra->save();
+
+        if( $compra->ordendecompra_id > 0 ){
+            /* Buscar la compra y marcar como procesada */
+            \App\Ordendecompra::findOrFail($compra->ordendecompra_id)->update(['procesada' => 1]);
+        }
 
         $detalles = collect();
         for ($i=0; $i <=count($request->producto_id) -1 ; $i++) {

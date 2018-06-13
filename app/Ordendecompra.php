@@ -17,7 +17,7 @@ class Ordendecompra extends Model
    *
    * @var array
    */
-  protected $fillable = ['codigo','fecha','proveedor_id','prioridad','aprobada'];
+  protected $fillable = ['codigo','fecha','proveedor_id','prioridad','aprobada','procesada'];
   protected $guarded =['id'];
   protected $dates = ['created_at','updated_at','deleted_at'];
 
@@ -40,5 +40,16 @@ class Ordendecompra extends Model
   {
     // hasMany(RelatedModel, foreignKeyOnRelatedModel = ordendecompra_id, localKey = id)
     return $this->hasMany(Ordendecompradetalle::class);
+  }
+
+  /**
+   * Ordendecompra has many Inventario.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function inventario()
+  {
+    // hasMany(RelatedModel, foreignKeyOnRelatedModel = ordendecompra_id, localKey = id)
+    return $this->hasMany(Inventario::class);
   }
 }

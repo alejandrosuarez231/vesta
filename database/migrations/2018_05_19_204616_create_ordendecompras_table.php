@@ -19,6 +19,7 @@ class CreateOrdendecomprasTable extends Migration
             $table->date('fecha');
             $table->enum('prioridad',[0,1,2])->default(0);
             $table->boolean('aprobada');
+            $table->tinyInteger('procesada')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

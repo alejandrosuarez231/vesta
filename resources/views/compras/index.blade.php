@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid">
+<div id="app" class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-md-8">
       <h4>Compras</h4>
@@ -38,16 +38,20 @@
             <td>{{ $element->prioridad }}</td>
             <td class="text-right">
               @php
-                $totalOrden = $element->compradetalle->map( function($item, $index) {
-                  return $item->cantidad * $item->precio;
-                });
+              $totalOrden = $element->compradetalle->map( function($item, $index) {
+                return $item->cantidad * $item->precio;
+              });
               @endphp
               {{  number_format($totalOrden->sum(),2,",",".") }}
             </td>
             <td>
+              @if ($element->procesada == 0)
               <a class="btn btn-sm btn-primary mr-2" href="#" title="Ver">Ver</a>
-              <a class="btn btn-sm btn-success mr-2" href="#" title="Cargar">Cargar</a>
-              <a class="btn btn-sm btn-danger mr-2" href="#" title="Anular">Anular</a>
+              <a class="btn btn-sm btn-success mr-2" href="{{ route('toInventario',['compra' => $element->ordendecompra_id]) }}" title="Cargar">Cargar a Inventario</a>
+              <a class="btn btn-sm btn-danger mr-2" href="#" title="Anular" @click="prenvetDelete">Anular</a>
+              @else
+              <a class="btn btn-sm btn-primary mr-2" href="#" title="Ver">Ver en inventario</a>
+              @endif
             </td>
           </tr>
           @endforeach
@@ -56,4 +60,35 @@
     </div>
   </div>
 </div>
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+  var app = new Vue({
+    el: '#app',
+    methods: {
+      prenvetDelete: function(){
+        /* Swal */
+        swal({
+          title: 'Esta seguro?',
+          text: "Esta acción puede revertise, pero puede causar fallas!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, Borrar!'
+        }).then((result) => {
+          if (result.value) {
+            swal(
+              'Borrado!',
+              'Su compra fue anulada.',
+              'success'
+              )
+          }
+        })
+        /* Swal */
+      }
+    }
+  })
+</script>
 @endsection

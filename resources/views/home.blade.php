@@ -33,7 +33,8 @@
                         </li>
                     </ul>
                     <ul class="nav">
-                        <li class="nav-item"><a class="nav-link" href="" title="Categorias">Inventario MP</a></li>
+                        <li class="nav-item"><a class="nav-link" href="" title="Categorias">Almacen (Procesar Compra)</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('/inventarios') }}" title="Categorias">Inventario</a></li>
                     </ul>
                 </div>
             </div>

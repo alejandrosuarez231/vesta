@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ModPropiedadesTable extends Migration
+class CreateMaterialesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class ModPropiedadesTable extends Migration
      */
     public function up()
     {
-        Schema::table('propiedades', function(Blueprint $table) {
-            $table->softDeletes()->after('updated_at');
+        Schema::create('materiales', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('codigo')->nullable();
+            $table->string('nombre');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -25,8 +29,6 @@ class ModPropiedadesTable extends Migration
      */
     public function down()
     {
-        Schema::table('compras', function (Blueprint $table) {
-            $table->dropColumn(['deleted_at']);
-        });
+        Schema::dropIfExists('materiales');
     }
 }
