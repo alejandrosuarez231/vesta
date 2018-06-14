@@ -14,9 +14,9 @@
                         </div>
                     @endif
                     <ul class="nav">
-                        <li class="nav-item"><a class="nav-link" href="{{ route('categorias.index') }}" title="Categorias">Categorias</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('subcategorias.index') }}" title="Sub-Categorias">Sub-Categorias</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('unidades.index') }}" title="Sub-Categorias">Unidades</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('tipos.index') }}" title="Tipos">Tipos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('subtipos.index') }}" title="Sub-Categorias">Sub-Tipos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('unidades.index') }}" title="Unidades">Unidades</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('codigos.index') }}" title="Codigos">Codigos</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('proveedores.index') }}" title="Sub-Categorias">Proveedores</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('productos.index') }}" title="Materia Prima">Productos</a></li>

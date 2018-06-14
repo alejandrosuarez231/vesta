@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Subcategoria;
+use App\Subtipo;
 use Illuminate\Http\Request;
 
-class SubcategoriaController extends Controller
+class SubtipoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,8 +13,8 @@ class SubcategoriaController extends Controller
      */
     public function index()
     {
-        $subcategorias = Subcategoria::with('categoria:id,nombre,acronimo')->orderBy('nombre')->paginate();
-        return view('subcategorias.index', compact('subcategorias'));
+        $subtipos = Subtipo::with('tipo:id,nombre,acronimo')->orderBy('nombre')->paginate();
+        return view('subtipos.index', compact('subtipos'));
     }
 
     /**
@@ -24,7 +24,7 @@ class SubcategoriaController extends Controller
      */
     public function create()
     {
-        return view('subcategorias.create');
+        return view('subtipos.create');
     }
 
     /**
@@ -36,18 +36,18 @@ class SubcategoriaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'categoria_id' => 'required',
-            'nombre' => 'required|unique:subcategorias',
+            'tipo_id' => 'required',
+            'nombre' => 'required|unique:subtipos',
             'acronimo' => 'required'
         ]);
 
-        $subcategorias = new Subcategoria;
-        $subcategorias->categoria_id = $request->categoria_id;
-        $subcategorias->nombre = $request->nombre;
-        $subcategorias->acronimo = $request->acronimo;
-        $subcategorias->save();
-        alert()->success('Registro Creado','Sub-Categoria Nueva');
-        return redirect('/subcategorias');
+        $subtipos = new Subtipo;
+        $subtipos->tipo_id = $request->tipo_id;
+        $subtipos->nombre = $request->nombre;
+        $subtipos->acronimo = $request->acronimo;
+        $subtipos->save();
+        alert()->success('Registro Creado','Sub-tipo Nueva');
+        return redirect('/subtipos');
     }
 
     /**
@@ -69,8 +69,8 @@ class SubcategoriaController extends Controller
      */
     public function edit($id)
     {
-        $subcategoria = Subcategoria::findOrFail($id);
-        return view('subcategorias.edit', compact('subcategoria'));
+        $subtipo = Subtipo::findOrFail($id);
+        return view('subtipos.edit', compact('subtipo'));
     }
 
     /**
@@ -83,18 +83,18 @@ class SubcategoriaController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'categoria_id' => 'required',
-            'nombre' => 'required|unique:subcategorias',
+            'tipo_id' => 'required',
+            'nombre' => 'required|unique:subtipos',
             'acronimo' => 'required'
         ]);
 
-        $subcategoria = Subcategoria::findOrFail($id);
-        $subcategoria->categoria_id = $request->categoria_id;
-        $subcategoria->nombre = $request->nombre;
-        $subcategoria->acronimo = $request->acronimo;
-        $subcategoria->save();
-        alert()->success('Registro Actualizado','Sub-Categoria Actualizada');
-        return redirect('/subcategorias');
+        $subtipo = Subtipo::findOrFail($id);
+        $subtipo->tipo_id = $request->tipo_id;
+        $subtipo->nombre = $request->nombre;
+        $subtipo->acronimo = $request->acronimo;
+        $subtipo->save();
+        alert()->success('Registro Actualizado','Sub-tipo Actualizada');
+        return redirect('/subtipos');
     }
 
     /**

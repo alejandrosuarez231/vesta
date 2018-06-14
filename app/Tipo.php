@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Categoria extends Model
+class Tipo extends Model
 {
   use Notifiable;
   use SoftDeletes;
@@ -15,7 +15,7 @@ class Categoria extends Model
    *
    * @var string
    */
-  protected $table = 'categorias';
+  protected $table = 'tipos';
   /**
    * Fields that can be mass assigned.
    *
@@ -37,7 +37,7 @@ class Categoria extends Model
   public function subcategoria()
   {
     // hasMany(RelatedModel, foreignKeyOnRelatedModel = categoria_id, localKey = id)
-    return $this->hasMany(Subcategoria::class);
+    return $this->hasMany(Subtipo::class);
   }
 
   /**

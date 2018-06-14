@@ -12,7 +12,7 @@ class MaterialesSeeder extends Seeder
      */
     public function run()
     {
-      $categorias = collect([
+      $materiales = collect([
         'Division',
         'Fondo',
         'Frente',
@@ -47,7 +47,7 @@ class MaterialesSeeder extends Seeder
         'Zoc Lateral',
         'Zocalo'
       ]);
-      foreach ($categorias as $value) {
+      foreach ($materiales as $value) {
         Materiale::create(['nombre' => $value]);
       }
 

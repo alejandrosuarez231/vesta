@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Subcategoria extends Model
+class Subtipo extends Model
 {
   use Notifiable;
   use SoftDeletes;
@@ -16,9 +16,9 @@ class Subcategoria extends Model
    *
    * @var string
    */
-  protected $table = 'subcategorias';
+  protected $table = 'subtipos';
 
-  protected $fillable = ['categoria_id','nombre','acronimo'];
+  protected $fillable = ['subtipo_id','nombre','acronimo'];
   protected $guarded = ['id'];
   protected $dates = ['created_at','updated_at','deleted_at'];
 
@@ -27,10 +27,10 @@ class Subcategoria extends Model
    *
    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
    */
-  public function categoria()
+  public function tipo()
   {
     // belongsTo(RelatedModel, foreignKey = categoria_id, keyOnRelatedModel = id)
-    return $this->belongsTo(Categoria::class);
+    return $this->belongsTo(Tipo::class);
   }
 
   /**

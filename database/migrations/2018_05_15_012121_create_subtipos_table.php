@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoriasTable extends Migration
+class CreateSubtiposTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateCategoriasTable extends Migration
      */
     public function up()
     {
-        Schema::create('categorias', function (Blueprint $table) {
+        Schema::create('subtipos', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('tipo',['MTP','PSE','PTO','SER']);
-            $table->string('nombre',80);
-            $table->string('acronimo',3);
+            $table->integer('tipo_id');
+            $table->string('nombre',191);
+            $table->string('acronimo',6);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +30,6 @@ class CreateCategoriasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categorias');
+        Schema::dropIfExists('subtipos');
     }
 }

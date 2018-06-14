@@ -20,21 +20,21 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 /* Categorias */
-Route::resource('/categorias','CategoriaController');
+Route::resource('/tipos','TipoController');
 /* Sub Categorias*/
-Route::resource('/subcategorias','SubcategoriaController');
+Route::resource('/subtipos','SubtipoController');
 /* Unidades */
 Route::resource('/unidades', 'UnidadController');
 /* Codigos */
 Route::resource('/codigos', 'CodigoController');
-Route::get('/categoria/{tipo}', function($tipo) {
-  $categorias = \App\Categoria::where('tipo','=',$tipo)->selectRaw('nombre AS label, id AS value')->get();
-  return $categorias;
-})->name('getCategorias');
-Route::get('/subcategoria/{id}', function($id) {
-  $subcategorias = \App\Subcategoria::where('categoria_id',$id)->selectRaw('nombre AS label, id AS value')->get();
-  return $subcategorias;
-})->name('getSubcategorias');
+Route::get('/tipo/{tipo}', function($tipo) {
+  $tipos = \App\Tipo::where('tipo','=',$tipo)->selectRaw('nombre AS label, id AS value')->get();
+  return $tipos;
+})->name('getTipos');
+Route::get('/subtipos/{id}', function($id) {
+  $subtipos = \App\Subtipo::where('tipo_id',$id)->selectRaw('nombre AS label, id AS value')->get();
+  return $subtipos;
+})->name('getSubtipos');
 
 /* Proveedores */
 Route::resource('/proveedores', 'ProveedoreController');
@@ -63,24 +63,7 @@ Route::get('/proveedoresList', function() {
 Route::get('/getODCD/{id}', 'UtilController@ordenDetalles')->name('getODCD');
 
 /* Util Controller */
-Route::get('/getCategorias','UtilController@getCategorias');
-Route::get('/getCatCodigo/{categoria}', 'UtilController@getCatCodigo');
-Route::get('/getSCatCodigo/{categoria}', 'UtilController@getSCatCodigo');
+Route::get('/getTipos','UtilController@getTipos');
+Route::get('/getTipCodigo/{tipo}', 'UtilController@getTipCodigo');
+Route::get('/getSTipCodigo/{tipo}', 'UtilController@getSTipCodigo');
 Route::get('/getPropiedades/{producto}', 'UtilController@getPropiedades');
-
-/* Factory's */
-Route::get('/newProveedores', function() {
-  $proveedores = factory(App\Proveedore::class, 25)->make();
-  foreach ($proveedores as $value) {
-    $proveedor = new \App\Proveedore;
-    $proveedor->fiscalid = $value->fiscalid;
-    $proveedor->nombre = $value->nombre;
-    $proveedor->direccion = $value->direccion;
-    $proveedor->telefonos = $value->telefonos;
-    $proveedor->email = $value->email;
-    $proveedor->website = $value->website;
-    $proveedor->credito = $value->credito;
-    $proveedor->save();
-  }
-  return redirect('/proveedores');
-});

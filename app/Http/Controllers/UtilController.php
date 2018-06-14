@@ -9,11 +9,11 @@ use Alert;
 
 class UtilController extends Controller
 {
-  public function getCategorias()
+  public function getTipos()
   {
-    $categorias = \App\Categoria::all();
-    if($categorias->count() > 0){
-      foreach ($categorias as $key => $value) {
+    $tipos = \App\Tipo::all();
+    if($tipos->count() > 0){
+      foreach ($tipos as $key => $value) {
         $lists[$value->id] = array('id' => $value->id, 'tipo' => $value->tipo, 'nombre' => $value->nombre, 'acronimo' => $value->acronimo);
       }
       return $lists;
@@ -22,19 +22,19 @@ class UtilController extends Controller
     }
   }
 
-  public function getCatCodigo($categoria)
+  public function getTipCodigo($tipo)
   {
-    $codcat = \App\Categoria::find($categoria);
-    return $codcat;
+    $codcat = \App\Tipo::find($tipo);
+    return $codtip;
   }
 
-  public function getSCatCodigo($categoria)
+  public function getSTipCodigo($tipo)
   {
-    $codscat = \App\Subcategoria::where('categoria_id','=',$categoria)->get();
-    if($codscat->count() == 0){
+    $codstip = \App\Subtipo::where('tipo_id','=',$tipo)->get();
+    if($codstip->count() == 0){
       return null;
     }else {
-      foreach ($codscat as $key => $value) {
+      foreach ($codstip as $key => $value) {
         $lists[$value->id] = array('id' => $value->id, 'nombre' => $value->nombre,'acronimo' => $value->acronimo);
       }
       return $lists;

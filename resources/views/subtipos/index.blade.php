@@ -4,13 +4,13 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <h4>Categorias</h4>
+      <h4>Sub-Tipos</h4>
       <ul class="nav">
         <li class="nav-item">
           <a href="{{ url('/home') }}" class="btn btn-link" title="Inicio">Regresar</a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('categorias.create') }}" class="nav-link">Nueva</a>
+          <a href="{{ route('subtipos.create') }}" class="nav-link">Nueva</a>
         </li>
       </ul>
     </div>
@@ -20,32 +20,31 @@
     <div class="col-md-8">
       <div class="table-responsive">
         <table class="table table-striped table-bordered">
-          <caption>Categorias</caption>
+          <caption>Sub-Tipos</caption>
           <thead>
             <tr>
-              <th>Tipo</th>
+              <th>Categoria</th>
               <th>Nombre</th>
               <th>Acronimo</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            @foreach ($categorias as $element)
+            @foreach ($subtipos as $element)
             <tr>
-              <td>{{ $element->tipo }}</td>
+              <td>{{ $element->tipo->nombre }} <sup class="text-primary text-uppercase">{{ $element->tipo->acronimo }}</sup></td>
               <td>{{ $element->nombre }}</td>
-              <td class="text-uppercase">{{ $element->acronimo }}</td>
+              <td>{{ $element->acronimo }}</td>
               <td class="text-center">
-                <a href="{{ route('categorias.edit',['id'=>$element->id]) }}" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
+                <a href="{{ route('subtipos.edit',['id'=>$element->id]) }}" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
               </td>
             </tr>
             @endforeach
           </tbody>
         </table>
-        {{ $categorias->links() }}
+        {{ $subtipos->links() }}
       </div>
     </div>
   </div>
-
 </div>
 @endsection

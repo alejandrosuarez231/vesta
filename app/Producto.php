@@ -19,7 +19,7 @@ class Producto extends Model
    * @var array
    */
   protected $fillable = [
-    'sku');
+    'sku',
     'categoria_id',
     'subcategoria_id',
     'nombre',
@@ -78,6 +78,17 @@ class Producto extends Model
   {
     // belongsTo(RelatedModel, foreignKey = proveedor_id, keyOnRelatedModel = id)
     return $this->belongsTo(Proveedore::class,'proveedor_id');
+  }
+
+  /**
+   * Producto belongs to Marca.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+   */
+  public function marca()
+  {
+    // belongsTo(RelatedModel, foreignKey = marca_id, keyOnRelatedModel = id)
+    return $this->belongsTo(Marca::class);
   }
   /**
    * Mtp has many Ordendecompra.

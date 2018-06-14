@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Categoria;
+use App\Tipo;
 use Illuminate\Http\Request;
 Use Alert;
 
-class CategoriaController extends Controller
+class TipoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        $categorias = Categoria::orderBy('nombre')->paginate();
-        return view('categorias.index', compact('categorias'));
+        $tipos = Tipo::orderBy('nombre')->paginate();
+        return view('tipos.index', compact('tipos'));
     }
 
     /**
@@ -25,7 +25,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        return view('categorias.create');
+        return view('tipos.create');
     }
 
     /**
@@ -41,9 +41,9 @@ class CategoriaController extends Controller
             'nombre' => 'required',
             'acronimo' => 'required',
         ]);
-        Categoria::create($request->all());
-        alert()->success('Registro Creado','Categoria Nueva');
-        return redirect('/categorias');
+        Tipo::create($request->all());
+        alert()->success('Registro Creado','Nuevo Tipo');
+        return redirect('/tipos');
     }
 
     /**
@@ -65,8 +65,8 @@ class CategoriaController extends Controller
      */
     public function edit($id)
     {
-        $categoria = Categoria::findOrFail($id);
-        return view('categorias.edit', compact('categoria'));
+        $tipo = Tipo::findOrFail($id);
+        return view('tipos.edit', compact('tipo'));
     }
 
     /**
@@ -78,13 +78,13 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $categoria = Categoria::findOrFail($id);
-        $categoria->tipo = $request->tipo;
-        $categoria->nombre = $request->nombre;
-        $categoria->acronimo = $request->acronimo;
-        $categoria->save();
-        alert()->success('Registro Actualizado','Categoria Actualizada');
-        return redirect('/categorias');
+        $tipo = Tipo::findOrFail($id);
+        $tipo->tipo = $request->tipo;
+        $tipo->nombre = $request->nombre;
+        $tipo->acronimo = $request->acronimo;
+        $tipo->save();
+        alert()->success('Registro Actualizado','Tipo Actualizada');
+        return redirect('/tipos');
     }
 
     /**

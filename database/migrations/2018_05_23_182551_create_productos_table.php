@@ -20,7 +20,7 @@ class CreateProductosTable extends Migration
         $table->integer('subcategoria_id');
         $table->string('nombre',191);
         $table->string('descripcion',191);
-        $table->integer('marca_id');
+        $table->integer('marca_id')->nullable();
         $table->integer('unidad_id');
         $table->decimal('largo',10,2)->nullable();
         $table->decimal('ancho',10,2)->nullable();

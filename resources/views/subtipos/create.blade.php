@@ -4,11 +4,11 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-6 offset-md-2">
-      <h4>Sub-Categorias <small>Nueva</small></h4>
-      {!! Form::open(['route'=>'subcategorias.store','method'=>'POST']) !!}
+      <h4>Sub-Tipos <small>Nueva</small></h4>
+      {!! Form::open(['route'=>'subtipos.store','method'=>'POST']) !!}
       <div class="form-group {{ $errors->has('categoria_id') ? 'has-error' : '' }}">
         {!! Form::label('categoria_id', 'Categoria', ['class'=>'form-control-label']) !!}
-        {!! Form::select('categoria_id', \App\Categoria::pluck('nombre','id'), null, ['class'=>'form-control col-md-4','placeholder'=>'Selección']) !!}
+        {!! Form::select('categoria_id', \App\Tipo::pluck('nombre','id'), null, ['class'=>'form-control col-md-4','placeholder'=>'Selección']) !!}
         {!! $errors->first('categoria_id', '<small class="help-block text-danger">:message</small>') !!}
       </div>
       <div class="form-group  {{ $errors->has('nombre') ? 'has-error' : '' }}">
@@ -22,7 +22,7 @@
         {!! $errors->first('acronimo', '<small class="help-block text-danger">:message</small>') !!}
       </div>
       <button type="submit" class="btn btn-primary" title="Registrar"><i class="fas fa-sign-in-alt"></i> Registrar</button>
-      <a class="btn btn-warning text-danger" href="{{ url('/subcategorias') }}" title="Cancelar"><i class="fas fa-ban"></i> Cancelar</a>
+      <a class="btn btn-warning text-danger" href="{{ url('/subtipos') }}" title="Cancelar"><i class="fas fa-ban"></i> Cancelar</a>
       {!! Form::close() !!}
     </div>
   </div>

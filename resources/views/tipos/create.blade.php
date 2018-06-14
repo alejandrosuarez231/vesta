@@ -4,8 +4,8 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-4 offset-md-2">
-      <h4>Categorias <small>Nueva</small></h4>
-      {!! Form::open(['route'=>'categorias.store','method'=>'POST']) !!}
+      <h4>Tipos <small>Nueva</small></h4>
+      {!! Form::open(['route'=>'tipos.store','method'=>'POST']) !!}
       <div class="form-group col-md-6">
         {!! Form::label('tipo', 'Tipo', ['class'=>'form-control-label font-weight-bold']) !!}
         {!! Form::select('tipo', ['MTP'=>'MTP','PSE'=>'PSE','PTE'=>'PTE','SER'=>'SER'], null, ['class'=>'form-control','placeholder'=>'Selección']) !!}
@@ -22,7 +22,7 @@
         {!! $errors->first('acronimo', '<small class="help-block text-danger">:message</small>') !!}
       </div>
       <button type="submit" class="btn btn-primary" title="Registrar"><i class="fas fa-sign-in-alt"></i> Registrar</button>
-      <a class="btn btn-warning text-danger" href="{{ url('/categorias') }}" title="Cancelar"><i class="fas fa-ban"></i> Cancelar</a>
+      <a class="btn btn-warning text-danger" href="{{ url('/tipos') }}" title="Cancelar"><i class="fas fa-ban"></i> Cancelar</a>
       {!! Form::close() !!}
     </div>
   </div>
