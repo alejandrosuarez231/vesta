@@ -20,12 +20,13 @@ class Producto extends Model
    */
   protected $fillable = [
     'sku',
-    'categoria_id',
-    'subcategoria_id',
+    'tipo_id',
+    'subtipo_id',
     'nombre',
     'descripcion',
     'marca_id',
     'unidad_id',
+    'color_id',
     'largo',
     'ancho',
     'area',
@@ -44,20 +45,20 @@ class Producto extends Model
    *
    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
    */
-  public function categoria()
+  public function tipo()
   {
     // belongsTo(RelatedModel, foreignKey = categoria_id, keyOnRelatedModel = id)
-    return $this->belongsTo(Categoria::class);
+    return $this->belongsTo(Tipo::class);
   }
   /**
    * Mtp belongs to Subcategoria.
    *
    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
    */
-  public function subcategoria()
+  public function subtipo()
   {
     // belongsTo(RelatedModel, foreignKey = subcategoria_id, keyOnRelatedModel = id)
-    return $this->belongsTo(Subcategoria::class);
+    return $this->belongsTo(Subtipo::class);
   }
   /**
    * Mtp belongs to Unidad.
@@ -89,6 +90,17 @@ class Producto extends Model
   {
     // belongsTo(RelatedModel, foreignKey = marca_id, keyOnRelatedModel = id)
     return $this->belongsTo(Marca::class);
+  }
+
+  /**
+   * Producto belongs to Colore.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+   */
+  public function colore()
+  {
+    // belongsTo(RelatedModel, foreignKey = colore_id, keyOnRelatedModel = id)
+    return $this->belongsTo(Colore::class);
   }
   /**
    * Mtp has many Ordendecompra.

@@ -15,17 +15,18 @@ class CreateProductosTable extends Migration
     {
       Schema::create('productos', function (Blueprint $table) {
         $table->increments('id');
-        $table->string('sku');
-        $table->integer('categoria_id');
-        $table->integer('subcategoria_id');
+        $table->string('sku',191)->nullable();
+        $table->integer('tipo_id');
+        $table->integer('subtipo_id')->nullable();
         $table->string('nombre',191);
-        $table->string('descripcion',191);
+        $table->string('descripcion',191)->nullable();
         $table->integer('marca_id')->nullable();
-        $table->integer('unidad_id');
-        $table->decimal('largo',10,2)->nullable();
-        $table->decimal('ancho',10,2)->nullable();
-        $table->decimal('area',10,2)->nullable();
-        $table->decimal('espesor',10,2)->nullable();
+        $table->integer('unidad_id')->nullable();
+        $table->integer('color_id')->nullable();
+        $table->string('largo',191)->nullable();
+        $table->string('ancho',191)->nullable();
+        $table->string('area',191)->nullable();
+        $table->string('espesor',191)->nullable();
         $table->integer('propiedades')->default(0);
         $table->enum('importado',[0,1])->default(0);
         $table->integer('min')->default(1);

@@ -24,7 +24,7 @@ class Propiedade extends Model
    * @var array
    */
   protected $fillable = [
-    'producto_id');
+    'producto_id',
     'veta',
     'material',
     'largo_izq',

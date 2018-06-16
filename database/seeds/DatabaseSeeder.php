@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
           MarcasSeeder::class,
           CategoriasSeeder::class,
           SubcategoriasSeeder::class,
+          ColoresSeeder::class,
         ]);
     }
 }

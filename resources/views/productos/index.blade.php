@@ -24,9 +24,10 @@
           <caption>Materia Prima</caption>
           <thead>
             <tr>
+              <th>TP</th>
               <th>SKU</th>
-              <th>Categoria</th>
-              <th>Sub Categoria</th>
+              <th>CategoriaTipo</th>
+              <th>Sub Tipo</th>
               <th>Nombre</th>
               <th>Descripción</th>
               <th>Unidad</th>
@@ -39,14 +40,15 @@
           <tbody>
             @foreach ($productos as $element)
             <tr>
-              <td>{{ $element->sku }}</td>
-              <td>{{ $element->categoria->nombre }}</td>
-              <td>{{ $element->subcategoria->nombre }}</td>
+              <td>{{ @$element->tipo->tipo }}</td>
+              <td>{{ @$element->sku }}</td>
+              <td>{{ @$element->tipo->nombre }}</td>
+              <td>{{ @$element->subtipo->nombre }}</td>
               <td>{{ $element->nombre }}</td>
               <td>{{ $element->descripcion }}</td>
-              <td>{{ $element->unidad->nombre }}</td>
+              <td>{{ @$element->unidad->nombre }}</td>
               <td>
-                <a class="btn btn-sm btn-info" href="#" title="" @click="getPro({{ $element->id }})">Ver Propiedades</a>
+                <a class="btn btn-sm btn-info" href="#" title="" @click="getPro({{ $element->id }})">Prop-Ext</a>
               </td>
               <td>{{ $element->importado }}</td>
               <td>{{ $element->min }}</td>

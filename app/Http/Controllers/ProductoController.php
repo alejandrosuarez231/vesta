@@ -14,7 +14,7 @@ class ProductoController extends Controller
      */
     public function index()
     {
-      $productos = Producto::with('categoria:id,nombre','subcategoria:id,nombre','unidad:id,nombre','proveedor:id,nombre')->paginate();
+      $productos = Producto::with('tipo:id,nombre,tipo','subtipo:id,nombre','unidad:id,nombre','proveedor:id,nombre')->paginate();
       return view('productos.index', compact('productos'));
     }
 
@@ -39,11 +39,11 @@ class ProductoController extends Controller
       // dd($request->all());
       $validatedData = $request->validate([
         'sku' => 'required|unique:productos|max:20',
-        'categoria_id' => 'required',
-        'subcategoria_id' => 'required',
+        'tipo_id' => 'required',
+        // 'subtipo_id' => 'required',
         'nombre' => 'required',
-        'descripcion' => 'required',
-        'unidad_id' => 'required',
+        // 'descripcion' => 'required',
+        // 'unidad_id' => 'required',
         'importado' => 'required',
         'min' => 'required|min:1',
         'max' => 'required|min:1'
@@ -51,6 +51,7 @@ class ProductoController extends Controller
 
       $producto = Producto::create($request->all());
 
+      // dd($producto);
       /* Formartear SKU */
       $producto->update(['sku' => $producto->sku .'-'.sprintf("%'.010d", $producto->id)]);
 
