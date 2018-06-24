@@ -14,7 +14,7 @@ class UnidadController extends Controller
     public function index()
     {
         $unidades = Unidad::orderBy('nombre')->paginate();
-        return view('unidades.index', compact('unidades'));
+        return view('backend.unidades.index', compact('unidades'));
     }
 
     /**
@@ -24,7 +24,7 @@ class UnidadController extends Controller
      */
     public function create()
     {
-        return view('unidades.create');
+        return view('backend.unidades.create');
     }
 
     /**
@@ -45,7 +45,7 @@ class UnidadController extends Controller
         $unidad->nombre = $request->nombre;
         $unidad->save();
         alert()->success('Registro Creado','Unidad Nueva');
-        return redirect('/unidades');
+        return redirect('/backend/unidades');
     }
 
     /**
@@ -68,7 +68,7 @@ class UnidadController extends Controller
     public function edit($id)
     {
         $unidad = Unidad::findOrFail($id);
-        return view('unidades.edit', compact('unidad'));
+        return view('backend.unidades.edit', compact('unidad'));
     }
 
     /**
@@ -85,7 +85,7 @@ class UnidadController extends Controller
         $unidad->nombre = $request->nombre;
         $unidad->save();
         alert()->success('Registro Actualizado','Unidad Actualzada');
-        return redirect('/unidades');
+        return redirect('/backend/unidades');
     }
 
     /**

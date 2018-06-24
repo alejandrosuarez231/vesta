@@ -14,7 +14,7 @@ class SubtipoController extends Controller
     public function index()
     {
         $subtipos = Subtipo::with('tipo:id,nombre,acronimo')->orderBy('nombre')->paginate();
-        return view('subtipos.index', compact('subtipos'));
+        return view('backend.subtipos.index', compact('subtipos'));
     }
 
     /**
@@ -24,7 +24,7 @@ class SubtipoController extends Controller
      */
     public function create()
     {
-        return view('subtipos.create');
+        return view('backend.subtipos.create');
     }
 
     /**
@@ -47,7 +47,7 @@ class SubtipoController extends Controller
         $subtipos->acronimo = $request->acronimo;
         $subtipos->save();
         alert()->success('Registro Creado','Sub-tipo Nueva');
-        return redirect('/subtipos');
+        return redirect('/backend/subtipos');
     }
 
     /**
@@ -70,7 +70,7 @@ class SubtipoController extends Controller
     public function edit($id)
     {
         $subtipo = Subtipo::findOrFail($id);
-        return view('subtipos.edit', compact('subtipo'));
+        return view('backend.subtipos.edit', compact('subtipo'));
     }
 
     /**
@@ -94,7 +94,7 @@ class SubtipoController extends Controller
         $subtipo->acronimo = $request->acronimo;
         $subtipo->save();
         alert()->success('Registro Actualizado','Sub-tipo Actualizada');
-        return redirect('/subtipos');
+        return redirect('/backend/subtipos');
     }
 
     /**

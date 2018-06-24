@@ -15,7 +15,7 @@ class TipoController extends Controller
     public function index()
     {
         $tipos = Tipo::orderBy('nombre')->paginate();
-        return view('tipos.index', compact('tipos'));
+        return view('backend.tipos.index', compact('tipos'));
     }
 
     /**
@@ -25,7 +25,7 @@ class TipoController extends Controller
      */
     public function create()
     {
-        return view('tipos.create');
+        return view('backend.tipos.create');
     }
 
     /**
@@ -37,13 +37,13 @@ class TipoController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'tipo' => 'required',
+            'tipologia' => 'required',
             'nombre' => 'required',
             'acronimo' => 'required',
         ]);
         Tipo::create($request->all());
         alert()->success('Registro Creado','Nuevo Tipo');
-        return redirect('/tipos');
+        return redirect('/backend/tipos');
     }
 
     /**
@@ -66,7 +66,7 @@ class TipoController extends Controller
     public function edit($id)
     {
         $tipo = Tipo::findOrFail($id);
-        return view('tipos.edit', compact('tipo'));
+        return view('backend.tipos.edit', compact('tipo'));
     }
 
     /**
@@ -79,12 +79,12 @@ class TipoController extends Controller
     public function update(Request $request, $id)
     {
         $tipo = Tipo::findOrFail($id);
-        $tipo->tipo = $request->tipo;
+        $tipo->tipologia = $request->tipo;
         $tipo->nombre = $request->nombre;
         $tipo->acronimo = $request->acronimo;
         $tipo->save();
         alert()->success('Registro Actualizado','Tipo Actualizada');
-        return redirect('/tipos');
+        return redirect('/backend/tipos');
     }
 
     /**

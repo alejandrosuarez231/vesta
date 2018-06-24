@@ -13,18 +13,18 @@ class TiposSeeder extends Seeder
     public function run()
     {
       $tipos = collect([
-        ['tipo' => 'MTP', 'nombre' => 'Bisagras', 'acronimo' => 'BI'],
-        ['tipo' => 'MTP', 'nombre' => 'Canto', 'acronimo' => 'CA'],
-        ['tipo' => 'MTP', 'nombre' => 'Correderas', 'acronimo' => 'CR'],
-        ['tipo' => 'MTP', 'nombre' => 'Materia Prima', 'acronimo' => 'MP'],
-        ['tipo' => 'MTP', 'nombre' => 'Otros Herrajes', 'acronimo' => 'OH'],
-        ['tipo' => 'MTP', 'nombre' => 'Sist. Apertura', 'acronimo' => 'SA'],
-        ['tipo' => 'MTP', 'nombre' => 'Packing', 'acronimo' => 'PK'],
-        ['tipo' => 'PSE', 'nombre' => 'Piezas', 'acronimo' => 'PI'],
-        ['tipo' => 'PSE', 'nombre' => 'Modulos', 'acronimo' => 'MO'],
-        ['tipo' => 'PSE', 'nombre' => 'Kits', 'acronimo' => 'KI'],
-        ['tipo' => 'PTO', 'nombre' => 'Vesta Projects', 'acronimo' => 'VP'],
-        ['tipo' => 'PTO', 'nombre' => 'LifeVesta', 'acronimo' => 'LV']
+        ['tipologia' => 'MTP', 'nombre' => 'Bisagras', 'acronimo' => 'BI'],
+        ['tipologia' => 'MTP', 'nombre' => 'Canto', 'acronimo' => 'CA'],
+        ['tipologia' => 'MTP', 'nombre' => 'Correderas', 'acronimo' => 'CR'],
+        ['tipologia' => 'MTP', 'nombre' => 'Materia Prima', 'acronimo' => 'MP'],
+        ['tipologia' => 'MTP', 'nombre' => 'Otros Herrajes', 'acronimo' => 'OH'],
+        ['tipologia' => 'MTP', 'nombre' => 'Sist. Apertura', 'acronimo' => 'SA'],
+        ['tipologia' => 'MTP', 'nombre' => 'Packing', 'acronimo' => 'PK'],
+        ['tipologia' => 'PSE', 'nombre' => 'Piezas', 'acronimo' => 'PI'],
+        ['tipologia' => 'PSE', 'nombre' => 'Modulos', 'acronimo' => 'MO'],
+        ['tipologia' => 'PSE', 'nombre' => 'Kits', 'acronimo' => 'KI'],
+        ['tipologia' => 'PTO', 'nombre' => 'Vesta Projects', 'acronimo' => 'VP'],
+        ['tipologia' => 'PTO', 'nombre' => 'LifeVesta', 'acronimo' => 'LV']
       ]);
 
       foreach ($tipos as $values) {

@@ -22,7 +22,7 @@
         {!! $errors->first('acronimo', '<small class="help-block text-danger">:message</small>') !!}
       </div>
       <button type="submit" class="btn btn-primary" title="Registrar"><i class="fas fa-sign-in-alt"></i> Registrar</button>
-      <a class="btn btn-warning text-danger" href="{{ url('/tipos') }}" title="Cancelar"><i class="fas fa-ban"></i> Cancelar</a>
+      <a class="btn btn-warning text-danger" href="{{ url('/backend/tipos') }}" title="Cancelar"><i class="fas fa-ban"></i> Cancelar</a>
       {!! Form::close() !!}
     </div>
   </div>

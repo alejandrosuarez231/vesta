@@ -37,40 +37,45 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{{ url('/home') }}">Inicio <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" title="Materia Prima">Construir</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ route('productos.index') }}" title="Materia Prima">Productos</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url('/inventarios') }}" title="Categorias">Inventario</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('proveedores.index') }}" title="Proveedores">Proveedores</a>
-          </li>
-          <li class="nav-item dropdown">
+          {{-- <li class="nav-item">
+            <a class="nav-link" href="#" title="Categorias">Inventario</a>
+          </li> --}}
+          {{-- <li class="nav-item">
+            <a class="nav-link" href="#" title="Proveedores">Proveedores</a>
+          </li> --}}
+          {{-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Compras
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="{{ route('ordendecompras.index') }}" title="Orden de compra">Orde de Compra</a>
+              <a class="dropdown-item" href="#" title="Orden de compra">Orde de Compra</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="{{ url('compras') }}" title="Compras">Compras</a>
+              <a class="dropdown-item" href="#" title="Compras">Compras</a>
             </div>
-          </li>
-          <li class="nav-item">
+          </li> --}}
+          {{-- <li class="nav-item">
             <a class="nav-link disabled" href="#">Disabled</a>
-          </li>
+          </li> --}}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Configuración
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="{{ route('tipos.index') }}">Tipos</a>
-              <a class="dropdown-item" href="{{ route('subtipos.index') }}">Sub-Tipos</a>
-              <a class="dropdown-item" href="{{ route('unidades.index') }}" title="Unidades">Unidades</a>
+              <a class="dropdown-item" href="{{ url('backend/tipos') }}">Tipos</a>
+              <a class="dropdown-item" href="{{ url('backend/subtipos') }}">Sub-Tipos</a>
+              <a class="dropdown-item" href="{{ url('backend/unidades') }}" title="Unidades">Unidades</a>
+              <a class="dropdown-item" href="{{ url('backend/marcas') }}" title="Colores">Marcas</a>
+              <a class="dropdown-item" href="{{ url('backend/colores') }}" title="Colores">Colores</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="{{ route('codigos.index') }}" title="Codigos">Codigos</a>
+              <a class="dropdown-item" href="#" title="Codigos">Codigos</a>
               <a class="dropdown-item" href="#">Something else here</a>
             </div>
           </li>

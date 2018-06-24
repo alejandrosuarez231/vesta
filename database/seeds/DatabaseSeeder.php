@@ -15,12 +15,10 @@ class DatabaseSeeder extends Seeder
           UsersSeeder::class,
           TiposSeeder::class,
           SubtiposSeeder::class,
-          MedidasSeeder::class,
-          MaterialesSeeder::class,
-          ProveedoresSeeder::class,
+          // ProveedoresSeeder::class,
           MarcasSeeder::class,
-          CategoriasSeeder::class,
-          SubcategoriasSeeder::class,
+          // CategoriasSeeder::class,
+          // SubcategoriasSeeder::class,
           ColoresSeeder::class,
         ]);
     }

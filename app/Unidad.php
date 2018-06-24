@@ -21,7 +21,7 @@ class Unidad extends Model
    *
    * @var array
    */
-  protected $fillable = ['acronimo','nombre'];
+  protected $fillable = ['nombre','acronimo'];
   protected $guarded = ['id'];
   protected $dates = ['created_at','updated_at','deleted_at'];
 

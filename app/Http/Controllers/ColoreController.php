@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Mtp;
+use App\Colore;
 use Alert;
 
-class MtpController extends Controller
+class ColoreController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class MtpController extends Controller
      */
     public function index()
     {
-        $mtps = Mtp::with('categoria:id,nombre','subcategoria:id,nombre','unidad:id,nombre','proveedor:id,nombre')->paginate();
-        return view('mtps.index', compact('mtps'));
+        $colores = Colore::paginate();
+        return view('backend.colores.index', compact('colores'));
     }
 
     /**
@@ -26,7 +26,7 @@ class MtpController extends Controller
      */
     public function create()
     {
-        return view('mtps.create');
+        return view('backend.colores.create');
     }
 
     /**
@@ -37,26 +37,14 @@ class MtpController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'sku' => 'required|unique:mtps|max:20',
-            'categoria_id' => 'required',
-            'subcategoria_id' => 'required',
-            'tipo' => 'required',
+        $this->validate($request, [
             'nombre' => 'required',
-            'descripcion' => 'required',
-            'unidad_id' => 'required',
-            'proveedor_id' => 'required',
-            'largo' => 'required|numeric',
-            'ancho' => 'required|numeric',
-            'area' => 'nullable|numeric',
-            'espesor' => 'nullable|numeric',
-            'importado' => 'required',
-            'min' => 'required|min:1',
-            'max' => 'required|min:1'
         ]);
-        Mtp::create($request->all());
-        alert()->success('Registro creado','Materia prima nueva');
-        return redirect('mtps');
+        Colore::create($request->all());
+        alert()->success('Registro Creado','Nuevo Color');
+        return redirect('/backend/colores');
+
+
     }
 
     /**
@@ -67,7 +55,7 @@ class MtpController extends Controller
      */
     public function show($id)
     {
-        return view('mtps.show');
+        //
     }
 
     /**
@@ -78,7 +66,8 @@ class MtpController extends Controller
      */
     public function edit($id)
     {
-        return view('mtps.edit');
+        $color = Colore::findOrFail($id);
+        return view('backend.colores.edit', compact('color'));
     }
 
     /**

@@ -22,7 +22,7 @@ class Tipo extends Model
    * @var array
    */
   protected $fillable = [
-    'tipo',
+    'tipologia',
     'nombre',
     'acronimo'
   ];
@@ -34,21 +34,10 @@ class Tipo extends Model
    *
    * @return \Illuminate\Database\Eloquent\Relations\HasMany
    */
-  public function subcategoria()
+  public function subtipo()
   {
     // hasMany(RelatedModel, foreignKeyOnRelatedModel = categoria_id, localKey = id)
     return $this->hasMany(Subtipo::class);
-  }
-
-  /**
-   * Categoria has many Codigo.
-   *
-   * @return \Illuminate\Database\Eloquent\Relations\HasMany
-   */
-  public function codigo()
-  {
-    // hasMany(RelatedModel, foreignKeyOnRelatedModel = categoria_id, localKey = id)
-    return $this->hasMany(Codigo::class);
   }
 
   /**

@@ -14,7 +14,8 @@ class MarcaController extends Controller
      */
     public function index()
     {
-        //
+        $marcas = Marca::paginate();
+        return view('backend.marcas.index', compact('marcas'));
     }
 
     /**
@@ -24,7 +25,7 @@ class MarcaController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.marcas.create');
     }
 
     /**
@@ -35,7 +36,7 @@ class MarcaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
@@ -57,7 +58,7 @@ class MarcaController extends Controller
      */
     public function edit(Marca $marca)
     {
-        //
+        return view('backend.marcas.edit', compact('marca'));
     }
 
     /**
