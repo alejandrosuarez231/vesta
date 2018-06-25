@@ -26,9 +26,10 @@ class Propiedade extends Model
   protected $fillable = [
     'producto_id',
     'veta',
-    'material',
+    'largo',
     'largo_izq',
     'largo_der',
+    'ancho',
     'ancho_sup',
     'ancho_inf',
     'mec1',

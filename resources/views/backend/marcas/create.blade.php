@@ -10,7 +10,7 @@
           <a href="{{ url('/backend/marcas') }}" class="btn btn-link" title="Inicio">Regresar</a>
         </li>
       </ul>
-      {!! Form::open() !!}
+      {!! Form::open(['route' => 'marcas.store', 'method' => 'POST']) !!}
       <div class="form-row">
         <div class="form-group mr-2">
           {!! Form::label('nombre', 'Nombre', ['class' => 'form-control-label']) !!}

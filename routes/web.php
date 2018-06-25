@@ -29,5 +29,11 @@ Route::resource('/backend/marcas', 'MarcaController');
 Route::resource('/backend/proveedores', 'ProveedoreController');
 
 /* Frontend */
+Route::get('/frontend/constructor/construir','ConstructorController@construir')->name('constructor.construir');
 Route::resource('/frontend/productos', 'ProductoController');
 Route::resource('/frontend/inventarios', 'InventarioController');
+
+/* VUE ROUTE's */
+Route::get('/subtipos/{tipo}', function($tipo) {
+  return \App\Subtipo::where('tipo_id','=',$tipo)->pluck('nombre','id');
+});

@@ -40,7 +40,7 @@
             <a class="nav-link" href="{{ url('/home') }}">Inicio <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" title="Materia Prima">Construir</a>
+            <a class="nav-link" href="{{ route('constructor.construir') }}" title="Contruir">Construir</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ route('productos.index') }}" title="Materia Prima">Productos</a>
