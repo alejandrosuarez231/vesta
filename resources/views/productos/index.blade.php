@@ -40,7 +40,7 @@
           <tbody>
             @foreach ($productos as $element)
             <tr>
-              <td>{{ @$element->tipo->tipo }}</td>
+              <td>{{ @$element->tipo->tipologia }}</td>
               <td>{{ @$element->sku }}</td>
               <td>{{ @$element->tipo->nombre }}</td>
               <td>{{ @$element->subtipo->nombre }}</td>
@@ -48,7 +48,9 @@
               <td>{{ $element->descripcion }}</td>
               <td>{{ @$element->unidad->nombre }}</td>
               <td>
-                <a class="btn btn-sm btn-info" href="#" title="" @click="getPro({{ $element->id }})">Prop-Ext</a>
+                @if ($element->tipo->tipologia == 'PTO')
+                  <a class="btn btn-sm btn-info" href="{{ route('productos.show',['id'=>$element->id]) }}" title="">Ver</a>
+                @endif
               </td>
               <td>{{ $element->importado }}</td>
               <td>{{ $element->min }}</td>
@@ -77,19 +79,7 @@
 @section('scripts')
 <script type="text/javascript">
   var app = new Vue({
-    el: '#app',
-    data: {
-      propiedades: []
-    },
-    methods: {
-      getPro: function(producto){
-        axios.get('/getPropiedades/' + producto)
-        .then( response => {
-          this.propiedades = response.data;
-           swal('Propiedades', JSON.stringify(response.data),'success');
-        })
-      }
-    }
+    el: '#app'
   })
 </script>
 @endsection

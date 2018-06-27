@@ -74,6 +74,7 @@
               <a class="dropdown-item" href="{{ url('backend/unidades') }}" title="Unidades">Unidades</a>
               <a class="dropdown-item" href="{{ url('backend/marcas') }}" title="Colores">Marcas</a>
               <a class="dropdown-item" href="{{ url('backend/colores') }}" title="Colores">Colores</a>
+              <a class="dropdown-item" href="{{ url('backend/materiales') }}" title="Colores">Materiales</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#" title="Codigos">Codigos</a>
               <a class="dropdown-item" href="#">Something else here</a>

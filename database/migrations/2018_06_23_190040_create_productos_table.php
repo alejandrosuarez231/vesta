@@ -15,21 +15,20 @@ class CreateProductosTable extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('sku',80);
+            $table->string('sku',80)->nullable();
             $table->integer('tipo_id');
-            $table->integer('subtipo_id');
+            $table->integer('subtipo_id')->nullable();
             $table->string('nombre',100);
-            $table->string('descripcion',191);
+            $table->string('descripcion',191)->nullable();
             $table->integer('marca_id')->nullable();
             $table->integer('unidad_id')->nullable();
             $table->string('largo',20)->nullable();
             $table->string('ancho',20)->nullable();
-            $table->string('espesor',20)->nullable();
-            $table->string('area',20)->nullable();
+            $table->string('profundidad',20)->nullable();
             $table->integer('color_id')->nullable();
             $table->boolean('importado');
-            $table->integer('minimo');
-            $table->integer('maximo');
+            $table->integer('minimo')->default(0);
+            $table->integer('maximo')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -16,11 +16,12 @@ class CreatePropiedadesTable extends Migration
         Schema::create('propiedades', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('producto_id');
-            $table->string('veta');
             $table->string('largo',20)->nullable();
+            $table->string('ancho',20)->nullable();
+            $table->string('espesor',20)->nullable();
+            $table->boolean('veta')->nullable();
             $table->string('largo_izq',20)->nullable();
             $table->string('largo_der',20)->nullable();
-            $table->string('ancho',20)->nullable();
             $table->string('ancho_sup',20)->nullable();
             $table->string('ancho_inf',20)->nullable();
             $table->string('mec1',20)->nullable();

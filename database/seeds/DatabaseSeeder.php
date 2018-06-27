@@ -20,6 +20,9 @@ class DatabaseSeeder extends Seeder
           // CategoriasSeeder::class,
           // SubcategoriasSeeder::class,
           ColoresSeeder::class,
+          Unidades::class,
+          Materiales::class,
+          DescripcionesSeeder::class,
         ]);
     }
 }

@@ -123,4 +123,24 @@ class Producto extends Model
     // hasMany(RelatedModel, foreignKeyOnRelatedModel = producto_id, localKey = id)
     return $this->hasMany(Inventario::class);
   }
+  /**
+   * Producto has many Mtp.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function mtp()
+  {
+    // hasMany(RelatedModel, foreignKeyOnRelatedModel = producto_id, localKey = id)
+    return $this->hasMany(Mtp::class,'mtp','id');
+  }
+  /**
+   * Producto has many Lista.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function lista_materiales()
+  {
+    // hasMany(RelatedModel, foreignKeyOnRelatedModel = producto_id, localKey = id)
+    return $this->hasMany(Lista_materiale::class);
+  }
 }

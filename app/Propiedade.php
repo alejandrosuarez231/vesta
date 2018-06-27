@@ -25,11 +25,12 @@ class Propiedade extends Model
    */
   protected $fillable = [
     'producto_id',
-    'veta',
     'largo',
+    'ancho',
+    'espesor',
+    'veta',
     'largo_izq',
     'largo_der',
-    'ancho',
     'ancho_sup',
     'ancho_inf',
     'mec1',
@@ -37,4 +38,14 @@ class Propiedade extends Model
   ];
   protected $guarded = ['id'];
   protected $dates = ['created_at','updated_at','deleted_at'];
+  /**
+   * Propiedade has many Lista.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function lista_materiales()
+  {
+    // hasMany(RelatedModel, foreignKeyOnRelatedModel = propiedade_id, localKey = id)
+    return $this->hasMany(Lista_materiale::class,'propiedad_id');
+  }
 }

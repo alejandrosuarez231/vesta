@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Producto;
+use App\Mtp;
+use App\Lista_materiale;
 use Illuminate\Http\Request;
 
 class ProductoController extends Controller
@@ -14,7 +16,7 @@ class ProductoController extends Controller
      */
     public function index()
     {
-      $productos = Producto::with('tipo:id,nombre,tipo','subtipo:id,nombre','unidad:id,nombre','proveedor:id,nombre')->paginate();
+      $productos = Producto::with('tipo:id,nombre,tipologia','subtipo:id,nombre','unidad:id,nombre')->paginate();
       return view('productos.index', compact('productos'));
     }
 
@@ -82,7 +84,11 @@ class ProductoController extends Controller
      */
     public function show($id)
     {
-      return view('productos.show');
+        $producto = Producto::findOrFail($id);
+        $mtps = Mtp::with('producto:id,nombre')->where('producto_id','=',$id)->get();
+        $materiales = Lista_materiale::with('material:id,nombre','descripcion:id,descripcion','propiedad:id,largo,ancho,espesor,veta,largo_izq,largo_der,ancho_sup,ancho_inf,mec1,mec2')->get();
+        // dd($materiales);
+        return view('productos.show', compact('producto','mtps','materiales'));
     }
 
     /**

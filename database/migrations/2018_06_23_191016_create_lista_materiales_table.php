@@ -15,7 +15,7 @@ class CreateListaMaterialesTable extends Migration
     {
         Schema::create('lista_materiales', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('sku',20);
+            $table->string('sku',20)->nullable();
             $table->integer('producto_id');
             $table->integer('material_id');
             $table->string('nombre');

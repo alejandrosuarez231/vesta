@@ -23,5 +23,16 @@ class Materiale extends Model
    *
    * @var array
    */
-  protected $fillable = ['codigo','nombre'];
+  protected $fillable = ['sku','nombre'];
+
+  /**
+   * Materiale has many Lista.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function lista_materiales()
+  {
+    // hasMany(RelatedModel, foreignKeyOnRelatedModel = materiale_id, localKey = id)
+    return $this->hasMany(Lista_materiale::class,'material_id');
+  }
 }
