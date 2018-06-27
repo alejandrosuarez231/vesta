@@ -23,7 +23,6 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
-    "bootstrap-vue": "^2.0.0-rc.11",
     "hoek": "^5.0.3",
     "npm-check": "^5.7.1",
     "safe-buffer": "^5.1.2",
