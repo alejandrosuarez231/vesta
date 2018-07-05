@@ -17,45 +17,45 @@
     <div class="col-md"><!-- Data Seleccion -->
       <div class="form-row">
         <div class="form-group mr-2">
-          {!! Form::select('tipo_id', \App\Tipo::whereNotIn('tipologia',['MTP','SER'])->pluck('nombre','id'), null, ['class' => 'form-control','placeholder' => 'TIPO', 'v-model' => 'tipo']) !!}
+          {!! Form::select('tipo_id', \App\Tipo::whereNotIn('tipologia',['MTP','SER'])->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'TIPO', 'v-model' => 'tipo']) !!}
         </div>
         <div class="form-group mr-2" v-if="tipo > 10">
-          <select class="form-control" name="subtipo_id" v-model="subtipo">
+          <select class="form-control form-control-sm" name="subtipo_id" v-model="subtipo">
             <option value="" disabled>Selección</option>
             <option v-for="(item, index) in subtipos" :value="index">@{{ item }}</option>
           </select>
         </div>
         <div class="form-group">
-          {!! Form::text('sku', 'SKU', ['class' => 'form-control','placeholder'=>'SKU']) !!}
+          {!! Form::text('sku', 'SKU', ['class' => 'form-control form-control-sm','placeholder'=>'SKU']) !!}
         </div>
       </div>
       <!-- Nombre y Descripcion  -->
       <div class="form-group">
-        {!! Form::text('nombre', null, ['class'=>'form-control col-md-6','placeholder'=>'Nombre']) !!}
+        {!! Form::text('nombre', null, ['class'=>'form-control form-control-sm col-md-6','placeholder'=>'Nombre']) !!}
       </div>
       <div class="form-group">
-        {!! Form::textarea('descripcion', null, ['class'=>'form-control col-md-6','size'=>'30x3','placeholder'=>'Descripción']) !!}
+        {!! Form::textarea('descripcion', null, ['class'=>'form-control form-control-sm col-md-6','size'=>'30x3','placeholder'=>'Descripción']) !!}
       </div>
       <!-- Propiedades PSE -->
       <div v-if="tipo > 0 && tipo < 11"><!-- Propiedades PSE -->
         <div class="form-row">
           <div class="form-group mr-2">
-            {!! Form::text('largo', null, ['class'=>'form-control text-uppercase mb-1','placeholder'=>'Largo']) !!}
-            {!! Form::text('largo_izq', null, ['class'=>'form-control text-uppercase mb-1','placeholder'=>'Largo IZQ']) !!}
-            {!! Form::text('largo_der', null, ['class'=>'form-control text-uppercase mb-1','placeholder'=>'Largo DER']) !!}
+            {!! Form::text('largo', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','placeholder'=>'Largo']) !!}
+            {!! Form::text('largo_izq', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','placeholder'=>'Largo IZQ']) !!}
+            {!! Form::text('largo_der', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','placeholder'=>'Largo DER']) !!}
           </div>
           <div class="form-group mr-2">
-            {!! Form::text('ancho', null, ['class'=>'form-control text-uppercase mb-1','placeholder'=>'Ancho']) !!}
-            {!! Form::text('ancho_sup', null, ['class'=>'form-control text-uppercase mb-1','placeholder'=>'Ancho SUP']) !!}
-            {!! Form::text('ancho_inf', null, ['class'=>'form-control text-uppercase mb-1','placeholder'=>'Ancho INF']) !!}
+            {!! Form::text('ancho', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','placeholder'=>'Ancho']) !!}
+            {!! Form::text('ancho_sup', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','placeholder'=>'Ancho SUP']) !!}
+            {!! Form::text('ancho_inf', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','placeholder'=>'Ancho INF']) !!}
           </div>
           <div class="form-group mr-2">
             <div class="custom-control custom-checkbox">
               <input type="checkbox" class="custom-control-input" id="pseveta[]">
               <label class="custom-control-label" for="pseveta[]">VETA</label>
             </div>
-            {!! Form::text('mec1', null, ['class'=>'form-control text-uppercase mb-1','placeholder'=>'Mec1']) !!}
-            {!! Form::text('mec2', null, ['class'=>'form-control text-uppercase mb-1','placeholder'=>'Mec2']) !!}
+            {!! Form::text('mec1', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','placeholder'=>'Mec1']) !!}
+            {!! Form::text('mec2', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','placeholder'=>'Mec2']) !!}
           </div>
         </div>
       </div>
@@ -63,16 +63,16 @@
       <div v-if="tipo > 10">
         <div class="form-row">
           <div class="form-group mr-1">
-            {!! Form::text('ptolargo', null, ['class'=>'form-control text-uppercase','placeholder'=>'Largo']) !!}
+            {!! Form::text('ptolargo', null, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Largo']) !!}
           </div>
           <div class="form-group mr-1">
-            {!! Form::text('ptoancho', null, ['class'=>'form-control text-uppercase','placeholder'=>'Ancho']) !!}
+            {!! Form::text('ptoancho', null, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Ancho']) !!}
           </div>
           <div class="form-group mr-1">
-            {!! Form::text('ptoprofundidad', null, ['class'=>'form-control text-uppercase','placeholder'=>'Profundidad']) !!}
+            {!! Form::text('ptoprofundidad', null, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Profundidad']) !!}
           </div>
           <div class="form-group mr-1">
-            {!! Form::select('ptocolor_id', \App\Colore::pluck('nombre','id'), null, ['class'=>'form-control','placeholder'=>'Color']) !!}
+            {!! Form::select('ptocolor_id', \App\Colore::pluck('nombre','id'), null, ['class'=>'form-control form-control-sm','placeholder'=>'Color']) !!}
           </div>
         </div>
       </div>
@@ -84,10 +84,10 @@
           <tbody>
             <tr v-for="(mtp, $index) in mtps" track-by="$index">
               <td>
-                {!! Form::select('mtp[]', \App\Producto::with('tipo:id,tipologia')->get()->where('tipo.tipologia','=','MTP')->pluck('nombre','id'), null, ['class'=>'form-control','placeholder'=>'Materia Prima','v-model'=>'mtp.mtp']) !!}
+                {!! Form::select('mtp[]', \App\Producto::with('tipo:id,tipologia')->get()->where('tipo.tipologia','=','MTP')->pluck('nombre','id'), null, ['class'=>'form-control form-control-sm','placeholder'=>'Materia Prima','v-model'=>'mtp.mtp']) !!}
               </td>
               <td width="20%">
-                {!! Form::number('cantidad[]', null, ['class'=>'form-control text-right','placeholder'=>'Cantidad','min' => 1, 'v-model'=>'mtp.cantidad']) !!}
+                {!! Form::number('cantidad[]', null, ['class'=>'form-control form-control-sm text-right','placeholder'=>'Cantidad','min' => 1, 'v-model'=>'mtp.cantidad']) !!}
               </td>
               <td>
                 <a class="btn btn-link" href="#" title="Agregar" @click="addRowMTP($index)"><i class="fas fa-plus"></i></a>
@@ -103,38 +103,85 @@
     <div class="col-md">
       <div class="form-row">
         <legend>Materiales</legend>
-        <table class="table">
+        <table class="table" style="font-size: 0.9em;">
+          <thead>
+            <tr>
+              <td>SKU</td>
+              <td>Material</td>
+              <td>Descripcion</td>
+              <td>Largo</td>
+              <td>Ancho</td>
+              <td>Espesor</td>
+              <td>LargoIZQ</td>
+              <td>LargoDER</td>
+              <td>AnchoSUP</td>
+              <td>AnchoINF</td>
+              <td>Veta</td>
+              <td>Mec1</td>
+              <td>Mec2</td>
+              <td>Cantidad</td>
+              <td></td>
+            </tr>
+          </thead>
           <tbody>
             <tr v-for="(material, $indice) in materiales" track-by="$indice">
-              <td>{!! Form::text('psesku[]', null, ['class'=>'form-control text-uppercase','placeholder'=>'SKU']) !!}</td>
+              <td>{!! Form::text('psesku[]', null, ['class'=>'form-control form-control-sm text-uppercase','title'=>'SKU']) !!}</td>
               <td>
-                {!! Form::select('material_id[]', \App\Materiale::pluck('nombre','id'), null, ['class'=>'form-control','placeholder'=>'Material','title'=>'Material']) !!}
+                {!! Form::select('material_id[]', \App\Materiale::pluck('nombre','id'), null, ['class'=>'form-control form-control-sm','title'=>'Material', 'placeholder' =>'Sel']) !!}
               </td>
               <td>
-                {!! Form::select('psedescripcion[]', \App\Descripcione::pluck('descripcion','id'), null, ['class'=>'form-control', 'placeholder'=>'Descripcion','title'=>'Descripcion']) !!}
+                {!! Form::select('psedescripcion[]', \App\Descripcione::pluck('descripcion','id'), null, ['class'=>'form-control form-control-sm', 'title'=>'Descripcion', 'placeholder' =>'Sel']) !!}
               </td>
               <td>
-                {!! Form::text('pselargo[]', null, ['class'=>'form-control text-uppercase mb-1','placeholder'=>'Largo']) !!}
+                {!! Form::text('pselargo[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Largo']) !!}
               </td>
               <td>
-                {!! Form::text('pseancho[]', null, ['class'=>'form-control text-uppercase mb-1','placeholder'=>'Ancho']) !!}
+                {!! Form::text('pseancho[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Ancho']) !!}
               </td>
               <td>
-                {!! Form::text('pseespesor[]', null, ['class'=>'form-control text-uppercase mb-1','placeholder'=>'espesor']) !!}
+                {!! Form::text('pseespesor[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'espesor']) !!}
               </td>
-              <td>{!! Form::text('pselargo_izq[]', null, ['class'=>'form-control text-uppercase mb-1','placeholder'=>'Largo IZQ']) !!}</td>
-              <td>{!! Form::text('pselargo_der[]', null, ['class'=>'form-control text-uppercase mb-1','placeholder'=>'Largo DER']) !!}</td>
-              <td>{!! Form::text('pseancho_sup[]', null, ['class'=>'form-control text-uppercase mb-1','placeholder'=>'Ancho SUP']) !!}</td>
-              <td>{!! Form::text('pseancho_inf[]', null, ['class'=>'form-control text-uppercase mb-1','placeholder'=>'Ancho INF']) !!}</td>
+              <td>
+                <select class="form-control form-control-sm" name="pselargo_izq[]">
+                  <option value="0" selected>Sel</option>
+                  <option value="0.45" >0.45</option>
+                  <option value="1" >1</option>
+                  <option value="2" >2</option>
+                </select>
+              </td>
+              <td>
+                <select class="form-control form-control-sm" name="pselargo_der[]">
+                  <option value="0" selected>Sel</option>
+                  <option value="0.45" >0.45</option>
+                  <option value="1" >1</option>
+                  <option value="2" >2</option>
+                </select>
+              </td>
+              <td>
+                <select class="form-control form-control-sm" name="pseancho_sup[]">
+                  <option value="0" selected>Sel</option>
+                  <option value="0.45" >0.45</option>
+                  <option value="1" >1</option>
+                  <option value="2" >2</option>
+                </select>
+              </td>
+              <td>
+                <select class="form-control form-control-sm" name="pseancho_inf[]">
+                  <option value="0" selected>Sel</option>
+                  <option value="0.45" >0.45</option>
+                  <option value="1" >1</option>
+                  <option value="2" >2</option>
+                </select>
+              </td>
               <td>
                 <div class="custom-control custom-checkbox">
                   <input type="checkbox" class="custom-control-input" id="pseveta[]">
-                  <label class="custom-control-label" for="pseveta[]">VETA</label>
+                  <label class="custom-control-label" for="pseveta[]">Si/No</label>
                 </div>
               </td>
-              <td>{!! Form::text('psemec1[]', null, ['class'=>'form-control text-uppercase mb-1','placeholder'=>'Mec1']) !!}</td>
-              <td>{!! Form::text('psemec2[]', null, ['class'=>'form-control text-uppercase mb-1','placeholder'=>'Mec2']) !!}</td>
-              <td>{!! Form::number('psecantidad[]', null, ['class' => 'form-control', 'min' => 1, 'placeholder' =>'Cant']) !!}</td>
+              <td>{!! Form::text('psemec1[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Mec1']) !!}</td>
+              <td>{!! Form::text('psemec2[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Mec2']) !!}</td>
+              <td>{!! Form::number('psecantidad[]', null, ['class' => 'form-control form-control-sm', 'min' => 1, 'title' =>'Cant']) !!}</td>
               <td>
                 <a class="btn btn-link" href="#" title="Agregar" @click="addRowMAT($indice)"><i class="fas fa-plus"></i></a>
                 <a class="btn btn-link text-danger" href="#" title="Eliminar" @click="removeRowMAT($indice)" v-if="materiales.length > 1"><i class="fas fa-minus"></i></a>

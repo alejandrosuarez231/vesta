@@ -8,14 +8,14 @@
   <title>VESTA ERP</title>
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,900" rel="stylesheet">
 
   <!-- Styles -->
   <style>
   html, body {
     background-color: #fff;
-    color: #636b6f;
-    font-family: 'Raleway', sans-serif;
+    color: #FFF;
+    font-family: 'Roboto', sans-serif;
     font-weight: 100;
     height: 100vh;
     margin: 0;
@@ -46,7 +46,7 @@
   }
 
   .title {
-    font-size: 84px;
+    font-size: 4em;
   }
 
   .links > a {
@@ -60,12 +60,17 @@
   }
 
   .m-b-md {
-    margin-bottom: 30px;
+    margin-bottom: 250px;
+  }
+  .bg-erp {
+    background-image: url({{ asset('img/background.jpg') }});
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 </style>
 </head>
 <body>
-  <div class="flex-center position-ref full-height">
+  <div class="flex-center position-ref full-height bg-erp">
     @if (Route::has('login'))
     <div class="top-right links">
       @auth
@@ -78,7 +83,7 @@
     @endif
 
     <div class="content">
-      <div class="title m-b-md">
+      <div class="title m-b-md font-weight-bold">
         VESTA <small>ERP</small>
       </div>
     </div>
