@@ -35,4 +35,15 @@ class Marca extends Model
     // hasMany(RelatedModel, foreignKeyOnRelatedModel = marca_id, localKey = id)
     return $this->hasMany(Producto::class);
   }
+
+  /**
+   * Marca has many Proyecto.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function proyecto()
+  {
+    // hasMany(RelatedModel, foreignKeyOnRelatedModel = marca_id, localKey = id)
+    return $this->hasMany(Proyecto::class);
+  }
 }

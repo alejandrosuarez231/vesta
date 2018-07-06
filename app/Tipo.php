@@ -50,4 +50,15 @@ class Tipo extends Model
     // hasMany(RelatedModel, foreignKeyOnRelatedModel = categoria_id, localKey = id)
     return $this->hasMany(Producto::class);
   }
+
+  /**
+   * Tipo has many Tipo.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function proyecto()
+  {
+    // hasMany(RelatedModel, foreignKeyOnRelatedModel = tipo_id, localKey = id)
+    return $this->hasMany(Proyecto::class);
+  }
 }

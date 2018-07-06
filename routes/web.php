@@ -33,7 +33,9 @@ Route::resource('/backend/materiales','MaterialeController');
 Route::get('/frontend/constructor/construir','ConstructorController@construir')->name('constructor.construir');
 Route::post('/frontend/constructor','ConstructorController@ensamble')->name('constructor.ensamble');
 Route::resource('/frontend/productos', 'ProductoController');
+Route::resource('/frontend/proyectos', 'ProyectoController');
 Route::resource('/frontend/inventarios', 'InventarioController');
+
 
 /* VUE ROUTE's */
 Route::get('/subtipos/{tipo}', function($tipo) {

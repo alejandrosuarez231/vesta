@@ -30,4 +30,15 @@ class Colore extends Model
     // hasMany(RelatedModel, foreignKeyOnRelatedModel = colore_id, localKey = id)
     return $this->hasMany(Producto::class);
   }
+
+  /**
+   * Colore has many Proyecto.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function proyecto()
+  {
+    // hasMany(RelatedModel, foreignKeyOnRelatedModel = colore_id, localKey = id)
+    return $this->hasMany(Proyecto::class);
+  }
 }

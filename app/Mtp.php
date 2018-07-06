@@ -31,4 +31,15 @@ class Mtp extends Model
     // belongsTo(RelatedModel, foreignKey = producto_id, keyOnRelatedModel = id)
     return $this->belongsTo(Producto::class,'mtp','id');
   }
+
+  /**
+   * Mtp has many Proyecto.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function proyecto()
+  {
+    // hasMany(RelatedModel, foreignKeyOnRelatedModel = mtp_id, localKey = id)
+    return $this->hasMany(Proyecto::class);
+  }
 }

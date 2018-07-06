@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Producto;
+use App\Proyecto;
 use App\Propiedade;
 use App\Tipo;
 use App\Subtipo;
@@ -32,7 +33,7 @@ class ConstructorController extends Controller
         // $producto->dump();
 
         /* Creacion del nuevo producto */
-        $newProducto = Producto::create($producto->all());
+        $newProducto = Proyecto::create($producto->all());
         $newProducto->id; //Id del producto creado
 
         /* Materia Prima */

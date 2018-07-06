@@ -36,4 +36,15 @@ class Unidad extends Model
     return $this->hasMany(Producto::class);
   }
 
+  /**
+   * Unidad has many Proyecto.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function proyecto()
+  {
+    // hasMany(RelatedModel, foreignKeyOnRelatedModel = unidad_id, localKey = id)
+    return $this->hasMany(Proyecto::class);
+  }
+
 }

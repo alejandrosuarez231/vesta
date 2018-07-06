@@ -17,7 +17,7 @@
     <div class="col-md"><!-- Data Seleccion -->
       <div class="form-row">
         <div class="form-group mr-2">
-          {!! Form::select('tipo_id', \App\Tipo::whereNotIn('tipologia',['MTP','SER'])->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'TIPO', 'v-model' => 'tipo']) !!}
+          {!! Form::select('tipo_id', \App\Tipo::where('tipologia','=','PTO')->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'TIPO', 'v-model' => 'tipo']) !!}
         </div>
         <div class="form-group mr-2" v-if="tipo > 10">
           <select class="form-control form-control-sm" name="subtipo_id" v-model="subtipo">
@@ -37,28 +37,7 @@
         {!! Form::textarea('descripcion', null, ['class'=>'form-control form-control-sm col-md-6','size'=>'30x3','placeholder'=>'Descripción']) !!}
       </div>
       <!-- Propiedades PSE -->
-      <div v-if="tipo > 0 && tipo < 11"><!-- Propiedades PSE -->
-        <div class="form-row">
-          <div class="form-group mr-2">
-            {!! Form::text('largo', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','placeholder'=>'Largo']) !!}
-            {!! Form::text('largo_izq', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','placeholder'=>'Largo IZQ']) !!}
-            {!! Form::text('largo_der', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','placeholder'=>'Largo DER']) !!}
-          </div>
-          <div class="form-group mr-2">
-            {!! Form::text('ancho', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','placeholder'=>'Ancho']) !!}
-            {!! Form::text('ancho_sup', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','placeholder'=>'Ancho SUP']) !!}
-            {!! Form::text('ancho_inf', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','placeholder'=>'Ancho INF']) !!}
-          </div>
-          <div class="form-group mr-2">
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="pseveta[]">
-              <label class="custom-control-label" for="pseveta[]">VETA</label>
-            </div>
-            {!! Form::text('mec1', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','placeholder'=>'Mec1']) !!}
-            {!! Form::text('mec2', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','placeholder'=>'Mec2']) !!}
-          </div>
-        </div>
-      </div>
+
       <!-- Propiedades PTO -->
       <div v-if="tipo > 10">
         <div class="form-row">

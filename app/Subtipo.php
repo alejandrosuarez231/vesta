@@ -55,4 +55,15 @@ class Subtipo extends Model
     return $this->hasMany(Codigo::class);
   }
 
+  /**
+   * Subtipo has many Proyecto.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function proyecto()
+  {
+    // hasMany(RelatedModel, foreignKeyOnRelatedModel = subtipo_id, localKey = id)
+    return $this->hasMany(Proyecto::class);
+  }
+
 }

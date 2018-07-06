@@ -43,7 +43,10 @@
             <a class="nav-link" href="{{ route('constructor.construir') }}" title="Contruir">Construir</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('productos.index') }}" title="Materia Prima">Productos</a>
+            <a class="nav-link" href="{{ route('productos.index') }}" title="Productos">Productos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('proyectos.index') }}" title="Proyectos">Proyectos</a>
           </li>
           {{-- <li class="nav-item">
             <a class="nav-link" href="#" title="Categorias">Inventario</a>
@@ -77,13 +80,13 @@
               <a class="dropdown-item" href="{{ url('backend/materiales') }}" title="Colores">Materiales</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#" title="Codigos">Codigos</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item disabled" href="#">Something else here</a>
             </div>
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+          <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
+          <button class="btn btn-outline-light my-2 my-sm-0 disabled" type="submit">Buscar</button>
         </form>
         <!-- Right Side Of Navbar -->
         <ul class="navbar-nav ml-auto">
