@@ -50,15 +50,15 @@
           <div class="form-group mr-1">
             {!! Form::text('ptoprofundidad', null, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Profundidad']) !!}
           </div>
-          <div class="form-group mr-1">
+          {{-- <div class="form-group mr-1">
             {!! Form::select('ptocolor_id', \App\Colore::pluck('nombre','id'), null, ['class'=>'form-control form-control-sm','placeholder'=>'Color']) !!}
-          </div>
+          </div> --}}
         </div>
       </div>
     </div>
     <div class="col-md" v-if="tipo > 10">
       <div class="form-row">
-        <legend>Materia Prima</legend>
+        <legend>Complementos</legend>
         <table class="table">
           <tbody>
             <tr v-for="(mtp, $index) in mtps" track-by="$index">
@@ -81,7 +81,7 @@
   <div class="row" v-if="tipo > 10">
     <div class="col-md">
       <div class="form-row">
-        <legend>Materiales</legend>
+        <legend>Piezas</legend>
         <table class="table" style="font-size: 0.9em;">
           <thead>
             <tr>
@@ -107,6 +107,7 @@
               <td>{!! Form::text('psesku[]', null, ['class'=>'form-control form-control-sm text-uppercase','title'=>'SKU']) !!}</td>
               <td>
                 {!! Form::select('material_id[]', \App\Materiale::pluck('nombre','id'), null, ['class'=>'form-control form-control-sm','title'=>'Material', 'placeholder' =>'Sel']) !!}
+                {{-- <v-select v-model="material.material_id" :options="materialMatriz"></v-select> --}}
               </td>
               <td>
                 {!! Form::select('psedescripcion[]', \App\Descripcione::pluck('descripcion','id'), null, ['class'=>'form-control form-control-sm', 'title'=>'Descripcion', 'placeholder' =>'Sel']) !!}
@@ -181,6 +182,10 @@
 <script type="text/javascript">
   var app = new Vue({
     el: '#app',
+
+    created(){
+      axios.get('/materiales').then( response => { this.materialMatriz = response.data }).catch(function(error) { console.log(error) })
+    },
 
     data: {
       tipo: '',

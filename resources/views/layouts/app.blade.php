@@ -24,11 +24,16 @@
 
   <!-- Styles -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <style type="text/css" media="screen">
+  .bg-company-blue {
+    background-color: #203864;
+  }
+</style>
 </head>
 <body>
   <div id="app">
     <!-- NavBar -->
-    <nav class="navbar navbar-expand-md navbar-laravel navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-md navbar-laravel navbar-dark bg-company-blue">
       <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

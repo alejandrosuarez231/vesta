@@ -32,7 +32,7 @@
           <tbody>
             @foreach ($tipos as $element)
             <tr>
-              <td>{{ $element->tipologia }}</td>
+              <td>{{ $element->tipologia }} <sup class="text-primary text-uppercase">{{ $element->acromtip }}</sup></td>
               <td>{{ $element->nombre }}</td>
               <td class="text-uppercase">{{ $element->acronimo }}</td>
               <td class="text-center">

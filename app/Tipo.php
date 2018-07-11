@@ -23,6 +23,7 @@ class Tipo extends Model
    */
   protected $fillable = [
     'tipologia',
+    'acomtip',
     'nombre',
     'acronimo'
   ];

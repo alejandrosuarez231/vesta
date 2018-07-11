@@ -83,9 +83,9 @@
     @endif
 
     <div class="content">
-      <div class="title m-b-md font-weight-bold">
+      {{-- <div class="title m-b-md font-weight-bold">
         VESTA <small>ERP</small>
-      </div>
+      </div> --}}
     </div>
   </div>
 </body>

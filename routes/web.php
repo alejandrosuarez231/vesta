@@ -44,8 +44,14 @@ Route::get('/subtipos/{tipo}', function($tipo) {
 Route::get('/mtps', function() {
  return \App\Producto::with('tipo:id,tipologia')->get()->where('tipo.tipologia','=','MTP')->pluck('nombre','id');
 });
+
 Route::get('/materiales', function() {
-  return \App\Materiale::pluck('nombre','id');
+  $materiales = \App\Materiale::select('nombre','id')->get();
+  $materialList = collect();
+  foreach ($materiales as $key => $value) {
+    $materialList->push(['label'=>$value->nombre, 'value'=>$value->id]);
+  }
+  return $materialList->toJson();
 });
 Route::get('/descripciones', function() {
   return \App\Descripcione::pluck('descripcion','id');

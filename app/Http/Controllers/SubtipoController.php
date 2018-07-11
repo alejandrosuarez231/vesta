@@ -13,7 +13,7 @@ class SubtipoController extends Controller
      */
     public function index()
     {
-        $subtipos = Subtipo::with('tipo:id,nombre,acronimo')->orderBy('nombre')->paginate();
+        $subtipos = Subtipo::with('tipo:id,nombre,acromtip,acronimo')->orderBy('nombre')->paginate();
         return view('backend.subtipos.index', compact('subtipos'));
     }
 
