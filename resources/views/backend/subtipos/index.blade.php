@@ -30,9 +30,9 @@
             </tr>
           </thead>
           <tbody>
-            @foreach ($subtipos as $element)
+            @foreach ($subtipos->sortBy('tipo_id') as $element)
             <tr>
-              <td>{{ $element->tipo->nombre }} <sup class="text-primary text-uppercase">{{ $element->tipo->acromtip.$element->tipo->acronimo }}</sup></td>
+              <td>{{ @$element->tipo->nombre }} <sup class="text-primary text-uppercase">{{ @$element->tipo->acromtip.$element->tipo->acronimo }}</sup></td>
               <td>{{ $element->nombre }}</td>
               <td>{{ $element->acronimo }}</td>
               <td class="text-center">

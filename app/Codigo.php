@@ -17,29 +17,29 @@ class Codigo extends Model
    *
    * @var array
    */
-  protected $fillable = ['tipo','categoria_id','subcategoria_id','acronimo','tipologia'];
+  protected $fillable = ['tipo_id','subtipo_id','skubase','numeracion'];
   protected $guarded = ['id'];
   protected $dates = ['created_at','updated_at','deleted_at'];
 
   /**
-   * Codigo belongs to Categoria.
+   * Codigo belongs to Tipo.
    *
    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
    */
-  public function categoria()
+  public function tipo()
   {
-    // belongsTo(RelatedModel, foreignKey = categoria_id, keyOnRelatedModel = id)
-    return $this->belongsTo(Categoria::class);
+    // belongsTo(RelatedModel, foreignKey = tipo_id, keyOnRelatedModel = id)
+    return $this->belongsTo(Tipo::class);
   }
 
   /**
-   * Codigo belongs to Subcategoria.
+   * Codigo belongs to Subtipo.
    *
    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
    */
-  public function subcategoria()
+  public function subtipo()
   {
-    // belongsTo(RelatedModel, foreignKey = subcategoria_id, keyOnRelatedModel = id)
-    return $this->belongsTo(Subcategoria::class);
+    // belongsTo(RelatedModel, foreignKey = subtipo_id, keyOnRelatedModel = id)
+    return $this->belongsTo(Subtipo::class);
   }
 }

@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="container-fluid">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <h4>Listado de Codigos</h4>
+  <div class="row">
+    <div class="col-md-8 offset-md-1">
+      <h4>Listado de Codigos / Base SKU</h4>
       <ul class="nav">
         <li class="nav-item">
           <a href="{{ url('/home') }}" class="btn btn-link" title="Inicio">Regresar</a>
@@ -13,46 +13,41 @@
           <a href="{{ route('codigos.create') }}" class="nav-link">Nuevo</a>
         </li>
       </ul>
-    </div>
-  </div>
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="table-responsive">
-        <table class="table table-striped table-bordered">
-          <caption>Listado de codigos</caption>
-          <thead>
-            <tr>
-              <th>Tipo</th>
-              <th>Categoria</th>
-              <th>Sub-Categoria</th>
-              <th>Acronimo</th>
-              <th>Tipologia</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach ($codigos as $element)
-            <tr>
-              <td>{{ $element->tipo }}</td>
-              <td>{{ $element->categoria->nombre }}</td>
-              <td>
-                @if (isset($element->subcategoria->nombre))
-                  {{ $element->subcategoria->nombre }}
-                @else
-                <span><small class="text-secondary font-weight-bold">None</small></span>
-                @endif
-              </td>
-              <td>{{ $element->acronimo }}</td>
-              <td>{{ $element->tipologia }}</td>
-              <td>
-                <a class="btn btn-sm btn-warning" href="{{ route('codigos.edit',['id'=>$element->id]) }}" title="Editar">Editar</a>
-              </td>
-            </tr>
-            @endforeach
-          </tbody>
-        </table>
+      @if ($codigos->count() == 0)
+      <div class="alert alert-info">
+        No hay codigos definidos
       </div>
+      @endif
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-md-8 offset-md-1">
+      <table class="table">
+        <caption>Base SKU</caption>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Tipologia</th>
+            <th>Sub-Tipo</th>
+            <th>SKU-Base</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($codigos as $element)
+          <tr>
+            <td>{{ $element->id }}</td>
+            <td>{{ $element->tipo->nombre }}</td>
+            <td>{{ @$element->subtipo->nombre }}</td>
+            <td>{{ $element->skubase }}</td>
+            <td></td>
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </div>
 @endsection

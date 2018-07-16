@@ -51,7 +51,7 @@ class ProyectoController extends Controller
      */
     public function show($id)
     {
-        $producto = Proyecto::findOrFail($id);
+        $proyecto = Proyecto::findOrFail($id);
         $mtps = Mtp::with('producto:id,nombre')->where('producto_id','=',$id)->get();
         $materiales = Lista_materiale::with('material:id,nombre','descripcion:id,descripcion','propiedad:id,largo,ancho,espesor,veta,largo_izq,largo_der,ancho_sup,ancho_inf,mec1,mec2')->get();
         // dd($materiales);

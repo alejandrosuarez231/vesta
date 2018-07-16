@@ -23,7 +23,8 @@ class Tipo extends Model
    */
   protected $fillable = [
     'tipologia',
-    'acomtip',
+    'padre',
+    'acromtip',
     'nombre',
     'acronimo'
   ];
@@ -61,5 +62,16 @@ class Tipo extends Model
   {
     // hasMany(RelatedModel, foreignKeyOnRelatedModel = tipo_id, localKey = id)
     return $this->hasMany(Proyecto::class);
+  }
+
+  /**
+   * Tipo has many Codigo.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function codigo()
+  {
+    // hasMany(RelatedModel, foreignKeyOnRelatedModel = tipo_id, localKey = id)
+    return $this->hasMany(Codigo::class);
   }
 }

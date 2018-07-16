@@ -13,22 +13,24 @@ class TiposSeeder extends Seeder
     public function run()
     {
       $tipos = collect([
-        ['tipologia' => 'MTP', 'nombre' => 'Bisagras', 'acronimo' => 'BI'],
-        ['tipologia' => 'MTP', 'nombre' => 'Canto', 'acronimo' => 'CA'],
-        ['tipologia' => 'MTP', 'nombre' => 'Correderas', 'acronimo' => 'CR'],
-        ['tipologia' => 'MTP', 'nombre' => 'Materia Prima', 'acronimo' => 'MP'],
-        ['tipologia' => 'MTP', 'nombre' => 'Otros Herrajes', 'acronimo' => 'OH'],
-        ['tipologia' => 'MTP', 'nombre' => 'Sist. Apertura', 'acronimo' => 'SA'],
-        ['tipologia' => 'MTP', 'nombre' => 'Packing', 'acronimo' => 'PK'],
-        ['tipologia' => 'PSE', 'nombre' => 'Piezas', 'acronimo' => 'PI'],
-        ['tipologia' => 'PSE', 'nombre' => 'Modulos', 'acronimo' => 'MO'],
-        ['tipologia' => 'PSE', 'nombre' => 'Kits', 'acronimo' => 'KI'],
-        ['tipologia' => 'PTO', 'nombre' => 'Vesta Projects', 'acronimo' => 'VP'],
-        ['tipologia' => 'PTO', 'nombre' => 'LifeVesta', 'acronimo' => 'LV']
+        ['tipologia' => 'MTP', 'padre' => 1, 'acromtip' => 'M', 'nombre' => 'Bisagras', 'acronimo' => 'BI'],
+        ['tipologia' => 'MTP', 'padre' => 1, 'acromtip' => 'M', 'nombre' => 'Canto', 'acronimo' => 'CA'],
+        ['tipologia' => 'MTP', 'padre' => 1, 'acromtip' => 'M', 'nombre' => 'Correderas', 'acronimo' => 'CR'],
+        ['tipologia' => 'MTP', 'padre' => 1, 'acromtip' => 'M', 'nombre' => 'Tableros', 'acronimo' => 'TA'],
+        ['tipologia' => 'MTP', 'padre' => 1, 'acromtip' => 'M', 'nombre' => 'Otros Herrajes', 'acronimo' => 'OH'],
+        ['tipologia' => 'MTP', 'padre' => 1, 'acromtip' => 'M', 'nombre' => 'Sist. Apertura', 'acronimo' => 'SA'],
+        ['tipologia' => 'MTP', 'padre' => 1, 'acromtip' => 'M', 'nombre' => 'Packing', 'acronimo' => 'PK'],
+        ['tipologia' => 'PSE', 'padre' => 0, 'acromtip' => 'S', 'nombre' => 'Piezas', 'acronimo' => 'PI'],
+        ['tipologia' => 'PSE', 'padre' => 0, 'acromtip' => 'S', 'nombre' => 'Modulos', 'acronimo' => 'MO'],
+        ['tipologia' => 'PSE', 'padre' => 0, 'acromtip' => 'S', 'nombre' => 'Kits', 'acronimo' => 'KI'],
+        ['tipologia' => 'PTO', 'padre' => 1, 'acromtip' => 'T', 'nombre' => 'Cocinas', 'acronimo' => 'C'],
+        ['tipologia' => 'PTO', 'padre' => 1, 'acromtip' => 'T', 'nombre' => 'Vestier', 'acronimo' => 'V'],
+        ['tipologia' => 'PTO', 'padre' => 1, 'acromtip' => 'T', 'nombre' => 'Muebles de Baño', 'acronimo' => 'B'],
+        ['tipologia' => 'PTO', 'padre' => 1, 'acromtip' => 'T', 'nombre' => 'LifeVesta', 'acronimo' => 'L']
       ]);
 
       foreach ($tipos as $values) {
         Tipo::create($values);
       }
     }
-}
+  }

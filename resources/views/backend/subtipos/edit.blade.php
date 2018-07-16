@@ -8,7 +8,7 @@
       {!! Form::model($subtipo, ['route' => ['subtipos.update', $subtipo->id],'method'=>'PATCH']) !!}
       <div class="form-group {{ $errors->has('categoria_id') ? 'has-error' : '' }}">
         {!! Form::label('categoria_id', 'Categoria', ['class'=>'form-control-label']) !!}
-        {!! Form::select('tipo_id', \App\Tipo::pluck('nombre','id'), $subtipo->tipo_id, ['class'=>'form-control col-md-4','placeholder'=>'Selección']) !!}
+        {!! Form::select('tipo_id', \App\Tipo::where('padre',1)->pluck('nombre','id'), $subtipo->tipo_id, ['class'=>'form-control col-md-4','placeholder'=>'Selección']) !!}
         {!! $errors->first('categoria_id', '<p class="help-block text-danger">:message</p>') !!}
       </div>
       <div class="form-group {{ $errors->has('categoria_id') ? 'has-error' : '' }}">

@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
           Unidades::class,
           Materiales::class,
           DescripcionesSeeder::class,
+          CodigosSeeder::class,
         ]);
     }
 }

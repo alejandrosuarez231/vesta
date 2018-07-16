@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Tipo;
+use App\Codigo;
 use Illuminate\Http\Request;
 Use Alert;
 
@@ -36,14 +37,38 @@ class TipoController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'tipologia' => 'required',
-            'nombre' => 'required',
-            'acronimo' => 'required',
-        ]);
-        Tipo::create($request->all());
-        alert()->success('Registro Creado','Nuevo Tipo');
-        return redirect('/backend/tipos');
+
+        if(!isset($request->padre)){
+            /* Crear Base SKU */
+            $this->validate($request, [
+                'tipologia' => 'required',
+                'acromtip' => 'required',
+                'nombre' => 'required',
+                'acronimo' => 'required',
+            ]);
+
+            $tipo = Tipo::create($request->all());
+            // dd($request->all());
+            $skubase = new Codigo;
+            $skubase->tipo_id = $tipo->id;
+            $skubase->subtipo_id = 0;
+            $skubase->skubase = $tipo->acromtip.$tipo->acronimo;
+            $skubase->numeracion = 1;
+            $skubase->save();
+
+            alert()->success('Registro Creado','Nuevo Tipo + Base SKU 1');
+            return redirect('/backend/tipos');
+        }else {
+            $this->validate($request, [
+                'tipologia' => 'required',
+                'acromtip' => 'required',
+                'nombre' => 'required',
+                'acronimo' => 'required',
+            ]);
+            Tipo::create($request->all());
+            alert()->success('Registro Creado','Nuevo Tipo');
+            return redirect('/backend/tipos');
+        }
     }
 
     /**
@@ -80,6 +105,7 @@ class TipoController extends Controller
     {
         $tipo = Tipo::findOrFail($id);
         $tipo->tipologia = $request->tipo;
+        $tipo->padre = $request->padre;
         $tipo->nombre = $request->nombre;
         $tipo->acronimo = $request->acronimo;
         $tipo->save();

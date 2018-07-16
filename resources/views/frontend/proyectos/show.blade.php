@@ -11,12 +11,12 @@
     <div class="col-md-4">
       <div class="card" style="width: 30rem;">
         <div class="card-body">
-          <h5 class="card-title">{{ $producto->nombre }}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{ $producto->descripcion }}</h6>
+          <h5 class="card-title">{{ $proyecto->nombre }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ $proyecto->descripcion }}</h6>
           <p class="card-text">
-            Largo: <span class="text-uppercase">{{ $producto->largo }}</span><br>
-            Ancho: <span class="text-uppercase">{{ $producto->ancho }}</span><br>
-            Profundidad: <span class="text-uppercase">{{ $producto->profundidad }}</span>
+            Largo: <span class="text-uppercase">{{ $proyecto->largo }}</span><br>
+            Ancho: <span class="text-uppercase">{{ $proyecto->ancho }}</span><br>
+            Profundidad: <span class="text-uppercase">{{ $proyecto->profundidad }}</span>
           </p>
         </div>
       </div>
@@ -24,8 +24,8 @@
     <div class="col-md-4">
       <div class="card" style="width: 30rem;">
         <div class="card-body">
-          <h5 class="card-title">Materia Prima</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{ $producto->descripcion }}</h6>
+          <h5 class="card-title">Complementos</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ $proyecto->descripcion }}</h6>
           <table class="table">
             <thead>
               <tr>
@@ -53,8 +53,8 @@
     <div class="col-md">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Materiales</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{ $producto->descripcion }}</h6>
+          <h5 class="card-title">Piezas</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ $proyecto->descripcion }}</h6>
           <table class="table">
             <thead>
               <tr>

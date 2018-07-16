@@ -23,7 +23,7 @@ class Marca extends Model
    *
    * @var array
    */
-  protected $fillable = ['nombre','importada'];
+  protected $fillable = ['nombre','acronimo','importada'];
 
   /**
    * Marca has many Producto.

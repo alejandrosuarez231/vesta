@@ -13,6 +13,9 @@
           <a href="{{ route('tipos.create') }}" class="nav-link">Nueva</a>
         </li>
       </ul>
+      <div class="alert alert-info col-md-4">
+        <small><span class="font-weight-bold text-danger">*</span> <span class="font-weight-bold">Tipologia Padre (Contiene Sub-Tipos)</span></small>
+      </div>
     </div>
   </div>
 
@@ -32,7 +35,9 @@
           <tbody>
             @foreach ($tipos as $element)
             <tr>
-              <td>{{ $element->tipologia }} <sup class="text-primary text-uppercase">{{ $element->acromtip }}</sup></td>
+              <td>
+                {{ $element->tipologia }} <sup class="text-primary text-uppercase">{{ $element->acromtip }} @if($element->padre > 0) <strong class="text-danger font-weight-bold">*</strong> @endif</sup>
+              </td>
               <td>{{ $element->nombre }}</td>
               <td class="text-uppercase">{{ $element->acronimo }}</td>
               <td class="text-center">

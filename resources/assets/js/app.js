@@ -21,6 +21,9 @@ import Vue from 'vue';
 import VeeValidate from 'vee-validate';
 Vue.use(VeeValidate);
 
+import VueAutosuggest from "vue-autosuggest";
+Vue.use(VueAutosuggest);
+
 
 import vSelect from 'vue-select'
 Vue.component('v-select', vSelect)

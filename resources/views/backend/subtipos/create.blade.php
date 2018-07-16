@@ -6,10 +6,10 @@
     <div class="col-md-6 offset-md-2">
       <h4>Sub-Tipos <small>Nueva</small></h4>
       {!! Form::open(['route'=>'subtipos.store','method'=>'POST']) !!}
-      <div class="form-group {{ $errors->has('categoria_id') ? 'has-error' : '' }}">
-        {!! Form::label('categoria_id', 'Categoria', ['class'=>'form-control-label']) !!}
-        {!! Form::select('categoria_id', \App\Tipo::pluck('nombre','id'), null, ['class'=>'form-control col-md-4','placeholder'=>'Selección']) !!}
-        {!! $errors->first('categoria_id', '<small class="help-block text-danger">:message</small>') !!}
+      <div class="form-group {{ $errors->has('tipo_id') ? 'has-error' : '' }}">
+        {!! Form::label('tipo_id', 'Tipo', ['class'=>'form-control-label']) !!}
+        {!! Form::select('tipo_id', \App\Tipo::where('padre',1)->pluck('nombre','id'), null, ['class'=>'form-control col-md-4','placeholder'=>'Selección']) !!}
+        {!! $errors->first('tipo_id', '<small class="help-block text-danger">:message</small>') !!}
       </div>
       <div class="form-group  {{ $errors->has('nombre') ? 'has-error' : '' }}">
         {!! Form::label('nombre', 'Nombre', ['class'=>'form-control-label']) !!}

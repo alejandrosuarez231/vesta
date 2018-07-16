@@ -45,13 +45,13 @@ class Subtipo extends Model
   }
 
   /**
-   * Subcategoria has many Codigo.
+   * Subtipo has many Codigo.
    *
    * @return \Illuminate\Database\Eloquent\Relations\HasMany
    */
   public function codigo()
   {
-    // hasMany(RelatedModel, foreignKeyOnRelatedModel = subcategoria_id, localKey = id)
+    // hasMany(RelatedModel, foreignKeyOnRelatedModel = subtipo_id, localKey = id)
     return $this->hasMany(Codigo::class);
   }
 

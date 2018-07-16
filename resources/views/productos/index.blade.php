@@ -10,7 +10,7 @@
           <a href="{{ url('/home') }}" class="btn btn-link" title="Inicio">Regresar</a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('productos.create') }}" class="nav-link">Nuevo</a>
+          <a href="{{ route('productos.create') }}" class="nav-link">Nuevo MTP</a>
         </li>
       </ul>
     </div>
@@ -38,6 +38,7 @@
             </tr>
           </thead>
           <tbody>
+
             @foreach ($productos as $element)
             <tr>
               <td>{{ @$element->tipo->tipologia }}</td>

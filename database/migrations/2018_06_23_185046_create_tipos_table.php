@@ -16,6 +16,7 @@ class CreateTiposTable extends Migration
         Schema::create('tipos', function (Blueprint $table) {
             $table->increments('id');
             $table->enum('tipologia',['MTP','PSE','PTO','SER']);
+            $table->boolean('padre')->default(0);
             $table->string('nombre');
             $table->string('acronimo',6);
             $table->timestamps();

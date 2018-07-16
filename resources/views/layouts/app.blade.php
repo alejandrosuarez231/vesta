@@ -84,7 +84,7 @@
               <a class="dropdown-item" href="{{ url('backend/colores') }}" title="Colores">Colores</a>
               <a class="dropdown-item" href="{{ url('backend/materiales') }}" title="Colores">Materiales</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#" title="Codigos">Codigos</a>
+              <a class="dropdown-item" href="{{ url('backend/codigos') }}" title="Codigos">Codigos</a>
               <a class="dropdown-item disabled" href="#">Something else here</a>
             </div>
           </li>

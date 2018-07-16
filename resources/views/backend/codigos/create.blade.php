@@ -7,57 +7,15 @@
       <h4>Crear Codigo</h4>
       <ul class="nav">
         <li class="nav-item">
-          <a href="{{ url('/home') }}" class="btn btn-link" title="Inicio">Regresar</a>
+          <a href="{{ url()->previous() }}" class="btn btn-link" title="Inicio">Regresar</a>
         </li>
       </ul>
+      <div class="alert alert-warning col-md-4">
+        EN Desarrollo
+      </div>
     </div>
   </div>
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <form method="POST" v-on:submit.prevent="crearCodigo">
-      <div class="form-row">
-        <div class="form-group mr-3">
-          {!! Form::label('tipo', 'Tipo', ['class'=>'form-control-label']) !!}
-          <select name="tipo" class="form-control" v-model="tipo" @change="getCategorias">
-            <option disabled value="">Selección</option>
-            <option value="MTP">MTP</option>
-            <option value="PSE">PSE</option>
-            <option value="PTE">PTE</option>
-            <option value="SER">SER</option>
-          </select>
-          <span v-for="error in errors" class="text-danger">@{{ error.tipo }}</span>
-        </div>
-        <div class="form-group mr-3">
-          {!! Form::label('categoria_id', 'Categoria', ['class'=>'form-control-label']) !!}
-          <select name="categoria_id" v-model="categoria_id" class="form-control" @change="getSubcategorias">
-            <option disabled value="">Selección</option>
-            <option v-for="option in categorias" v-bind:value="option.value">@{{ option.label }}</option>
-          </select>
-          <span v-for="error in errors" class="text-danger">@{{ error.categoria_id }}</span>
-        </div>
-        <div class="form-group mr-3">
-          {!! Form::label('subcategoria_id', 'Sub-Categoria', ['class'=>'form-control-label']) !!}
-          <select name="subcategoria_id" v-model="subcategoria_id" class="form-control">
-            <option disabled value="">Selección</option>
-            <option v-for="option in subcategorias" v-bind:value="option.value">@{{ option.label }}</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group">
-        {!! Form::label('acronimo', 'Acronimo', ['class'=>'form-control-label']) !!}
-        <input type="text" name="acronimo" value="" v-model="acronimo" placeholder="Acronimo" class="form-control text-uppercase col-md-4">
-        <span v-for="error in errors" class="text-danger">@{{ error.acronimo }}</span>
-      </div>
-      <div class="form-group">
-        {!! Form::label('tipologia', 'Tipologia', ['class'=>'form-control-label']) !!}
-        <input type="text" name="tipologia" value="" v-model="tipologia" placeholder="Tipologia" class="form-control col-md-4">
-        <span v-for="error in errors" class="text-danger">@{{ error.tipologia }}</span>
-      </div>
-      <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Registrar</button>
-      <a class="btn btn-warning" href="{{ route('codigos.index') }}" title="Cancelar"><i class="fas fa-ban"></i> Cancelar</a>
-      </form>
-    </div>
-  </div>
+
 </div>
 @endsection
 

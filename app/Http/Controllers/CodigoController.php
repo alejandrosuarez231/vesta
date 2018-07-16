@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Codigo;
+use App\Tipo;
+use App\Subtipo;
 use Illuminate\Http\Request;
 
 class CodigoController extends Controller
@@ -14,8 +16,10 @@ class CodigoController extends Controller
      */
     public function index()
     {
-        $codigos = Codigo::with('categoria:id,nombre','subcategoria:id,nombre')->paginate();
-        return view('codigos.index', compact('codigos'));
+        $codigos = Codigo::with('tipo:id,nombre,acromtip,acronimo','subtipo:id,nombre')->get();
+        // dd($codigos);
+        // $base = Subtipo::with('tipo:id,nombre,acromtip,acronimo')->get();
+        return view('backend.codigos.index',compact('codigos'));
     }
 
     /**
@@ -25,7 +29,7 @@ class CodigoController extends Controller
      */
     public function create()
     {
-        return view('codigos.create');
+        return view('backend.codigos.create');
     }
 
     /**
@@ -68,7 +72,7 @@ class CodigoController extends Controller
      */
     public function edit(Codigo $codigo)
     {
-        return view('codigos.edit', compact('codigo'));
+        return view('backend.codigos.edit', compact('codigo'));
     }
 
     /**
