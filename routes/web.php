@@ -36,6 +36,8 @@ Route::resource('/frontend/productos', 'ProductoController');
 Route::resource('/frontend/proyectos', 'ProyectoController');
 Route::resource('/frontend/inventarios', 'InventarioController');
 
+Route::resource('/cotizaciones','CotizacioneController');
+
 
 /* VUE ROUTE's */
 Route::get('/subtipos/{tipo}', function($tipo) {

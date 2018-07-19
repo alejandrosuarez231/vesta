@@ -45,6 +45,9 @@
             <a class="nav-link" href="{{ url('/home') }}">Inicio <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="{{ route('cotizaciones.create') }}" title="Cotizar">Cotizar</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="{{ route('constructor.construir') }}" title="Contruir">Construir</a>
           </li>
           <li class="nav-item">

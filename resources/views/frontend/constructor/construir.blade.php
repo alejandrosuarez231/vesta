@@ -20,13 +20,13 @@
           {!! Form::select('tipo_id', \App\Tipo::where('tipologia','=','PTO')->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'TIPO', 'v-model' => 'tipo']) !!}
         </div>
         <div class="form-group mr-2" v-if="tipo > 10">
-          <select class="form-control form-control-sm" name="subtipo_id" v-model="subtipo">
+          <select class="form-control form-control-sm" name="subtipo_id" v-model="subtipo" @change="getSkuBase">
             <option value="" disabled>Selección</option>
             <option v-for="(item, index) in subtipos" :value="index">@{{ item }}</option>
           </select>
         </div>
         <div class="form-group">
-          {!! Form::text('sku', 'SKU', ['class' => 'form-control form-control-sm','placeholder'=>'SKU']) !!}
+          {!! Form::text('sku', 'SKU', ['class' => 'form-control form-control-sm','placeholder'=>'SKU','v-model'=>'ptosku']) !!}
         </div>
       </div>
       <!-- Nombre y Descripcion  -->
@@ -188,9 +188,13 @@
     },
 
     data: {
+      ptosku: '',
       tipo: '',
       subtipos: '',
       subtipo: '',
+      base: '',
+      basesku: '',
+      numeracion: '',
       mtps: [{ mtp: '', cantidad: '' }],
       materialMatriz: '',
       materiales: [{ sku: '', material_id: '', nombre: '', largo_izq: '', largo_der: '', ancho_sup: '', ancho_inf: '', veta: '', mec1: '', mec2: '' }]
@@ -247,7 +251,19 @@
         .catch(function(error) {
           console.log(error);
         })
-      }
+      },
+      getSkuBase: function(){
+        axios.get('/getBaseSku/' + this.tipo + '/' + this.subtipo)
+        .then( response => {
+          console.log(response.data);
+          this.numeracion = response.data[0].numeracion;
+          this.base = response.data[0].skubase;
+          this.ptosku = this.base;
+        })
+        .catch(function(error) {
+          console.log(error)
+        })
+      },
     },
 
   })
