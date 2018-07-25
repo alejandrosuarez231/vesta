@@ -10,8 +10,9 @@
           <a href="{{ url('/home') }}" class="btn btn-link" title="Inicio">Regresar</a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('codigos.create') }}" class="nav-link">Nuevo</a>
+          <a href="{{ url('/truncateCodigos') }}" class="nav-link">Recrear</a>
         </li>
+
       </ul>
       @if ($codigos->count() == 0)
       <div class="alert alert-info">

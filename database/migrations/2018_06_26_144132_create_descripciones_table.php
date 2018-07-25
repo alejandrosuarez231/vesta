@@ -15,7 +15,11 @@ class CreateDescripcionesTable extends Migration
     {
         Schema::create('descripciones', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('materiale_id');
             $table->string('descripcion');
+            $table->string('flargo')->nullable();
+            $table->string('fancho')->nullable();
+            $table->string('espesor')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -19,7 +19,7 @@
         <div class="form-group mr-2">
           {!! Form::select('tipo_id', \App\Tipo::where('tipologia','=','PTO')->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'TIPO', 'v-model' => 'tipo']) !!}
         </div>
-        <div class="form-group mr-2" v-if="tipo > 10">
+        <div class="form-group mr-2" v-if="tipo > 10 && tipo < 15">
           <select class="form-control form-control-sm" name="subtipo_id" v-model="subtipo" @change="getSkuBase">
             <option value="" disabled>Selección</option>
             <option v-for="(item, index) in subtipos" :value="index">@{{ item }}</option>
@@ -63,7 +63,7 @@
           <tbody>
             <tr v-for="(mtp, $index) in mtps" track-by="$index">
               <td>
-                {!! Form::select('mtp[]', \App\Producto::with('tipo:id,tipologia')->get()->where('tipo.tipologia','=','MTP')->pluck('nombre','id'), null, ['class'=>'form-control form-control-sm','placeholder'=>'Materia Prima','v-model'=>'mtp.mtp']) !!}
+                {!! Form::select('mtp[]', \App\Producto::with('tipo:id,tipologia','subtipo:id,nombre')->get()->where('tipo.tipologia','=','MTP')->pluck('subtipo.nombre','id'), null, ['class'=>'form-control form-control-sm','placeholder'=>'Materia Prima','v-model'=>'mtp.mtp']) !!}
               </td>
               <td width="20%">
                 {!! Form::number('cantidad[]', null, ['class'=>'form-control form-control-sm text-right','placeholder'=>'Cantidad','min' => 1, 'v-model'=>'mtp.cantidad']) !!}
@@ -106,20 +106,24 @@
             <tr v-for="(material, $indice) in materiales" track-by="$indice">
               <td>{!! Form::text('psesku[]', null, ['class'=>'form-control form-control-sm text-uppercase','title'=>'SKU']) !!}</td>
               <td>
-                {!! Form::select('material_id[]', \App\Materiale::pluck('nombre','id'), null, ['class'=>'form-control form-control-sm','title'=>'Material', 'placeholder' =>'Sel']) !!}
+                {!! Form::select('material_id[]', \App\Materiale::pluck('nombre','id'), null, ['class'=>'form-control form-control-sm','title'=>'Material', 'placeholder' =>'Sel','v-model'=>'material.material_id','@change' => 'filterMaterial(materiales[$indice].material_id)']) !!}
                 {{-- <v-select v-model="material.material_id" :options="materialMatriz"></v-select> --}}
               </td>
               <td>
-                {!! Form::select('psedescripcion[]', \App\Descripcione::pluck('descripcion','id'), null, ['class'=>'form-control form-control-sm', 'title'=>'Descripcion', 'placeholder' =>'Sel']) !!}
+                <select name="psedescripcion[]" class="form-control-sm" v-model="material.descripcion" @change="setFormulas">
+                  <option value="" selected disabled>Selección</option>
+                  <option v-for="(descripcion, index) in descripciones" :value="index">@{{ descripcion.descripcion }}</option>
+                </select>
+                {{-- {!! Form::select('psedescripcion[]', \App\Descripcione::pluck('descripcion','id'), null, ['class'=>'form-control form-control-sm', 'title'=>'Descripcion', 'placeholder' =>'Sel','v-model'=>'material.descripcion']) !!} --}}
               </td>
               <td>
-                {!! Form::text('pselargo[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Largo']) !!}
+                {!! Form::text('pselargo[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Largo','v-model'=>'material.largo']) !!}
               </td>
               <td>
-                {!! Form::text('pseancho[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Ancho']) !!}
+                {!! Form::text('pseancho[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Ancho','v-model' => 'material.ancho']) !!}
               </td>
               <td>
-                {!! Form::text('pseespesor[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'espesor']) !!}
+                {!! Form::text('pseespesor[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'espesor','v-model' => 'material.espesor']) !!}
               </td>
               <td>
                 <select class="form-control form-control-sm" name="pselargo_izq[]">
@@ -197,7 +201,8 @@
       numeracion: '',
       mtps: [{ mtp: '', cantidad: '' }],
       materialMatriz: '',
-      materiales: [{ sku: '', material_id: '', nombre: '', largo_izq: '', largo_der: '', ancho_sup: '', ancho_inf: '', veta: '', mec1: '', mec2: '' }]
+      descripciones: '',
+      materiales: [{ sku: '', material_id: '', descripcion: '', largo: '', ancho: '', espesor: '', largo_izq: '', largo_der: '', ancho_sup: '', ancho_inf: '', veta: '', mec1: '', mec2: '' }]
     },
 
     watch: {
@@ -259,11 +264,46 @@
           this.numeracion = response.data[0].numeracion;
           this.base = response.data[0].skubase;
           this.ptosku = this.base;
+          this.searchSKU();
         })
         .catch(function(error) {
           console.log(error)
         })
       },
+      searchSKU: function(){
+        axios.get('/querySKU/' + this.ptosku)
+        .then( response => {
+          if(response.data.length > 0){
+            // console.log(response.data[0].sku);
+            this.numeracion = Number(response.data[0].ptosku.substr(-6));
+            var num = this.numeracion + 1;
+            Number.prototype.pad = function(size){
+              var s = String(this);
+              while (s.length < (size || 2)) { s = "0" + s; }
+              return s;
+            }
+            this.ptosku = this.ptosku + '-' + num.pad(6);
+          }else {
+            this.ptosku = this.ptosku + '-' + '000001';
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        })
+      },
+      filterMaterial: function(material){
+        axios.get('/setMaterial/' + material )
+        .then( response => {
+          this.descripciones = response.data;
+          console.log(this.descripciones);
+        })
+        .catch(function(error){
+          console.log(error)
+        })
+      },
+      setFormulas: function(){
+
+      }
     },
 
   })

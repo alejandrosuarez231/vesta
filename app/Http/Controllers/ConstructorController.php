@@ -16,7 +16,7 @@ class ConstructorController extends Controller
 {
     public function construir()
     {
-      $producto = new Producto;
+      $producto = new Proyecto;
       $propiedades = new Propiedade;
       // dd($producto,$propiedades);
       return view('frontend.constructor.construir', compact('producto','propiedad'));

@@ -5,6 +5,8 @@ use App\Tipo;
 use App\Codigo;
 use Illuminate\Http\Request;
 Use Alert;
+use Yajra\DataTables\Facades\Datatables;
+// use yajra\Datatables\Facades\Datatables;
 
 class TipoController extends Controller
 {
@@ -15,6 +17,8 @@ class TipoController extends Controller
      */
     public function index()
     {
+        // return Dataables::eloquent(Tipo::query())->make(true);
+        // return datatables()->of(Tipo::query())->toJson();
         $tipos = Tipo::orderBy('nombre')->paginate();
         return view('backend.tipos.index', compact('tipos'));
     }

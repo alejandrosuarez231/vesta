@@ -39,42 +39,53 @@ class ProductoController extends Controller
     public function store(Request $request)
     {
       // dd($request->all());
+     if($request->tipo_id > 0 && $request->tipo_id < 8){
       $validatedData = $request->validate([
         'sku' => 'required|unique:productos|max:20',
         'tipo_id' => 'required',
-        // 'subtipo_id' => 'required',
+        'subtipo_id' => 'required',
         'nombre' => 'required',
-        // 'descripcion' => 'required',
-        // 'unidad_id' => 'required',
-        'importado' => 'required',
-        'min' => 'required|min:1',
-        'max' => 'required|min:1'
+        'descripcion' => 'required',
+        'unidad_id' => 'required',
+        'minimo' => 'required|min:1',
+        'maximo' => 'required|min:1'
       ]);
 
-      $producto = Producto::create($request->all());
-
-      // dd($producto);
-      /* Formartear SKU */
-      $producto->update(['sku' => $producto->sku .'-'.sprintf("%'.010d", $producto->id)]);
-
-      $propiedades = \App\Propiedade::create([
-        'producto_id' => $producto->id,
-        'largo' => $request->largo,
-        'largo_izq' => $request->largoizq,
-        'largo_der' => $request->largoder,
-        'ancho' => $request->ancho,
-        'anchosup' => $request->anchosup,
-        'anchoinf' => $request->anchoinf,
-        'mec1' => $request->mec1,
-        'mec2' => $request->mec2
-      ]);
-
-      $setPropiedades = Producto::findOrFail($producto->id);
-      $setPropiedades->update(['propiedades' => $propiedades->id]);
-
+      $mtp = new Producto;
+      $mtp->sku = $request->sku;
+      $mtp->tipo_id = $request->tipo_id;
+      $mtp->subtipo_id = $request->subtipo_id;
+      $mtp->nombre = $request->nombre;
+      $mtp->descripcion = $request->descripcion;
+      $mtp->marca_id = $request->marca_id;
+      $mtp->unidad_id = $request->unidad_id;
+      $mtp->minimo = $request->minimo;
+      $mtp->maximo = $request->maximo;
+      $mtp->save();
       alert()->success('Registro creado','Nuevo Producto Registrado');
-      return redirect('productos');
+      return redirect('frontend/productos');
+
+     }else {
+      /* No es Materia Prima */
     }
+
+    // $producto = Producto::create($request->all());
+    // $propiedades = \App\Propiedade::create([
+    //   'producto_id' => $producto->id,
+    //   'largo' => $request->largo,
+    //   'largo_izq' => $request->largoizq,
+    //   'largo_der' => $request->largoder,
+    //   'ancho' => $request->ancho,
+    //   'anchosup' => $request->anchosup,
+    //   'anchoinf' => $request->anchoinf,
+    //   'mec1' => $request->mec1,
+    //   'mec2' => $request->mec2
+    // ]);
+    // $setPropiedades = Producto::findOrFail($producto->id);
+    // $setPropiedades->update(['propiedades' => $propiedades->id]);
+    // alert()->success('Registro creado','Nuevo Producto Registrado');
+    // return redirect('productos');
+  }
 
     /**
      * Display the specified resource.
@@ -84,11 +95,11 @@ class ProductoController extends Controller
      */
     public function show($id)
     {
-        $producto = Producto::findOrFail($id);
-        $mtps = Mtp::with('producto:id,nombre')->where('producto_id','=',$id)->get();
-        $materiales = Lista_materiale::with('material:id,nombre','descripcion:id,descripcion','propiedad:id,largo,ancho,espesor,veta,largo_izq,largo_der,ancho_sup,ancho_inf,mec1,mec2')->get();
+      $producto = Producto::findOrFail($id);
+      $mtps = Mtp::with('producto:id,nombre')->where('producto_id','=',$id)->get();
+      $materiales = Lista_materiale::with('material:id,nombre','descripcion:id,descripcion','propiedad:id,largo,ancho,espesor,veta,largo_izq,largo_der,ancho_sup,ancho_inf,mec1,mec2')->get();
         // dd($materiales);
-        return view('productos.show', compact('producto','mtps','materiales'));
+      return view('productos.show', compact('producto','mtps','materiales'));
     }
 
     /**

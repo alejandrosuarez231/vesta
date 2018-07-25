@@ -149,6 +149,8 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Laraveles\Spanish\SpanishServiceProvider::class,
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
+        Yajra\DataTables\HtmlServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -214,6 +216,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Alert' => UxWeb\SweetAlert\SweetAlert::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
 
     ],
 

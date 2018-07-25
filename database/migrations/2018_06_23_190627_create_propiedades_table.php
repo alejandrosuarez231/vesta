@@ -16,8 +16,9 @@ class CreatePropiedadesTable extends Migration
         Schema::create('propiedades', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('producto_id');
-            $table->string('largo',20)->nullable();
             $table->string('ancho',20)->nullable();
+            $table->string('alto',20)->nullable();
+            $table->string('profundida',20)->nullable();
             $table->string('espesor',20)->nullable();
             $table->boolean('veta')->nullable();
             $table->string('largo_izq',20)->nullable();

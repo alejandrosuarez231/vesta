@@ -22,11 +22,12 @@ class CreateProductosTable extends Migration
             $table->string('descripcion',191)->nullable();
             $table->integer('marca_id')->nullable();
             $table->integer('unidad_id')->nullable();
-            $table->string('largo',20)->nullable();
             $table->string('ancho',20)->nullable();
+            $table->string('alto',20)->nullable();
             $table->string('profundidad',20)->nullable();
+            $table->integer('propiedades')->nullable();
             $table->integer('color_id')->nullable();
-            $table->boolean('importado');
+            $table->boolean('importado')->default(0);
             $table->integer('minimo')->default(0);
             $table->integer('maximo')->default(0);
             $table->timestamps();

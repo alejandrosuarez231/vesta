@@ -54,8 +54,8 @@
                 @endif
               </td>
               <td>{{ $element->importado }}</td>
-              <td>{{ $element->min }}</td>
-              <td>{{ $element->max }}</td>
+              <td>{{ $element->minimo }}</td>
+              <td>{{ $element->maximo }}</td>
             </tr>
             @endforeach
           </tbody>
@@ -79,8 +79,6 @@
 
 @section('scripts')
 <script type="text/javascript">
-  var app = new Vue({
-    el: '#app'
-  })
+
 </script>
 @endsection
