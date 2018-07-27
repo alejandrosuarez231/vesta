@@ -30,6 +30,8 @@ class Producto extends Model
     'alto',
     'profundidad',
     'propiedades',
+    'color_id',
+    'extra',
     'importado',
     'min',
     'max'

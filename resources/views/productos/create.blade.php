@@ -53,9 +53,35 @@
           {!! Form::select('unidad_id', \App\Unidad::pluck('nombre','id'), null, ['class' => 'form-control','placeholder'=>'Seleccion','v-model'=>'unidad']) !!}
           {!! $errors->first('unidad_id', '<small class="help-block text-danger">:message</small>') !!}
         </div>
+        <div>
+          {!! Form::label('color_id', 'Color', ['class'=>'form-control-label']) !!}
+          {!! Form::select('color_id', \App\Colore::pluck('nombre','id'), null, ['class'=>'form-control','placeholder'=>'Selección']) !!}
+        </div>
         <div class="form-group">
           {!! Form::label('importado', 'Importado', ['class' => 'form-control-label']) !!}
           {!! Form::checkbox('importado', true, false, ['class' => 'form-control']) !!}
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group mr-2">
+          {!! Form::label('ancho', 'Ancho', ['class'=>'form-control-label']) !!}
+          {!! Form::text('ancho', null, ['class'=>'form-control','placeholder'=>'Ancho']) !!}
+        </div>
+        <div class="form-group mr-2">
+          {!! Form::label('alto', 'Alto', ['class'=>'form-control-label']) !!}
+          {!! Form::text('alto', null, ['class'=>'form-control','placeholder'=>'Alto']) !!}
+        </div>
+        <div class="form-group mr-2">
+          {!! Form::label('espesor', 'Espesor', ['class'=>'form-control-label']) !!}
+          {!! Form::text('espesor', null, ['class'=>'form-control','placeholder'=>'Espesor']) !!}
+        </div>
+        <div class="form-group">
+          {!! Form::label('vExtra', 'Prop. Extra ?', ['class' => 'form-control-label']) !!}
+          {!! Form::checkbox('vExtra', true, false, ['class' => 'form-control','v-model'=>'vExtra']) !!}
+        </div>
+        <div class="form-group mr-2" v-if="vExtra == true">
+          {!! Form::label('extra', 'Prop. Extra', ['class'=>'form-control-label']) !!}
+          {!! Form::select('extra', [], null, ['class'=>'form-control','placeholder'=>'Selección']) !!}
         </div>
       </div>
       <div class="form-row">
@@ -97,7 +123,8 @@
       subtipos: '',
       subtipo: '',
       marca: '',
-      unidad: ''
+      unidad: '',
+      vExtra: ''
     },
 
     watch: {

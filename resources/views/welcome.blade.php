@@ -64,6 +64,7 @@
   }
   .bg-erp {
     background-image: url({{ asset('img/background.jpg') }});
+    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
   }
