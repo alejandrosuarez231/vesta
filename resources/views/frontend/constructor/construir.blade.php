@@ -99,7 +99,9 @@
               <td>Mec1</td>
               <td>Mec2</td>
               <td>Cantidad</td>
-              <td></td>
+              <td>
+                <a class="btn btn-link float-right" href="#" title="Agregar" @click="addRowMAT(this.app.materiales.length -1)"><i class="fas fa-plus"></i></a>
+              </td>
             </tr>
           </thead>
           <tbody>
@@ -107,14 +109,12 @@
               <td>{!! Form::text('psesku[]', null, ['class'=>'form-control form-control-sm text-uppercase','title'=>'SKU']) !!}</td>
               <td>
                 {!! Form::select('material_id[]', \App\Materiale::pluck('nombre','id'), null, ['class'=>'form-control form-control-sm','title'=>'Material', 'placeholder' =>'Sel','v-model'=>'material.material_id','@change' => 'filterMaterial(materiales[$indice].material_id)']) !!}
-                {{-- <v-select v-model="material.material_id" :options="materialMatriz"></v-select> --}}
               </td>
               <td>
-                <select name="psedescripcion[]" class="form-control-sm" v-model="material.descripcion" @change="setFormulas">
+                <select name="psedescripcion[]" class="form-control-sm" v-model="material.descripcion" @change="setFormulas(materiales[$indice].descripcion,$indice)">
                   <option value="" selected disabled>Selección</option>
                   <option v-for="(descripcion, index) in descripciones" :value="index">@{{ descripcion.descripcion }}</option>
                 </select>
-                {{-- {!! Form::select('psedescripcion[]', \App\Descripcione::pluck('descripcion','id'), null, ['class'=>'form-control form-control-sm', 'title'=>'Descripcion', 'placeholder' =>'Sel','v-model'=>'material.descripcion']) !!} --}}
               </td>
               <td>
                 {!! Form::text('pselargo[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Largo','v-model'=>'material.largo']) !!}
@@ -126,7 +126,7 @@
                 {!! Form::text('pseespesor[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'espesor','v-model' => 'material.espesor']) !!}
               </td>
               <td>
-                <select class="form-control form-control-sm" name="pselargo_izq[]">
+                <select class="form-control form-control-sm" name="pselargo_izq[]" v-model="material.largo_izq">
                   <option value="0" selected>Sel</option>
                   <option value="0.45" >0.45</option>
                   <option value="1" >1</option>
@@ -134,7 +134,7 @@
                 </select>
               </td>
               <td>
-                <select class="form-control form-control-sm" name="pselargo_der[]">
+                <select class="form-control form-control-sm" name="pselargo_der[]" v-model="material.largo_der">
                   <option value="0" selected>Sel</option>
                   <option value="0.45" >0.45</option>
                   <option value="1" >1</option>
@@ -142,7 +142,7 @@
                 </select>
               </td>
               <td>
-                <select class="form-control form-control-sm" name="pseancho_sup[]">
+                <select class="form-control form-control-sm" name="pseancho_sup[]" v-model="material.ancho_sup">
                   <option value="0" selected>Sel</option>
                   <option value="0.45" >0.45</option>
                   <option value="1" >1</option>
@@ -150,7 +150,7 @@
                 </select>
               </td>
               <td>
-                <select class="form-control form-control-sm" name="pseancho_inf[]">
+                <select class="form-control form-control-sm" name="pseancho_inf[]" v-model="material.ancho_inf">
                   <option value="0" selected>Sel</option>
                   <option value="0.45" >0.45</option>
                   <option value="1" >1</option>
@@ -159,15 +159,14 @@
               </td>
               <td>
                 <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="pseveta[]">
+                  <input type="checkbox" class="custom-control-input" id="pseveta[]" v-model="material.veta">
                   <label class="custom-control-label" for="pseveta[]">Si/No</label>
                 </div>
               </td>
-              <td>{!! Form::text('psemec1[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Mec1']) !!}</td>
-              <td>{!! Form::text('psemec2[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Mec2']) !!}</td>
-              <td>{!! Form::number('psecantidad[]', null, ['class' => 'form-control form-control-sm', 'min' => 1, 'title' =>'Cant']) !!}</td>
+              <td>{!! Form::text('psemec1[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Mec1','v-model'=>'material.mec1']) !!}</td>
+              <td>{!! Form::text('psemec2[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Mec2','v-model'=>'material.mec2']) !!}</td>
+              <td>{!! Form::number('psecantidad[]', null, ['class' => 'form-control form-control-sm', 'min' => 1, 'title' =>'Cant', 'v-model' => 'material.cant']) !!}</td2
               <td>
-                <a class="btn btn-link" href="#" title="Agregar" @click="addRowMAT($indice)"><i class="fas fa-plus"></i></a>
                 <a class="btn btn-link text-danger" href="#" title="Eliminar" @click="removeRowMAT($indice)" v-if="materiales.length > 1"><i class="fas fa-minus"></i></a>
               </td>
             </tr>
@@ -202,7 +201,7 @@
       mtps: [{ mtp: '', cantidad: '' }],
       materialMatriz: '',
       descripciones: '',
-      materiales: [{ sku: '', material_id: '', descripcion: '', largo: '', ancho: '', espesor: '', largo_izq: '', largo_der: '', ancho_sup: '', ancho_inf: '', veta: '', mec1: '', mec2: '' }]
+      materiales: [{ sku: '', material_id: '', descripcion: '', largo: '', ancho: '', espesor: '', largo_izq: '', largo_der: '', ancho_sup: '', ancho_inf: '', veta: '', mec1: '', mec2: '', cant: '' }]
     },
 
     watch: {
@@ -295,14 +294,17 @@
         axios.get('/setMaterial/' + material )
         .then( response => {
           this.descripciones = response.data;
-          console.log(this.descripciones);
+          // console.log(this.descripciones);
         })
         .catch(function(error){
           console.log(error)
         })
       },
-      setFormulas: function(){
-
+      setFormulas: function(index,indice){
+        this.materiales[indice].descripcion = index;
+        this.materiales[indice].ancho = this.descripciones[index].ancho;
+        this.materiales[indice].largo = this.descripciones[index].largo;
+        this.materiales[indice].espesor = this.descripciones[index].espesor;
       }
     },
 

@@ -92,6 +92,7 @@ Route::get('/materiales', function() {
   }
   return $materialList->toJson();
 });
+
 Route::get('/descripciones', function() {
   return \App\Descripcione::pluck('descripcion','id');
 });
