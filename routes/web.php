@@ -37,6 +37,11 @@ Route::get('/truncateCodigos', function(){
 Route::resource('/backend/marcas', 'MarcaController');
 Route::resource('/backend/proveedores', 'ProveedoreController');
 Route::resource('/backend/materiales','MaterialeController');
+Route::get('/backend/extras/asignar/{id}', 'PropsextraController@create')->name('extras.asignar');
+Route::get('/backend/extras/extras/{id}', 'PropsextraController@index')->name('extras.extras');
+Route::post('/setextras', 'PropsextraController@store')->name('extras.setting');
+Route::resource('/backend/extras', 'ExtraController');
+
 
 /* Frontend */
 Route::get('/frontend/constructor/construir','ConstructorController@construir')->name('constructor.construir');
@@ -85,6 +90,7 @@ Route::get('/setMaterial/{material}', function($material){
 } );
 
 Route::get('/materiales', function() {
+  /* Revisar */
   $materiales = \App\Materiale::select('nombre','id')->get();
   $materialList = collect();
   foreach ($materiales as $key => $value) {
@@ -95,4 +101,8 @@ Route::get('/materiales', function() {
 
 Route::get('/descripciones', function() {
   return \App\Descripcione::pluck('descripcion','id');
+});
+/* set propiedades extras */
+Route::get('/propsextra/{tipo}/{subtipo}', function($tipo, $subtipo) {
+  return \App\Propsextra::with('extra:id,propiedad')->where('tipo_id',$tipo)->where('subtipo_id',$subtipo)->get();
 });

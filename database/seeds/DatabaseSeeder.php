@@ -17,13 +17,14 @@ class DatabaseSeeder extends Seeder
           SubtiposSeeder::class,
           // ProveedoresSeeder::class,
           MarcasSeeder::class,
-          // CategoriasSeeder::class,
-          // SubcategoriasSeeder::class,
           ColoresSeeder::class,
           Unidades::class,
           Materiales::class,
           DescripcionesSeeder::class,
           CodigosSeeder::class,
+          ExtrasSeeder::class,
+          PropsextrasSeeder::class,
+          ProductosSeeder::class,
         ]);
     }
 }

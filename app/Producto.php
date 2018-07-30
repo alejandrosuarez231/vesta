@@ -27,11 +27,11 @@ class Producto extends Model
     'marca_id',
     'unidad_id',
     'ancho',
-    'alto',
+    'largo',
     'profundidad',
     'propiedades',
     'color_id',
-    'extra',
+    'extra_id',
     'importado',
     'min',
     'max'
@@ -142,5 +142,16 @@ class Producto extends Model
   {
     // hasMany(RelatedModel, foreignKeyOnRelatedModel = producto_id, localKey = id)
     return $this->hasMany(Lista_materiale::class);
+  }
+
+  /**
+   * Producto belongs to Extra.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+   */
+  public function extra()
+  {
+    // belongsTo(RelatedModel, foreignKey = extra_id, keyOnRelatedModel = id)
+    return $this->belongsTo(Extra::class);
   }
 }

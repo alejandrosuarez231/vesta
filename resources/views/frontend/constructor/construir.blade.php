@@ -60,16 +60,22 @@
       <div class="form-row">
         <legend>Complementos</legend>
         <table class="table">
+          <a class="btn btn-link" href="#" title="Agregar" @click="addRowMTP(this.app.mtps.length -1)"><i class="fas fa-plus"></i></a>
           <tbody>
             <tr v-for="(mtp, $index) in mtps" track-by="$index">
               <td>
-                {!! Form::select('mtp[]', \App\Producto::with('tipo:id,tipologia','subtipo:id,nombre')->get()->where('tipo.tipologia','=','MTP')->pluck('subtipo.nombre','id'), null, ['class'=>'form-control form-control-sm','placeholder'=>'Materia Prima','v-model'=>'mtp.mtp']) !!}
-              </td>
-              <td width="20%">
-                {!! Form::number('cantidad[]', null, ['class'=>'form-control form-control-sm text-right','placeholder'=>'Cantidad','min' => 1, 'v-model'=>'mtp.cantidad']) !!}
+                {!! Form::select('mtp_tipo_id[]', \App\Tipo::where('tipologia','=','MTP')->pluck('nombre','id'), null, ['class'=>'form-control-sm','placeholder'=>'Tipo','v-model'=>'mtp.tipo','@change'=>'getSubtipo($index,mtps[$index].tipo)']) !!}
               </td>
               <td>
-                <a class="btn btn-link" href="#" title="Agregar" @click="addRowMTP($index)"><i class="fas fa-plus"></i></a>
+                <select class="form-control-sm" name="mtp_subtipo_id[]" v-model="mtp.subtipo">
+                  <option value="" selected disabled>Subtipo</option>
+                  <option v-for="(subtipo, indice) in mtpsList[$index]" :value="indice">@{{ subtipo }}</option>
+                </select>
+              </td>
+              <td width="20%">
+                {!! Form::number('mtp_cantidad[]', null, ['class'=>'form-control form-control-sm text-right','placeholder'=>'Cantidad','min' => 1, 'v-model'=>'mtp.cantidad']) !!}
+              </td>
+              <td>
                 <a class="btn btn-link text-danger" href="#" title="Eliminar" @click="removeRowMTP($index)" v-if="mtps.length > 1"><i class="fas fa-minus"></i></a>
               </td>
             </tr>
@@ -113,7 +119,7 @@
               <td>
                 <select name="psedescripcion[]" class="form-control-sm" v-model="material.descripcion" @change="setFormulas(materiales[$indice].descripcion,$indice)">
                   <option value="" selected disabled>Selección</option>
-                  <option v-for="(descripcion, index) in descripciones" :value="index">@{{ descripcion.descripcion }}</option>
+                  <option v-for="(descripcion, index) in descripciones[$indice]" :value="index">@{{ descripcion.descripcion }}</option>
                 </select>
               </td>
               <td>
@@ -198,9 +204,10 @@
       base: '',
       basesku: '',
       numeracion: '',
-      mtps: [{ mtp: '', cantidad: '' }],
+      mtpsList: [],
+      mtps: [{ tipo: '', subtipo: '', cantidad: '' }],
       materialMatriz: '',
-      descripciones: '',
+      descripciones: [],
       materiales: [{ sku: '', material_id: '', descripcion: '', largo: '', ancho: '', espesor: '', largo_izq: '', largo_der: '', ancho_sup: '', ancho_inf: '', veta: '', mec1: '', mec2: '', cant: '' }]
     },
 
@@ -291,9 +298,10 @@
         })
       },
       filterMaterial: function(material){
+        /* Metodo para chequear */
         axios.get('/setMaterial/' + material )
         .then( response => {
-          this.descripciones = response.data;
+          this.descripciones.push(response.data);
           // console.log(this.descripciones);
         })
         .catch(function(error){
@@ -301,10 +309,22 @@
         })
       },
       setFormulas: function(index,indice){
-        this.materiales[indice].descripcion = index;
-        this.materiales[indice].ancho = this.descripciones[index].ancho;
-        this.materiales[indice].largo = this.descripciones[index].largo;
-        this.materiales[indice].espesor = this.descripciones[index].espesor;
+        // this.materiales[indice].descripcion = index;
+        this.materiales[indice].ancho = this.descripciones[indice][index].ancho;
+        this.materiales[indice].largo = this.descripciones[indice][index].largo;
+        this.materiales[indice].espesor = this.descripciones[indice][index].espesor;
+      },
+      getSubtipo: function(index,tipo){
+        console.log(index);
+        console.log(tipo);
+        axios.get('/subtipos/' + tipo)
+        .then(response => {
+          this.mtpsList.push(response.data);
+          console.log(this.mtpsList);
+        })
+        .catch(function(error) {
+          console.log(error)
+        })
       }
     },
 

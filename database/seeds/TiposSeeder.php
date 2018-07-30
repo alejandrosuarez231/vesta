@@ -13,20 +13,23 @@ class TiposSeeder extends Seeder
     public function run()
     {
       $tipos = collect([
-        ['tipologia' => 'MTP', 'padre' =>1, 'acromtip' => 'M', 'nombre' => 'Bisagras', 'acronimo' => 'BI'],
-        ['tipologia' => 'MTP', 'padre' =>1, 'acromtip' => 'M', 'nombre' => 'Canto', 'acronimo' => 'CA'],
-        ['tipologia' => 'MTP', 'padre' =>1, 'acromtip' => 'M', 'nombre' => 'Correderas', 'acronimo' => 'CR'],
-        ['tipologia' => 'MTP', 'padre' =>0, 'acromtip' => 'M', 'nombre' => 'Otros Herrajes', 'acronimo' => 'OH'],
-        ['tipologia' => 'MTP', 'padre' =>0, 'acromtip' => 'M', 'nombre' => 'Packing', 'acronimo' => 'PK'],
-        ['tipologia' => 'MTP', 'padre' =>1, 'acromtip' => 'M', 'nombre' => 'Sist. Apertura', 'acronimo' => 'SA'],
-        ['tipologia' => 'MTP', 'padre' =>1, 'acromtip' => 'M', 'nombre' => 'Tableros', 'acronimo' => 'TA'],
-        ['tipologia' => 'PSE', 'padre' =>1, 'acromtip' => 'S', 'nombre' => 'Kits', 'acronimo' => 'KI'],
-        ['tipologia' => 'PSE', 'padre' =>1, 'acromtip' => 'S', 'nombre' => 'Modulos', 'acronimo' => 'MO'],
-        ['tipologia' => 'PSE', 'padre' =>1, 'acromtip' => 'S', 'nombre' => 'Piezas', 'acronimo' => 'PI'],
-        ['tipologia' => 'PTO', 'padre' =>1, 'acromtip' => 'T', 'nombre' => 'Cocina', 'acronimo' => 'C'],
-        ['tipologia' => 'PTO', 'padre' =>1, 'acromtip' => 'T', 'nombre' => 'LifeVesta', 'acronimo' => 'L'],
-        ['tipologia' => 'PTO', 'padre' =>0, 'acromtip' => 'T', 'nombre' => 'Muebles de Baño', 'acronimo' => 'B'],
-        ['tipologia' => 'PTO', 'padre' =>1, 'acromtip' => 'T', 'nombre' => 'Vestier', 'acronimo' => 'V'],
+        ['tipologia' => 'MTP', 'acromtip' => 'M', 'padre' =>  1, 'nombre' => 'Bisagras', 'acronimo' => 'BI'],
+        ['tipologia' => 'MTP', 'acromtip' => 'M', 'padre' =>  1, 'nombre' => 'Canto', 'acronimo' => 'CA'],
+        ['tipologia' => 'MTP', 'acromtip' => 'M', 'padre' =>  1, 'nombre' => 'Correderas', 'acronimo' => 'CR'],
+        ['tipologia' => 'MTP', 'acromtip' => 'M', 'padre' =>  1, 'nombre' => 'Tableros', 'acronimo' => 'TA'],
+        ['tipologia' => 'MTP', 'acromtip' => 'M', 'padre' =>  1, 'nombre' => 'Conectores', 'acronimo' => 'CT'],
+        ['tipologia' => 'MTP', 'acromtip' => 'M', 'padre' =>  1, 'nombre' => 'Accesorios', 'acronimo' => 'AC'],
+        ['tipologia' => 'MTP', 'acromtip' => 'M', 'padre' =>  1, 'nombre' => 'Perfiles y Tubos', 'acronimo' => 'PE'],
+        ['tipologia' => 'MTP', 'acromtip' => 'M', 'padre' =>  1, 'nombre' => 'Patas', 'acronimo' => 'PA'],
+        ['tipologia' => 'MTP', 'acromtip' => 'M', 'padre' =>  1, 'nombre' => 'Sist. Apertura', 'acronimo' => 'SA'],
+        ['tipologia' => 'MTP', 'acromtip' => 'M', 'padre' =>  1, 'nombre' => 'Packing', 'acronimo' => 'PK'],
+        ['tipologia' => 'PSE', 'acromtip' => 'S', 'padre' =>  0, 'nombre' => 'Piezas', 'acronimo' => 'PI'],
+        ['tipologia' => 'PSE', 'acromtip' => 'S', 'padre' =>  0, 'nombre' => 'Modulos', 'acronimo' => 'MO'],
+        ['tipologia' => 'PSE', 'acromtip' => 'S', 'padre' =>  0, 'nombre' => 'Kits', 'acronimo' => 'KI'],
+        ['tipologia' => 'PTO', 'acromtip' => 'T', 'padre' =>  1, 'nombre' => 'Cocina', 'acronimo' => 'C'],
+        ['tipologia' => 'PTO', 'acromtip' => 'T', 'padre' =>  1, 'nombre' => 'Vestier', 'acronimo' => 'V'],
+        ['tipologia' => 'PTO', 'acromtip' => 'T', 'padre' =>  1, 'nombre' => 'Muebles de Baño', 'acronimo' => 'B'],
+        ['tipologia' => 'PTO', 'acromtip' => 'T', 'padre' =>  1, 'nombre' => 'LifeVesta', 'acronimo' => 'L']
       ]);
 
       foreach ($tipos as $values) {

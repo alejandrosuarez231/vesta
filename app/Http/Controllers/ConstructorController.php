@@ -24,6 +24,7 @@ class ConstructorController extends Controller
 
     public function ensamble(Request $request)
     {
+      dd($request->all());
       if($request->tipo_id == 11 || $request->tipo_id == 12){
         /* Proyecto Vesta */
         $tipologia = Tipo::find($request->tipo_id);

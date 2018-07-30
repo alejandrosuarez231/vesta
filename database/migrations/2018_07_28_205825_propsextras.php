@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTiposTable extends Migration
+class Propsextras extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateTiposTable extends Migration
      */
     public function up()
     {
-        Schema::create('tipos', function (Blueprint $table) {
+        Schema::create('propsextras', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('tipologia',['MTP','PSE','PTO','SER']);
-            $table->string('acromtip',6);
-            $table->boolean('padre')->default(0);
-            $table->string('nombre');
-            $table->string('acronimo',6);
+            $table->integer('tipo_id');
+            $table->integer('subtipo_id');
+            $table->integer('extra_id');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +30,6 @@ class CreateTiposTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipos');
+        Schema::dropIfExists('propsextras');
     }
 }

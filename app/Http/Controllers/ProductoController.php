@@ -46,6 +46,7 @@ class ProductoController extends Controller
         'subtipo_id' => 'required',
         'nombre' => 'required',
         'descripcion' => 'required',
+        'marca_id' => 'required',
         'unidad_id' => 'required',
         'minimo' => 'required|min:1',
         'maximo' => 'required|min:1'
@@ -59,13 +60,16 @@ class ProductoController extends Controller
       $mtp->descripcion = $request->descripcion;
       $mtp->marca_id = $request->marca_id;
       $mtp->unidad_id = $request->unidad_id;
+      if(isset($request->extra_id)){
+        $mtp->extra_id = $request->extra_id;
+      }
       $mtp->minimo = $request->minimo;
       $mtp->maximo = $request->maximo;
       $mtp->save();
       alert()->success('Registro creado','Nuevo Producto Registrado');
       return redirect('frontend/productos');
 
-     }else {
+    }else {
       /* No es Materia Prima */
     }
 
@@ -95,11 +99,15 @@ class ProductoController extends Controller
      */
     public function show($id)
     {
-      $producto = Producto::findOrFail($id);
-      $mtps = Mtp::with('producto:id,nombre')->where('producto_id','=',$id)->get();
-      $materiales = Lista_materiale::with('material:id,nombre','descripcion:id,descripcion','propiedad:id,largo,ancho,espesor,veta,largo_izq,largo_der,ancho_sup,ancho_inf,mec1,mec2')->get();
+      $producto = Producto::with('tipo:id,nombre,tipologia','extra:id,propiedad')->findOrFail($id);
+      if ($producto->tipo->tipologia == 'PTO'){
+        $mtps = Mtp::with('producto:id,nombre')->where('producto_id','=',$id)->get();
+        $materiales = Lista_materiale::with('material:id,nombre','descripcion:id,descripcion','propiedad:id,largo,ancho,espesor,veta,largo_izq,largo_der,ancho_sup,ancho_inf,mec1,mec2')->get();
         // dd($materiales);
-      return view('productos.show', compact('producto','mtps','materiales'));
+        return view('productos.show', compact('producto','mtps','materiales'));
+      }elseif ($producto->tipo->tipologia == 'MTP') {
+        return view('productos/showmtp', compact('producto'));
+      }
     }
 
     /**

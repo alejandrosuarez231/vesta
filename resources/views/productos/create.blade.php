@@ -53,7 +53,7 @@
           {!! Form::select('unidad_id', \App\Unidad::pluck('nombre','id'), null, ['class' => 'form-control','placeholder'=>'Seleccion','v-model'=>'unidad']) !!}
           {!! $errors->first('unidad_id', '<small class="help-block text-danger">:message</small>') !!}
         </div>
-        <div>
+        <div class="form-group mr-2" v-if="tipo == 4 || (tipo == 9 && subtipo == 35 || subtipo == 36)">
           {!! Form::label('color_id', 'Color', ['class'=>'form-control-label']) !!}
           {!! Form::select('color_id', \App\Colore::pluck('nombre','id'), null, ['class'=>'form-control','placeholder'=>'Selección']) !!}
         </div>
@@ -63,25 +63,24 @@
         </div>
       </div>
       <div class="form-row">
-        <div class="form-group mr-2">
+        <div class="form-group mr-2" v-if="tipo == 4">
           {!! Form::label('ancho', 'Ancho', ['class'=>'form-control-label']) !!}
           {!! Form::text('ancho', null, ['class'=>'form-control','placeholder'=>'Ancho']) !!}
         </div>
-        <div class="form-group mr-2">
-          {!! Form::label('alto', 'Alto', ['class'=>'form-control-label']) !!}
-          {!! Form::text('alto', null, ['class'=>'form-control','placeholder'=>'Alto']) !!}
+        <div class="form-group mr-2" v-if="tipo == 4 || tipo == 3 || (tipo == 5 && subtipo == 19) || ( tipo == 7 && subtipo == 23 || subtipo == 26 || subtipo == 29) || (tipo == 9 && subtipo == 35 || subtipo == 36 || subtipo == 37)">
+          {!! Form::label('largo', 'Largo', ['class'=>'form-control-label']) !!}
+          {!! Form::number('largo', null, ['class'=>'form-control','placeholder'=>'Largo']) !!}
         </div>
-        <div class="form-group mr-2">
+        <div class="form-group mr-2" v-if="tipo == 4 || (tipo == 5 && subtipo == 19)">
           {!! Form::label('espesor', 'Espesor', ['class'=>'form-control-label']) !!}
           {!! Form::text('espesor', null, ['class'=>'form-control','placeholder'=>'Espesor']) !!}
         </div>
-        <div class="form-group">
-          {!! Form::label('vExtra', 'Prop. Extra ?', ['class' => 'form-control-label']) !!}
-          {!! Form::checkbox('vExtra', true, false, ['class' => 'form-control','v-model'=>'vExtra']) !!}
-        </div>
-        <div class="form-group mr-2" v-if="vExtra == true">
-          {!! Form::label('extra', 'Prop. Extra', ['class'=>'form-control-label']) !!}
-          {!! Form::select('extra', [], null, ['class'=>'form-control','placeholder'=>'Selección']) !!}
+        <div class="form-group mr-2" v-if="tipo == 1">
+          {!! Form::label('extra_id', 'Prop. Extra', ['class'=>'form-control-label']) !!}
+          <select class="form-control" name="extra_id" v-model="extra">
+            <option value="" selected disabled>Selección</option>
+            <option v-for="propiedad in propiedades" :value="propiedad.extra.id">@{{ propiedad.extra.propiedad }}</option>
+          </select>
         </div>
       </div>
       <div class="form-row">
@@ -124,7 +123,9 @@
       subtipo: '',
       marca: '',
       unidad: '',
-      vExtra: ''
+      vExtra: false,
+      extra: '',
+      propiedades: ''
     },
 
     watch: {
@@ -147,6 +148,7 @@
           this.numeracion = response.data[0].numeracion;
           this.base = response.data[0].skubase;
           this.sku = this.base;
+          this.propsextra();
         })
         .catch(function(error) {
           console.log(error)
@@ -178,6 +180,21 @@
             this.sku = this.basesku + num.pad(6);
           }else {
             this.sku = this.basesku + '000001';
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        })
+      },
+      propsextra: function() {
+        axios.get('/propsextra/' + this.tipo + '/' + this.subtipo)
+        .then( response => {
+          this.propiedades = response.data;
+          if(this.propiedades.length > 0){
+            this.vExtra = true;
+            console.log(this.propiedades);
+          }else {
+            this.vExtra = false;
           }
         })
         .catch(function(error) {

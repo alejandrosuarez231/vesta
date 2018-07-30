@@ -18,7 +18,7 @@ class Subtipo extends Model
    */
   protected $table = 'subtipos';
 
-  protected $fillable = ['subtipo_id','nombre','acronimo'];
+  protected $fillable = ['tipo_id','nombre','acronimo'];
   protected $guarded = ['id'];
   protected $dates = ['created_at','updated_at','deleted_at'];
 
@@ -64,6 +64,17 @@ class Subtipo extends Model
   {
     // hasMany(RelatedModel, foreignKeyOnRelatedModel = subtipo_id, localKey = id)
     return $this->hasMany(Proyecto::class);
+  }
+
+  /**
+   * Subtipo has many Propsextra.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function propsextra()
+  {
+    // hasMany(RelatedModel, foreignKeyOnRelatedModel = subtipo_id, localKey = id)
+    return $this->hasMany(Propsextra::class);
   }
 
 }

@@ -49,9 +49,7 @@
               <td>{{ $element->descripcion }}</td>
               <td>{{ @$element->unidad->nombre }}</td>
               <td>
-                @if ($element->tipo->tipologia == 'PTO')
                   <a class="btn btn-sm btn-info" href="{{ route('productos.show',['id'=>$element->id]) }}" title="">Ver</a>
-                @endif
               </td>
               <td>{{ $element->importado }}</td>
               <td>{{ $element->minimo }}</td>
