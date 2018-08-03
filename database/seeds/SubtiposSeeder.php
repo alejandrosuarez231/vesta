@@ -68,7 +68,8 @@ class SubtiposSeeder extends Seeder
         ['tipo_id' => 17, 'nombre' => 'Muebles de TV', 'acronimo' => 'TV'],
         ['tipo_id' => 17, 'nombre' => 'Mesas de Centro', 'acronimo' => 'MC'],
         ['tipo_id' => 17, 'nombre' => 'Gaveteros', 'acronimo' => 'GA'],
-        ['tipo_id' => 17, 'nombre' => 'Bibliotecas', 'acronimo' => 'BL']
+        ['tipo_id' => 17, 'nombre' => 'Bibliotecas', 'acronimo' => 'BL'],
+        ['tipo_id' => 6, 'nombre' => 'Brazo Mecanico', 'acronimo' => 'BM']
     ]);
 
 foreach ($subtipos as $values) {

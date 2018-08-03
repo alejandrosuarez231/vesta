@@ -16,7 +16,8 @@ class CreateMtpsTable extends Migration
         Schema::create('mtps', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('producto_id');
-            $table->integer('mtp');
+            $table->integer('mtp_tipo_id');
+            $table->integer('mtp_subtipo_id');
             $table->integer('cantidad')->default(1);
             $table->timestamps();
         });

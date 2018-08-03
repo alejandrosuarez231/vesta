@@ -36,7 +36,14 @@ class MarcaController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $this->validate($request, [
+            'nombre' => 'required|unique:marcas',
+            'acronimo' => 'required|unique:marcas,acronimo',
+            'importada' => 'required',
+        ]);
+        Marca::create($request->all());
+        alert()->success('Registro Creado','Nueva Marca');
+        return redirect('/backend/marcas');
     }
 
     /**

@@ -18,8 +18,16 @@ class CreateListaMaterialesTable extends Migration
             $table->string('sku',20)->nullable();
             $table->integer('producto_id');
             $table->integer('material_id');
-            $table->string('nombre');
-            $table->integer('propiedad_id');
+            $table->integer('descripcion_id');
+            $table->string('largo')->nullable();
+            $table->string('ancho')->nullable();
+            $table->string('espesor')->nullable();
+            $table->decimal('largo_izq',10,2);
+            $table->decimal('largo_der',10,2);
+            $table->decimal('ancho_sup',10,2);
+            $table->decimal('ancho_inf',10,2);
+            $table->string('mec1')->nullable();
+            $table->string('mec2')->nullable();
             $table->integer('cantidad');
             $table->timestamps();
             $table->softDeletes();

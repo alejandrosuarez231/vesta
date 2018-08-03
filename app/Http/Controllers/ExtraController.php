@@ -25,7 +25,7 @@ class ExtraController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.extras.create');
     }
 
     /**
@@ -36,7 +36,13 @@ class ExtraController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'propiedad' => 'required|unique:extras'
+        ]);
+
+        Extra::create($request->all());
+        alert()->success('Registro Creado','Nueva Propiedad Extra');
+        return redirect('backend/extras');
     }
 
     /**
@@ -58,7 +64,8 @@ class ExtraController extends Controller
      */
     public function edit($id)
     {
-        //
+        $extra = Extra::findOrFail($id);
+        return view('backend.extras.edit', compact('extra'));
     }
 
     /**
@@ -70,7 +77,12 @@ class ExtraController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $extra = Extra::findOrFail($id);
+        $this->validate($request, [
+            'propiedad' => 'required|unique:extras,propiedad,'.$extra->id,
+        ]);
+        alert()->success('Registro Actualizado','Propiedad Extra actualizada');
+        return redirect('backend/extras');
     }
 
     /**

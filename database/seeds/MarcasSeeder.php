@@ -24,7 +24,13 @@ class MarcasSeeder extends Seeder
         ['nombre' => 'Pelikano', 'acronimo' => 'PE', 'importada' => 0],
         ['nombre' => 'Rehau', 'acronimo' => 'RE', 'importada' => 0],
         ['nombre' => 'Tablemac', 'acronimo' => 'TA', 'importada' => 0],
-        ['nombre' => 'Tableros Hispano', 'acronimo' => 'HI', 'importada' => 0]
+        ['nombre' => 'Tableros Hispano', 'acronimo' => 'HI', 'importada' => 0],
+        ['nombre' => 'Madex', 'acronimo' => 'MA', 'importada' => 0],
+        ['nombre' => 'Raukantex', 'acronimo' => 'RK', 'importada' => 0],
+        ['nombre' => 'Imex', 'acronimo' => 'IX', 'importada' => 0],
+        ['nombre' => 'Imeca', 'acronimo' => 'IC', 'importada' => 0],
+        ['nombre' => 'Gypson', 'acronimo' => 'GY', 'importada' => 0],
+        ['nombre' => 'SinMarca', 'acronimo' => 'SM', 'importada' => 0]
       ]);
       foreach ($marcas as $values) {
         Marca::create($values);

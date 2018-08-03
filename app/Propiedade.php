@@ -48,4 +48,15 @@ class Propiedade extends Model
     // hasMany(RelatedModel, foreignKeyOnRelatedModel = propiedade_id, localKey = id)
     return $this->hasMany(Lista_materiale::class,'propiedad_id');
   }
+
+  /**
+   * Propiedade has many Producto.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function producto()
+  {
+    // hasMany(RelatedModel, foreignKeyOnRelatedModel = propiedade_id, localKey = id)
+    return $this->hasMany(Producto::class,'propiedad_id','producto_id');
+  }
 }

@@ -38,7 +38,7 @@ class ColoreController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nombre' => 'required',
+            'nombre' => 'required|unique:colores,nombre',
         ]);
         Colore::create($request->all());
         alert()->success('Registro Creado','Nuevo Color');

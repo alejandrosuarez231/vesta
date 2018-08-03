@@ -5,6 +5,11 @@
   <div class="row">
     <div class="col-md-8 offset-md-1">
       <h3>Asignar Propiedades Extras</h3>
+      <ul class="nav">
+        <li class="nav-item">
+          <a class="btn btn-link" href="{{ route('extras.create') }}" title="Nuevo">Nueva propiedad extra</a>
+        </li>
+      </ul>
     </div>
   </div>
   <div class="row">
@@ -24,7 +29,7 @@
             <td>{{ $element->id }}</td>
             <td>{{ $element->propiedad }}</td>
             <td>
-              <a class="btn btn-warning" href="#" title="Editar">Editar</a>
+              <a class="btn btn-warning" href="{{ route('extras.edit',['id' => $element->id]) }}" title="Editar">Editar</a>
               <a class="btn btn-primary" href="{{ route('extras.asignar',['id'=>$element->id]) }}" title="Asignar">Asignar</a>
               <a class="btn btn-info" href="{{ route('extras.extras',['id'=>$element->id]) }}" title="Ver">Listado</a>
             </td>

@@ -19,7 +19,8 @@ class Lista_materiale extends Model
    *
    * @var array
    */
-  protected $fillable = ['sku','producto_id','material_id','nombre','propiedad_id','cantidad'];
+  protected $fillable = ['sku', 'producto_id' 'material_id', 'descripcion_id', 'largo', 'ancho', 'espesor', 'largo_izq', 'largo_der', 'ancho_sup', 'ancho_inf', 'mec1', 'mec2', 'cantidad'];
+
   /**
    * Lista_materiale belongs to Producto.
    *

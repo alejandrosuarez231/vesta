@@ -5,6 +5,9 @@
   <div class="row">
     <div class="col-md offset-md-1">
       <h4>Nuevo MTP</h4>
+      <ul class="nav">
+        <li class="nav-item"><a href="{{ URL::previous() }}" title="">Regresar</a></li>
+      </ul>
     </div>
   </div>
 
@@ -14,7 +17,7 @@
       <div class="form-row">
         <div class="form-group mr-2 {{ $errors->has('sku') ? 'has-error' : '' }}">
           {!! Form::label('sku', 'SKU-Base', ['class' => 'form-control-label']) !!}
-          {!! Form::text('sku', null, ['class' => 'form-control text-uppercase','v-model'=>'sku']) !!}
+          {!! Form::text('sku', null, ['class' => 'form-control text-uppercase','v-model'=>'sku','readonly']) !!}
           <small id="emailHelp" class="form-text text-muted">Si conoce la Base SKU suministrela.</small>
           {!! $errors->first('sku', '<small class="help-block text-danger">:message</small>') !!}
         </div>
@@ -37,11 +40,11 @@
         {!! Form::text('nombre', null, ['class' => 'form-control col-md-4','placeholder'=>'Nombre']) !!}
         {!! $errors->first('nombre', '<small class="help-block text-danger">:message</small>') !!}
       </div>
-      <div class="form-group">
+      {{-- <div class="form-group">
         {!! Form::label('descripcion', 'Descripción', ['class' => 'form-control-label']) !!}
         {!! Form::textarea('descripcion', 'S/D', ['class' => 'form-control col-md-4','size'=>'30x3','placeholder'=>'Descripcion']) !!}
         {!! $errors->first('descripcion', '<small class="help-block text-danger">:message</small>') !!}
-      </div>
+      </div> --}}
       <div class="form-row">
         <div class="form-group mr-2">
           {!! Form::label('marca_id', 'Marca', ['class' => 'form-control-label']) !!}
@@ -53,29 +56,79 @@
           {!! Form::select('unidad_id', \App\Unidad::pluck('nombre','id'), null, ['class' => 'form-control','placeholder'=>'Seleccion','v-model'=>'unidad']) !!}
           {!! $errors->first('unidad_id', '<small class="help-block text-danger">:message</small>') !!}
         </div>
-        <div class="form-group mr-2" v-if="tipo == 4 || (tipo == 9 && subtipo == 35 || subtipo == 36)">
-          {!! Form::label('color_id', 'Color', ['class'=>'form-control-label']) !!}
-          {!! Form::select('color_id', \App\Colore::pluck('nombre','id'), null, ['class'=>'form-control','placeholder'=>'Selección']) !!}
-        </div>
         <div class="form-group">
           {!! Form::label('importado', 'Importado', ['class' => 'form-control-label']) !!}
           {!! Form::checkbox('importado', true, false, ['class' => 'form-control']) !!}
         </div>
       </div>
+      <span class="text-secondary font-weight-bold" v-if="tipo !=1">*<small>Definir Propiedades</small></span>
+      <div class="form-row" v-if="tipo !=1">
+        <div class="form-group mr-2">
+          {!! Form::label('setancho', 'Ancho', ['class' => 'form-control-label']) !!}
+          {!! Form::checkbox('setancho', true, false, ['class' => 'form-control','v-model' => 'setancho']) !!}
+        </div>
+        <div class="form-group mr-2">
+          {!! Form::label('setlargo', 'Largo', ['class' => 'form-control-label']) !!}
+          {!! Form::checkbox('setlargo', true, false, ['class' => 'form-control','v-model' => 'setlargo']) !!}
+        </div>
+        <div class="form-group mr-2">
+          {!! Form::label('setespesor', 'Espesor', ['class' => 'form-control-label']) !!}
+          {!! Form::checkbox('setespesor', true, false, ['class' => 'form-control','v-model' => 'setespesor']) !!}
+        </div>
+        <div class="form-group mr-2">
+          {!! Form::label('setcolor', 'Color', ['class' => 'form-control-label']) !!}
+          {!! Form::checkbox('setcolor', true, false, ['class' => 'form-control','v-model' => 'setcolor']) !!}
+        </div>
+      </div>
       <div class="form-row">
-        <div class="form-group mr-2" v-if="tipo == 4">
+        <div class="form-group mr-2" v-if="tipo == 4 || setancho == 1">
           {!! Form::label('ancho', 'Ancho', ['class'=>'form-control-label']) !!}
           {!! Form::text('ancho', null, ['class'=>'form-control','placeholder'=>'Ancho']) !!}
         </div>
-        <div class="form-group mr-2" v-if="tipo == 4 || tipo == 3 || (tipo == 5 && subtipo == 19) || ( tipo == 7 && subtipo == 23 || subtipo == 26 || subtipo == 29) || (tipo == 9 && subtipo == 35 || subtipo == 36 || subtipo == 37)">
+        <div class="form-group mr-2"  v-if="tipo == 3 || tipo == 4 || (tipo == 5 && subtipo == 19) || (tipo == 7 && subtipo == 23) || (tipo == 7 && subtipo == 26) || (tipo == 7 && subtipo == 29) || setlargo == 1">
           {!! Form::label('largo', 'Largo', ['class'=>'form-control-label']) !!}
-          {!! Form::number('largo', null, ['class'=>'form-control','placeholder'=>'Largo']) !!}
+          <input class="form-control" list="largos" name="largos" placeholder="Largo" v-if="tipo == 3 || (tipo == 5 && subtipo == 19) || (tipo == 7 && subtipo == 23) || (tipo == 7 && subtipo == 26) || (tipo == 7 && subtipo == 29) || setlargo == 1">
+          <datalist id="largos">
+            <option value="300">
+            <option value="350">
+            <option value="400">
+            <option value="450">
+            <option value="500">
+            <option value="550">
+            <option value="600">
+            <option value="300">
+            <option value="350">
+            <option value="400">
+            <option value="450">
+            <option value="500">
+            <option value="550">
+            <option value="600">
+            <option value="300">
+            <option value="350">
+            <option value="400">
+            <option value="450">
+            <option value="500">
+            <option value="550">
+            <option value="600">
+            <option value="300">
+            <option value="350">
+            <option value="400">
+            <option value="450">
+            <option value="500">
+            <option value="550">
+            <option value="600">
+          </datalist>
+          {!! Form::number('largo', null, ['class'=>'form-control','placeholder'=>'Largo','v-if'=>'tipo == 4']) !!}
         </div>
-        <div class="form-group mr-2" v-if="tipo == 4 || (tipo == 5 && subtipo == 19)">
+        <div class="form-group mr-2" v-if="tipo == 4 || (tipo == 5 && subtipo == 19) || setespesor == 1">
           {!! Form::label('espesor', 'Espesor', ['class'=>'form-control-label']) !!}
           {!! Form::text('espesor', null, ['class'=>'form-control','placeholder'=>'Espesor']) !!}
         </div>
-        <div class="form-group mr-2" v-if="tipo == 1">
+        <div class="form-group mr-2"  v-if="tipo == 4 || setcolor">
+          {!! Form::label('color_id', 'Color', ['class'=>'form-control-label']) !!}
+          {!! Form::select('color_id', \App\Colore::pluck('nombre','id'), null, ['class'=>'form-control','placeholder'=>'Selección']) !!}
+        </div>
+        <div class="form-group mr-2" v-if="propiedades.length > 0">
           {!! Form::label('extra_id', 'Prop. Extra', ['class'=>'form-control-label']) !!}
           <select class="form-control" name="extra_id" v-model="extra">
             <option value="" selected disabled>Selección</option>
@@ -125,11 +178,48 @@
       unidad: '',
       vExtra: false,
       extra: '',
-      propiedades: ''
+      propiedades: '',
+      setancho: false,
+      setlargo: false,
+      setespesor: false,
+      setcolor: false
     },
 
     watch: {
-
+      tipo: function() {
+        if( this.tipo && this.subtipo){
+          axios.get('/propsextra/' + this.tipo + '/' + this.subtipo)
+          .then( response => {
+            this.propiedades = response.data;
+            if(this.propiedades.length > 0){
+              this.vExtra = true;
+              console.log(this.propiedades);
+            }else {
+              this.vExtra = false;
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          })
+        }
+      },
+      subtipo: function() {
+        if( this.tipo && this.subtipo){
+          axios.get('/propsextra/' + this.tipo + '/' + this.subtipo)
+          .then( response => {
+            this.propiedades = response.data;
+            if(this.propiedades.length > 0){
+              this.vExtra = true;
+              console.log(this.propiedades);
+            }else {
+              this.vExtra = false;
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          })
+        }
+      }
     },
 
     methods: {
@@ -148,7 +238,6 @@
           this.numeracion = response.data[0].numeracion;
           this.base = response.data[0].skubase;
           this.sku = this.base;
-          this.propsextra();
         })
         .catch(function(error) {
           console.log(error)
@@ -180,21 +269,6 @@
             this.sku = this.basesku + num.pad(6);
           }else {
             this.sku = this.basesku + '000001';
-          }
-        })
-        .catch(function(error) {
-          console.log(error);
-        })
-      },
-      propsextra: function() {
-        axios.get('/propsextra/' + this.tipo + '/' + this.subtipo)
-        .then( response => {
-          this.propiedades = response.data;
-          if(this.propiedades.length > 0){
-            this.vExtra = true;
-            console.log(this.propiedades);
-          }else {
-            this.vExtra = false;
           }
         })
         .catch(function(error) {

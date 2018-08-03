@@ -24,8 +24,8 @@ class CreateProductosTable extends Migration
             $table->integer('unidad_id')->nullable();
             $table->string('ancho',20)->nullable();
             $table->string('largo',20)->nullable();
-            $table->string('profundidad',20)->nullable();
-            $table->integer('propiedades')->nullable();
+            $table->string('espesor',20)->nullable();
+            $table->integer('propiedad_id')->nullable();
             $table->integer('extra_id')->nullable();
             $table->integer('color_id')->nullable();
             $table->boolean('importado')->default(0);

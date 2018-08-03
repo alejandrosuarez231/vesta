@@ -20,8 +20,9 @@
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+
 
   <!-- Styles -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -29,6 +30,11 @@
   .bg-company-blue {
     background-color: #203864;
   }
+</style>
+<style scoped>
+[v-cloak]{
+  display:none;
+}
 </style>
 </head>
 <body>
@@ -89,7 +95,7 @@
               <a class="dropdown-item" href="{{ url('backend/materiales') }}" title="Colores">Materiales</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{ url('backend/codigos') }}" title="Codigos">Codigos</a>
-              <a class="dropdown-item" href="#" title="Extras">Props. Extras</a>
+              <a class="dropdown-item" href="{{ route('extras.create') }}" title="Extras">Props. Extras</a>
               <a class="dropdown-item" href="{{ url('backend/extras') }}">Set Props. Extras</a>
               <a class="dropdown-item disabled" href="#">Usuarios</a>
             </div>
@@ -142,7 +148,10 @@
   })
 </script>
 <!-- DataTables -->
-<script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
 @yield('scripts')
 </body>
 </html>

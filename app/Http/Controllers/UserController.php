@@ -17,7 +17,7 @@ class UserController extends Controller
     $users = User::all();
     return Datatables::of($users)
     ->addColumn('action', function ($user) {
-      return '<a href="#edit-'.$user->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+      return '<a href="#edit-'.$user->id.'" class="btn btn-sm btn-primary"> Edit</a>';
     })
     ->editColumn('id','ID: {{ $id }}')
     ->removeColumn('password')

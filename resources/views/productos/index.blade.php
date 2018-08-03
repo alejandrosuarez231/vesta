@@ -16,67 +16,59 @@
     </div>
   </div>
 
-  @if (isset($productos) && $productos->count() > 0)
   <div class="row justify-content-center">
     <div class="col-md">
       <div class="table-responsive">
-        <table class="table table-striped table-bordered">
+        <table id="productos-table" class="table table-striped table-bordered" data-page-length="100">
           <caption>Materia Prima</caption>
           <thead>
             <tr>
-              <th>TP</th>
+              <th>ID</th>
               <th>SKU</th>
-              <th>CategoriaTipo</th>
+              <th>Tipo</th>
               <th>Sub Tipo</th>
               <th>Nombre</th>
-              <th>Descripción</th>
+              {{-- <th>Descripción</th> --}}
               <th>Unidad</th>
               <th>Propiedades</th>
+              <th>Props Extra</th>
               <th>Importado</th>
               <th>Min</th>
               <th>Max</th>
             </tr>
           </thead>
-          <tbody>
-
-            @foreach ($productos as $element)
-            <tr>
-              <td>{{ @$element->tipo->tipologia }}</td>
-              <td>{{ @$element->sku }}</td>
-              <td>{{ @$element->tipo->nombre }}</td>
-              <td>{{ @$element->subtipo->nombre }}</td>
-              <td>{{ $element->nombre }}</td>
-              <td>{{ $element->descripcion }}</td>
-              <td>{{ @$element->unidad->nombre }}</td>
-              <td>
-                  <a class="btn btn-sm btn-info" href="{{ route('productos.show',['id'=>$element->id]) }}" title="">Ver</a>
-              </td>
-              <td>{{ $element->importado }}</td>
-              <td>{{ $element->minimo }}</td>
-              <td>{{ $element->maximo }}</td>
-            </tr>
-            @endforeach
-          </tbody>
         </table>
-        {{ $productos->links() }}
       </div>
     </div>
   </div>
-  @else
-  <div class="row justify-content-center">
-    <div class="col-md-4">
-      <div class="alert alert-primary" role="alert">
-        Sin registros de Productos - Productos!
-      </div>
-    </div>
-  </div>
-  @endif
 
 </div>
 @endsection
 
 @section('scripts')
 <script type="text/javascript">
-
+  $(function () {
+    $('#productos-table').DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: '{!! route('productos.data') !!}',
+      columns: [
+      {data: 'id', name: 'id', title: 'Id'},
+      {data: 'sku', name: 'sku', title: 'SKU'},
+      {data: 'tipo.nombre', name: 'tipo.nombre', title: 'Tipo'},
+      {data: 'subtipo.nombre', name: 'subtipo.nombre', title: 'Sub Tipo'},
+      {data: 'unidad.acronimo', name: 'unidad.acronimo', title: 'Unidad'},
+      {data: 'propiedad_id', name: 'propiedad_id', title: 'Propiedad'},
+      {data: 'extra.propiedad', name: 'extra.propiedad', title: 'Prop. Extra'},
+      {data: 'importado', name: 'importado', title: 'Importado'},
+      {data: 'minimo', name: 'minimo', title: 'min'},
+      {data: 'maximo', name: 'maximo', title: 'max'},
+      {data: 'action', name: 'action', orderable: false, searchable: false}
+      ],
+      "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            }
+    });
+  });
 </script>
 @endsection

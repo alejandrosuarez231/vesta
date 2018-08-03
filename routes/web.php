@@ -46,6 +46,7 @@ Route::resource('/backend/extras', 'ExtraController');
 /* Frontend */
 Route::get('/frontend/constructor/construir','ConstructorController@construir')->name('constructor.construir');
 Route::post('/frontend/constructor','ConstructorController@ensamble')->name('constructor.ensamble');
+Route::get('/productoslist', 'ProductoController@indexData')->name('productos.data');
 Route::resource('/frontend/productos', 'ProductoController');
 Route::resource('/frontend/proyectos', 'ProyectoController');
 Route::resource('/frontend/inventarios', 'InventarioController');
@@ -54,6 +55,11 @@ Route::resource('/cotizaciones','CotizacioneController');
 
 
 /* VUE ROUTE's */
+
+/* Obtener datos del producto */
+Route::get('/ProductoData/{id}', function($id) {
+  return \App\Producto::findOrFail($id);
+});
 Route::get('/subtipos/{tipo}', function($tipo) {
   return \App\Subtipo::where('tipo_id','=',$tipo)->pluck('nombre','id');
 });

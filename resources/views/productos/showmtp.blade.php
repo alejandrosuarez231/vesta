@@ -22,7 +22,7 @@
           <p class="card-text">
             Largo: <span class="text-uppercase">{{ $producto->largo }}</span><br>
             Ancho: <span class="text-uppercase">{{ $producto->ancho }}</span><br>
-            Profundidad: <span class="text-uppercase">{{ $producto->profundidad }}</span>
+            espesor: <span class="text-uppercase">{{ $producto->espesor }}</span>
           </p>
         </div>
       </div>
@@ -64,7 +64,7 @@
           <table class="table">
             <tbody>
               <tr>
-                <td class="lead font-weight-bold">{{ $producto->extra->propiedad }}</td>
+                <td class="lead font-weight-bold">{{ @$producto->extra->propiedad }}</td>
               </tr>
             </tbody>
           </table>

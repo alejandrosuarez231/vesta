@@ -5,6 +5,9 @@
   <div class="row">
     <div class="col-md-8 offset-md-1">
       <h3>Asignar Propiedades Extras</h3>
+      <ul class="nav">
+        <li class="nav-item"><a class="btn btn-link" href="{{ URL::previous() }}" title="Regresar">Regresar</a></li>
+      </ul>
       {!! Form::open(['route' => 'extras.setting', 'method' => 'POST','ref'=>'form']) !!}
       <div class="form-group">
         {!! Form::label('extra_id', 'Prop Extra', ['class' => 'form-control-label']) !!}

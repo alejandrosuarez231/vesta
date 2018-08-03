@@ -19,7 +19,7 @@ class Mtp extends Model
    *
    * @var array
    */
-  protected $fillable = ['producto_id','mtp','cantidad'];
+  protected $fillable = ['producto_id','mtp_tipo_id','mtp_subtipo_id','cantidad'];
 
   /**
    * Mtp belongs to Producto.

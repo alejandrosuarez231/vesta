@@ -28,8 +28,8 @@ class Producto extends Model
     'unidad_id',
     'ancho',
     'largo',
-    'profundidad',
-    'propiedades',
+    'espesor',
+    'propiedad_id',
     'color_id',
     'extra_id',
     'importado',
@@ -142,6 +142,17 @@ class Producto extends Model
   {
     // hasMany(RelatedModel, foreignKeyOnRelatedModel = producto_id, localKey = id)
     return $this->hasMany(Lista_materiale::class);
+  }
+
+  /**
+   * Producto belongs to Propiedad.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+   */
+  public function propiedad()
+  {
+    // belongsTo(RelatedModel, foreignKey = propiedad_id, keyOnRelatedModel = id)
+    return $this->belongsTo(Propiedad::class,'propiedad_id','producto_id');
   }
 
   /**

@@ -28,10 +28,15 @@
       processing: true,
       serverSide: true,
       ajax: '{!! route('users.data') !!}',
+      "columnDefs": [ {
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<button>Click!</button>"
+        } ],
       columns: [
       {data: 'id', name: 'id'},
-      {data: 'name', name: 'NOmbre'},
-      {data: 'email', name: 'Email'},
+      {data: 'name', name: 'nombre'},
+      {data: 'email', name: 'email'},
       {data: 'created_at', name: 'Creado'},
       {data: 'updated_at', name: 'Actualizado'},
       {data: 'action', name: 'action', orderable: false, searchable: false}

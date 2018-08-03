@@ -30,7 +30,13 @@ class ColoresSeeder extends Seeder
         ['nombre' => 'Negro'],
         ['nombre' => 'Roble'],
         ['nombre' => 'Rovere mate'],
-        ['nombre' => 'Tabaco']
+        ['nombre' => 'Tabaco'],
+        ['nombre' => 'Plata'],
+        ['nombre' => 'Crema'],
+        ['nombre' => 'Chocolate'],
+        ['nombre' => 'Metal Brushed'],
+        ['nombre' => 'Aluminio'],
+        ['nombre' => 'Cromo']
       ]);
 
     }

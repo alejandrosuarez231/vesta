@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-4 offset-md-1">
+    <div class="col-md-8 offset-md-1">
       <h3>Marcas</h3>
       <ul class="nav">
         <li class="nav-item">
@@ -15,10 +15,17 @@
         <div class="form-group mr-2">
           {!! Form::label('nombre', 'Nombre', ['class' => 'form-control-label']) !!}
           {!! Form::text('nombre', null, ['class' => 'form-control','placeholder' => 'Nombre de la Marca']) !!}
+          {!! $errors->first('nombre', '<small class="help-block text-danger">:message</small>') !!}
+        </div>
+        <div class="form-group mr-2">
+          {!! Form::label('acronimo', 'Acronimo', ['class' => 'form-control-label']) !!}
+          {!! Form::text('acronimo', null, ['class' => 'form-control','placeholder' => 'Acronimo de la Marca']) !!}
+          {!! $errors->first('acronimo', '<small class="help-block text-danger">:message</small>') !!}
         </div>
         <div class="form-group">
           {!! Form::label('importada', 'Importada', ['class' => 'form-control-label']) !!}
           {!! Form::select('importada', [0=>'No',1=>'Si'], null, ['class' => 'form-control', 'placeholder' => 'Selección']) !!}
+          {!! $errors->first('importada', '<small class="help-block text-danger">:message</small>') !!}
         </div>
       </div>
       <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Registrar</button>
