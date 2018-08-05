@@ -1,40 +1,40 @@
 @extends('layouts.app')
 
 @section('content')
-<div id="app" class="container-fluid" v-cloak>
+<div id="app" class="container-fluid">
   <div class="row">
     <div class="col-md">
-      <h3>Constructor</h3>
+      <h3>Constructor <span class="font-weight-bold text-warning">Edición</span></h3>
       <ul class="nav">
         <li class="nav-item">
-          <a href="{{ url('/home') }}" class="btn btn-link" title="Inicio">Regresar</a>
+          <a href="{{ url('/frontend/proyectos') }}" class="btn btn-link" title="Inicio">Regresar</a>
         </li>
       </ul>
     </div>
   </div>
-  {!! Form::open(['route' => 'constructor.ensamble', 'method' => 'POST']) !!}
+  {!! Form::model($proyecto, ['route' => ['constructor.update', $proyecto->id],'method'=>'PATCH']) !!}
   <div class="row">
     <div class="col-md"><!-- Data Seleccion -->
       <div class="form-row">
         <div class="form-group mr-2">
-          {!! Form::select('tipo_id', \App\Tipo::where('tipologia','=','PTO')->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'TIPO', 'v-model' => 'tipo']) !!}
+          {!! Form::select('tipo_id', \App\Tipo::where('tipologia','=','PTO')->pluck('nombre','id'), null, ['disabled','class' => 'form-control form-control-sm','placeholder' => 'TIPO', 'v-model' => 'tipo']) !!}
         </div>
         <div class="form-group mr-2" v-if="tipo > 10 && tipo < 15">
-          <select class="form-control form-control-sm" name="subtipo_id" v-model="subtipo" @change="getSkuBase">
+          <select disabled class="form-control form-control-sm" name="subtipo_id" v-model="subtipo" @change="getSkuBase">
             <option value="" disabled>Selección</option>
             <option v-for="(item, index) in subtipos" :value="index">@{{ item }}</option>
           </select>
         </div>
         <div class="form-group">
-          {!! Form::text('sku', 'SKU', ['class' => 'form-control form-control-sm','placeholder'=>'SKU','v-model'=>'ptosku']) !!}
+          {!! Form::text('sku', 'SKU', ['disabled','class' => 'form-control form-control-sm','placeholder'=>'SKU','v-model'=>'ptosku']) !!}
         </div>
       </div>
       <!-- Nombre y Descripcion  -->
       <div class="form-group">
-        {!! Form::text('nombre', null, ['class'=>'form-control form-control-sm col-md-6','placeholder'=>'Nombre']) !!}
+        {!! Form::text('nombre', null, ['class'=>'form-control form-control-sm col-md-6','placeholder'=>'Nombre','v-model' => 'nombre']) !!}
       </div>
       <div class="form-group">
-        {!! Form::textarea('descripcion', null, ['class'=>'form-control form-control-sm col-md-6','size'=>'30x3','placeholder'=>'Descripción']) !!}
+        {!! Form::textarea('descripcion', null, ['class'=>'form-control form-control-sm col-md-6','size'=>'30x3','placeholder'=>'Descripción', 'v-model' => 'descripcion']) !!}
       </div>
       <!-- Propiedades PSE -->
 
@@ -42,13 +42,13 @@
       <div v-if="tipo > 10">
         <div class="form-row">
           <div class="form-group mr-1">
-            {!! Form::text('ptolargo', null, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Largo']) !!}
+            {!! Form::text('ptolargo', null, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Largo', 'v-model' => 'largo']) !!}
           </div>
           <div class="form-group mr-1">
-            {!! Form::text('ptoancho', null, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Ancho']) !!}
+            {!! Form::text('ptoancho', null, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Ancho', 'v-model' => 'ancho']) !!}
           </div>
           <div class="form-group mr-1">
-            {!! Form::text('ptoprofundidad', null, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Profundidad']) !!}
+            {!! Form::text('ptoprofundidad', null, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Profundidad', 'v-model' => 'profundidad']) !!}
           </div>
           {{-- <div class="form-group mr-1">
             {!! Form::select('ptocolor_id', \App\Colore::pluck('nombre','id'), null, ['class'=>'form-control form-control-sm','placeholder'=>'Color']) !!}
@@ -78,9 +78,9 @@
                 </td>
                 <td>
                   <select class="form-control form-control-sm" name="mtp_subtipo_id[]" v-model="mtp.subtipo">
-                  <option value="" selected disabled>Subtipo</option>
-                  <option v-for="(subtipo, indice) in mtpsList[$index]" :value="indice">@{{ subtipo }}</option>
-                </select>
+                    <option value="" selected disabled>Subtipo</option>
+                    <option v-for="(subtipo, indice) in mtpsList[$index]" :value="indice">@{{ subtipo }}</option>
+                  </select>
                 </td>
                 <td width="30%">
                   {!! Form::number('mtp_cantidad[]', null, ['class'=>'form-control form-control-sm text-right','placeholder'=>'Cantidad','min' => 1, 'v-model'=>'mtp.cantidad']) !!}
@@ -125,7 +125,7 @@
                 {!! Form::select('material_id[]', \App\Materiale::pluck('nombre','id'), null, ['class'=>'form-control form-control-sm','title'=>'Material', 'placeholder' =>'Sel','v-model'=>'material.material_id','@change' => 'filterMaterial(materiales[$indice].material_id,$indice)']) !!}
               </td>
               <td>
-                <select name="psedescripcion[]" class="form-control form-control-sm" v-model="material.descripcion" @change="setFormulas(materiales[$indice].descripcion,$indice)">
+                <select name="psedescripcion[]" class="form-control form-control-sm" v-model="material.descripcion_id" @change="setFormulas(materiales[$indice].descripcion,$indice)">
                   <option value="" selected disabled>Selección</option>
                   <option v-for="(descripcion, index) in descripciones[$indice]" :value="index">@{{ descripcion.descripcion }}</option>
                 </select>
@@ -169,7 +169,7 @@
               </td>
               <td>{!! Form::text('psemec1[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Mec1','v-model'=>'material.mec1']) !!}</td>
               <td>{!! Form::text('psemec2[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Mec2','v-model'=>'material.mec2']) !!}</td>
-              <td>{!! Form::number('psecantidad[]', null, ['class' => 'form-control form-control-sm text-right', 'min' => 1, 'title' =>'Cant', 'v-model' => 'material.cant']) !!}</td>
+              <td>{!! Form::number('psecantidad[]', null, ['class' => 'form-control form-control-sm text-right', 'min' => 1, 'title' =>'Cant', 'v-model' => 'material.cantidad']) !!}</td>
               <td>
                 <a class="btn btn-link text-danger" href="#" title="Eliminar" @click="removeRowMAT($indice)" v-if="materiales.length > 1"><i class="fas fa-minus"></i></a>
               </td>
@@ -180,7 +180,7 @@
     </div>
   </div>
   <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Registrar</button>
-  <a class="btn btn-warning text-danger" href="{{ url('/home') }}" title="Cancelar"><i class="fas fa-ban"></i> Cancelar</a>
+  <a class="btn btn-warning text-danger" href="{{ url('/frontend/proyectos') }}" title="Cancelar"><i class="fas fa-ban"></i> Cancelar</a>
   {!! Form::close() !!}
 </div>
 @endsection
@@ -191,14 +191,23 @@
     el: '#app',
 
     created(){
-      axios.get('/materiales').then( response => { this.materialMatriz = response.data }).catch(function(error) { console.log(error) })
+      axios.get('/materiales').then( response => { this.materialMatriz = response.data }).catch(function(error) { console.log(error) });
+      axios.get('/subtipos/' + this.tipo).then( response => { this.subtipos = response.data }).catch(function(error) { console.log(error) });
+      axios.get('/getMtps/' + '{{ $proyecto->id }}').then( response => { this.mtps = response.data }).catch(function(error){ console.log(error)});
+      axios.get('/getMateriales/' + {{ $proyecto->id }}).then( response => { this.materiales = response.data }).catch(function(error){ console.log(error)});
     },
 
     data: {
-      ptosku: '',
-      tipo: '',
+      producto: '{{ $proyecto->id }}',
+      ptosku: '{{ $proyecto->sku }}',
+      tipo: '{{ $proyecto->tipo_id }}',
       subtipos: '',
-      subtipo: '',
+      subtipo: '{{ $proyecto->subtipo_id }}',
+      nombre: '{{ $proyecto->nombre }}',
+      descripcion: '{{ $proyecto->descripcion }}',
+      largo: '{{ $proyecto->largo }}',
+      ancho: '{{ $proyecto->ancho }}',
+      profundidad: '{{ $proyecto->profundidad }}',
       base: '',
       basesku: '',
       numeracion: '',
@@ -206,7 +215,7 @@
       mtps: [{ tipo: '', subtipo: '', cantidad: '' }],
       materialMatriz: '',
       descripciones: [],
-      materiales: [{ material_id: '', descripcion: '', largo: '', ancho: '', espesor: '', largo_izq: '', largo_der: '', ancho_sup: '', ancho_inf: '', veta: '', mec1: '', mec2: '', cant: '' }]
+      materiales: [{ material_id: '', descripcion: '', largo: '', ancho: '', espesor: '', largo_izq: '', largo_der: '', ancho_sup: '', ancho_inf: '', veta: '', mec1: '', mec2: '', cantidad: '' }]
     },
 
     watch: {
@@ -216,6 +225,21 @@
           .then( response => {
             this.subtipos = response.data;
           })
+        }
+      },
+      mtps: function(){
+        if(this.mtps.length > 0){
+          for (var i = 0; i <= this.mtps.length - 1; i++) {
+            this.getSubtipo(i, this.mtps[i].tipo);
+          }
+        }
+      },
+      materiales: function(){
+        if(this.materiales.length > 0){
+          for (var i = 0; i <= this.materiales.length - 1; i++) {
+            this.filterMaterial(this.materiales[i].material_id, i);
+            console.log(i);
+          }
         }
       }
     },
@@ -304,12 +328,13 @@
         this.materiales[indice].espesor = this.descripciones[indice][index].espesor;
       },
       getSubtipo: function(index,tipo){
-        console.log(index);
-        console.log(tipo);
         axios.get('/mtpsubtipos/' + tipo)
         .then( response => {
           this.mtpsList.splice(index, 1, response.data);
         })
+        .catch(function(error) {
+          console.log(error)
+        });
       }
     },
 

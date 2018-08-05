@@ -30,6 +30,9 @@
               <th>Nombre</th>
               {{-- <th>Descripción</th> --}}
               <th>Unidad</th>
+              <th>Ancho</th>
+              <th>Largo</th>
+              <th>Espesor</th>
               <th>Propiedades</th>
               <th>Props Extra</th>
               <th>Importado</th>
@@ -58,6 +61,9 @@
       {data: 'tipo.nombre', name: 'tipo.nombre', title: 'Tipo'},
       {data: 'subtipo.nombre', name: 'subtipo.nombre', title: 'Sub Tipo'},
       {data: 'unidad.acronimo', name: 'unidad.acronimo', title: 'Unidad'},
+      {data: 'ancho', name: 'ancho', title: 'Ancho'},
+      {data: 'largo', name: 'largo', title: 'Largo'},
+      {data: 'espesor', name: 'espesor', title: 'Espesor'},
       {data: 'propiedad_id', name: 'propiedad_id', title: 'Propiedad'},
       {data: 'extra.propiedad', name: 'extra.propiedad', title: 'Prop. Extra'},
       {data: 'importado', name: 'importado', title: 'Importado'},
@@ -66,8 +72,8 @@
       {data: 'action', name: 'action', orderable: false, searchable: false}
       ],
       "language": {
-                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
-            }
+        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+      }
     });
   });
 </script>

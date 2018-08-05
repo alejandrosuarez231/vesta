@@ -35,23 +35,24 @@ class Proyecto extends Model
   protected $dates = ['created_at','updated_at','deleted_at'];
 
   /**
-   * Mtp belongs to Categoria.
+   * Proyecto belongs to Tipo.
    *
    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
    */
   public function tipo()
   {
-    // belongsTo(RelatedModel, foreignKey = categoria_id, keyOnRelatedModel = id)
+    // belongsTo(RelatedModel, foreignKey = tipo_id, keyOnRelatedModel = id)
     return $this->belongsTo(Tipo::class);
   }
+
   /**
-   * Mtp belongs to Subcategoria.
+   * Proyecto belongs to Subtipo.
    *
    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
    */
   public function subtipo()
   {
-    // belongsTo(RelatedModel, foreignKey = subcategoria_id, keyOnRelatedModel = id)
+    // belongsTo(RelatedModel, foreignKey = subtipo_id, keyOnRelatedModel = id)
     return $this->belongsTo(Subtipo::class);
   }
   /**

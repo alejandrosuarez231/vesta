@@ -46,6 +46,8 @@ Route::resource('/backend/extras', 'ExtraController');
 /* Frontend */
 Route::get('/frontend/constructor/construir','ConstructorController@construir')->name('constructor.construir');
 Route::post('/frontend/constructor','ConstructorController@ensamble')->name('constructor.ensamble');
+Route::get('/frontend/constructor/{id}/edit','ConstructorController@edit')->name('constructor.edit');
+Route::patch('/frontend/constructor/{id}','ConstructorController@update')->name('constructor.update');
 Route::get('/productoslist', 'ProductoController@indexData')->name('productos.data');
 Route::resource('/frontend/productos', 'ProductoController');
 Route::resource('/frontend/proyectos', 'ProyectoController');
@@ -111,4 +113,37 @@ Route::get('/descripciones', function() {
 /* set propiedades extras */
 Route::get('/propsextra/{tipo}/{subtipo}', function($tipo, $subtipo) {
   return \App\Propsextra::with('extra:id,propiedad')->where('tipo_id',$tipo)->where('subtipo_id',$subtipo)->get();
+});
+
+/* Edit constructor */
+Route::get('/getMtps/{producto}', function($producto) {
+  $mtps = \App\Mtp::where('producto_id','=',$producto)->select('id','mtp_tipo_id','mtp_subtipo_id','cantidad')->get();
+  $listMtps = collect();
+  foreach ($mtps as $key => $value) {
+    $listMtps->push(['tipo' => $value->mtp_tipo_id, 'subtipo' => $value->mtp_subtipo_id, 'cantidad' => $value->cantidad]);
+  }
+  return $listMtps;
+});
+Route::get('/getMateriales/{producto}', function($producto) {
+  $materiales = \App\Lista_materiale::where('producto_id',$producto)
+  ->select('material_id','descripcion_id','largo','ancho','espesor','largo_izq','largo_der','ancho_sup','ancho_inf','mec1','mec2','cantidad')
+  ->get();
+  $listMateriales = collect();
+  foreach ($materiales as $key => $value) {
+    $listMateriales->push([
+      'material_id' => $value->material->id,
+      'descripcion_id' => $value->descripcion_id,
+      'largo' => $value->largo,
+      'ancho' => $value->ancho,
+      'espesor' => $value->espesor,
+      'largo_izq' => $value->largo_izq,
+      'largo_der' => $value->largo_der,
+      'ancho_sup' => $value->ancho_sup,
+      'ancho_inf' => $value->ancho_inf,
+      'mec1' => $value->mec1,
+      'mec2' => $value->mec2,
+      'cantidad' => $value->cantidad
+    ]);
+  }
+  return $listMateriales;
 });

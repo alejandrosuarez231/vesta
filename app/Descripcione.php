@@ -29,7 +29,7 @@ class Descripcione extends Model
   public function lista_materiales()
   {
     // hasMany(RelatedModel, foreignKeyOnRelatedModel = descripcione_id, localKey = id)
-    return $this->hasMany(Lista_materiale::class,'nombre','id');
+    return $this->hasMany(Lista_materiale::class,'descripcion_id');
   }
 
 }

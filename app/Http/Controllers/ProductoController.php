@@ -23,8 +23,23 @@ class ProductoController extends Controller
     }
 
     public function indexData(){
-      $productos = Producto::with('tipo:id,nombre,tipologia','subtipo:id,nombre','unidad:id,nombre,acronimo','propiedad:id' ,'extra:id,propiedad')->get();
+      $productos = Producto::with('tipo:id,nombre,tipologia','subtipo:id,nombre','unidad:id,nombre,acronimo','extra:id,propiedad')->get();
+      // dd($productos->first());
       return Datatables::of($productos)
+      ->editColumn('extra.propiedad', function(Producto $producto){
+        if($producto->extra){
+          return $producto->extra->propiedad;
+        }else {
+          return '-';
+        }
+      })
+      ->editColumn('importado', function(Producto $producto){
+        if($producto->importado == 0){
+          return 'No';
+        }else {
+          return 'Si';
+        }
+      })
       ->addColumn('action', function ($producto) {
         return '<a href="productos/'.$producto->id.'/edit " class="btn btn-sm btn-primary"> Edit</a>';
       })

@@ -24,7 +24,7 @@ class CreateProyectosTable extends Migration
             $table->integer('unidad_id')->nullable();
             $table->string('largo',20)->nullable();
             $table->string('ancho',20)->nullable();
-            $table->string('profundidad',20)->nullable();
+            $table->string('espesor',20)->nullable();
             $table->integer('color_id')->nullable();
             $table->boolean('importado');
             $table->integer('minimo')->default(0);

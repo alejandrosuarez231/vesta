@@ -20,6 +20,7 @@ class CreateMtpsTable extends Migration
             $table->integer('mtp_subtipo_id');
             $table->integer('cantidad')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

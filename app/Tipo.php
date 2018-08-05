@@ -85,4 +85,15 @@ class Tipo extends Model
     // hasMany(RelatedModel, foreignKeyOnRelatedModel = tipo_id, localKey = id)
     return $this->hasMany(Propsextra::class);
   }
+
+  /**
+   * Tipo has many Mtp.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function mtp()
+  {
+    // hasMany(RelatedModel, foreignKeyOnRelatedModel = tipo_id, localKey = id)
+    return $this->hasMany(Mtp::class,'mtp_tipo_id');
+  }
 }

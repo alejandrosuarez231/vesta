@@ -21,20 +21,17 @@
     <div class="col-md">
       <div class="table-responsive">
         <table class="table table-striped table-bordered">
-          <caption>Materia Prima</caption>
+          <caption>Listado de Proyectos</caption>
           <thead>
             <tr>
               <th>TP</th>
               <th>SKU</th>
-              <th>CategoriaTipo</th>
+              <th>Tipo</th>
               <th>Sub Tipo</th>
               <th>Nombre</th>
               <th>Descripción</th>
               <th>Unidad</th>
-              <th>Propiedades</th>
-              <th>Importado</th>
-              <th>Min</th>
-              <th>Max</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -48,13 +45,9 @@
               <td>{{ $element->descripcion }}</td>
               <td>{{ @$element->unidad->nombre }}</td>
               <td>
-                @if ($element->tipo->tipologia == 'PTO')
-                  <a class="btn btn-sm btn-info" href="{{ route('proyectos.show',['id'=>$element->id]) }}" title="">Ver</a>
-                @endif
+                <a class="btn btn-sm btn-info" href="{{ route('proyectos.show',['id'=>$element->id]) }}" title="">Ver</a>
+                <a class="btn btn-sm btn-warning" href="{{ route('constructor.edit',['id'=>$element->id]) }}" title="Editar">Editar</a>
               </td>
-              <td>{{ $element->importado }}</td>
-              <td>{{ $element->min }}</td>
-              <td>{{ $element->max }}</td>
             </tr>
             @endforeach
           </tbody>

@@ -77,4 +77,15 @@ class Subtipo extends Model
     return $this->hasMany(Propsextra::class);
   }
 
+  /**
+   * Subtipo has many Mtp.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function mtp()
+  {
+    // hasMany(RelatedModel, foreignKeyOnRelatedModel = subtipo_id, localKey = id)
+    return $this->hasMany(Mtp::class,'mtp_subtipo_id');
+  }
+
 }
