@@ -4,7 +4,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md offset-md-1">
-      <h3>Proyecto</h3>
+      <h3>Proyecto <span class="font-weight-bold text-info">{{ $proyecto->nombre }}</span></h3>
       <ul class="nav">
         <li class="nav-item">
           <a href="{{ url()->previous() }}" class="btn btn-link">Regresar</a>
@@ -53,6 +53,15 @@
               @endforeach
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card" style="width: 30rem;">
+        <div class="card-body">
+          <h5 class="card-title">Editar Complemento</h5>
+          <h6 class="card-subtitle text-muted">Subtitulo</h6>
+          cuerpo
         </div>
       </div>
     </div>

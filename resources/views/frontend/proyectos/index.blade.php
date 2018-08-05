@@ -10,7 +10,7 @@
           <a href="{{ url('/home') }}" class="btn btn-link" title="Inicio">Regresar</a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">Nuevo</a>
+          <a href="{{ url("/frontend/constructor/construir") }}" class="nav-link">Nuevo</a>
         </li>
       </ul>
     </div>

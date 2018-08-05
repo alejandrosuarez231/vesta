@@ -86,7 +86,7 @@ class ConstructorController extends Controller
     $producto->maximo = $request->maximo;
     // $producto->save();
 
-    dd($id,$request->all(),$producto);
+    // dd($id,$request->all(),$producto);
     /* Materia Prima */
     $mtps = Mtp::where('producto_id',$id)->get();
     if($mtps->count() == count($request->mtp_tipo_id)){
@@ -104,7 +104,7 @@ class ConstructorController extends Controller
           'producto_id' => $id,
           'mtp_tipo_id' => $request->mtp_tipo_id[$i],
           'mtp_subtipo_id' => $request->mtp_subtipo_id[$i],
-          'cantidad' =< $request->mtp_cantidad[$i]
+          'cantidad' => $request->mtp_cantidad[$i]
         ]);
       }
 
