@@ -28,7 +28,6 @@
               <th>Tipo</th>
               <th>Sub Tipo</th>
               <th>Nombre</th>
-              {{-- <th>Descripción</th> --}}
               <th>Unidad</th>
               <th>Ancho</th>
               <th>Largo</th>

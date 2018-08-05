@@ -22,10 +22,10 @@ class CreateListaMaterialesTable extends Migration
             $table->string('largo')->nullable();
             $table->string('ancho')->nullable();
             $table->string('espesor')->nullable();
-            $table->decimal('largo_izq',10,2);
-            $table->decimal('largo_der',10,2);
-            $table->decimal('ancho_sup',10,2);
-            $table->decimal('ancho_inf',10,2);
+            $table->decimal('largo_izq',10,2)->nullable();
+            $table->decimal('largo_der',10,2)->nullable();
+            $table->decimal('ancho_sup',10,2)->nullable();
+            $table->decimal('ancho_inf',10,2)->nullable();
             $table->string('mec1')->nullable();
             $table->string('mec2')->nullable();
             $table->integer('cantidad');

@@ -99,17 +99,19 @@ class ConstructorController extends Controller
       }
     }else if($mtps->count() < count($request->mtp_tipo_id)){
       /* Agrego Mtps*/
-      for ($i=0; $i <= count($request->mtp_tipo_id) -1 ; $i++) {
-        Mtp::updateOrCreate([
-          'producto_id' => $id,
-          'mtp_tipo_id' => $request->mtp_tipo_id[$i],
-          'mtp_subtipo_id' => $request->mtp_subtipo_id[$i],
-          'cantidad' => $request->mtp_cantidad[$i]
-        ]);
-      }
+      dd('agrego');
+      // for ($i=0; $i <= count($request->mtp_tipo_id) -1 ; $i++) {
+      //   Mtp::updateOrCreate([
+      //     'producto_id' => $id,
+      //     'mtp_tipo_id' => $request->mtp_tipo_id[$i],
+      //     'mtp_subtipo_id' => $request->mtp_subtipo_id[$i],
+      //     'cantidad' => $request->mtp_cantidad[$i]
+      //   ]);
+      // }
 
     }else if($mtps->count() > count($request->mtp_tipo_id)){
       /* Eliminio Mtps */
+      dd('elimino');
     }
 
     // for ($i=0; $i <= count($request->mtp_tipo_id) -1 ; $i++) {
