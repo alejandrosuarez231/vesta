@@ -18,6 +18,8 @@ Route::get('dashboard', function () {
     return view('dashboard');
 });
 
+Route::get('/zohoClientIndex', 'ZohoController@clientIndex')->name('zoho.clientindex');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
