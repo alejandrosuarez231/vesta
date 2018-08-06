@@ -61,25 +61,6 @@
           {!! Form::checkbox('importado', true, false, ['class' => 'form-control']) !!}
         </div>
       </div>
-      <span class="text-secondary font-weight-bold" v-if="tipo !=1">*<small>Definir Propiedades</small></span>
-      <div class="form-row" v-if="tipo !=1">
-        <div class="form-group mr-2">
-          {!! Form::label('setancho', 'Ancho', ['class' => 'form-control-label']) !!}
-          {!! Form::checkbox('setancho', true, false, ['class' => 'form-control','v-model' => 'setancho']) !!}
-        </div>
-        <div class="form-group mr-2">
-          {!! Form::label('setlargo', 'Largo', ['class' => 'form-control-label']) !!}
-          {!! Form::checkbox('setlargo', true, false, ['class' => 'form-control','v-model' => 'setlargo']) !!}
-        </div>
-        <div class="form-group mr-2">
-          {!! Form::label('setespesor', 'Espesor', ['class' => 'form-control-label']) !!}
-          {!! Form::checkbox('setespesor', true, false, ['class' => 'form-control','v-model' => 'setespesor']) !!}
-        </div>
-        <div class="form-group mr-2">
-          {!! Form::label('setcolor', 'Color', ['class' => 'form-control-label']) !!}
-          {!! Form::checkbox('setcolor', true, false, ['class' => 'form-control','v-model' => 'setcolor']) !!}
-        </div>
-      </div>
       <div class="form-row">
         <div class="form-group mr-2" v-if="tipo == 4 || setancho == 1">
           {!! Form::label('ancho', 'Ancho', ['class'=>'form-control-label']) !!}
@@ -179,10 +160,10 @@
       vExtra: false,
       extra: '',
       propiedades: '',
-      setancho: false,
-      setlargo: false,
-      setespesor: false,
-      setcolor: false
+      // setancho: false,
+      // setlargo: false,
+      // setespesor: false,
+      // setcolor: false
     },
 
     watch: {

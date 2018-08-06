@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Descripcione;
 use Illuminate\Http\Request;
+use Alert;
 
 class DescripcioneController extends Controller
 {
@@ -25,7 +26,7 @@ class DescripcioneController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend/materiales/descripciones/create');
     }
 
     /**
@@ -36,7 +37,14 @@ class DescripcioneController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'materiale_id' => 'required',
+            'descripcion' => 'required'
+        ]);
+
+        Descripcione::create($request->all());
+        alert()->success('Registro creado','Nuevo Descripcion Registrada');
+        return redirect('backend/materiales');
     }
 
     /**

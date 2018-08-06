@@ -19,7 +19,7 @@ class Descripcione extends Model
    *
    * @var array
    */
-  protected $fillable = ['descripcion'];
+  protected $fillable = ['materiale_id','descripcion','flargo','fancho','espesor'];
 
   /**
    * Descripcione has many Lista.
@@ -32,4 +32,14 @@ class Descripcione extends Model
     return $this->hasMany(Lista_materiale::class,'descripcion_id');
   }
 
+  /**
+   * Descripcione belongs to Materiale.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+   */
+  public function materiale()
+  {
+    // belongsTo(RelatedModel, foreignKey = materiale_id, keyOnRelatedModel = id)
+    return $this->belongsTo(Materiale::class);
+  }
 }

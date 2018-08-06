@@ -14,6 +14,9 @@
 Route::get('/', function () {
   return view('welcome');
 });
+Route::get('dashboard', function () {
+    return view('dashboard');
+});
 
 Auth::routes();
 
@@ -37,6 +40,7 @@ Route::get('/truncateCodigos', function(){
 Route::resource('/backend/marcas', 'MarcaController');
 Route::resource('/backend/proveedores', 'ProveedoreController');
 Route::resource('/backend/materiales','MaterialeController');
+Route::resource('/backend/materiales/descripciones', 'DescripcioneController');
 Route::get('/backend/extras/asignar/{id}', 'PropsextraController@create')->name('extras.asignar');
 Route::get('/backend/extras/extras/{id}', 'PropsextraController@index')->name('extras.extras');
 Route::post('/setextras', 'PropsextraController@store')->name('extras.setting');

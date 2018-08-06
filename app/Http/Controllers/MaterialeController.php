@@ -16,8 +16,8 @@ class MaterialeController extends Controller
      */
     public function index()
     {
-        $materiales = Materiale::paginate();
-        $descripciones = Descripcione::paginate();
+        $materiales = Materiale::all();
+        $descripciones = Descripcione::with('materiale')->get();
         return view('backend.materiales.index', compact('materiales','descripciones'));
     }
 

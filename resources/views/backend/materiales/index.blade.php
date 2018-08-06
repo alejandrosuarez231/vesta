@@ -10,7 +10,10 @@
           <a href="{{ url('/home') }}" class="btn btn-link" title="Inicio">Regresar</a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('materiales.create') }}" class="nav-link">Nuevo</a>
+          <a href="{{ route('materiales.create') }}" class="nav-link">Nuevo Material</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url('backend/materiales/descripciones/create') }}" class="nav-link">Nueva Descripcion</a>
         </li>
       </ul>
     </div>
@@ -38,7 +41,6 @@
           @endforeach
         </tbody>
       </table>
-      {{ $materiales->links() }}
     </div>
     <div class="col-md-5">
       <table class="table">
@@ -46,6 +48,7 @@
         <thead>
           <tr>
             <th>#</th>
+            <th>Material</th>
             <th>Descripcion</th>
           </tr>
         </thead>
@@ -53,12 +56,12 @@
           @foreach ($descripciones as $item)
           <tr>
             <td>{{ $item->id }}</td>
+            <td>{{ $item->materiale->nombre }}</td>
             <td>{{ $item->descripcion }}</td>
           </tr>
           @endforeach
         </tbody>
       </table>
-      {{ $descripciones->links() }}
     </div>
   </div>
 </div>

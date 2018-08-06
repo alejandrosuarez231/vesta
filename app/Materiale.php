@@ -35,4 +35,15 @@ class Materiale extends Model
     // hasMany(RelatedModel, foreignKeyOnRelatedModel = materiale_id, localKey = id)
     return $this->hasMany(Lista_materiale::class,'material_id');
   }
+
+  /**
+   * Materiale has many Descripcione.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function descripcione()
+  {
+    // hasMany(RelatedModel, foreignKeyOnRelatedModel = materiale_id, localKey = id)
+    return $this->hasMany(Descripcione::class);
+  }
 }

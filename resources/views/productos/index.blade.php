@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+{{-- @extends('adminlte::page') --}}
+
 @section('content')
 <div id="app" class="container-fluid">
   <div class="row justify-content-center">
@@ -7,7 +9,7 @@
       <h4>Productos </h4>
       <ul class="nav">
         <li class="nav-item">
-          <a href="{{ url('/home') }}" class="btn btn-link" title="Inicio">Regresar</a>
+          <a href="{{ url('/dashboard') }}" class="btn btn-link" title="Inicio">Regresar</a>
         </li>
         <li class="nav-item">
           <a href="{{ route('productos.create') }}" class="nav-link">Nuevo MTP</a>
@@ -45,9 +47,15 @@
   </div>
 
 </div>
+{{-- @stop --}}
 @endsection
 
+{{-- @section('css')
+<link rel="stylesheet" href="/css/admin_custom.css">
+@stop --}}
+
 @section('scripts')
+{{-- @section('js') --}}
 <script type="text/javascript">
   $(function () {
     $('#productos-table').DataTable({
@@ -77,3 +85,4 @@
   });
 </script>
 @endsection
+{{-- @stop --}}

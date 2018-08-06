@@ -53,17 +53,17 @@
       setAcromtip: function(){
         switch(this.tipologia){
           case 'MTP':
-            this.acromtip = 'M'
-            break;
+          this.acromtip = 'M'
+          break;
           case 'PSE':
-            this.acromtip = 'S'
-            break;
+          this.acromtip = 'S'
+          break;
           case 'PTO':
-            this.acromtip = 'T'
-            break;
+          this.acromtip = 'T'
+          break;
           case 'SER':
-            this.acromtip = ''
-            break;
+          this.acromtip = ''
+          break;
         }
       }
     }
