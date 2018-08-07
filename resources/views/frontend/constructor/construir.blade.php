@@ -291,7 +291,19 @@
         /* Metodo para chequear */
         axios.get('/setMaterial/' + material )
         .then( response => {
-          this.descripciones.splice(indice, 1, response.data);
+          if(this.tipo == 14 && this.subtipo == 44){
+            var result = response.data;
+            delete result[27];
+            this.descripciones.splice(indice, 1, result);
+            console.log(response.data);
+          }else {
+            var result = response.data;
+            delete result[6];
+            delete result[7];
+            delete result[8];
+            this.descripciones.splice(indice, 1, result);
+            console.log(response.data);
+          }
         })
         .catch(function(error){
           console.log(error)
