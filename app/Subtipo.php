@@ -18,7 +18,7 @@ class Subtipo extends Model
    */
   protected $table = 'subtipos';
 
-  protected $fillable = ['tipo_id','nombre','acronimo'];
+  protected $fillable = ['tipo_id','nombre','acronimo','ancho','largo','espesor','color'];
   protected $guarded = ['id'];
   protected $dates = ['created_at','updated_at','deleted_at'];
 

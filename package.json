@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
+    "bootstrap-select": "^1.13.1",
     "hoek": "^5.0.3",
     "npm-check": "^5.7.1",
     "safe-buffer": "^5.1.2",

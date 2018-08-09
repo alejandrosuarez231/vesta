@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Colore;
 use Alert;
+use Yajra\DataTables\DataTables;
 
 class ColoreController extends Controller
 {
@@ -15,8 +16,24 @@ class ColoreController extends Controller
      */
     public function index()
     {
-        $colores = Colore::paginate();
-        return view('backend.colores.index', compact('colores'));
+        return view('backend.colores.index');
+    }
+
+    public function indexData()
+    {
+        $colores = Colore::all();
+        return Datatables::of($colores)
+        // ->editColumn('importada', function(Marca $marca){
+        //     if($marca->importada){
+        //         return '<span class="text-success"><i class="fas fa-check"></i></span>';
+        //     }else {
+        //         return '';
+        //     }
+        // })
+        ->addColumn('action', function ($color) {
+            return '<a href="colores/'.$color->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>';
+        })
+        ->make(true);
     }
 
     /**

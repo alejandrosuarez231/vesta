@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-4 offset-md-1">
+  <div class="row justify-content-center">
+    <div class="col-md">
       <h3>Marcas</h3>
       <ul class="nav">
         <li class="nav-item">
@@ -13,37 +13,47 @@
           <a href="{{ route('marcas.create') }}" class="nav-link">Nuevo</a>
         </li>
       </ul>
-      <table class="table">
-        <caption>Marcas</caption>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Marca</th>
-            <th>Importada</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach ($marcas as $element)
-          <tr>
-            <td>{{ $element->id }}</td>
-            <td class="text-capitalize">{{ $element->nombre }}</td>
-            <td class="text-center">
-              @if ($element->importada == 0)
-                <span>No</span>
-              @else
-                <span>Si</span>
-              @endif
-            </td>
-            <td>
-              <a href="{{ route('marcas.edit',['id'=>$element->id]) }}" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
-      {{ $marcas->links() }}
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-md">
+        <table class="table" id="marcas-table" data-page-length="100">
+          <caption>Marcas</caption>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Marca</th>
+              <th>Importada</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
     </div>
   </div>
 </div>
+@endsection
+
+@section('scripts')
+{{-- @section('js') --}}
+<script type="text/javascript">
+  $(function () {
+    $('#marcas-table').DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: '{!! route('data.marcas') !!}',
+      columns: [
+      {data: 'id', name: 'id', title: 'Id'},
+      {data: 'nombre', name: 'nombre', title: 'Marcas'},
+      {data: 'importada', name: 'importada', title: 'Importada', className: 'text-center'},
+      {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'}
+      ],
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+      }
+    });
+  });
+</script>
 @endsection

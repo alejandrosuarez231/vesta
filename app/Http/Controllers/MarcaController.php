@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Marca;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class MarcaController extends Controller
 {
@@ -14,8 +15,24 @@ class MarcaController extends Controller
      */
     public function index()
     {
-        $marcas = Marca::paginate();
-        return view('backend.marcas.index', compact('marcas'));
+        return view('backend.marcas.index');
+    }
+
+    public function indexData()
+    {
+        $marcas = Marca::all();
+        return Datatables::of($marcas)
+        ->editColumn('importada', function(Marca $marca){
+            if($marca->importada){
+                return '<span class="text-success"><i class="fas fa-check"></i></span>';
+            }else {
+                return '';
+            }
+        })
+        ->addColumn('action', function ($marca) {
+            return '<a href="marcas/'.$marca->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>';
+        })
+        ->make(true);
     }
 
     /**

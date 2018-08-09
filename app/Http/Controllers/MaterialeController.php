@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Materiale;
-use App\Descripcione;
 use Alert;
+use Yajra\DataTables\DataTables;
 
 class MaterialeController extends Controller
 {
@@ -16,9 +16,18 @@ class MaterialeController extends Controller
      */
     public function index()
     {
+        return view('backend.materiales.index');
+    }
+
+    public function indexData()
+    {
+        /* Materiales */
         $materiales = Materiale::all();
-        $descripciones = Descripcione::with('materiale')->get();
-        return view('backend.materiales.index', compact('materiales','descripciones'));
+        return Datatables::of($materiales)
+        ->addColumn('action', function ($material) {
+            return '<a href="materiales/'.$material->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>';
+        })
+        ->make(true);
     }
 
     /**
@@ -40,7 +49,8 @@ class MaterialeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nombre' => 'required',
+            'sku' => 'nullable',
+            'nombre' => 'required|unique:materiales',
         ]);
 
         Materiale::create($request->all());
@@ -67,7 +77,8 @@ class MaterialeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $material = Materiale::findOrFail($id);
+        return view('backend.materiales.edit', compact('material'));
     }
 
     /**
@@ -77,9 +88,18 @@ class MaterialeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Materiale $materiale)
     {
-        //
+        $this->validate($request, [
+            'sku' => 'nullable|unique:materiales',
+            'nombre' => 'required',
+        ]);
+        $materiale->sku = $request->sku;
+        $materiale->nombre = $request->nombre;
+        if($materiale->save()){
+            alert()->success('Registro Actualizado','Material Actualizado');
+            return redirect('/backend/materiales');
+        }
     }
 
     /**

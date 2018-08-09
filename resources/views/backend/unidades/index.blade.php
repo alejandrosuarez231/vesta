@@ -4,7 +4,7 @@
 <div class="container-fluid">
 
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md">
       <h4>Unidades</h4>
       <ul class="nav">
         <li class="nav-item">
@@ -18,33 +18,44 @@
   </div>
 
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md">
       <div class="table-responsive">
-        <table class="table table-striped table-bordered">
+        <table class="table" id="unidades-table" data-page-length="100">
           <caption>Unidades</caption>
           <thead>
             <tr>
+              <th>Id</th>
               <th>Acronimo</th>
               <th>Nombre</th>
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody>
-            @foreach ($unidades as $element)
-            <tr>
-              <td class="text-uppercase">{{ $element->acronimo }}</td>
-              <td>{{ $element->nombre }}</td>
-              <td class="text-center">
-                <a href="{{ route('unidades.edit',['id'=>$element->id]) }}" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
-              </td>
-            </tr>
-            @endforeach
-          </tbody>
         </table>
-        {{ $unidades->links() }}
       </div>
     </div>
   </div>
 
 </div>
+@endsection
+
+@section('scripts')
+{{-- @section('js') --}}
+<script type="text/javascript">
+  $(function () {
+    $('#unidades-table').DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: '{!! route('data.unidades') !!}',
+      columns: [
+      {data: 'id', name: 'id', title: 'Id'},
+      {data: 'nombre', name: 'nombre', title: 'Nombre'},
+      {data: 'acronimo', name: 'acronimo', title: 'Acronimo', className: 'text-center'},
+      {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'}
+      ],
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+      }
+    });
+  });
+</script>
 @endsection

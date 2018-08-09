@@ -15,7 +15,7 @@ Route::get('/', function () {
   return view('welcome');
 });
 Route::get('dashboard', function () {
-    return view('dashboard');
+  return view('dashboard');
 });
 
 Route::get('/zohoClientIndex', 'ZohoController@clientIndex')->name('zoho.clientindex');
@@ -27,11 +27,38 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/users', 'UserController@index')->name('users.index');
 Route::get('indexData', 'UserController@indexData')->name('users.data');
 
-/* Backend */
-Route::resource('/backend/tipos','TipoController');
-Route::resource('/backend/subtipos','SubtipoController');
-Route::resource('/backend/unidades', 'UnidadController');
-Route::resource('/backend/colores','ColoreController');
+Route::group(['middleware' => 'auth'], function() {
+  /* Backend */
+  Route::get('/dataTipos', 'TipoController@indexData')->name('data.tipos');
+  Route::resource('/backend/tipos','TipoController');
+  Route::get('/dataSubtipos', 'SubtipoController@indexData')->name('data.subtipos');
+  Route::resource('/backend/subtipos','SubtipoController');
+  Route::get('/dataUnidades', 'UnidadController@indexData')->name('data.unidades');
+  Route::resource('/backend/unidades', 'UnidadController');
+  Route::get('/dataMarcas', 'MarcaController@indexData')->name('data.marcas');
+  Route::resource('/backend/marcas', 'MarcaController');
+  Route::get('/dataColores', 'ColoreController@indexData')->name('data.colores');
+  Route::resource('/backend/colores','ColoreController');
+  Route::get('/dataMateriales', 'MaterialeController@indexData')->name('data.materiales');
+  Route::resource('/backend/materiales','MaterialeController');
+  Route::get('/dataDescripciones', 'DescripcioneController@indexData')->name('data.descripciones');
+  Route::resource('/backend/materiales/descripciones', 'DescripcioneController');
+});
+
+Route::group(['middleware' => 'auth'], function() {
+  /* Frontend */
+  Route::get('/frontend/constructor/construir','ConstructorController@construir')->name('constructor.construir');
+  Route::post('/frontend/constructor','ConstructorController@ensamble')->name('constructor.ensamble');
+  Route::get('/frontend/constructor/{id}/edit','ConstructorController@edit')->name('constructor.edit');
+  Route::patch('/frontend/constructor/{id}','ConstructorController@update')->name('constructor.update');
+  Route::get('/productoslist', 'ProductoController@indexData')->name('productos.data');
+  Route::resource('/frontend/productos', 'ProductoController');
+  Route::resource('/frontend/proyectos', 'ProyectoController');
+  Route::resource('/frontend/inventarios', 'InventarioController');
+});
+
+
+
 Route::resource('/backend/codigos', 'CodigoController');
 /* Truncate Codigos */
 Route::get('/truncateCodigos', function(){
@@ -39,38 +66,29 @@ Route::get('/truncateCodigos', function(){
   \Artisan::call('db:seed', array('--class' => 'CodigosSeeder'));
   return redirect('/backend/codigos');
 });
-Route::resource('/backend/marcas', 'MarcaController');
+
 Route::resource('/backend/proveedores', 'ProveedoreController');
-Route::resource('/backend/materiales','MaterialeController');
-Route::resource('/backend/materiales/descripciones', 'DescripcioneController');
+
+
 Route::get('/backend/extras/asignar/{id}', 'PropsextraController@create')->name('extras.asignar');
 Route::get('/backend/extras/extras/{id}', 'PropsextraController@index')->name('extras.extras');
 Route::post('/setextras', 'PropsextraController@store')->name('extras.setting');
 Route::resource('/backend/extras', 'ExtraController');
 
 
-/* Frontend */
-Route::get('/frontend/constructor/construir','ConstructorController@construir')->name('constructor.construir');
-Route::post('/frontend/constructor','ConstructorController@ensamble')->name('constructor.ensamble');
-Route::get('/frontend/constructor/{id}/edit','ConstructorController@edit')->name('constructor.edit');
-Route::patch('/frontend/constructor/{id}','ConstructorController@update')->name('constructor.update');
-Route::get('/productoslist', 'ProductoController@indexData')->name('productos.data');
-Route::resource('/frontend/productos', 'ProductoController');
-Route::resource('/frontend/proyectos', 'ProyectoController');
-Route::resource('/frontend/inventarios', 'InventarioController');
+
 
 Route::resource('/cotizaciones','CotizacioneController');
 
 
 /* VUE ROUTE's */
+Route::get('/subtipos/{tipo}', 'SubtipoController@subtipos' );
 
 /* Obtener datos del producto */
 Route::get('/ProductoData/{id}', function($id) {
   return \App\Producto::findOrFail($id);
 });
-Route::get('/subtipos/{tipo}', function($tipo) {
-  return \App\Subtipo::where('tipo_id','=',$tipo)->pluck('nombre','id');
-});
+
 /* Subtipos para MTP Nuevos */
 Route::get('/mtpsubtipos/{tipo}', function($tipo) {
   return \App\Subtipo::where('tipo_id','=',$tipo)->pluck('nombre','id');

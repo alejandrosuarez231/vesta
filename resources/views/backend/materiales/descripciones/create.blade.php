@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/BsMultiSelect.min.css') }}">
+@endsection
+
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid" id="app">
   <div class="row">
     <div class="col-md-8 offset-md-1">
       <h3>Descripciones</h3>
@@ -36,10 +40,26 @@
           {!! $errors->first('espesor', '<small class="help-block text-danger">:message</small>') !!}
         </div>
       </div>
+      <span class="font-weight-bold text-muted"><small>Asignar - Filtros</small></span>
+      <div class="form-row">
+        <div class="form-group mr-2">
+          {!! Form::select('tipos', \App\Tipo::pluck('nombre','id'), null, ['class' => 'form-control','id'=>'tipos']) !!}
+        </div>
+      </div>
       <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Registrar</button>
       <a class="btn btn-warning text-danger" href="{{ url('/backend/materiales') }}" title="Cancelar"><i class="fas fa-ban"></i> Cancelar</a>
       {!! Form::close() !!}
     </div>
   </div>
 </div>
+@endsection
+
+@section('scripts')
+<script src="{{ asset('js/BsMultiSelect.min.js') }}"></script>
+<script>
+  $(function(){
+    $("#tipos").bsMultiSelect();
+  })
+</script>
+
 @endsection

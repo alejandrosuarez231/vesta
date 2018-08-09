@@ -9,10 +9,12 @@
       <div class="form-group">
         {!! Form::label('acronimo', 'Acronimo', ['class'=>'form-control-label']) !!}
         {!! Form::text('acronimo', $unidad->acronimo, ['class'=>'form-control col-md-4','placeholder'=>'Nombre de la Unidad']) !!}
+        {!! $errors->first('acronimo', '<small class="help-block text-danger">:message</small>') !!}
       </div>
       <div class="form-group">
         {!! Form::label('nombre', 'Nombre', ['class'=>'form-control-label']) !!}
         {!! Form::text('nombre', $unidad->nombre, ['class'=>'form-control col-md-4','placeholder'=>'Nombre de la Unidad']) !!}
+        {!! $errors->first('nombre', '<small class="help-block text-danger">:message</small>') !!}
       </div>
       <button type="submit" class="btn btn-primary" title="Actualizar"><i class="far fa-edit"></i> Actualizar</button>
       <a class="btn btn-warning text-danger" href="{{ url('/backend/unidades') }}" title="Cancelar"><i class="fas fa-ban"></i> Cancelar</a>

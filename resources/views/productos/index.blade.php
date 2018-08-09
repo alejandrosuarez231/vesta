@@ -1,11 +1,10 @@
 @extends('layouts.app')
-
 {{-- @extends('adminlte::page') --}}
 
 @section('content')
 <div id="app" class="container-fluid">
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md">
       <h4>Productos </h4>
       <ul class="nav">
         <li class="nav-item">
@@ -52,8 +51,8 @@
 
 {{-- @section('css')
 <link rel="stylesheet" href="/css/admin_custom.css">
-@stop --}}
-
+@stop
+ --}}
 @section('scripts')
 {{-- @section('js') --}}
 <script type="text/javascript">
@@ -68,9 +67,9 @@
       {data: 'tipo.nombre', name: 'tipo.nombre', title: 'Tipo'},
       {data: 'subtipo.nombre', name: 'subtipo.nombre', title: 'Sub Tipo'},
       {data: 'unidad.acronimo', name: 'unidad.acronimo', title: 'Unidad'},
-      {data: 'ancho', name: 'ancho', title: 'Ancho'},
-      {data: 'largo', name: 'largo', title: 'Largo'},
-      {data: 'espesor', name: 'espesor', title: 'Espesor'},
+      {data: 'ancho', name: 'ancho', title: 'Ancho', className: 'text-center'},
+      {data: 'largo', name: 'largo', title: 'Largo', className: 'text-center'},
+      {data: 'espesor', name: 'espesor', title: 'Espesor', className: 'text-center'},
       {data: 'propiedad_id', name: 'propiedad_id', title: 'Propiedad'},
       {data: 'extra.propiedad', name: 'extra.propiedad', title: 'Prop. Extra'},
       {data: 'importado', name: 'importado', title: 'Importado'},

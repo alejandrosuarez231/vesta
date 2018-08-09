@@ -5,8 +5,7 @@ use App\Tipo;
 use App\Codigo;
 use Illuminate\Http\Request;
 Use Alert;
-use Yajra\DataTables\Facades\Datatables;
-// use yajra\Datatables\Facades\Datatables;
+use Yajra\DataTables\DataTables;
 
 class TipoController extends Controller
 {
@@ -17,10 +16,23 @@ class TipoController extends Controller
      */
     public function index()
     {
-        // return Dataables::eloquent(Tipo::query())->make(true);
-        // return datatables()->of(Tipo::query())->toJson();
-        $tipos = Tipo::orderBy('nombre')->paginate();
-        return view('backend.tipos.index', compact('tipos'));
+        return view('backend.tipos.index');
+    }
+
+    public function indexData(){
+      $tipos = Tipo::all();
+      // dd($productos->first());
+      return Datatables::of($tipos)
+      ->editColumn('padre', function(Tipo $tipo){
+        if($tipo->padre){
+          return '<span class="text-success"><i class="fas fa-check"></i></span>';
+        }
+      })
+      ->addColumn('action', function ($tipo) {
+        return '<a href="tipos/'.$tipo->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>';
+      })
+      ->rawColumns(['padre','action'])
+      ->make(true);
     }
 
     /**

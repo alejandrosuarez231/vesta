@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md">
       <h4>Sub-Tipos</h4>
       <ul class="nav">
         <li class="nav-item">
@@ -17,34 +17,54 @@
   </div>
 
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md">
       <div class="table-responsive">
-        <table class="table table-striped table-bordered">
+        <table class="table" id="subtipos-table" data-page-length="100">
           <caption>Sub-Tipos</caption>
           <thead>
             <tr>
-              <th>Sub-Tipo</th>
+              <th>Id</th>
+              <th>Tipo</th>
               <th>Nombre</th>
               <th>Acronimo</th>
+              <th>Ancho</th>
+              <th>Largo</th>
+              <th>Espesor</th>
+              <th>Color</th>
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody>
-            @foreach ($subtipos->sortBy('tipo_id') as $element)
-            <tr>
-              <td>{{ @$element->tipo->nombre }} <sup class="text-primary text-uppercase">{{ @$element->tipo->acromtip.$element->tipo->acronimo }}</sup></td>
-              <td>{{ $element->nombre }}</td>
-              <td>{{ $element->acronimo }}</td>
-              <td class="text-center">
-                <a href="{{ route('subtipos.edit',['id'=>$element->id]) }}" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
-              </td>
-            </tr>
-            @endforeach
-          </tbody>
         </table>
-        {{ $subtipos->links() }}
       </div>
     </div>
   </div>
 </div>
+@endsection
+
+@section('scripts')
+{{-- @section('js') --}}
+<script type="text/javascript">
+  $(function () {
+    $('#subtipos-table').DataTable({
+      "order": [[ 1, "asc" ]],
+      processing: true,
+      serverSide: true,
+      ajax: '{!! route('data.subtipos') !!}',
+      columns: [
+      {data: 'id', name: 'id', title: 'Id'},
+      {data: 'tipo.nombre', name: 'tipo.nombre', title: 'Tipo'},
+      {data: 'nombre', name: 'nombre', title: 'Nombre'},
+      {data: 'acronimo', name: 'acronimo', title: 'Acronimo', className: 'text-center'},
+      {data: 'ancho', name: 'ancho', title: 'Ancho', className: 'text-center'},
+      {data: 'largo', name: 'largo', title: 'Largo', className: 'text-center'},
+      {data: 'espesor', name: 'espesor', title: 'Espesor', className: 'text-center'},
+      {data: 'color', name: 'color', title: 'Color', className: 'text-center'},
+      {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'}
+      ],
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+      }
+    });
+  });
+</script>
 @endsection

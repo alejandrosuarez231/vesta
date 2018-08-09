@@ -18,6 +18,10 @@ class CreateSubtiposTable extends Migration
             $table->integer('tipo_id');
             $table->string('nombre');
             $table->string('acronimo',6);
+            $table->boolean('ancho')->nullable();
+            $table->boolean('largo')->nullable();
+            $table->boolean('espesor')->nullable();
+            $table->boolean('color')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

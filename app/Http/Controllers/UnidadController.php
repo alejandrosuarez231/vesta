@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Unidad;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class UnidadController extends Controller
 {
@@ -13,8 +14,16 @@ class UnidadController extends Controller
      */
     public function index()
     {
-        $unidades = Unidad::orderBy('nombre')->paginate();
-        return view('backend.unidades.index', compact('unidades'));
+        return view('backend.unidades.index');
+    }
+
+    public function indexData(){
+      $unidades = Unidad::all();
+      return Datatables::of($unidades)
+      ->addColumn('action', function ($unidad) {
+        return '<a href="unidades/'.$unidad->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>';
+      })
+      ->make(true);
     }
 
     /**
@@ -80,6 +89,11 @@ class UnidadController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'acronimo' => 'required',
+            'nombre' => 'required',
+        ]);
+
         $unidad = Unidad::findOrFail($id);
         $unidad->acronimo = $request->acronimo;
         $unidad->nombre = $request->nombre;

@@ -19,7 +19,7 @@ class Descripcione extends Model
    *
    * @var array
    */
-  protected $fillable = ['materiale_id','descripcion','flargo','fancho','espesor'];
+  protected $fillable = ['sku','materiale_id','descripcion','flargo','fancho','espesor'];
 
   /**
    * Descripcione has many Lista.

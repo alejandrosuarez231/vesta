@@ -1,56 +1,73 @@
 @extends('layouts.app')
+{{-- @extends('adminlte::page') --}}
 
 @section('content')
 <div class="container-fluid">
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md">
       <h4>Tipos</h4>
       <ul class="nav">
         <li class="nav-item">
-          <a href="{{ url('/home') }}" class="btn btn-link" title="Inicio">Regresar</a>
+          <a href="{{ url('/dashboard') }}" class="btn btn-link" title="Inicio">Regresar</a>
         </li>
         <li class="nav-item">
           <a href="{{ route('tipos.create') }}" class="nav-link">Nueva</a>
         </li>
       </ul>
-      <div class="alert alert-info col-md-4">
-        <small><span class="font-weight-bold text-danger">*</span> <span class="font-weight-bold">Tipologia Padre (Contiene Sub-Tipos)</span></small>
-      </div>
     </div>
   </div>
 
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md">
       <div class="table-responsive">
-        <table class="table table-striped table-bordered">
+        <table class="table" id="tipos-table" data-page-length="100">
           <caption>Tipos</caption>
           <thead>
             <tr>
+              <th>Id</th>
               <th>Tipologia</th>
+              <th>Acromtip</th>
+              <th>Padre</th>
               <th>Nombre</th>
               <th>Acronimo</th>
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody>
-            @foreach ($tipos as $element)
-            <tr>
-              <td>
-                {{ $element->tipologia }} <sup class="text-primary text-uppercase">{{ $element->acromtip }} @if($element->padre > 0) <strong class="text-danger font-weight-bold">*</strong> @endif</sup>
-              </td>
-              <td>{{ $element->nombre }}</td>
-              <td class="text-uppercase">{{ $element->acronimo }}</td>
-              <td class="text-center">
-                <a href="{{ route('tipos.edit',['id'=>$element->id]) }}" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
-              </td>
-            </tr>
-            @endforeach
-          </tbody>
         </table>
-        {{ $tipos->links() }}
       </div>
     </div>
   </div>
 
 </div>
+{{-- @stop --}}
+@endsection
+
+{{-- @section('css')
+<link rel="stylesheet" href="/css/admin_custom.css">
+@stop --}}
+
+@section('scripts')
+{{-- @section('js') --}}
+<script type="text/javascript">
+  $(function () {
+    $('#tipos-table').DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: '{!! route('data.tipos') !!}',
+      columns: [
+      {data: 'id', name: 'id', title: 'Id'},
+      {data: 'tipologia', name: 'tipologia', title: 'Tipologia'},
+      {data: 'acromtip', name: 'acromtip', title: 'Acron/Tip', className: 'text-center'},
+      {data: 'padre', name: 'padre', title: 'Padre', className: 'text-center'},
+      {data: 'nombre', name: 'nombre', title: 'Nombre'},
+      {data: 'acronimo', name: 'acronimo', title: 'Acronimo', className: 'text-center'},
+      {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'}
+      ],
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+      }
+    });
+  });
+</script>
+{{-- @stop --}}
 @endsection

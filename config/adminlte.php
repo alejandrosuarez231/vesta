@@ -133,6 +133,20 @@ return [
             'icon' => 'lock',
         ],
         [
+            'text'    => 'Backend',
+            'icon'    => 'gears',
+            'submenu' => [
+                [
+                    'text' => 'Tipos',
+                    'url'  => 'backend/tipos',
+                ],
+                [
+                    'text' => 'SubTipos',
+                    'url'  => 'backend/subtipos',
+                ],
+            ],
+        ],
+        [
             'text'    => 'Configuracion',
             'icon'    => 'gears',
             'submenu' => [
