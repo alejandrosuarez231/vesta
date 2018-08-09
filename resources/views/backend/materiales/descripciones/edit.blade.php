@@ -1,9 +1,13 @@
 @extends('layouts.app')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/BsMultiSelect.min.css') }}">
+@endsection
+
 @section('content')
 <div class="container-fluid" id="app">
   <div class="row">
-    <div class="col-md">
+    <div class="col-md-8 offset-md-1">
       <h3>Descripciones</h3>
       <ul class="nav">
         <li class="nav-item">
@@ -38,15 +42,9 @@
       </div>
       <span class="font-weight-bold text-muted"><small>Asignar - Filtros</small></span>
       <div class="form-row">
-        @foreach ($subtipos as $element)
         <div class="form-group mr-2">
-          <div class="form-check">
-            {!! Form::checkbox('subtipos[]', $element->id, false, ['class' => 'form-check-input']) !!}
-            <small>{{ $element->tipo->nombre }}</small>
-            {!! Form::label('subtipos[]', $element->nombre, ['class' => 'form-check-label']) !!}
-          </div>
+          {!! Form::select('tipos', \App\Tipo::pluck('nombre','id'), null, ['class' => 'form-control','id'=>'tipos']) !!}
         </div>
-        @endforeach
       </div>
       <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Registrar</button>
       <a class="btn btn-warning text-danger" href="{{ url('/backend/materiales') }}" title="Cancelar"><i class="fas fa-ban"></i> Cancelar</a>
@@ -57,8 +55,11 @@
 @endsection
 
 @section('scripts')
+<script src="{{ asset('js/BsMultiSelect.min.js') }}"></script>
 <script>
-
+  $(function(){
+    $("#tipos").bsMultiSelect();
+  })
 </script>
 
 @endsection

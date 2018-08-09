@@ -21,13 +21,13 @@ class DescripcioneController extends Controller
 
     public function indexData()
     {
-        /* Materiales */
-        $descripciones = Descripcione::with('materiale:id,nombre')->get();
-        return Datatables::of($descripciones)
-        ->addColumn('action', function ($descripcion) {
-            return '<a href="/descripciones/'.$descripcion->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>';
-        })
-        ->make(true);
+      /* Materiales */
+      $descripciones = Descripcione::with('materiale:id,nombre')->get();
+      return Datatables::of($descripciones)
+      ->addColumn('action', function ($descripcion) {
+        return '<a href="materiales/descripciones/'.$descripcion->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>';
+      })
+      ->make(true);
     }
 
     /**
@@ -37,7 +37,9 @@ class DescripcioneController extends Controller
      */
     public function create()
     {
-        return view('backend/materiales/descripciones/create');
+      $subtipos = \App\Subtipo::with('tipo:id,nombre')->get();
+      // dd($subtipos->count());
+      return view('backend/materiales/descripciones/create', compact('subtipos'));
     }
 
     /**
@@ -48,19 +50,20 @@ class DescripcioneController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
-        $this->validate($request, [
-            'sku' => 'nullable',
-            'materiale_id' => 'required',
-            'descripcion' => 'required',
-            'flargo' => 'nullable',
-            'fancho' => 'nullable',
-            'espesor' => 'nullable'
-        ]);
+      dd($request->all());
 
-        Descripcione::create($request->all());
-        alert()->success('Registro creado','Nuevo Descripcion Registrada');
-        return redirect('backend/materiales');
+      $this->validate($request, [
+        'sku' => 'nullable',
+        'materiale_id' => 'required',
+        'descripcion' => 'required',
+        'flargo' => 'nullable',
+        'fancho' => 'nullable',
+        'espesor' => 'nullable'
+      ]);
+
+      Descripcione::create($request->all());
+      alert()->success('Registro creado','Nuevo Descripcion Registrada');
+      return redirect('backend/materiales');
     }
 
     /**
@@ -82,7 +85,9 @@ class DescripcioneController extends Controller
      */
     public function edit(Descripcione $descripcione)
     {
-        //
+      $subtipos = App\Subtipo::with('tipo:id,nombre')->get();
+      dd($subtipos);
+      return view('backend/materiales/descripciones/edit', compact('subtipos'));
     }
 
     /**
@@ -94,14 +99,14 @@ class DescripcioneController extends Controller
      */
     public function update(Request $request, Descripcione $descripcione)
     {
-        $this->validate($request, [
-            'sku' => 'nullable',
-            'materiale_id' => 'required',
-            'descripcion' => 'required',
-            'flargo' => 'nullable',
-            'fancho' => 'nullable',
-            'espesor' => 'nullable'
-        ]);
+      $this->validate($request, [
+        'sku' => 'nullable',
+        'materiale_id' => 'required',
+        'descripcion' => 'required',
+        'flargo' => 'nullable',
+        'fancho' => 'nullable',
+        'espesor' => 'nullable'
+      ]);
     }
 
     /**
@@ -114,4 +119,4 @@ class DescripcioneController extends Controller
     {
         //
     }
-}
+  }

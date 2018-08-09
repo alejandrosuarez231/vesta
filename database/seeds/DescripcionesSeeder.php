@@ -38,7 +38,7 @@ class DescripcionesSeeder extends Seeder
             ['materiale_id' => 2, 'descripcion' => 'Puerta Gola', 'flargo' => 'H-32', 'fancho' => 'A'],
             ['materiale_id' => 1, 'descripcion' => 'Relleno', 'flargo' => 'A-(2*EC)', 'fancho' => '128'],
             ['materiale_id' => 1, 'descripcion' => 'Refuerzo', 'flargo' => NULL, 'fancho' => '128'],
-            ['materiale_id' => 6, 'descripcion' => 'Sobre', 'flargo' => '$var', 'fancho' => '$var'],
+            ['materiale_id' => 6, 'descripcion' => 'Sobre', 'flargo' => NULL, 'fancho' => NULL],
 
         ]);
     }

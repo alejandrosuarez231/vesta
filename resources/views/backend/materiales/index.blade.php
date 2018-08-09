@@ -21,13 +21,12 @@
 </div>
 <div class="container-fluid">
   <div class="row justify-content-center">
-    <div class="col-md-6">
+    <div class="col-md-4">
       <table class="table" id="materiales-table"  data-page-length="50">
         <caption>Materiales</caption>
         <thead>
           <tr>
-            <th>#</th>
-            <th>SKU</th>
+            <th>Id</th>
             <th>Nombre</th>
             <th>Acciones</th>
           </tr>
@@ -35,12 +34,14 @@
       </table>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-7 offset-md-1">
       <table class="table" id="descripciones-table"  data-page-length="50">
         <caption>Descripciones</caption>
         <thead>
           <tr>
             <th>Id</th>
+            <th>Tipos</th>
+            <th>SubTipos</th>
             <th>SKU</th>
             <th>Material</th>
             <th>Descripcion</th>
@@ -63,7 +64,6 @@
       ajax: '{!! route('data.materiales') !!}',
       columns: [
       {data: 'id', name: 'id', title: 'Id'},
-      {data: 'sku', name: 'sku', title: 'SKU', className: 'text-center'},
       {data: 'nombre', name: 'nombre', title: 'Color'},
       {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'}
       ],
@@ -78,6 +78,8 @@
       ajax: '{!! route('data.descripciones') !!}',
       columns: [
       {data: 'id', name: 'id', title: 'Id'},
+      {data: 'tipos', name: 'tipos', title: 'Tipos'},
+      {data: 'subtipos', name: 'subtipos', title: 'Subtipos'},
       {data: 'sku', name: 'sku', title: 'SKU', className: 'text-center'},
       {data: 'materiale.nombre', name: 'materiale.nombre', title: 'Material'},
       {data: 'descripcion', name: 'descripcion', title: 'Descripcion'},
