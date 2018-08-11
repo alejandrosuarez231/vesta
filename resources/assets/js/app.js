@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -23,7 +22,6 @@ Vue.use(VeeValidate);
 
 import VueAutosuggest from "vue-autosuggest";
 Vue.use(VueAutosuggest);
-
 
 import vSelect from 'vue-select'
 Vue.component('v-select', vSelect)

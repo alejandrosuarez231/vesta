@@ -30,7 +30,9 @@ Route::get('indexData', 'UserController@indexData')->name('users.data');
 Route::group(['middleware' => 'auth'], function() {
   /* Backend */
   Route::get('/dataTipos', 'TipoController@indexData')->name('data.tipos');
+  Route::get('/Tipos', 'TipoController@tipos');
   Route::resource('/backend/tipos','TipoController');
+  Route::get('/subtiposFiltro/{tipos}', 'SubtipoController@subtiposFiltro');
   Route::get('/dataSubtipos', 'SubtipoController@indexData')->name('data.subtipos');
   Route::resource('/backend/subtipos','SubtipoController');
   Route::get('/dataUnidades', 'UnidadController@indexData')->name('data.unidades');
@@ -42,6 +44,7 @@ Route::group(['middleware' => 'auth'], function() {
   Route::get('/dataMateriales', 'MaterialeController@indexData')->name('data.materiales');
   Route::resource('/backend/materiales','MaterialeController');
   Route::get('/dataDescripciones', 'DescripcioneController@indexData')->name('data.descripciones');
+  Route::get('/editData/{id}', 'DescripcioneController@editData');
   Route::resource('/backend/materiales/descripciones', 'DescripcioneController');
 });
 

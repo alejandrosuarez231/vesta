@@ -35,6 +35,16 @@ class TipoController extends Controller
       ->make(true);
     }
 
+    public function tipos()
+    {
+        $tipos = Tipo::all();
+        $tiposList = collect();
+        foreach ($tipos as $key => $value) {
+            $tiposList->push(['label' => $value->nombre, 'value' => $value->id]);
+        }
+        return $tiposList->toJson();
+    }
+
     /**
      * Show the form for creating a new resource.
      *

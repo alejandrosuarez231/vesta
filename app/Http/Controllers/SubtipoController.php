@@ -6,6 +6,7 @@ use App\Tipo;
 use App\Codigo;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use DB;
 
 class SubtipoController extends Controller
 {
@@ -48,6 +49,15 @@ class SubtipoController extends Controller
         })
         ->rawColumns(['ancho','largo','espesor','color','action'])
         ->make(true);
+    }
+
+    public function subtiposFiltro($tipos){
+        $subtipos = Subtipo::with('tipo:id,nombre')->whereIn('tipo_id',explode(',',$tipos))->get();
+        $subtiposList = collect();
+        foreach ($subtipos as $key => $value) {
+            $subtiposList->push(['label' => $value->nombre, 'value' => $value->id, 'subtext' => $value->tipo->nombre]);
+        }
+        return $subtiposList->toJson();
     }
 
     /**
