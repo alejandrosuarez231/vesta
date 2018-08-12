@@ -141,7 +141,8 @@
 
   <main class="py-4">
     <!-- Include this after the sweet alert js file -->
-    @include('sweet::alert')
+    {{-- @include('sweet::alert') --}}
+    @include('sweetalert::alert')
     @yield('content')
   </main>
 </div>
@@ -152,6 +153,7 @@
   })
 </script>
 <!-- DataTables -->
+<script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>

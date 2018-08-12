@@ -18,7 +18,7 @@
 
   <div class="row justify-content-center">
     <div class="col-md">
-      <div class="table-responsive">
+      <div class="">
         <table class="table" id="subtipos-table" data-page-length="100">
           <caption>Sub-Tipos</caption>
           <thead>

@@ -78,10 +78,9 @@ class SubtipoController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'tipo_id' => 'required',
-            'nombre' => 'required',
+            'nombre' => 'required|unique:subtipos',
             'acronimo' => 'required',
             'ancho' => 'nullable',
             'largo' => 'nullable',
@@ -109,7 +108,7 @@ class SubtipoController extends Controller
         $skubase->numeracion = 1;
         $skubase->save();
 
-        alert()->success('Registro Creado','Sub-tipo Nueva');
+        toast('Registro Creado!','success','top-right');
         return redirect('/backend/subtipos');
     }
 
@@ -143,31 +142,29 @@ class SubtipoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Subtipo $subtipo)
     {
         // dd($request->all());
         $request->validate([
             'tipo_id' => 'required',
-            'nombre' => 'required',
+            'nombre' => 'required|unique:subtipos,nombre,' . $subtipo->id,
             'acronimo' => 'required',
             'ancho' => 'nullable',
             'largo' => 'nullable',
             'espesor' => 'nullable',
             'color' => 'nullable'
         ]);
-        // dd($request->all());
-        $subtipo = Subtipo::findOrFail($id);
-        $subtipo->update([
-            'tipo_id' => $request->tipo_id,
-            'nombre' => $request->nombre,
-            'acronimo' => $request->acronimo,
-            'ancho' => $request->ancho,
-            'largo' => $request->largo,
-            'espesor' => $request->espesor,
-            'color' => $request->color
-        ]);
 
-        alert()->success('Registro Actualizado','Sub-tipo Actualizada');
+        $subtipo->tipo_id = $request->tipo_id;
+        $subtipo->nombre = $request->nombre;
+        $subtipo->acronimo = $request->acronimo;
+        $subtipo->ancho = $request->ancho;
+        $subtipo->largo = $request->largo;
+        $subtipo->espesor = $request->espesor;
+        $subtipo->color = $request->color;
+        $subtipo->save();
+
+        toast('Registro Actualizado!','success','top-right');
         return redirect('/backend/subtipos');
     }
 
@@ -179,7 +176,8 @@ class SubtipoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $subtipo = Subtipo::findOrFail($id);
+        $subtipo->delete();
     }
 
     public function subtipos($tipo)

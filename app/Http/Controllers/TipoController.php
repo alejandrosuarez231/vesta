@@ -16,7 +16,7 @@ class TipoController extends Controller
      */
     public function index()
     {
-        return view('backend.tipos.index');
+      return view('backend.tipos.index');
     }
 
     public function indexData(){
@@ -37,12 +37,32 @@ class TipoController extends Controller
 
     public function tipos()
     {
-        $tipos = Tipo::all();
-        $tiposList = collect();
-        foreach ($tipos as $key => $value) {
-            $tiposList->push(['label' => $value->nombre, 'value' => $value->id]);
-        }
-        return $tiposList->toJson();
+      $tipos = Tipo::all();
+      $tiposList = collect();
+      foreach ($tipos as $key => $value){
+        $tiposList->push(['label' => $value->nombre, 'value' => $value->id]);
+      }
+      return $tiposList->toJson();
+    }
+
+    public function tiposMTP()
+    {
+      $tipos = Tipo::where('tipologia','=','MTP')->get();
+      $tiposList = collect();
+      foreach ($tipos as $key => $value){
+        $tiposList->push(['label' => $value->nombre, 'value' => $value->id]);
+      }
+      return $tiposList->toJson();
+    }
+
+    public function tiposPTO()
+    {
+      $ptos = Tipo::where('tipologia','=','PTO')->get();
+      $ptosList = collect();
+      foreach ($ptos as $key => $value){
+        $ptosList->push(['label' => $value->nombre, 'value' => $value->id]);
+      }
+      return $ptosList->toJson();
     }
 
     /**
@@ -52,7 +72,7 @@ class TipoController extends Controller
      */
     public function create()
     {
-        return view('backend.tipos.create');
+      return view('backend.tipos.create');
     }
 
     /**
@@ -64,37 +84,38 @@ class TipoController extends Controller
     public function store(Request $request)
     {
 
-        if(!isset($request->padre)){
-            /* Crear Base SKU */
-            $this->validate($request, [
-                'tipologia' => 'required',
-                'acromtip' => 'required',
-                'nombre' => 'required',
-                'acronimo' => 'required',
-            ]);
+      if(!isset($request->padre)){
+        /* Crear Base SKU */
+        $this->validate($request, [
+          'tipologia' => 'required',
+          'acromtip' => 'required',
+          'nombre' => 'required|unique:tipos',
+          'acronimo' => 'required|unique:tipos',
+        ]);
 
-            $tipo = Tipo::create($request->all());
+        $tipo = Tipo::create($request->all());
             // dd($request->all());
-            $skubase = new Codigo;
-            $skubase->tipo_id = $tipo->id;
-            $skubase->subtipo_id = 0;
-            $skubase->skubase = $tipo->acromtip.$tipo->acronimo;
-            $skubase->numeracion = 1;
-            $skubase->save();
+        $skubase = new Codigo;
+        $skubase->tipo_id = $tipo->id;
+        $skubase->subtipo_id = 0;
+        $skubase->skubase = $tipo->acromtip.$tipo->acronimo;
+        $skubase->numeracion = 1;
+        $skubase->save();
 
-            alert()->success('Registro Creado','Nuevo Tipo + Base SKU 1');
-            return redirect('/backend/tipos');
-        }else {
-            $this->validate($request, [
-                'tipologia' => 'required',
-                'acromtip' => 'required',
-                'nombre' => 'required',
-                'acronimo' => 'required',
-            ]);
-            Tipo::create($request->all());
-            alert()->success('Registro Creado','Nuevo Tipo');
-            return redirect('/backend/tipos');
-        }
+        toast('Registro creado!','success','top-right');
+        return redirect('/backend/tipos');
+      }else {
+        $this->validate($request, [
+          'tipologia' => 'required',
+          'acromtip' => 'required',
+          'nombre' => 'required|unique:tipos',
+          'acronimo' => 'required|unique:tipos',
+        ]);
+        Tipo::create($request->all());
+
+        toast('Registro creado!','success','top-right');
+        return redirect('/backend/tipos');
+      }
     }
 
     /**
@@ -116,8 +137,8 @@ class TipoController extends Controller
      */
     public function edit($id)
     {
-        $tipo = Tipo::findOrFail($id);
-        return view('backend.tipos.edit', compact('tipo'));
+      $tipo = Tipo::findOrFail($id);
+      return view('backend.tipos.edit', compact('tipo'));
     }
 
     /**
@@ -127,16 +148,24 @@ class TipoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Tipo $tipo)
     {
-        $tipo = Tipo::findOrFail($id);
-        $tipo->tipologia = $request->tipo;
-        $tipo->padre = $request->padre;
-        $tipo->nombre = $request->nombre;
-        $tipo->acronimo = $request->acronimo;
-        $tipo->save();
-        alert()->success('Registro Actualizado','Tipo Actualizada');
-        return redirect('/backend/tipos');
+        // dd($tipo);
+      $this->validate($request, [
+        'tipologia' => 'required',
+        'acromtip' => 'required',
+        'nombre' => 'required|unique:tipos,nombre,' .$tipo->id,
+        'acronimo' => 'required|unique:tipos,acronimo,' . $tipo->id
+      ]);
+
+      $tipo->tipologia = strtoupper($request->tipologia);
+      $tipo->padre = $request->padre;
+      $tipo->nombre = $request->nombre;
+      $tipo->acronimo = strtoupper($request->acronimo);
+      $tipo->save();
+
+      toast('Registro actualizado!','success','top-right');
+      return redirect('/backend/tipos');
     }
 
     /**
@@ -149,4 +178,4 @@ class TipoController extends Controller
     {
         //
     }
-}
+  }

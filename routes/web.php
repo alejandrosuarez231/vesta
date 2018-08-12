@@ -31,6 +31,8 @@ Route::group(['middleware' => 'auth'], function() {
   /* Backend */
   Route::get('/dataTipos', 'TipoController@indexData')->name('data.tipos');
   Route::get('/Tipos', 'TipoController@tipos');
+  Route::get('/TiposMTP', 'TipoController@tiposMTP');
+  Route::get('/TiposPTO', 'TipoController@tiposPTO');
   Route::resource('/backend/tipos','TipoController');
   Route::get('/subtiposFiltro/{tipos}', 'SubtipoController@subtiposFiltro');
   Route::get('/dataSubtipos', 'SubtipoController@indexData')->name('data.subtipos');
@@ -42,9 +44,11 @@ Route::group(['middleware' => 'auth'], function() {
   Route::get('/dataColores', 'ColoreController@indexData')->name('data.colores');
   Route::resource('/backend/colores','ColoreController');
   Route::get('/dataMateriales', 'MaterialeController@indexData')->name('data.materiales');
+  Route::get('/MaterialEditData/{id}', 'MaterialeController@editData');
+  Route::get('/setMaterial/{tipo}/{subtipo}', 'MaterialeController@setMaterial');
   Route::resource('/backend/materiales','MaterialeController');
   Route::get('/dataDescripciones', 'DescripcioneController@indexData')->name('data.descripciones');
-  Route::get('/editData/{id}', 'DescripcioneController@editData');
+  Route::get('/descripcionMaterial/{material}', 'DescripcioneController@descripcionMaterial');
   Route::resource('/backend/materiales/descripciones', 'DescripcioneController');
 });
 
@@ -115,14 +119,6 @@ Route::get('/mtps', function() {
  return \App\Producto::with('tipo:id,tipologia')->get()->where('tipo.tipologia','=','MTP')->pluck('nombre','id');
 });
 
-Route::get('/setMaterial/{material}', function($material){
-  /* Filtrar materiales */
-  $descripciones = \App\Descripcione::where('materiale_id',$material)->select('id','descripcion','flargo','fancho','espesor')->get();
-  foreach ($descripciones as $value) {
-    $coleccion[$value->id] = collect(['descripcion' => $value->descripcion, 'largo' => $value->flargo, 'ancho' => $value->fancho, 'espesor' => $value->espesor ]);
-  }
-  return $coleccion;
-} );
 
 Route::get('/materiales', function() {
   /* Revisar */

@@ -24,21 +24,21 @@ class DescripcioneController extends Controller
       /* Materiales */
       $descripciones = Descripcione::with('materiale:id,nombre')->get();
       return Datatables::of($descripciones)
-      ->editColumn('tipos', function(Descripcione $descripcion){
-        if($descripcion->tipos){
-          return '<span class="badge badge-success">'.$descripcion->tipos.'</span>';
-        }
-      })
-      ->editColumn('subtipos', function(Descripcione $descripcion){
-        if($descripcion->subtipos){
-          return '<span class="badge badge-success">'.$descripcion->subtipos.'</span>';
-        }
-      })
       ->addColumn('action', function ($descripcion) {
         return '<a href="materiales/descripciones/'.$descripcion->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>';
       })
       ->rawColumns(['tipos','subtipos','action'])
       ->make(true);
+    }
+
+    public function descripcionMaterial($material)
+    {
+      $descripciones = Descripcione::where('materiale_id',$material)->get();
+      $coleccion = collect();
+      foreach ($descripciones as $key => $value) {
+        $coleccion->push(['label' => $value->descripcion, 'value' => $value->id, 'flargo' => $value->flargo, 'fancho' => $value->fancho, 'espesor' => $value->espesor]);
+      }
+      return $coleccion->toJson();
     }
 
     /**
@@ -68,20 +68,18 @@ class DescripcioneController extends Controller
         'flargo' => 'nullable',
         'fancho' => 'nullable',
         'espesor' => 'nullable',
-        'tipos.*' => 'required',
-        'subtipos.*' => 'required'
+
       ]);
 
       $descripcion = new Descripcione;
-      $descripcion->tipos = implode(",",$request->tipos);
-      $descripcion->subtipos = implode(",",$request->subtipos);
       $descripcion->materiale_id = $request->materiale_id;
       $descripcion->descripcion = $request->descripcion;
       $descripcion->flargo = $request->flargo;
       $descripcion->fancho = $request->fancho;
       $descripcion->espesor = $request->espesor;
       $descripcion->save();
-      alert()->success('Registro creado','Nuevo Descripcion Registrada');
+
+      toast('Registro creado!','success','top-right');
       return redirect('backend/materiales');
     }
 
@@ -142,7 +140,8 @@ class DescripcioneController extends Controller
       $descripcione->fancho = $request->fancho;
       $descripcione->espesor = $request->espesor;
       $descripcione->save();
-      alert()->success('Registro actualizado','Descripcion actualizada');
+
+      toast('Registro actualizado!','success','top-right');
       return redirect('backend/materiales');
 
     }

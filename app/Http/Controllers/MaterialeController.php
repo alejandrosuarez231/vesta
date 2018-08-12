@@ -24,10 +24,32 @@ class MaterialeController extends Controller
         /* Materiales */
         $materiales = Materiale::all();
         return Datatables::of($materiales)
+        ->editColumn('tipos', function(Materiale $material){
+            if($material->tipos){
+              return '<span class="badge badge-success">'.$material->tipos.'</span>';
+          }
+      })
+        ->editColumn('subtipos', function(Materiale $material){
+            if($material->subtipos){
+              return '<span class="badge badge-success">'.$material->subtipos.'</span>';
+          }
+      })
         ->addColumn('action', function ($material) {
             return '<a href="materiales/'.$material->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>';
         })
+        ->rawColumns(['tipos','subtipos','action'])
         ->make(true);
+    }
+
+    public function setMaterial($tipo, $subtipo)
+    {
+        /* Filtrar materiales */
+        $materiales = Materiale::where('tipos','like','%'.$tipo.'%')->where('subtipos','like','%'.$subtipo.'%')->get();
+        $coleccion = collect();
+        foreach ($materiales as $value) {
+            $coleccion->push(['label' => $value->nombre, 'value' => $value->id]);
+        }
+        return $coleccion->toJson();
     }
 
     /**
@@ -49,12 +71,20 @@ class MaterialeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
+            'tipos.*' => 'required',
+            'subtipos.*' => 'required',
             'sku' => 'nullable',
             'nombre' => 'required|unique:materiales',
         ]);
 
-        Materiale::create($request->all());
-        alert()->success('Registro Creado','Nuevo Material');
+        $material = new Materiale;
+        $material->tipos = implode(",",$request->tipos);
+        $material->subtipos = implode(",",$request->subtipos);
+        $material->sku = $request->sku;
+        $material->nombre = $request->nombre;
+        $material->save();
+
+        toast('Registro creado!','success','top-right');
         return redirect('/backend/materiales');
     }
 
@@ -81,6 +111,12 @@ class MaterialeController extends Controller
         return view('backend.materiales.edit', compact('material'));
     }
 
+    public function editData($id)
+    {
+      $data = Materiale::findOrFail($id);
+      return $data->toJson();
+  }
+
     /**
      * Update the specified resource in storage.
      *
@@ -90,16 +126,22 @@ class MaterialeController extends Controller
      */
     public function update(Request $request, Materiale $materiale)
     {
+        // dd($request->all(),$materiale);
         $this->validate($request, [
-            'sku' => 'nullable|unique:materiales',
-            'nombre' => 'required',
+            'tipos.*' => 'required',
+            'subtipos.*' => 'required',
+            'sku' => 'nullable',
+            'nombre' => 'required|unique:materiales,nombre,' . $materiale->id,
         ]);
+
+        $materiale->tipos = implode(",",$request->tipos);
+        $materiale->subtipos = implode(",",$request->subtipos);
         $materiale->sku = $request->sku;
         $materiale->nombre = $request->nombre;
-        if($materiale->save()){
-            alert()->success('Registro Actualizado','Material Actualizado');
-            return redirect('/backend/materiales');
-        }
+        $materiale->save();
+
+        toast('Registro actualizado!','success','top-right');
+        return redirect('/backend/materiales');
     }
 
     /**

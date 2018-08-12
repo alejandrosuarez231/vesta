@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Unidad;
 use Illuminate\Http\Request;
+Use Alert;
 use Yajra\DataTables\DataTables;
 
 class UnidadController extends Controller
@@ -22,9 +23,9 @@ class UnidadController extends Controller
       return Datatables::of($unidades)
       ->addColumn('action', function ($unidad) {
         return '<a href="unidades/'.$unidad->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>';
-      })
+    })
       ->make(true);
-    }
+  }
 
     /**
      * Show the form for creating a new resource.
@@ -45,15 +46,15 @@ class UnidadController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'acronimo' => 'required',
-            'nombre' => 'required',
+            'acronimo' => 'required|unique:unidades',
+            'nombre' => 'required|unique:unidades',
         ]);
 
         $unidad = new Unidad;
         $unidad->acronimo = $request->acronimo;
         $unidad->nombre = $request->nombre;
         $unidad->save();
-        alert()->success('Registro Creado','Unidad Nueva');
+        toast('Registro creado!','success','top-right');
         return redirect('/backend/unidades');
     }
 
@@ -89,16 +90,16 @@ class UnidadController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($id);
         $this->validate($request, [
-            'acronimo' => 'required',
-            'nombre' => 'required',
+            'acronimo' => 'required|unique:unidades,acronimo,' . $id,
+            'nombre' => 'required|unique:unidades,nombre,' . $id,
         ]);
-
         $unidad = Unidad::findOrFail($id);
         $unidad->acronimo = $request->acronimo;
         $unidad->nombre = $request->nombre;
         $unidad->save();
-        alert()->success('Registro Actualizado','Unidad Actualzada');
+        toast('Registro actualizado!','success','top-right');
         return redirect('/backend/unidades');
     }
 

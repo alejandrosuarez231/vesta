@@ -23,7 +23,7 @@ class Materiale extends Model
    *
    * @var array
    */
-  protected $fillable = ['sku','nombre'];
+  protected $fillable = ['tipo_id','subtipo_id','sku','nombre'];
 
   /**
    * Materiale has many Lista.

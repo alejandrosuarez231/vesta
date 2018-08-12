@@ -58,7 +58,7 @@ class ColoreController extends Controller
             'nombre' => 'required|unique:colores,nombre',
         ]);
         Colore::create($request->all());
-        alert()->success('Registro Creado','Nuevo Color');
+        toast('Registro creado!','success','top-right');
         return redirect('/backend/colores');
 
 
@@ -94,9 +94,15 @@ class ColoreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Colore $colore)
     {
-        //
+        $this->validate($request, [
+            'nombre' => 'required|unique:colores,nombre,' . $colore->id,
+        ]);
+        $colore->nombre = $request->nombre;
+        $colore->save();
+        toast('Registro actualizado!','success','top-right');
+        return redirect('/backend/colores');
     }
 
     /**

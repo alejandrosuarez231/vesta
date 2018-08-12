@@ -15,8 +15,6 @@ class CreateDescripcionesTable extends Migration
     {
         Schema::create('descripciones', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tipos')->nullable();
-            $table->string('subtipos')->nullable();
             $table->string('sku',20)->nullable();
             $table->integer('materiale_id');
             $table->string('descripcion');
