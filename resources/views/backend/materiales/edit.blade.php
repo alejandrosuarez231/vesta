@@ -25,12 +25,12 @@
       </div>
       <span class="font-weight-bold text-muted"><small>Asignar - Filtros</small></span>
       <div class="row">
-        <div class="col-md-2 form-group">
+        <div class="col-md-2 form-group mr-3">
           <select name="tipos[]" class="test" multiple data-live-search="true" title="Asignar tipo" multiple="multiple" v-model="tipos" data-width="auto">
             <option v-for="(tipo, index) in tiposList" :value="tipo.value">@{{ tipo.label }}</option>
           </select>
         </div>
-        <div class="col-md-4 form-group">
+        <div class="col-md-4 form-group mr-3">
           <select name="subtipos[]" class="form-control" multiple title="Asignar subtipo" multiple="multiple" v-model="subtipos">
             <option v-for="(item, indice) in subtiposList" :value="item.value" data-show-subtext="true">@{{ item.label }}</option>
           </select>

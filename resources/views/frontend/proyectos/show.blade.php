@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md offset-md-1">
+    <div class="col-md">
       <h3>Proyecto <span class="font-weight-bold text-info">{{ $proyecto->nombre }}</span></h3>
       <ul class="nav">
         <li class="nav-item">
@@ -14,7 +14,7 @@
   </div>
   <div class="row">
     <div class="col-md-4">
-      <div class="card" style="width: 30rem;">
+      <div class="card">
         <div class="card-body">
           <h5 class="card-title">{{ $proyecto->nombre }}</h5>
           <h6 class="card-subtitle mb-2 text-muted">{{ $proyecto->descripcion }}</h6>
@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="col-md-4">
-      <div class="card" style="width: 30rem;">
+      <div class="card">
         <div class="card-body">
           <h5 class="card-title">Complementos</h5>
           <h6 class="card-subtitle mb-2 text-muted">{{ $proyecto->descripcion }}</h6>
@@ -53,7 +53,7 @@
       </div>
     </div>
     <div class="col-md-4">
-      <div class="card" style="width: 30rem;">
+      <div class="card">
         <div class="card-body">
           <h5 class="card-title">Proyecto</h5>
           <h6 class="card-subtitle text-muted">Acciones</h6>
