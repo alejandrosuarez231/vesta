@@ -82,4 +82,19 @@ class MtpController extends Controller
     {
         //
     }
+
+    public function editarMTPContructor($id)
+    {
+        $mtps = Mtp::where('producto_id','=',$id)->get();
+        $coleccion = collect();
+        foreach ($mtps as $key => $value) {
+            $coleccion->push([
+                'id' => $value->id,
+                'mtp_tipo_id' => $value->mtp_tipo_id,
+                'mtp_subtipo_id' => $value->mtp_subtipo_id,
+                'cantidad' => $value->cantidad
+            ]);
+        }
+        return $coleccion->toJson();
+    }
 }

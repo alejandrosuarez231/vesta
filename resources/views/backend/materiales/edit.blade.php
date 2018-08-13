@@ -65,7 +65,6 @@
         this.nombre = response.data.nombre;
         this.tipos = response.data.tipos.split(',');
         this.subtipos = response.data.subtipos.split(',');
-        console.log(response.data);
       })
       .catch(function(error) {
         console.log(error)
@@ -86,7 +85,6 @@
         axios.get('/subtiposFiltro/' + this.tipos)
         .then( response => {
           this.subtiposList = response.data
-          console.log(this.subtiposList);
         })
         .catch(function(error) {
           console.log(error)

@@ -21,7 +21,7 @@
           <p class="card-text">
             Largo: <span class="text-uppercase">{{ $proyecto->largo }}</span><br>
             Ancho: <span class="text-uppercase">{{ $proyecto->ancho }}</span><br>
-            Profundidad: <span class="text-uppercase">{{ $proyecto->profundidad }}</span>
+            Espesor: <span class="text-uppercase">{{ $proyecto->espesor }}</span>
           </p>
         </div>
       </div>
@@ -37,7 +37,6 @@
                 <th>#</th>
                 <th>Herraje</th>
                 <th>Cantidad</th>
-                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -46,9 +45,6 @@
                 <td>{{ $element->id  }}</td>
                 <td>{{ $element->tipo->nombre }} / {{ $element->subtipo->nombre }}</td>
                 <td class="text-right">{{ $element->cantidad  }}</td>
-                <td>
-                  <a class="btn btn-sm btn-warning" href="#">Editar</a>
-                </td>
               </tr>
               @endforeach
             </tbody>
@@ -59,9 +55,12 @@
     <div class="col-md-4">
       <div class="card" style="width: 30rem;">
         <div class="card-body">
-          <h5 class="card-title">Editar Complemento</h5>
-          <h6 class="card-subtitle text-muted">Subtitulo</h6>
-          cuerpo
+          <h5 class="card-title">Proyecto</h5>
+          <h6 class="card-subtitle text-muted">Acciones</h6>
+          <p>
+            <a class="btn btn-sm btn-primary" href="#" title="Aprobar">Aprobar</a>
+            <a class="btn btn-sm btn-danger" href="#" title="Aprobar">Negado</a>
+          </p>
         </div>
       </div>
     </div>
@@ -80,6 +79,7 @@
                 <th>Material</th>
                 <th>Descripcion</th>
                 <th>Propiedades</th>
+                <th>Cantidad</th>
               </tr>
             </thead>
             <tbody>
@@ -119,7 +119,6 @@
                                 <th>Ancho INF <small>Canto</small></th>
                                 <th>Mec 1</th>
                                 <th>Mec 2</th>
-                                <th>Cantidad</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -133,13 +132,11 @@
                                 <td class="text-center">{{ $item->ancho_inf }}</td>
                                 <td class="text-center">{{ $item->mec1 }}</td>
                                 <td class="text-center">{{ $item->mec2 }}</td>
-                                <td class="text-right">{{ $item->cantidad }}</td>
                               </tr>
                             </tbody>
                           </table>
                         </div>
                         <div class="modal-footer">
-                          <a class="btn btn-sm btn-warning" href="#" title="Editar">Editar</a>
                           <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
                         </div>
                       </div>
@@ -147,6 +144,7 @@
                   </div>
                   {{-- modal --}}
                 </td>
+                <td class="text-right">{{ $item->cantidad }}</td>
               </tr>
               @endforeach
             </tbody>

@@ -75,7 +75,7 @@
                 </td>
                 <td>
                   <select class="form-control form-control-sm" name="mtp_subtipo_id[]" v-model="mtp.subtipo">
-                    <option v-for="(subtipo, indice) in mtpsList[$index]" :value="indice">@{{ subtipo }}</option>
+                    <option v-for="(subtipo, indice) in mtpsList[$index]" :value="subtipo.value">@{{ subtipo.label }}</option>
                   </select>
                 </td>
                 <td width="30%">

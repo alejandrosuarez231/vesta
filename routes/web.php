@@ -27,6 +27,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/users', 'UserController@index')->name('users.index');
 Route::get('indexData', 'UserController@indexData')->name('users.data');
 
+// Route::get('/MaterialEditData/{id}', 'MaterialeController@editData');
+
 Route::group(['middleware' => 'auth'], function() {
   /* Backend */
   Route::get('/dataTipos', 'TipoController@indexData')->name('data.tipos');
@@ -36,6 +38,7 @@ Route::group(['middleware' => 'auth'], function() {
   Route::resource('/backend/tipos','TipoController');
   Route::get('/subtiposFiltro/{tipos}', 'SubtipoController@subtiposFiltro');
   Route::get('/dataSubtipos', 'SubtipoController@indexData')->name('data.subtipos');
+  Route::get('/subtiposAll', 'SubtipoController@subtiposAll')->name('data.subtiposAll');
   Route::resource('/backend/subtipos','SubtipoController');
   Route::get('/dataUnidades', 'UnidadController@indexData')->name('data.unidades');
   Route::resource('/backend/unidades', 'UnidadController');
@@ -56,7 +59,10 @@ Route::group(['middleware' => 'auth'], function() {
   /* Frontend */
   Route::get('/frontend/constructor/construir','ConstructorController@construir')->name('constructor.construir');
   Route::post('/frontend/constructor','ConstructorController@ensamble')->name('constructor.ensamble');
+  /* Constructor edit */
   Route::get('/frontend/constructor/{id}/edit','ConstructorController@edit')->name('constructor.edit');
+
+  /* Constructor edit */
   Route::patch('/frontend/constructor/{id}','ConstructorController@update')->name('constructor.update');
   Route::get('/productoslist', 'ProductoController@indexData')->name('productos.data');
   Route::resource('/frontend/productos', 'ProductoController');
@@ -90,6 +96,7 @@ Route::resource('/cotizaciones','CotizacioneController');
 
 /* VUE ROUTE's */
 Route::get('/subtipos/{tipo}', 'SubtipoController@subtipos' );
+Route::get('/editarMTPContructor/{id}', 'MtpController@editarMTPContructor');
 
 /* Obtener datos del producto */
 Route::get('/ProductoData/{id}', function($id) {
@@ -97,9 +104,7 @@ Route::get('/ProductoData/{id}', function($id) {
 });
 
 /* Subtipos para MTP Nuevos */
-Route::get('/mtpsubtipos/{tipo}', function($tipo) {
-  return \App\Subtipo::where('tipo_id','=',$tipo)->pluck('nombre','id');
-});
+Route::get('/mtpsubtipos/{tipo}', 'SubtipoController@mtpsubtipos');
 /* Obtener Base SKU */
 Route::get('/getBaseSku/{tipo}/{subtipo}', function($tipo, $subtipo) {
   return \App\Codigo::where('tipo_id',$tipo)->where('subtipo_id',$subtipo)->select('skubase','numeracion')->get();

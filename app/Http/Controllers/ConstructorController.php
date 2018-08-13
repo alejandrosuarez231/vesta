@@ -100,6 +100,7 @@ class ConstructorController extends Controller
   public function edit($id)
   {
     $proyecto = Proyecto::findOrFail($id);
+    // dd($proyecto);
     return view('frontend.constructor.edit', compact('proyecto'));
   }
 

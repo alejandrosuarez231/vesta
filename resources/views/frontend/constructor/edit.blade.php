@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div id="app" class="container-fluid">
+<div id="app" class="container-fluid" v-cloak>
   <div class="row">
     <div class="col-md">
       <h3>Constructor <span class="font-weight-bold text-warning">Edición</span></h3>
@@ -48,7 +48,7 @@
             {!! Form::text('ptoancho', null, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Ancho', 'v-model' => 'ancho']) !!}
           </div>
           <div class="form-group mr-1">
-            {!! Form::text('ptoprofundidad', null, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Profundidad', 'v-model' => 'profundidad']) !!}
+            {!! Form::text('ptoespesor', null, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Profundidad', 'v-model' => 'espesor']) !!}
           </div>
           {{-- <div class="form-group mr-1">
             {!! Form::select('ptocolor_id', \App\Colore::pluck('nombre','id'), null, ['class'=>'form-control form-control-sm','placeholder'=>'Color']) !!}
@@ -74,12 +74,14 @@
               <tr v-for="(mtp, $index) in mtps" track-by="$index">
                 <td>@{{ $index + 1 }}</td>
                 <td>
-                  {!! Form::select('mtp_tipo_id[]', \App\Tipo::where('tipologia','=','MTP')->pluck('nombre','id'), null, ['class'=>'form-control form-control-sm','placeholder'=>'Tipo','v-model'=>'mtp.tipo','@change'=>'getSubtipo($index,mtps[$index].tipo)']) !!}
+                  <select class="form-control form-control-sm" name="mtp_tipo_id[]" v-model="mtp.tipo" @change="getSubtipo($index,mtps[$index].tipo)">
+                    <option v-for="(tipo, indice) in tipos" :value="tipo.value">@{{ tipo.label }}</option>
+                  </select>
                 </td>
                 <td>
                   <select class="form-control form-control-sm" name="mtp_subtipo_id[]" v-model="mtp.subtipo">
                     <option value="" selected disabled>Subtipo</option>
-                    <option v-for="(subtipo, indice) in mtpsList[$index]" :value="indice">@{{ subtipo }}</option>
+                    <option v-for="(subtipo, indice) in mtpsList[$index]" :value="subtipo.value">@{{ subtipo.label }}</option>
                   </select>
                 </td>
                 <td width="30%">
@@ -191,6 +193,7 @@
     el: '#app',
 
     created(){
+      axios.get('/TiposMTP').then( response => { this.tipos = response.data }).catch(function(error) { console.log(error) });
       axios.get('/materiales').then( response => { this.materialMatriz = response.data }).catch(function(error) { console.log(error) });
       axios.get('/subtipos/' + this.tipo).then( response => { this.subtipos = response.data }).catch(function(error) { console.log(error) });
       axios.get('/getMtps/' + '{{ $proyecto->id }}').then( response => { this.mtps = response.data }).catch(function(error){ console.log(error)});
@@ -201,13 +204,14 @@
       producto: '{{ $proyecto->id }}',
       ptosku: '{{ $proyecto->sku }}',
       tipo: '{{ $proyecto->tipo_id }}',
+      tipos: '',
       subtipos: '',
       subtipo: '{{ $proyecto->subtipo_id }}',
       nombre: '{{ $proyecto->nombre }}',
       descripcion: '{{ $proyecto->descripcion }}',
       largo: '{{ $proyecto->largo }}',
       ancho: '{{ $proyecto->ancho }}',
-      profundidad: '{{ $proyecto->profundidad }}',
+      espesor: '{{ $proyecto->espesor }}',
       base: '',
       basesku: '',
       numeracion: '',
@@ -238,7 +242,7 @@
         if(this.materiales.length > 0){
           for (var i = 0; i <= this.materiales.length - 1; i++) {
             this.filterMaterial(this.materiales[i].material_id, i);
-            console.log(i);
+            // console.log(i);
           }
         }
       }
@@ -249,7 +253,7 @@
         this.mtps.splice(index + 1, 1, { tipo: null, subtipo: null, cantidad: 0 });
       },
       removeRowMTP: function(index){
-        console.log(index);
+        // console.log(index);
         if( this.mtps.length > 1){
           this.mtps.splice(index, 1);
         }
@@ -263,7 +267,7 @@
         }
       },
       removeRowMAT: function(indice){
-        console.log(indice);
+        // console.log(indice);
         if( this.materiales.length > 1){
           this.materiales.splice(indice, 1);
         }
@@ -280,7 +284,7 @@
       getSkuBase: function(){
         axios.get('/getBaseSku/' + this.tipo + '/' + this.subtipo)
         .then( response => {
-          console.log(response.data);
+          // console.log(response.data);
           this.numeracion = response.data[0].numeracion;
           this.base = response.data[0].skubase;
           this.ptosku = this.base;

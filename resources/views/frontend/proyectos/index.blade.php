@@ -47,6 +47,7 @@
               <td>
                 <a class="btn btn-sm btn-info" href="{{ route('proyectos.show',['id'=>$element->id]) }}" title="">Ver</a>
                 <a class="btn btn-sm btn-warning" href="{{ route('constructor.edit',['id'=>$element->id]) }}" title="Editar">Editar</a>
+                <a class="btn btn-sm btn-danger" href="#" title="Editar">Cancelar</a>
               </td>
             </tr>
             @endforeach

@@ -60,6 +60,11 @@ class SubtipoController extends Controller
         return $subtiposList->toJson();
     }
 
+    public function subtiposAll()
+    {
+        return Subtipo::select('id','tipo_id','nombre')->get()->toJson();
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -178,6 +183,16 @@ class SubtipoController extends Controller
     {
         $subtipo = Subtipo::findOrFail($id);
         $subtipo->delete();
+    }
+
+    public function mtpsubtipos($tipo)
+    {
+        $subtipos = Subtipo::where('tipo_id','=',$tipo)->get();
+        $coleccion = collect();
+        foreach ($subtipos as $key => $value) {
+            $coleccion->push(['label' => $value->nombre, 'value' => $value->id]);
+        }
+        return $coleccion->toJson();
     }
 
     public function subtipos($tipo)
