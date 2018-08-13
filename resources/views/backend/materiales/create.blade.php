@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid" id="app" v-cloak>
   <div class="row">
     <div class="col-md offset-md-1">
       <h3>Materiales</h3>

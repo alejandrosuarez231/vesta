@@ -29,48 +29,45 @@ Route::get('indexData', 'UserController@indexData')->name('users.data');
 
 // Route::get('/MaterialEditData/{id}', 'MaterialeController@editData');
 
-Route::group(['middleware' => 'auth'], function() {
-  /* Backend */
-  Route::get('/dataTipos', 'TipoController@indexData')->name('data.tipos');
-  Route::get('/Tipos', 'TipoController@tipos');
-  Route::get('/TiposMTP', 'TipoController@tiposMTP');
-  Route::get('/TiposPTO', 'TipoController@tiposPTO');
-  Route::resource('/backend/tipos','TipoController');
-  Route::get('/subtiposFiltro/{tipos}', 'SubtipoController@subtiposFiltro');
-  Route::get('/dataSubtipos', 'SubtipoController@indexData')->name('data.subtipos');
-  Route::get('/subtiposAll', 'SubtipoController@subtiposAll')->name('data.subtiposAll');
-  Route::resource('/backend/subtipos','SubtipoController');
-  Route::get('/dataUnidades', 'UnidadController@indexData')->name('data.unidades');
-  Route::resource('/backend/unidades', 'UnidadController');
-  Route::get('/dataMarcas', 'MarcaController@indexData')->name('data.marcas');
-  Route::resource('/backend/marcas', 'MarcaController');
-  Route::get('/dataColores', 'ColoreController@indexData')->name('data.colores');
-  Route::resource('/backend/colores','ColoreController');
-  Route::get('/dataMateriales', 'MaterialeController@indexData')->name('data.materiales');
-  Route::get('/MaterialEditData/{id}', 'MaterialeController@editData');
-  Route::get('/setMaterial/{tipo}/{subtipo}', 'MaterialeController@setMaterial');
-  Route::resource('/backend/materiales','MaterialeController');
-  Route::get('/dataDescripciones', 'DescripcioneController@indexData')->name('data.descripciones');
-  Route::get('/descripcionMaterial/{material}', 'DescripcioneController@descripcionMaterial');
-  Route::resource('/backend/materiales/descripciones', 'DescripcioneController');
-});
 
-Route::group(['middleware' => 'auth'], function() {
-  /* Frontend */
-  Route::get('/frontend/constructor/construir','ConstructorController@construir')->name('constructor.construir');
-  Route::post('/frontend/constructor','ConstructorController@ensamble')->name('constructor.ensamble');
-  /* Constructor edit */
-  Route::get('/frontend/constructor/{id}/edit','ConstructorController@edit')->name('constructor.edit');
-
-  /* Constructor edit */
-  Route::patch('/frontend/constructor/{id}','ConstructorController@update')->name('constructor.update');
-  Route::get('/productoslist', 'ProductoController@indexData')->name('productos.data');
-  Route::resource('/frontend/productos', 'ProductoController');
-  Route::resource('/frontend/proyectos', 'ProyectoController');
-  Route::resource('/frontend/inventarios', 'InventarioController');
-});
+/* Backend */
+Route::get('/dataTipos', 'TipoController@indexData')->name('data.tipos');
+Route::get('/Tipos', 'TipoController@tipos');
+Route::get('/TiposMTP', 'TipoController@tiposMTP');
+Route::get('/TiposPTO', 'TipoController@tiposPTO');
+Route::resource('/backend/tipos','TipoController');
+Route::get('/subtiposFiltro/{tipos}', 'SubtipoController@subtiposFiltro');
+Route::get('/dataSubtipos', 'SubtipoController@indexData')->name('data.subtipos');
+Route::get('/subtiposAll', 'SubtipoController@subtiposAll')->name('data.subtiposAll');
+Route::resource('/backend/subtipos','SubtipoController');
+Route::get('/dataUnidades', 'UnidadController@indexData')->name('data.unidades');
+Route::resource('/backend/unidades', 'UnidadController');
+Route::get('/dataMarcas', 'MarcaController@indexData')->name('data.marcas');
+Route::resource('/backend/marcas', 'MarcaController');
+Route::get('/dataColores', 'ColoreController@indexData')->name('data.colores');
+Route::resource('/backend/colores','ColoreController');
+Route::get('/dataMateriales', 'MaterialeController@indexData')->name('data.materiales');
+Route::get('/MaterialEditData/{id}', 'MaterialeController@editData');
+Route::get('/setMaterial/{tipo}/{subtipo}', 'MaterialeController@setMaterial');
+Route::resource('/backend/materiales','MaterialeController');
+Route::get('/dataDescripciones', 'DescripcioneController@indexData')->name('data.descripciones');
+Route::get('/descripcionMaterial/{material}', 'DescripcioneController@descripcionMaterial');
+Route::resource('/backend/materiales/descripciones', 'DescripcioneController');
 
 
+
+/* Frontend */
+Route::get('/frontend/constructor/construir','ConstructorController@construir')->name('constructor.construir');
+Route::post('/frontend/constructor','ConstructorController@ensamble')->name('constructor.ensamble');
+/* Constructor edit */
+Route::get('/frontend/constructor/{id}/edit','ConstructorController@edit')->name('constructor.edit');
+
+/* Constructor edit */
+Route::patch('/frontend/constructor/{id}','ConstructorController@update')->name('constructor.update');
+Route::get('/productoslist', 'ProductoController@indexData')->name('productos.data');
+Route::resource('/frontend/productos', 'ProductoController');
+Route::resource('/frontend/proyectos', 'ProyectoController');
+Route::resource('/frontend/inventarios', 'InventarioController');
 
 Route::resource('/backend/codigos', 'CodigoController');
 /* Truncate Codigos */
@@ -88,11 +85,7 @@ Route::get('/backend/extras/extras/{id}', 'PropsextraController@index')->name('e
 Route::post('/setextras', 'PropsextraController@store')->name('extras.setting');
 Route::resource('/backend/extras', 'ExtraController');
 
-
-
-
 Route::resource('/cotizaciones','CotizacioneController');
-
 
 /* VUE ROUTE's */
 Route::get('/subtipos/{tipo}', 'SubtipoController@subtipos' );
