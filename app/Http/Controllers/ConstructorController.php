@@ -111,6 +111,8 @@ class ConstructorController extends Controller
     /* Proyecto */
     $producto = Proyecto::findOrFail($id);
     $producto->nombre = $request->nombre;
+    $producto->sap = $request->sap;
+    $producto->sar = $request->sar;
     $producto->descripcion = $request->descripcion;
     $producto->largo = $request->ptolargo;
     $producto->ancho = $request->ptoancho;
