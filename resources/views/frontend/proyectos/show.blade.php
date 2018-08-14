@@ -19,9 +19,11 @@
           <h5 class="card-title">{{ $proyecto->nombre }}</h5>
           <h6 class="card-subtitle mb-2 text-muted">{{ $proyecto->descripcion }}</h6>
           <p class="card-text">
-            Largo: <span class="text-uppercase">{{ $proyecto->largo }}</span><br>
-            Ancho: <span class="text-uppercase">{{ $proyecto->ancho }}</span><br>
-            Espesor: <span class="text-uppercase">{{ $proyecto->espesor }}</span>
+            Largo: <span class="text-uppercase badge badge-success">{{ $proyecto->largo }}</span><br>
+            Ancho: <span class="text-uppercase badge badge-success">{{ $proyecto->ancho }}</span><br>
+            Espesor: <span class="text-uppercase badge badge-success">{{ $proyecto->espesor }}</span><br>
+            Sist. de Apertura: <span class="text-uppercase badge badge-success">{{ @$proyecto->sap }}</span><br>
+            Sist. de Armado: <span class="text-uppercase badge badge-success">{{ @$proyecto->sar }}</span>
           </p>
         </div>
       </div>

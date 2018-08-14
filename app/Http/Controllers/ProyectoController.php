@@ -52,6 +52,7 @@ class ProyectoController extends Controller
     public function show($id)
     {
         $proyecto = Proyecto::findOrFail($id);
+        // dd($proyecto);
         $mtps = Mtp::with('tipo:id,nombre','subtipo:id,nombre','producto:id,nombre')->where('producto_id','=',$id)->get();
         $materiales = Lista_materiale::with('material:id,nombre','descripcion:id,descripcion')->get();
         // dd($materiales);

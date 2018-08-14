@@ -72,20 +72,24 @@
             </thead>
             <tbody>
               <tr v-for="(mtp, $index) in mtps" track-by="$index">
-                <td>@{{ $index + 1 }}</td>
                 <td>
-                  <select class="form-control form-control-sm" name="mtp_tipo_id[]" v-model="mtp.tipo" @change="getSubtipo($index,mtps[$index].tipo)">
+                  @{{ $index + 1 }}
+                  {!! Form::hidden('mtp_id[]', null, ['v-model'=>'mtp.mtp_id']) !!}
+                  {!! Form::hidden('mtp_producto_id[]', null, ['v-model'=>'mtp.mtp_producto_id']) !!}
+                </td>
+                <td>
+                  <select class="form-control form-control-sm" name="mtp_tipo_id[]" v-model="mtp.mtp_tipo_id" @change="getSubtipo($index,mtps[$index].tipo)">
                     <option v-for="(tipo, indice) in tipos" :value="tipo.value">@{{ tipo.label }}</option>
                   </select>
                 </td>
                 <td>
-                  <select class="form-control form-control-sm" name="mtp_subtipo_id[]" v-model="mtp.subtipo">
+                  <select class="form-control form-control-sm" name="mtp_subtipo_id[]" v-model="mtp.mtp_subtipo_id">
                     <option value="" selected disabled>Subtipo</option>
                     <option v-for="(subtipo, indice) in mtpsList[$index]" :value="subtipo.value">@{{ subtipo.label }}</option>
                   </select>
                 </td>
                 <td width="30%">
-                  {!! Form::number('mtp_cantidad[]', null, ['class'=>'form-control form-control-sm text-right','placeholder'=>'Cantidad','min' => 1, 'v-model'=>'mtp.cantidad']) !!}
+                  {!! Form::number('mtp_cantidad[]', null, ['class'=>'form-control form-control-sm text-right','placeholder'=>'Cantidad','min' => 1, 'v-model'=>'mtp.mtp_cantidad']) !!}
                 </td>
                 <td>
                   <a class="btn btn-link text-danger" href="#" title="Eliminar" @click="removeRowMTP($index)" v-if="mtps.length > 1"><i class="fas fa-minus"></i></a>
@@ -196,7 +200,7 @@
       axios.get('/TiposMTP').then( response => { this.tipos = response.data }).catch(function(error) { console.log(error) });
       axios.get('/materiales').then( response => { this.materialMatriz = response.data }).catch(function(error) { console.log(error) });
       axios.get('/subtipos/' + this.tipo).then( response => { this.subtipos = response.data }).catch(function(error) { console.log(error) });
-      axios.get('/getMtps/' + '{{ $proyecto->id }}').then( response => { this.mtps = response.data }).catch(function(error){ console.log(error)});
+      axios.get('/ProyectoComplementos/' + '{{ $proyecto->id }}').then( response => { this.mtps = response.data }).catch(function(error){ console.log(error)});
       axios.get('/getMateriales/' + {{ $proyecto->id }}).then( response => { this.materiales = response.data }).catch(function(error){ console.log(error)});
     },
 
@@ -216,7 +220,7 @@
       basesku: '',
       numeracion: '',
       mtpsList: [],
-      mtps: [{ tipo: '', subtipo: '', cantidad: '' }],
+      mtps: [{ mtp_id: '', mtp_producto_id:'', mtp_tipo_id: '', _mtp_subtipo_id: '', mtp_cantidad: '' }],
       materialMatriz: '',
       descripciones: [],
       materiales: [{ material_id: '', descripcion: '', largo: '', ancho: '', espesor: '', largo_izq: '', largo_der: '', ancho_sup: '', ancho_inf: '', veta: '', mec1: '', mec2: '', cantidad: '' }]

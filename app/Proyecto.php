@@ -17,6 +17,8 @@ class Proyecto extends Model
     'tipo_id',
     'subtipo_id',
     'nombre',
+    'sap',
+    'sar',
     'descripcion',
     'marca_id',
     'unidad_id',

@@ -56,6 +56,8 @@ class ConstructorController extends Controller
       'tipo_id'=>$request->tipo_id,
       'subtipo_id'=>$request->subtipo_id,
       'nombre'=>$request->nombre,
+      'sap'=>$request->sap,
+      'sar'=>$request->sar,
       'descripcion'=>$request->descripcion,
       'largo'=>$request->ptolargo,
       'ancho'=>$request->ptoancho,
@@ -179,5 +181,21 @@ class ConstructorController extends Controller
     /* Propiedades a tabla ? */
     // alert()->success('Registro actualizado','Proyecto Actualizado');
     // return redirect('/frontend/proyectos');
+  }
+
+  public function dataComplementos($id)
+  {
+    $mtps = Mtp::all();
+    $coleccion = collect();
+    foreach ($mtps as $key => $value) {
+      $coleccion->push([
+        'mtp_id' => $value->id,
+        'mtp_producto_id' => $value->producto_id,
+        'mtp_tipo_id' => $value->mtp_tipo_id,
+        'mtp_subtipo_id' => $value->mtp_subtipo_id,
+        'mtp_cantidad' => $value->cantidad
+      ]);
+    }
+    return $coleccion->toJson();
   }
 }

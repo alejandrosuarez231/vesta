@@ -33,6 +33,14 @@
       <div class="form-group">
         {!! Form::text('nombre', null, ['class'=>'form-control form-control-sm col-md-6','placeholder'=>'Nombre']) !!}
       </div>
+      <div class="form-row">
+        <div class="form-group mr-2">
+          {!! Form::select('sap', ['1'=>'Mini Fix','2'=>'Tornillo'], null, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Apertura']) !!}
+        </div>
+        <div class="form-group mr-2">
+          {!! Form::select('sar', ['1'=>'Gola','2'=>'Tirador','3'=>'Tip On','4'=>'Riel'], null, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Apertura']) !!}
+        </div>
+      </div>
       <div class="form-group">
         {!! Form::textarea('descripcion', null, ['class'=>'form-control form-control-sm col-md-6','size'=>'30x3','placeholder'=>'Descripción']) !!}
       </div>
