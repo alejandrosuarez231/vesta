@@ -19,7 +19,7 @@
         <div class="form-group mr-2">
           {!! Form::select('tipo_id', \App\Tipo::where('tipologia','=','PTO')->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'TIPO', 'v-model' => 'tipo']) !!}
         </div>
-        <div class="form-group mr-2" v-if="tipo > 10 && tipo < 15">
+        <div class="form-group mr-2" v-if="tipo > 10 && tipo < 18">
           <select class="form-control form-control-sm" name="subtipo_id" v-model="subtipo" @change="getSkuBase">
             <option value="" disabled>Selección</option>
             <option v-for="(item, index) in subtipos" :value="index">@{{ item }}</option>
