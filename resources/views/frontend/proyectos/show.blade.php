@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid" id="app">
   <div class="row">
     <div class="col-md">
       <h3>Proyecto <span class="font-weight-bold text-info">{{ $proyecto->nombre }}</span></h3>
@@ -61,7 +61,7 @@
           <h6 class="card-subtitle text-muted">Acciones</h6>
           <p>
             <a class="btn btn-sm btn-primary" href="#" title="Aprobar">Aprobar</a>
-            <a class="btn btn-sm btn-danger" href="#" title="Aprobar">Negado</a>
+            <a class="btn btn-sm btn-danger" href="#" title="Descartar" @click="deleteProyecto">Descartar</a>
           </p>
         </div>
       </div>
@@ -156,4 +156,34 @@
     </div>
   </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+  var app = new Vue({
+    el: '#app',
+
+    methods: {
+      deleteProyecto: function(){
+        swal({
+          title: 'Esta Ud., seguro?',
+          text: "Para revertir esta operación debera contactar con el Administrador del sistema!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, Eliminalo!'
+        }).then((result) => {
+          if (result.value) {
+            swal(
+              'Borrado!',
+              'Proyecto eliminado.',
+              'success'
+              )
+          }
+        })
+      }
+    }
+  })
+</script>
 @endsection

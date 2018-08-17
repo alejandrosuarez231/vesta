@@ -112,51 +112,96 @@ class ConstructorController extends Controller
   {
     // dd($request->all());
     /* Proyecto */
-    $producto = Proyecto::firstOrCreate([
-      'id' => $id,
-      'sku' => $request->sku,
-      'tipo_id' => $request->tipo_id,
-      'subtipo_id' => $request->subtipo_id,
-      'nombre' => $request->nombre,
-      'sap' => $request->sap,
-      'sar' => $request->sar,
-      'descripcion' => $request->descripcion,
-      'largo' => $request->ptolargo,
-      'ancho' => $request->ptoancho,
-      'espesor' => $request->ptoespesor,
-      'importado' => 0
-    ]);
+    $producto = Proyecto::findOrFail($id);
+    $producto->id = $id;
+    $producto->sku = $request->sku;
+    $producto->tipo_id = $request->tipo_id;
+    $producto->subtipo_id = $request->subtipo_id;
+    $producto->nombre = $request->nombre;
+    $producto->sap = $request->sap;
+    $producto->sar = $request->sar;
+    $producto->descripcion = $request->descripcion;
+    $producto->largo = $request->ptolargo;
+    $producto->ancho = $request->ptoancho;
+    $producto->espesor = $request->ptoespesor;
+    $producto->importado = 0;
+    $producto->save();
+
 
     /* Materia Prima */
-    for ($i=0; $i <= count($request->mtp_tipo_id) -1 ; $i++) {
-      $mtps = Mtp::firstOrCreate([
-        'id' => $request->mtp_id[$i],
-        'producto_id' => $id,
-        'mtp_tipo_id' => $request->mtp_tipo_id[$i],
-        'mtp_subtipo_id' => $request->mtp_subtipo_id[$i],
-        'cantidad' => $request->mtp_cantidad[$i]
-      ]);
+    $mtps = Mtp::where('producto_id','=',$id)->get();
+    if ($mtps->count() == count($request->mtp_tipo_id)){
+      foreach ($request->mtp_tipo_id as $key => $value) {
+        Mtp::where('id','=',$request->mtp_id)->update([
+          'mtp_tipo_id' => $request->mtp_tipo_id[$key],
+          'mtp_subtipo_id' => $request->mtp_subtipo_id[$key],
+          'cantidad' => $request->mtp_cantidad[$key]
+        ]);
+      }
+    }else if($mtps->count() > count($request->mtp_tipo_id)){
+      /* Elimino materia prima */
+      $mtps_rm = Mtp::whereNotIn('id',$request->mtp_id)->get();
+      foreach ($mtps_rm as $key => $value) {
+        Mtp::destroy($value->id);
+      }
+    }else if($mtps->count() < count($request->mtp_tipo_id)){
+      /* Agrego materia prima */
+      foreach ($request->mtp_tipo_id as $key => $value) {
+        Mtp::firstOrCreate([
+          'producto_id' => $id,
+          'mtp_tipo_id' => $request->mtp_tipo_id[$key],
+          'mtp_subtipo_id' => $request->mtp_subtipo_id[$key],
+          'cantidad' => $request->mtp_cantidad[$key]
+        ]);
+      }
     }
 
     /* Crear el Material */
-    for ($i=0; $i <= count($request->pse_id) -1 ; $i++) {
-      $newListaMaterial = Lista_materiale::firstOrCreate([
-        'id' => $request->pse_id[$i],
-        'producto_id' => $id,
-        'material_id' => $request->psematerial_id[$i],
-        'descripcion_id' => $request->psedescripcion[$i],
-        'largo' => $request->pselargo[$i],
-        'ancho' => $request->pseancho[$i],
-        'ancho' => $request->pseancho[$i],
-        'espesor' => $request->pseespesor[$i],
-        'largo_izq' => $request->pselargo_izq[$i],
-        'largo_der' => $request->pselargo_der[$i],
-        'ancho_sup' => $request->pseancho_sup[$i],
-        'ancho_inf' => $request->pseancho_inf[$i],
-        'mec1' => $request->psemec1[$i],
-        'mec2' => $request->psemec2[$i],
-        'cantidad' => $request->psecantidad[$i]
-      ]);
+    $materiales = Lista_materiale::where('producto_id','=',$id)->get();
+    if ($materiales->count() == count($request->pse_id)){
+      foreach ($request->pse_id as $key => $value) {
+        Lista_materiale::where('id','=',$request->pse_id)->update([
+          'material_id' => $request->psematerial_id[$key],
+          'descripcion_id' => $request->psedescripcion[$key],
+          'largo' => $request->pselargo[$key],
+          'ancho' => $request->pseancho[$key],
+          'ancho' => $request->pseancho[$key],
+          'espesor' => $request->pseespesor[$key],
+          'largo_izq' => $request->pselargo_izq[$key],
+          'largo_der' => $request->pselargo_der[$key],
+          'ancho_sup' => $request->pseancho_sup[$key],
+          'ancho_inf' => $request->pseancho_inf[$key],
+          'mec1' => $request->psemec1[$key],
+          'mec2' => $request->psemec2[$key],
+          'cantidad' => $request->psecantidad[$key]
+        ]);
+      }
+    }else if ($materiales->count() > count($request->pse_id)){
+      /* Eliminar Materiales */
+      $material_rm = Lista_materiale::whereNotIn('id',$request->pse_id)->get();
+      foreach ($material_rm as $key => $value) {
+        Lista_materiale::destroy($value->id);
+      }
+    }else if ($materiales->count() < count($request->pse_id)){
+      /* Agregar Materiales */
+      foreach ($request->pse_id as $key => $value) {
+        Lista_materiale::firstOrCreate([
+          'producto_id' => $id,
+          'material_id' => $request->psematerial_id[$key],
+          'descripcion_id' => $request->psedescripcion[$key],
+          'largo' => $request->pselargo[$key],
+          'ancho' => $request->pseancho[$key],
+          'ancho' => $request->pseancho[$key],
+          'espesor' => $request->pseespesor[$key],
+          'largo_izq' => $request->pselargo_izq[$key],
+          'largo_der' => $request->pselargo_der[$key],
+          'ancho_sup' => $request->pseancho_sup[$key],
+          'ancho_inf' => $request->pseancho_inf[$key],
+          'mec1' => $request->psemec1[$key],
+          'mec2' => $request->psemec2[$key],
+          'cantidad' => $request->psecantidad[$key]
+        ]);
+      }
     }
     /* Propiedades a tabla ? */
     toast('Registro Actualizado!','success','top-right');
