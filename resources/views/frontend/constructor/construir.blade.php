@@ -22,7 +22,7 @@
         <div class="form-group mr-2" v-if="tipo > 10 && tipo < 18">
           <select class="form-control form-control-sm" name="subtipo_id" v-model="subtipo" @change="getSkuBase">
             <option value="" disabled>Selección</option>
-            <option v-for="(item, index) in subtipos" :value="index">@{{ item }}</option>
+            <option v-for="(item, index) in subtipos" :value="item.value">@{{ item.label }}</option>
           </select>
         </div>
         <div class="form-group">
@@ -77,17 +77,17 @@
               <tr v-for="(mtp, $index) in mtps" track-by="$index">
                 <td>@{{ $index + 1 }}</td>
                 <td>
-                  <select class="form-control form-control-sm" name="mtp_tipo_id[]" v-model="mtp.tipo" @change="getSubtipo($index,mtps[$index].tipo)">
+                  <select class="form-control form-control-sm" name="mtp_tipo_id[]" v-model="mtp.tipo" @change="getSubtipo($index,mtps[$index].tipo)" required>
                     <option v-for="(tipo, indice) in tipos" :value="tipo.value">@{{ tipo.label }}</option>
                   </select>
                 </td>
                 <td>
-                  <select class="form-control form-control-sm" name="mtp_subtipo_id[]" v-model="mtp.subtipo">
+                  <select class="form-control form-control-sm" name="mtp_subtipo_id[]" v-model="mtp.subtipo" required>
                     <option v-for="(subtipo, indice) in mtpsList[$index]" :value="subtipo.value">@{{ subtipo.label }}</option>
                   </select>
                 </td>
                 <td width="30%">
-                  {!! Form::number('mtp_cantidad[]', null, ['class'=>'form-control form-control-sm text-right','placeholder'=>'Cantidad','min' => 1, 'v-model'=>'mtp.cantidad']) !!}
+                  {!! Form::number('mtp_cantidad[]', null, ['class'=>'form-control form-control-sm text-right','placeholder'=>'Cantidad','min' => 1, 'v-model'=>'mtp.cantidad','required']) !!}
                 </td>
                 <td>
                   <a class="btn btn-link text-danger" href="#" title="Eliminar" @click="removeRowMTP($index)" v-if="mtps.length > 1"><i class="fas fa-minus"></i></a>
@@ -126,12 +126,12 @@
           <tbody>
             <tr v-for="(material, $indice) in materiales" track-by="$indice">
               <td>
-                <select class="form-control form-control-sm" title="Material" name="psematerial_id[]" v-model="material.material_id" @change="filterMaterial(materiales[$indice].material_id,$indice)">
+                <select class="form-control form-control-sm" title="Material" name="psematerial_id[]" v-model="material.material_id" required @change="filterMaterial(materiales[$indice].material_id,$indice)">
                   <option v-for="(item, indice) in materialMatriz" :value="item.value">@{{ item.label }}</option>
                 </select>
               </td>
               <td>
-                <select name="psedescripcion[]" class="form-control form-control-sm" v-model="material.descripcion_id" @change="setFormulas(materiales[$indice].descripcion_id,$indice)">
+                <select name="psedescripcion[]" class="form-control form-control-sm" v-model="material.descripcion_id" required @change="setFormulas(materiales[$indice].descripcion_id,$indice)">
                   <option v-for="(descripcion, index) in descripciones[$indice]" :value="descripcion.value">@{{ descripcion.label }}</option>
                 </select>
               </td>
@@ -174,7 +174,7 @@
               </td>
               <td>{!! Form::text('psemec1[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Mec1','v-model'=>'material.mec1']) !!}</td>
               <td>{!! Form::text('psemec2[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Mec2','v-model'=>'material.mec2']) !!}</td>
-              <td>{!! Form::number('psecantidad[]', null, ['class' => 'form-control form-control-sm text-right', 'min' => 1, 'title' =>'Cant', 'v-model' => 'material.cant']) !!}</td>
+              <td>{!! Form::number('psecantidad[]', null, ['class' => 'form-control form-control-sm text-right', 'min' => 1, 'title' =>'Cant', 'v-model' => 'material.cant','required']) !!}</td>
               <td>
                 <a class="btn btn-link text-danger" href="#" title="Eliminar" @click="removeRowMAT($indice)" v-if="materiales.length > 1"><i class="fas fa-minus"></i></a>
               </td>

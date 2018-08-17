@@ -17,96 +17,95 @@
     <div class="col-md"><!-- Data Seleccion -->
       <div class="form-row">
         <div class="form-group mr-2">
-          {!! Form::select('tipo_id', \App\Tipo::where('tipologia','=','PTO')->pluck('nombre','id'), null, ['disabled','class' => 'form-control form-control-sm','placeholder' => 'TIPO', 'v-model' => 'tipo']) !!}
+          {!! Form::select('tipo_id', \App\Tipo::where('tipologia','=','PTO')->pluck('nombre','id'), null, ['readonly','class' => 'form-control form-control-sm','placeholder' => 'TIPO','v-model'=>'tipo_id']) !!}
         </div>
-        <div class="form-group mr-2" v-if="tipo > 10 && tipo < 15">
-          <select disabled class="form-control form-control-sm" name="subtipo_id" v-model="subtipo" @change="getSkuBase">
-            <option value="" disabled>Selección</option>
-            <option v-for="(item, index) in subtipos" :value="index">@{{ item }}</option>
+        <div class="form-group mr-2">
+          <select class="form-control form-control-sm" name="subtipo_id" v-model="subtipo_id" readonly>
+            <option v-for="subtipo in subtipos" :value="subtipo.value">@{{ subtipo.label }}</option>
           </select>
         </div>
         <div class="form-group">
-          {!! Form::text('sku', 'SKU', ['disabled','class' => 'form-control form-control-sm','placeholder'=>'SKU','v-model'=>'ptosku']) !!}
+          {!! Form::text('sku', $proyecto->sku, ['readonly','class' => 'form-control form-control-sm']) !!}
         </div>
       </div>
       <!-- Nombre y Descripcion  -->
       <div class="form-group">
-        {!! Form::text('nombre', null, ['class'=>'form-control form-control-sm col-md-6','placeholder'=>'Nombre','v-model' => 'nombre']) !!}
+        {!! Form::text('nombre', $proyecto->nombre, ['class'=>'form-control form-control-sm col-md-6','placeholder'=>'Nombre','required']) !!}
+      </div>
+      <div class="form-row">
+        <div class="form-group mr-2">
+          {!! Form::select('sap', ['1'=>'Mini Fix','2'=>'Tornillo'], $proyecto->sap, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Apertura']) !!}
+        </div>
+        <div class="form-group mr-2">
+          {!! Form::select('sar', ['1'=>'Gola','2'=>'Tirador','3'=>'Tip On','4'=>'Riel'], $proyecto->sar, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Apertura']) !!}
+        </div>
       </div>
       <div class="form-group">
-        {!! Form::textarea('descripcion', null, ['class'=>'form-control form-control-sm col-md-6','size'=>'30x3','placeholder'=>'Descripción', 'v-model' => 'descripcion']) !!}
+        {!! Form::textarea('descripcion', $proyecto->descripcion, ['class'=>'form-control form-control-sm col-md-6','size'=>'30x3','placeholder'=>'Descripción','required']) !!}
       </div>
-      <!-- Propiedades PSE -->
-
       <!-- Propiedades PTO -->
-      <div v-if="tipo > 10">
+      <div>
         <div class="form-row">
           <div class="form-group mr-1">
-            {!! Form::text('ptolargo', null, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Largo', 'v-model' => 'largo']) !!}
+            {!! Form::text('ptolargo', $proyecto->largo, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Largo']) !!}
           </div>
           <div class="form-group mr-1">
-            {!! Form::text('ptoancho', null, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Ancho', 'v-model' => 'ancho']) !!}
+            {!! Form::text('ptoancho', $proyecto->ancho, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Ancho']) !!}
           </div>
           <div class="form-group mr-1">
-            {!! Form::text('ptoespesor', null, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Profundidad', 'v-model' => 'espesor']) !!}
+            {!! Form::text('ptoespesor', $proyecto->espesor, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Profundidad']) !!}
           </div>
-          {{-- <div class="form-group mr-1">
-            {!! Form::select('ptocolor_id', \App\Colore::pluck('nombre','id'), null, ['class'=>'form-control form-control-sm','placeholder'=>'Color']) !!}
-          </div> --}}
         </div>
       </div>
     </div>
-    <div class="col-md" v-if="tipo > 10">
+    <div class="col-md">
       <div class="form-group">
         <legend>Complementos</legend>
-        <div class="form-group">
-          <table class="table" style="font-size: 0.9em;">
-            <thead>
-              <tr>
-                <th width="2%">Item</th>
-                <th>Tipo</th>
-                <th>SubTipo</th>
-                <th>Cantidad</th>
-                <th><a class="btn btn-link" href="#" title="Agregar" @click="addRowMTP(this.app.mtps.length -1)"><i class="fas fa-plus"></i></a></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(mtp, $index) in mtps" track-by="$index">
-                <td>
-                  @{{ $index + 1 }}
-                  {!! Form::hidden('mtp_id[]', null, ['v-model'=>'mtp.mtp_id']) !!}
-                  {!! Form::hidden('mtp_producto_id[]', null, ['v-model'=>'mtp.mtp_producto_id']) !!}
-                </td>
-                <td>
-                  <select class="form-control form-control-sm" name="mtp_tipo_id[]" v-model="mtp.mtp_tipo_id" @change="getSubtipo($index,mtps[$index].tipo)">
-                    <option v-for="(tipo, indice) in tipos" :value="tipo.value">@{{ tipo.label }}</option>
-                  </select>
-                </td>
-                <td>
-                  <select class="form-control form-control-sm" name="mtp_subtipo_id[]" v-model="mtp.mtp_subtipo_id">
-                    <option value="" selected disabled>Subtipo</option>
-                    <option v-for="(subtipo, indice) in mtpsList[$index]" :value="subtipo.value">@{{ subtipo.label }}</option>
-                  </select>
-                </td>
-                <td width="30%">
-                  {!! Form::number('mtp_cantidad[]', null, ['class'=>'form-control form-control-sm text-right','placeholder'=>'Cantidad','min' => 1, 'v-model'=>'mtp.mtp_cantidad']) !!}
-                </td>
-                <td>
-                  <a class="btn btn-link text-danger" href="#" title="Eliminar" @click="removeRowMTP($index)" v-if="mtps.length > 1"><i class="fas fa-minus"></i></a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <table class="table" style="font-size: 0.9em;">
+          <thead>
+            <tr>
+              <th class="">#</th>
+              <th class="">Tipo</th>
+              <th class="">SubTipo</th>
+              <th class="text-right"  width="18%">Cantidad</th>
+              <th><a class="btn btn-link" href="#" title="Agregar" @click="addRowMTP(this.app.mtps.length -1)"><i class="fas fa-plus"></i></a></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in mtps" track-by="index">
+              <td>
+                @{{ index }}
+                <input type="hidden" name="mtp_id[]" v-model="item.mtp_id">
+                <input type="hidden" name="mtp_producto_id[]" v-model="item.mtp_producto_id">
+              </td>
+              <td>
+                <select name="mtp_tipo_id[]" class="form-control form-control-sm" v-model="item.mtp_tipo_id" @change="getSubtipo(index,mtps[index].mtp_tipo_id)" required>
+                  <option v-for="tipo in tiposMTP" :value="tipo.value">@{{ tipo.label }}</option>
+                </select>
+              </td>
+              <td>
+                <select name="mtp_subtipo_id[]" class="form-control form-control-sm" v-model="item.mtp_subtipo_id" required>
+                  <option v-for="subtipo in subtipoMTP[index]" :value="subtipo.value">@{{ subtipo.label }}</option>
+                </select>
+              </td>
+              <td>
+                {!! Form::number('mtp_cantidad[]', null, ['class' => 'form-control form-control-sm text-right','min' => 1, 'v-model'=>'item.mtp_cantidad', 'required']) !!}
+              </td>
+              <td>
+                <a class="btn btn-link text-danger" href="#" title="Eliminar" @click="removeRowMTP(index)" v-if="mtps.length > 1"><i class="fas fa-minus"></i></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
-  <div class="row" v-if="tipo > 10">
+  <div class="row">
     <div class="col-md">
       <div class="form-row">
         <legend>Piezas</legend>
-        <table class="table" style="font-size: 0.9em;">
-          <thead>
+        <table class="table" style="font-size: 0.8em;">
+          <thead class="font-weight-bold">
             <tr>
               <td>Material</td>
               <td>Descripcion</td>
@@ -126,60 +125,55 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(material, $indice) in materiales" track-by="$indice">
+            {{-- @foreach ($materiales as $element) --}}
+            <tr v-for="(item, index) in materiales" track-by="index">
               <td>
-                {!! Form::select('material_id[]', \App\Materiale::pluck('nombre','id'), null, ['class'=>'form-control form-control-sm','title'=>'Material', 'placeholder' =>'Sel','v-model'=>'material.material_id','@change' => 'filterMaterial(materiales[$indice].material_id,$indice)']) !!}
-              </td>
-              <td>
-                <select name="psedescripcion[]" class="form-control form-control-sm" v-model="material.descripcion_id" @change="setFormulas(materiales[$indice].descripcion,$indice)">
-                  <option value="" selected disabled>Selección</option>
-                  <option v-for="(descripcion, index) in descripciones[$indice]" :value="index">@{{ descripcion.descripcion }}</option>
+                <input type="hidden" name="pse_id[]" v-model="item.id">
+                <input type="hidden" name="pseproducto_id[]" v-model="item.producto_id">
+                <select name="psematerial_id[]" class="form-control form-control-sm" v-model="item.material_id" @change="filterMaterial(materiales[index].material_id,index)">
+                  <option v-for="item in materialesPSE" :value="item.value">@{{ item.label }}</option>
                 </select>
               </td>
               <td>
-                {!! Form::text('pselargo[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Largo','v-model'=>'material.largo']) !!}
-              </td>
-              <td>
-                {!! Form::text('pseancho[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Ancho','v-model' => 'material.ancho']) !!}
-              </td>
-              <td>
-                {!! Form::select('pseespesor[]', [3,4,6,10,12,15,16,18,19,20,25], null, ['class'=>'form-control form-control-sm', 'placeholder'=>'']) !!}
-              </td>
-              <td>
-                <select class="form-control form-control-sm" name="pselargo_izq[]" v-model="material.largo_izq">
-                  <option value="0.45" >0.45</option>
-                  <option value="1" >1</option>
-                  <option value="2" >2</option>
+                <select name="psedescripcion[]" class="form-control form-control-sm" v-model="item.descripcion_id" @change="setFormulas(materiales[index].descripcion_id,index)">
+                  <option v-for="descripcion in descripciones[index]" :value="descripcion.value">@{{ descripcion.label }}</option>
                 </select>
               </td>
               <td>
-                <select class="form-control form-control-sm" name="pselargo_der[]" v-model="material.largo_der">
-                  <option value="0.45" >0.45</option>
-                  <option value="1" >1</option>
-                  <option value="2" >2</option>
-                </select>
+                {!! Form::text('pselargo[]', null, ['class'=>'form-control form-control-sm','autocomplete' => 'off', 'v-model'=> 'item.largo']) !!}
               </td>
               <td>
-                <select class="form-control form-control-sm" name="pseancho_sup[]" v-model="material.ancho_sup">
-                  <option value="0.45" >0.45</option>
-                  <option value="1" >1</option>
-                  <option value="2" >2</option>
-                </select>
+                {!! Form::text('pseancho[]', null, ['class'=>'form-control form-control-sm','autocomplete' => 'off', 'v-model' => 'item.ancho']) !!}
               </td>
               <td>
-                <select class="form-control form-control-sm" name="pseancho_inf[]" v-model="material.ancho_inf">
-                  <option value="0.45" >0.45</option>
-                  <option value="1" >1</option>
-                  <option value="2" >2</option>
-                </select>
+                {!! Form::select('pseespesor[]', [3=>3,4=>4,6=>6,10=>10,12=>12,15=>15,16=>16,18=>18,19=>19], null, ['class'=>'form-control form-control-sm', 'v-model'=> 'item.espesor']) !!}
               </td>
-              <td>{!! Form::text('psemec1[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Mec1','v-model'=>'material.mec1']) !!}</td>
-              <td>{!! Form::text('psemec2[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Mec2','v-model'=>'material.mec2']) !!}</td>
-              <td>{!! Form::number('psecantidad[]', null, ['class' => 'form-control form-control-sm text-right', 'min' => 1, 'title' =>'Cant', 'v-model' => 'material.cantidad']) !!}</td>
               <td>
-                <a class="btn btn-link text-danger" href="#" title="Eliminar" @click="removeRowMAT($indice)" v-if="materiales.length > 1"><i class="fas fa-minus"></i></a>
+                {!! Form::select('pselargo_izq[]', ['0.45'=>'0.45','1'=>'1','2'=>'2'], null, ['class'=>'form-control form-control-sm', 'v-model' => 'item.largo_izq']) !!}
+              </td>
+              <td>
+                {!! Form::select('pselargo_der[]', ['0.45'=>'0.45','1'=>'1','2'=>'2'], null, ['class'=>'form-control form-control-sm', 'v-model' => 'item.largo_der']) !!}
+              </td>
+              <td>
+                {!! Form::select('pseancho_sup[]', ['0.45'=>'0.45','1'=>'1','2'=>'2'], null, ['class'=>'form-control form-control-sm', 'v-model' => 'item.ancho_sup']) !!}
+              </td>
+              <td>
+                {!! Form::select('pseancho_inf[]', ['0.45'=>'0.45','1'=>'1','2'=>'2'], null, ['class'=>'form-control form-control-sm', 'v-model' => 'item.ancho_inf']) !!}
+              </td>
+              <td>
+                {!! Form::text('psemec1', null, ['class'=>'form-control form-control-sm','autocomplete' => 'off', 'v-model' => 'item.mec1']) !!}
+              </td>
+              <td>
+                {!! Form::text('psemec2', null, ['class'=>'form-control form-control-sm','autocomplete' => 'off', 'v-model' => 'item.mec2']) !!}
+              </td>
+              <td>
+                {!! Form::number('psecantidad[]', null, ['class'=>'form-control form-control-sm text-right','min'=>1, 'v-model' => 'item.cantidad']) !!}
+              </td>
+              <td>
+                <a class="btn btn-link text-danger" href="#" title="Eliminar" @click="removeRowMAT(index)" v-if="materiales.length > 1"><i class="fas fa-minus"></i></a>
               </td>
             </tr>
+            {{-- @endforeach --}}
           </tbody>
         </table>
       </div>
@@ -192,61 +186,63 @@
 @endsection
 
 @section('scripts')
-<script type="text/javascript">
+<script>
   var app = new Vue({
     el: '#app',
 
-    created(){
-      axios.get('/TiposMTP').then( response => { this.tipos = response.data }).catch(function(error) { console.log(error) });
-      axios.get('/materiales').then( response => { this.materialMatriz = response.data }).catch(function(error) { console.log(error) });
-      axios.get('/subtipos/' + this.tipo).then( response => { this.subtipos = response.data }).catch(function(error) { console.log(error) });
-      axios.get('/ProyectoComplementos/' + '{{ $proyecto->id }}').then( response => { this.mtps = response.data }).catch(function(error){ console.log(error)});
-      axios.get('/getMateriales/' + {{ $proyecto->id }}).then( response => { this.materiales = response.data }).catch(function(error){ console.log(error)});
+    created() {
+      if(this.tipo_id > 0){
+        axios.get('/subtiposFiltro/' + this.tipo_id)
+        .then(response => {
+          this.subtipos = response.data
+        })
+        .catch(function(error){
+          console.log(error)
+        })
+      }
+      axios.get('/ProyectoComplementos/' + '{{ $proyecto->id }}').then(response => { this.mtps = response.data }).catch(function(error){ console.log(error)});
+      axios.get('/TiposMTP').then( response => { this.tiposMTP = response.data }).catch(function(error) { console.log(error) });
+      axios.get('/getMateriales/' + '{{ $proyecto->id }}').then( response => { this.materiales = response.data }).catch(function(error){ console.log(error)});
+      axios.get('/setMaterial/' + '{{ $proyecto->tipo_id }}' + '/' + '{{ $proyecto->subtipo_id }}').then( response => { this.materialesPSE = response.data }).catch(function(error){ console.log(error) });
     },
 
     data: {
-      producto: '{{ $proyecto->id }}',
-      ptosku: '{{ $proyecto->sku }}',
-      tipo: '{{ $proyecto->tipo_id }}',
-      tipos: '',
-      subtipos: '',
-      subtipo: '{{ $proyecto->subtipo_id }}',
-      nombre: '{{ $proyecto->nombre }}',
-      descripcion: '{{ $proyecto->descripcion }}',
-      largo: '{{ $proyecto->largo }}',
-      ancho: '{{ $proyecto->ancho }}',
-      espesor: '{{ $proyecto->espesor }}',
-      base: '',
-      basesku: '',
-      numeracion: '',
-      mtpsList: [],
-      mtps: [{ mtp_id: '', mtp_producto_id:'', mtp_tipo_id: '', _mtp_subtipo_id: '', mtp_cantidad: '' }],
-      materialMatriz: '',
+      tipo_id: '{{ $proyecto->tipo_id }}',
+      subtipo_id: '{{ $proyecto->subtipo_id }}',
+      subtipos: [],
+      tiposMTP: [],
+      subtipoMTP: [],
+      mtps: [],
+      materiales: [],
+      materialesPSE: [],
       descripciones: [],
-      materiales: [{ material_id: '', descripcion: '', largo: '', ancho: '', espesor: '', largo_izq: '', largo_der: '', ancho_sup: '', ancho_inf: '', veta: '', mec1: '', mec2: '', cantidad: '' }]
     },
 
     watch: {
-      tipo: function(){
-        if(this.tipo > 0){
-          axios.get('/subtipos/' + this.tipo)
-          .then( response => {
-            this.subtipos = response.data;
+      mtps: function(){
+        for (var i = 0; i < this.mtps.length; i++) {
+          // console.log(this.mtps[i].mtp_tipo_id);
+          axios.get('/mtpsubtipos/' + this.mtps[i].mtp_tipo_id)
+          .then(response => {
+            this.subtipoMTP.splice(i, 1, response.data)
+            // console.log(this.subtipoMTP[i]);
+          })
+          .catch(function(error){
+            console.log(error)
           })
         }
       },
-      mtps: function(){
-        if(this.mtps.length > 0){
-          for (var i = 0; i <= this.mtps.length - 1; i++) {
-            this.getSubtipo(i, this.mtps[i].tipo);
-          }
-        }
-      },
       materiales: function(){
-        if(this.materiales.length > 0){
-          for (var i = 0; i <= this.materiales.length - 1; i++) {
-            this.filterMaterial(this.materiales[i].material_id, i);
-            // console.log(i);
+        for (var i = 0; i < this.materiales.length; i++) {
+          if(this.materiales[i].material_id > 0){
+            axios.get('/descripcionMaterial/' + this.materiales[i].material_id )
+            .then( response => {
+              this.descripciones.splice(i, 1, response.data);
+            // console.log(response.data);
+          })
+            .catch(function(error){
+              console.log(error)
+            })
           }
         }
       }
@@ -257,14 +253,13 @@
         this.mtps.splice(index + 1, 1, { tipo: null, subtipo: null, cantidad: 0 });
       },
       removeRowMTP: function(index){
-        // console.log(index);
         if( this.mtps.length > 1){
           this.mtps.splice(index, 1);
         }
       },
       addRowMAT: function (indice) {
         try {
-          this.materiales.splice(indice + 1, 1, { material_id: '', descripcion: '', largo: '', ancho: '', espesor: '', largo_izq: '', largo_der: '', ancho_sup: '', ancho_inf: '', veta: '', mec1: '', mec2: '', cant: '' });
+          this.materiales.splice(indice + 1, 1, { material_id: '', descripcion: '', largo: '', ancho: '', espesor: '', largo_izq: '', largo_der: '', ancho_sup: '', ancho_inf: '', mec1: '', mec2: '', cant: 0 });
         } catch(e)
         {
           console.log(e);
@@ -276,76 +271,36 @@
           this.materiales.splice(indice, 1);
         }
       },
-      getMateriales: function(){
-        axios.get('/materiales')
+      getSubtipo: function(index,tipo){
+        axios.get('/mtpsubtipos/' + tipo)
         .then( response => {
-          this.materialMatriz = response.data
-        })
-        .catch(function(error) {
-          console.log(error);
-        })
-      },
-      getSkuBase: function(){
-        axios.get('/getBaseSku/' + this.tipo + '/' + this.subtipo)
-        .then( response => {
-          // console.log(response.data);
-          this.numeracion = response.data[0].numeracion;
-          this.base = response.data[0].skubase;
-          this.ptosku = this.base;
-          this.searchSKU();
-        })
-        .catch(function(error) {
-          console.log(error)
-        })
-      },
-      searchSKU: function(){
-        axios.get('/querySKU/' + this.ptosku)
-        .then( response => {
-          if(response.data.length > 0){
-            // console.log(response.data[0].sku);
-            this.numeracion = Number(response.data[0].ptosku.substr(-6));
-            var num = this.numeracion + 1;
-            Number.prototype.pad = function(size){
-              var s = String(this);
-              while (s.length < (size || 2)) { s = "0" + s; }
-              return s;
-            }
-            this.ptosku = this.ptosku + '-' + num.pad(6);
-          }else {
-            this.ptosku = this.ptosku + '-' + '000001';
-          }
-        })
-        .catch(function(error) {
-          console.log(error);
+          this.subtipoMTP.splice(index, 1, response.data);
         })
       },
       filterMaterial: function(material,indice){
         /* Metodo para chequear */
-        axios.get('/setMaterial/' + material )
+        axios.get('/descripcionMaterial/' + material )
         .then( response => {
-          this.descripciones.splice(indice, 1, response.data);
+            this.descripciones.splice(indice, 1, response.data);
+            // console.log(response.data);
         })
         .catch(function(error){
           console.log(error)
         })
       },
       setFormulas: function(index,indice){
-        // this.materiales[indice].descripcion = index;
-        this.materiales[indice].ancho = this.descripciones[indice][index].ancho;
-        this.materiales[indice].largo = this.descripciones[indice][index].largo;
-        this.materiales[indice].espesor = this.descripciones[indice][index].espesor;
-      },
-      getSubtipo: function(index,tipo){
-        axios.get('/mtpsubtipos/' + tipo)
-        .then( response => {
-          this.mtpsList.splice(index, 1, response.data);
+        var row = null;
+        this.descripciones[indice].filter(function(vars) {
+          if(vars.value == index){
+            row = vars;
+          }
         })
-        .catch(function(error) {
-          console.log(error)
-        });
+        this.materiales[indice].descripcion_id = row.value;
+        this.materiales[indice].ancho = row.fancho;
+        this.materiales[indice].largo = row.flargo;
+        this.materiales[indice].espesor = row.espesor;
       }
-    },
-
+    }
   })
 </script>
 @endsection

@@ -197,6 +197,12 @@ class SubtipoController extends Controller
 
     public function subtipos($tipo)
     {
-        return Subtipo::where('tipo_id','=',$tipo)->pluck('nombre','id');
+        $subtipos = Subtipo::where('tipo_id','=',$tipo)->get();
+        // dd($subtipos);
+        $coleccion = collect();
+        foreach ($subtipos as $key => $value) {
+          $coleccion->push(['label' => $value->nombre, 'value' => $value->id]);
+        }
+        return $coleccion->toJson();
     }
 }

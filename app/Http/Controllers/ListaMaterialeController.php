@@ -17,6 +17,31 @@ class ListaMaterialeController extends Controller
         //
     }
 
+    public function getMateriales($producto)
+    {
+        $materiales = \App\Lista_materiale::where('producto_id','=',$producto)->get();
+        $listMateriales = collect();
+        foreach ($materiales as $key => $value) {
+            $listMateriales->push([
+                'id' => $value->id,
+                'producto_id' => $value->producto_id,
+              'material_id' => $value->material->id,
+              'descripcion_id' => $value->descripcion_id,
+              'largo' => $value->largo,
+              'ancho' => $value->ancho,
+              'espesor' => $value->espesor,
+              'largo_izq' => $value->largo_izq,
+              'largo_der' => $value->largo_der,
+              'ancho_sup' => $value->ancho_sup,
+              'ancho_inf' => $value->ancho_inf,
+              'mec1' => $value->mec1,
+              'mec2' => $value->mec2,
+              'cantidad' => $value->cantidad
+          ]);
+        }
+        return $listMateriales->toJson();
+    }
+
     /**
      * Show the form for creating a new resource.
      *

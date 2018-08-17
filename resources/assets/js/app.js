@@ -25,6 +25,8 @@ Vue.use(VueAutosuggest);
 
 import vSelect from 'vue-select'
 Vue.component('v-select', vSelect)
+Vue.component('mtps-component', require('./components/MtpsComponent.vue'))
+Vue.component('piezas-component', require('./components/PiezasComponent.vue'))
 
 const toast = swal.mixin({
   toast: true,

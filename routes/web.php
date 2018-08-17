@@ -27,9 +27,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/users', 'UserController@index')->name('users.index');
 Route::get('indexData', 'UserController@indexData')->name('users.data');
 
-// Route::get('/MaterialEditData/{id}', 'MaterialeController@editData');
-
-
 /* Backend */
 Route::get('/dataTipos', 'TipoController@indexData')->name('data.tipos');
 Route::get('/Tipos', 'TipoController@tipos');
@@ -39,6 +36,7 @@ Route::resource('/backend/tipos','TipoController');
 Route::get('/subtiposFiltro/{tipos}', 'SubtipoController@subtiposFiltro');
 Route::get('/dataSubtipos', 'SubtipoController@indexData')->name('data.subtipos');
 Route::get('/subtiposAll', 'SubtipoController@subtiposAll')->name('data.subtiposAll');
+Route::get('/subtipos/{tipo}', 'SubtipoController@subtipos' );
 Route::resource('/backend/subtipos','SubtipoController');
 Route::get('/dataUnidades', 'UnidadController@indexData')->name('data.unidades');
 Route::resource('/backend/unidades', 'UnidadController');
@@ -47,7 +45,7 @@ Route::resource('/backend/marcas', 'MarcaController');
 Route::get('/dataColores', 'ColoreController@indexData')->name('data.colores');
 Route::resource('/backend/colores','ColoreController');
 Route::get('/dataMateriales', 'MaterialeController@indexData')->name('data.materiales');
-Route::get('/MaterialEditData/{id}', 'MaterialeController@editData');
+Route::get('/MaterialEditData/{id}', 'MaterialeController@editData')->name('data.materialesedit');
 Route::get('/setMaterial/{tipo}/{subtipo}', 'MaterialeController@setMaterial');
 Route::resource('/backend/materiales','MaterialeController');
 Route::get('/dataDescripciones', 'DescripcioneController@indexData')->name('data.descripciones');
@@ -62,10 +60,13 @@ Route::post('/frontend/constructor','ConstructorController@ensamble')->name('con
 /* Constructor edit */
 Route::get('/frontend/constructor/{id}/edit','ConstructorController@edit')->name('constructor.edit');
 Route::get('/ProyectoComplementos/{id}','ConstructorController@dataComplementos')->name('constructor.dataComplementos');
+Route::get('/getMateriales/{producto}', 'ListaMaterialeController@getMateriales')->name('constructor.dataPiezas');
 
 /* Constructor edit */
 Route::patch('/frontend/constructor/{id}','ConstructorController@update')->name('constructor.update');
 Route::get('/productoslist', 'ProductoController@indexData')->name('productos.data');
+
+
 Route::resource('/frontend/productos', 'ProductoController');
 Route::resource('/frontend/proyectos', 'ProyectoController');
 Route::resource('/frontend/inventarios', 'InventarioController');
@@ -89,7 +90,7 @@ Route::resource('/backend/extras', 'ExtraController');
 Route::resource('/cotizaciones','CotizacioneController');
 
 /* VUE ROUTE's */
-Route::get('/subtipos/{tipo}', 'SubtipoController@subtipos' );
+
 Route::get('/editarMTPContructor/{id}', 'MtpController@editarMTPContructor');
 
 /* Obtener datos del producto */
@@ -137,26 +138,3 @@ Route::get('/propsextra/{tipo}/{subtipo}', function($tipo, $subtipo) {
   return \App\Propsextra::with('extra:id,propiedad')->where('tipo_id',$tipo)->where('subtipo_id',$subtipo)->get();
 });
 
-Route::get('/getMateriales/{producto}', function($producto) {
-  $materiales = \App\Lista_materiale::where('producto_id',$producto)
-  ->select('material_id','descripcion_id','largo','ancho','espesor','largo_izq','largo_der','ancho_sup','ancho_inf','mec1','mec2','cantidad')
-  ->get();
-  $listMateriales = collect();
-  foreach ($materiales as $key => $value) {
-    $listMateriales->push([
-      'material_id' => $value->material->id,
-      'descripcion_id' => $value->descripcion_id,
-      'largo' => $value->largo,
-      'ancho' => $value->ancho,
-      'espesor' => $value->espesor,
-      'largo_izq' => $value->largo_izq,
-      'largo_der' => $value->largo_der,
-      'ancho_sup' => $value->ancho_sup,
-      'ancho_inf' => $value->ancho_inf,
-      'mec1' => $value->mec1,
-      'mec2' => $value->mec2,
-      'cantidad' => $value->cantidad
-    ]);
-  }
-  return $listMateriales;
-});
