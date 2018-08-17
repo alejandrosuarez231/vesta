@@ -14,7 +14,7 @@
   </div>
   {!! Form::open(['route' => 'constructor.ensamble', 'method' => 'POST']) !!}
   <div class="row">
-    <div class="col-md"><!-- Data Seleccion -->
+    <div class="col-md-6"><!-- Data Seleccion -->
       <div class="form-row">
         <div class="form-group mr-2">
           {!! Form::select('tipo_id', \App\Tipo::where('tipologia','=','PTO')->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'TIPO', 'v-model' => 'tipo']) !!}
@@ -38,7 +38,7 @@
           {!! Form::select('sap', ['1'=>'Mini Fix','2'=>'Tornillo'], null, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Apertura']) !!}
         </div>
         <div class="form-group mr-2">
-          {!! Form::select('sar', ['1'=>'Gola','2'=>'Tirador','3'=>'Tip On','4'=>'Riel'], null, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Apertura']) !!}
+          {!! Form::select('sar', ['1'=>'Gola','2'=>'Tirador','3'=>'Tip On','4'=>'Riel'], null, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Armado']) !!}
         </div>
       </div>
       <div class="form-group">
@@ -59,67 +59,60 @@
         </div>
       </div>
     </div>
-    <div class="col-md">
-      <div class="form-group">
-        <legend>Complementos</legend>
-        <div class="form-group">
-          <table class="table" style="font-size: 0.9em;">
-            <thead>
-              <tr>
-                <th width="2%">Item</th>
-                <th>Tipo</th>
-                <th>SubTipo</th>
-                <th>Cantidad</th>
-                <th><a class="btn btn-link" href="#" title="Agregar" @click="addRowMTP(this.app.mtps.length -1)"><i class="fas fa-plus"></i></a></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(mtp, $index) in mtps" track-by="$index">
-                <td>@{{ $index + 1 }}</td>
-                <td>
-                  <select class="form-control form-control-sm" name="mtp_tipo_id[]" v-model="mtp.tipo" @change="getSubtipo($index,mtps[$index].tipo)" required>
-                    <option v-for="(tipo, indice) in tipos" :value="tipo.value">@{{ tipo.label }}</option>
-                  </select>
-                </td>
-                <td>
-                  <select class="form-control form-control-sm" name="mtp_subtipo_id[]" v-model="mtp.subtipo" required>
-                    <option v-for="(subtipo, indice) in mtpsList[$index]" :value="subtipo.value">@{{ subtipo.label }}</option>
-                  </select>
-                </td>
-                <td width="30%">
-                  {!! Form::number('mtp_cantidad[]', null, ['class'=>'form-control form-control-sm text-right','placeholder'=>'Cantidad','min' => 1, 'v-model'=>'mtp.cantidad','required']) !!}
-                </td>
-                <td>
-                  <a class="btn btn-link text-danger" href="#" title="Eliminar" @click="removeRowMTP($index)" v-if="mtps.length > 1"><i class="fas fa-minus"></i></a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+    <div class="col-md-5">
+      <table class="table table-sm table-borderless">
+        <caption>Complementos</caption>
+        <thead class="font-weight-bold" style="font-size: 0.8em;">
+          <tr>
+            <th class="text-left">Tipo</th>
+            <th class="text-left">Sub-Tipo</th>
+            <th class="text-right">Cantidad</th>
+            <th><a class="btn btn-link" href="#" title="Agregar" @click="addRowMTP(this.app.mtps.length -1)"><i class="fas fa-plus fa-xs"></i></a></th>
+          </tr>
+        </thead>
+          <tbody>
+            <tr v-for="(mtp, $index) in mtps" track-by="$index">
+              <td>
+                <select class="form-control form-control-sm" name="mtp_tipo_id[]" v-model="mtp.tipo" @change="getSubtipo($index,mtps[$index].tipo)" required>
+                  <option v-for="(tipo, indice) in tipos" :value="tipo.value">@{{ tipo.label }}</option>
+                </select>
+              </td>
+              <td>
+                <select class="form-control form-control-sm" name="mtp_subtipo_id[]" v-model="mtp.subtipo" required>
+                  <option v-for="(subtipo, indice) in mtpsList[$index]" :value="subtipo.value">@{{ subtipo.label }}</option>
+                </select>
+              </td>
+              <td>
+                {!! Form::number('mtp_cantidad[]', null, ['class'=>'form-control form-control-sm text-right','placeholder'=>'Cantidad','min' => 1, 'v-model'=>'mtp.cantidad','required']) !!}
+              </td>
+              <td>
+                <a class="btn btn-link text-danger align-middle" href="#" title="Eliminar" @click="removeRowMTP($index)" v-if="mtps.length > 1"><i class="fas fa-minus fa-xs"></i></a>
+              </td>
+            </tr>
+          </tbody>
+      </table>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md">
-      <div class="form-row">
-        <legend>Piezas</legend>
-        <table class="table" style="font-size: 0.9em;">
-          <thead>
+  <div class="row mt-2 mb-2">
+    <div class="col-md card">
+        <table class="table table-sm table-borderless">
+          <caption>Piezas</caption>
+          <thead class="font-weight-bold" style="font-size: 0.8em;">
             <tr>
               <td>Material</td>
               <td>Descripcion</td>
               <td>Largo</td>
               <td>Ancho</td>
               <td>Espesor</td>
-              <td>LargoIZQ</td>
-              <td>LargoDER</td>
-              <td>AnchoSUP</td>
-              <td>AnchoINF</td>
-              <td width="8%">Mec1</td>
-              <td width="8%">Mec2</td>
-              <td width="5%">Cantidad</td>
+              <td class="text-center">L-IZQ</td>
+              <td class="text-center">L-DER</td>
+              <td class="text-center">A-SUP</td>
+              <td class="text-center">A-INF</td>
+              <td>Mec1</td>
+              <td>Mec2</td>
+              <td>Cantidad</td>
               <td>
-                <a class="btn btn-link float-right" href="#" title="Agregar" @click="addRowMAT(this.app.materiales.length -1)"><i class="fas fa-plus"></i></a>
+                <a class="btn btn-link float-right align-middle" href="#" title="Agregar" @click="addRowMAT(this.app.materiales.length -1)"><i class="fas fa-plus fa-xs"></i></a>
               </td>
             </tr>
           </thead>
@@ -176,12 +169,11 @@
               <td>{!! Form::text('psemec2[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Mec2','v-model'=>'material.mec2']) !!}</td>
               <td>{!! Form::number('psecantidad[]', null, ['class' => 'form-control form-control-sm text-right', 'min' => 1, 'title' =>'Cant', 'v-model' => 'material.cant','required']) !!}</td>
               <td>
-                <a class="btn btn-link text-danger" href="#" title="Eliminar" @click="removeRowMAT($indice)" v-if="materiales.length > 1"><i class="fas fa-minus"></i></a>
+                <a class="btn btn-link text-danger align-middle" href="#" title="Eliminar" @click="removeRowMAT($indice)" v-if="materiales.length > 1"><i class="fas fa-minus fa-xs"></i></a>
               </td>
             </tr>
           </tbody>
         </table>
-      </div>
     </div>
   </div>
   <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Registrar</button>
@@ -310,9 +302,9 @@
         /* Metodo para chequear */
         axios.get('/descripcionMaterial/' + material )
         .then( response => {
-            this.descripciones.splice(indice, 1, response.data);
+          this.descripciones.splice(indice, 1, response.data);
             // console.log(response.data);
-        })
+          })
         .catch(function(error){
           console.log(error)
         })
