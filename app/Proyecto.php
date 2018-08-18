@@ -114,4 +114,20 @@ class Proyecto extends Model
     return $this->hasMany(Lista_materiale::class);
   }
 
+  /**
+   * Proyecto belongs to Conf.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+   */
+  public function saps()
+  {
+    // belongsTo(RelatedModel, foreignKey = conf_id, keyOnRelatedModel = id)
+    return $this->belongsTo(Confpart::class,'sap','id');
+  }
+
+  public function sars()
+  {
+    return $this->belongsTo(Confpart::class,'sar','id');
+  }
+
 }

@@ -58,14 +58,14 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ route('cotizaciones.create') }}" title="Cotizar">Cotizar</a>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a class="nav-link" href="{{ route('constructor.construir') }}" title="Contruir">Construir</a>
-          </li>
+          </li> --}}
           <li class="nav-item">
             <a class="nav-link" href="{{ route('productos.index') }}" title="Productos">Productos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('proyectos.index') }}" title="Proyectos">Proyectos</a>
+            <a class="nav-link" href="{{ route('proyectos.index') }}" title="Proyectos">Lista de Materiales</a>
           </li>
           {{-- <li class="nav-item">
             <a class="nav-link" href="#" title="Categorias">Inventario</a>
@@ -94,9 +94,10 @@
               <a class="dropdown-item" href="{{ url('backend/tipos') }}">Tipos</a>
               <a class="dropdown-item" href="{{ url('backend/subtipos') }}">Sub-Tipos</a>
               <a class="dropdown-item" href="{{ url('backend/unidades') }}" title="Unidades">Unidades</a>
-              <a class="dropdown-item" href="{{ url('backend/marcas') }}" title="Colores">Marcas</a>
+              <a class="dropdown-item" href="{{ url('backend/marcas') }}" title="Marcas">Marcas</a>
               <a class="dropdown-item" href="{{ url('backend/colores') }}" title="Colores">Colores</a>
-              <a class="dropdown-item" href="{{ url('backend/materiales') }}" title="Colores">Materiales</a>
+              <a class="dropdown-item" href="{{ url('backend/materiales') }}" title="Materiales">Materiales</a>
+              <a class="dropdown-item" href="{{ url('backend/confparts') }}" title="ConfParts">Conf-Mat</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{ url('backend/codigos') }}" title="Codigos">Codigos</a>
               <a class="dropdown-item" href="{{ route('extras.create') }}" title="Extras">Props. Extras</a>

@@ -51,6 +51,8 @@ Route::resource('/backend/materiales','MaterialeController');
 Route::get('/dataDescripciones', 'DescripcioneController@indexData')->name('data.descripciones');
 Route::get('/descripcionMaterial/{material}', 'DescripcioneController@descripcionMaterial');
 Route::resource('/backend/materiales/descripciones', 'DescripcioneController');
+Route::get('/dataConfparts', 'ConfpartController@dataIndex')->name('data.confparts');
+Route::resource('/backend/confparts', 'ConfpartController');
 
 
 

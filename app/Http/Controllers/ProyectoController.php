@@ -17,7 +17,8 @@ class ProyectoController extends Controller
      */
     public function index()
     {
-        $proyectos = Proyecto::with('tipo:id,nombre,tipologia','subtipo:id,nombre','unidad:id,nombre')->paginate();
+        $proyectos = Proyecto::with('tipo:id,nombre,tipologia','subtipo:id,nombre','unidad:id,nombre','saps:id,valor','sars:id,valor')->paginate();
+        // dd($proyectos);
         // return $proyectos;
         return view('frontend.proyectos.index', compact('proyectos'));
     }

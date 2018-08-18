@@ -4,7 +4,7 @@
 <div id="app" class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <h4>Proyectos </h4>
+      <h4>Lista de Materiales </h4>
       <ul class="nav">
         <li class="nav-item">
           <a href="{{ url('/home') }}" class="btn btn-link" title="Inicio">Regresar</a>
@@ -29,8 +29,8 @@
               <th>Tipo</th>
               <th>Sub Tipo</th>
               <th>Nombre</th>
-              <th>Descripción</th>
-              <th>Unidad</th>
+              <th>Sist. de Apertura</th>
+              <th>Siste. de Armado</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -42,8 +42,8 @@
               <td>{{ @$element->tipo->nombre }}</td>
               <td>{{ @$element->subtipo->nombre }}</td>
               <td>{{ $element->nombre }}</td>
-              <td>{{ $element->descripcion }}</td>
-              <td>{{ @$element->unidad->nombre }}</td>
+              <td>{{ $element->saps->valor }}</td>
+              <td class="text-center">{{ $element->sars->valor }}</td>
               <td>
                 <a class="btn btn-sm btn-info" href="{{ route('proyectos.show',['id'=>$element->id]) }}" title="">Ver</a>
                 <a class="btn btn-sm btn-warning" href="{{ route('constructor.edit',['id'=>$element->id]) }}" title="Editar">Editar</a>
@@ -61,7 +61,7 @@
   <div class="row justify-content-center">
     <div class="col-md-4">
       <div class="alert alert-primary" role="alert">
-        Sin registros de Modelos - Modelos!
+        Sin registros de Materiales - Materiales!
       </div>
     </div>
   </div>

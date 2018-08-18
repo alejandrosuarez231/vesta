@@ -34,10 +34,10 @@
       </div>
       <div class="form-row">
         <div class="form-group mr-2">
-          {!! Form::select('sap', ['1'=>'Mini Fix','2'=>'Tornillo'], $proyecto->sap, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Apertura']) !!}
+          {!! Form::select('sap', \App\Confpart::where('nombre','=','Sist. de Apertura')->pluck('valor','id'), $proyecto->sap, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Apertura']) !!}
         </div>
         <div class="form-group mr-2">
-          {!! Form::select('sar', ['1'=>'Gola','2'=>'Tirador','3'=>'Tip On','4'=>'Riel'], $proyecto->sar, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Armado']) !!}
+          {!! Form::select('sar', \App\Confpart::where('nombre','=','Sist. de Armado')->pluck('valor','id'), $proyecto->sar, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Armado']) !!}
         </div>
       </div>
       <div class="form-group">
