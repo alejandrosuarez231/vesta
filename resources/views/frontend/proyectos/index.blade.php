@@ -16,15 +16,14 @@
     </div>
   </div>
 
-  @if (isset($proyectos) && $proyectos->count() > 0)
   <div class="row justify-content-center">
     <div class="col-md">
       <div class="table-responsive">
-        <table class="table table-striped table-bordered">
+        <table class="table table-striped table-bordered" id="proyectos-list">
           <caption>Listado de Proyectos</caption>
           <thead>
             <tr>
-              <th>TP</th>
+              <th>ID</th>
               <th>SKU</th>
               <th>Tipo</th>
               <th>Sub Tipo</th>
@@ -34,46 +33,34 @@
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody>
-            @foreach ($proyectos as $element)
-            <tr>
-              <td>{{ @$element->tipo->tipologia }}</td>
-              <td>{{ @$element->sku }}</td>
-              <td>{{ @$element->tipo->nombre }}</td>
-              <td>{{ @$element->subtipo->nombre }}</td>
-              <td>{{ $element->nombre }}</td>
-              <td>{{ $element->saps->valor }}</td>
-              <td class="text-center">{{ $element->sars->valor }}</td>
-              <td>
-                <a class="btn btn-sm btn-info" href="{{ route('proyectos.show',['id'=>$element->id]) }}" title="">Ver</a>
-                <a class="btn btn-sm btn-warning" href="{{ route('constructor.edit',['id'=>$element->id]) }}" title="Editar">Editar</a>
-                <a class="btn btn-sm btn-danger" href="#" title="Editar">Cancelar</a>
-              </td>
-            </tr>
-            @endforeach
-          </tbody>
         </table>
-        {{ $proyectos->links() }}
       </div>
     </div>
   </div>
-  @else
-  <div class="row justify-content-center">
-    <div class="col-md-4">
-      <div class="alert alert-primary" role="alert">
-        Sin registros de Materiales - Materiales!
-      </div>
-    </div>
-  </div>
-  @endif
-
 </div>
 @endsection
 
 @section('scripts')
 <script type="text/javascript">
-  var app = new Vue({
-    el: '#app'
-  })
+  $(function () {
+    $('#proyectos-list').DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: '{!! route('data.proyectos') !!}',
+      columns: [
+      {data: 'id', name: 'id', title: 'Id'},
+      {data: 'sku', name: 'sku', title: 'SKU'},
+      {data: 'tipo.nombre', name: 'tipo.nombre', title: 'Tipo'},
+      {data: 'subtipo.nombre', name: 'subtipo.nombre', title: 'Subtipo'},
+      {data: 'nombre', name: 'nombre', title: 'Nombre'},
+      {data: 'saps.valor', name: 'saps.valor', title: 'Sist. de Apertura', className: 'text-center'},
+      {data: 'sars.valor', name: 'sars.valor', title: 'Sist. de Armado', className: 'text-center'},
+      {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'}
+      ],
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+      }
+    });
+  });
 </script>
 @endsection

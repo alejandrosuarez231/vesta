@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
           ExtrasSeeder::class,
           PropsextrasSeeder::class,
           ProductosSeeder::class,
+          ConfpartSeed::class,
         ]);
     }
 }

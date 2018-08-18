@@ -70,6 +70,7 @@ Route::get('/productoslist', 'ProductoController@indexData')->name('productos.da
 
 
 Route::resource('/frontend/productos', 'ProductoController');
+Route::get('/dataProyectos', 'ProyectoController@indexData')->name('data.proyectos');
 Route::resource('/frontend/proyectos', 'ProyectoController');
 Route::resource('/frontend/inventarios', 'InventarioController');
 

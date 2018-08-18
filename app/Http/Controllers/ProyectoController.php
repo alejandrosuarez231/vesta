@@ -7,6 +7,7 @@ use App\Proyecto;
 use App\Mtp;
 use App\Lista_materiale;
 use Alert;
+use Yajra\DataTables\DataTables;
 
 class ProyectoController extends Controller
 {
@@ -21,6 +22,24 @@ class ProyectoController extends Controller
         // dd($proyectos);
         // return $proyectos;
         return view('frontend.proyectos.index', compact('proyectos'));
+    }
+
+    public function indexData()
+    {
+        $proyectos = Proyecto::with('tipo:id,nombre,tipologia','subtipo:id,nombre','unidad:id,nombre','saps:id,valor','sars:id,valor')->get();
+        return DataTables::of($proyectos)
+        ->editColumn('sku', function(Proyecto $proyecto){
+        if($proyecto->sku){
+          return $proyecto->sku;
+        }
+      })
+        ->addColumn('action', function ($proyecto) {
+            return '
+            <a href="proyectos/'.$proyecto->id.'" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
+            <a href="constructor/'.$proyecto->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+            ';
+        })
+        ->make(true);
     }
 
     /**
