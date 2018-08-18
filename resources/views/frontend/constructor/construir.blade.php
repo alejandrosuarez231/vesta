@@ -60,14 +60,14 @@
       </div>
     </div>
     <div class="col-md-5">
-      <table class="table table-sm table-borderless">
+      <table class="table table-sm table-bordered">
         <caption>Complementos</caption>
         <thead class="font-weight-bold" style="font-size: 0.8em;">
           <tr>
-            <th class="text-left">Tipo</th>
-            <th class="text-left">Sub-Tipo</th>
-            <th class="text-right">Cantidad</th>
-            <th><a class="btn btn-link" href="#" title="Agregar" @click="addRowMTP(this.app.mtps.length -1)"><i class="fas fa-plus fa-xs"></i></a></th>
+            <th width="33%" class="align-middle text-left">Tipo</th>
+            <th width="33%" class="align-middle text-left">Sub-Tipo</th>
+            <th width="33%" class="align-middle text-right">Cantidad</th>
+            <th class="align-middle text-center"><a class="btn btn-link" href="#" title="Agregar" @click="addRowMTP(this.app.mtps.length -1)"><i class="fas fa-plus fa-xs"></i></a></th>
           </tr>
         </thead>
           <tbody>
@@ -85,7 +85,7 @@
               <td>
                 {!! Form::number('mtp_cantidad[]', null, ['class'=>'form-control form-control-sm text-right','placeholder'=>'Cantidad','min' => 1, 'v-model'=>'mtp.cantidad','required']) !!}
               </td>
-              <td>
+              <td class="align-middle text-center">
                 <a class="btn btn-link text-danger align-middle" href="#" title="Eliminar" @click="removeRowMTP($index)" v-if="mtps.length > 1"><i class="fas fa-minus fa-xs"></i></a>
               </td>
             </tr>
@@ -95,23 +95,35 @@
   </div>
   <div class="row mt-2 mb-2">
     <div class="col-md card">
-        <table class="table table-sm table-borderless">
+        <table class="table table-sm table-bordered">
           <caption>Piezas</caption>
           <thead class="font-weight-bold" style="font-size: 0.8em;">
             <tr>
-              <td>Material</td>
-              <td>Descripcion</td>
-              <td>Largo</td>
-              <td>Ancho</td>
-              <td>Espesor</td>
-              <td class="text-center">L-IZQ</td>
-              <td class="text-center">L-DER</td>
-              <td class="text-center">A-SUP</td>
-              <td class="text-center">A-INF</td>
-              <td>Mec1</td>
-              <td>Mec2</td>
-              <td>Cantidad</td>
-              <td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td colspan="4" class="text-center">Canto</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="align-middle">Material</td>
+              <td class="align-middle">Descripcion</td>
+              <td class="align-middle">Largo</td>
+              <td class="align-middle">Ancho</td>
+              <td class="align-middle">Espesor</td>
+              <td class="align-middle text-center">L-IZQ</td>
+              <td class="align-middle text-center">L-DER</td>
+              <td class="align-middle text-center">A-SUP</td>
+              <td class="align-middle text-center">A-INF</td>
+              <td class="align-middle">Mec1</td>
+              <td class="align-middle">Mec2</td>
+              <td class="align-middle">Cantidad</td>
+              <td class="align-middle text-center">
                 <a class="btn btn-link float-right align-middle" href="#" title="Agregar" @click="addRowMAT(this.app.materiales.length -1)"><i class="fas fa-plus fa-xs"></i></a>
               </td>
             </tr>
@@ -168,7 +180,7 @@
               <td>{!! Form::text('psemec1[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Mec1','v-model'=>'material.mec1']) !!}</td>
               <td>{!! Form::text('psemec2[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Mec2','v-model'=>'material.mec2']) !!}</td>
               <td>{!! Form::number('psecantidad[]', null, ['class' => 'form-control form-control-sm text-right', 'min' => 1, 'title' =>'Cant', 'v-model' => 'material.cant','required']) !!}</td>
-              <td>
+              <td class="align-middle text-center">
                 <a class="btn btn-link text-danger align-middle" href="#" title="Eliminar" @click="removeRowMAT($indice)" v-if="materiales.length > 1"><i class="fas fa-minus fa-xs"></i></a>
               </td>
             </tr>

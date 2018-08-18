@@ -59,14 +59,14 @@
       </div>
     </div>
     <div class="col-md-5">
-      <table class="table table-sm table-borderless">
+      <table class="table table-sm table-bordered">
         <caption>Complementos</caption>
         <thead class="font-weight-bold" style="font-size: 0.8em;">
           <tr>
-            <th class="">Tipo</th>
-            <th class="">SubTipo</th>
-            <th class="text-right"  width="18%">Cantidad</th>
-            <th><a class="btn btn-link  align-middle" href="#" title="Agregar" @click="addRowMTP(this.app.mtps.length -1)"><i class="fas fa-plus fa-xs"></i></a></th>
+            <th width="33%" class="align-middle">Tipo</th>
+            <th width="33%" class="align-middle">SubTipo</th>
+            <th width="33%" class="align-middle text-right"  width="18%">Cantidad</th>
+            <th class="align-middle text-center"><a class="btn btn-link" href="#" title="Agregar" @click="addRowMTP(this.app.mtps.length -1)"><i class="fas fa-plus fa-xs"></i></a></th>
           </tr>
         </thead>
         <tbody>
@@ -96,24 +96,36 @@
   </div>
   <div class="row mt-2 mb-2">
     <div class="col-md card">
-      <table class="table table-sm table-borderless">
+      <table class="table table-sm table-bordered">
         <caption>Piezas</caption>
         <thead class="font-weight-bold" style="font-size: 0.8em;">
           <tr>
-            <td>Material</td>
-            <td>Descripcion</td>
-            <td>Largo</td>
-            <td>Ancho</td>
-            <td>Espesor</td>
-            <td>LargoIZQ</td>
-            <td>LargoDER</td>
-            <td>AnchoSUP</td>
-            <td>AnchoINF</td>
-            <td width="8%">Mec1</td>
-            <td width="8%">Mec2</td>
-            <td width="5%">Cantidad</td>
-            <td>
-              <a class="btn btn-link  align-middle float-right" href="#" title="Agregar" @click="addRowMAT(this.app.materiales.length -1)"><i class="fas fa-plus fa-xs"></i></a>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td colspan="4" class="text-center">Canto</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          <tr>
+            <td class="align-middle">Material</td>
+            <td class="align-middle">Descripcion</td>
+            <td class="align-middle">Largo</td>
+            <td class="align-middle">Ancho</td>
+            <td class="align-middle">Espesor</td>
+            <td class="align-middle">LargoIZQ</td>
+            <td class="align-middle">LargoDER</td>
+            <td class="align-middle">AnchoSUP</td>
+            <td class="align-middle">AnchoINF</td>
+            <td class="align-middle" width="8%">Mec1</td>
+            <td class="align-middle" width="8%">Mec2</td>
+            <td class="align-middle" width="5%">Cantidad</td>
+            <td class="align-middle">
+              <a class="btn btn-link  float-right" href="#" title="Agregar" @click="addRowMAT(this.app.materiales.length -1)"><i class="fas fa-plus fa-xs"></i></a>
             </td>
           </tr>
         </thead>
