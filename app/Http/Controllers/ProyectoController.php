@@ -29,10 +29,20 @@ class ProyectoController extends Controller
         $proyectos = Proyecto::with('tipo:id,nombre,tipologia','subtipo:id,nombre','unidad:id,nombre','saps:id,valor','sars:id,valor')->get();
         return DataTables::of($proyectos)
         ->editColumn('sku', function(Proyecto $proyecto){
-        if($proyecto->sku){
-          return $proyecto->sku;
-        }
-      })
+            if($proyecto->sku){
+                return $proyecto->sku;
+            }
+        })
+        ->editColumn('saps.valor', function(Proyecto $proyecto){
+            if($proyecto->saps->valor){
+                return $proyecto->saps->valor;
+            }
+        })
+        ->editColumn('sars.valor', function(Proyecto $proyecto){
+            if($proyecto->sars->valor){
+                return $proyecto->sars->valor;
+            }
+        })
         ->addColumn('action', function ($proyecto) {
             return '
             <a href="proyectos/'.$proyecto->id.'" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
