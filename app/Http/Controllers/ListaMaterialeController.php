@@ -25,19 +25,19 @@ class ListaMaterialeController extends Controller
             $listMateriales->push([
                 'id' => $value->id,
                 'producto_id' => $value->producto_id,
-              'material_id' => $value->material->id,
-              'descripcion_id' => $value->descripcion_id,
-              'largo' => $value->largo,
-              'ancho' => $value->ancho,
-              'espesor' => $value->espesor,
-              'largo_izq' => $value->largo_izq,
-              'largo_der' => $value->largo_der,
-              'ancho_sup' => $value->ancho_sup,
-              'ancho_inf' => $value->ancho_inf,
-              'mec1' => $value->mec1,
-              'mec2' => $value->mec2,
-              'cantidad' => $value->cantidad
-          ]);
+                'material_id' => $value->material->id,
+                'descripcion_id' => $value->descripcion_id,
+                'largo' => $value->largo,
+                'ancho' => $value->ancho,
+                'profundidad' => $value->profundidad,
+                'largo_izq' => $value->largo_izq,
+                'largo_der' => $value->largo_der,
+                'ancho_sup' => $value->ancho_sup,
+                'ancho_inf' => $value->ancho_inf,
+                'mec1' => $value->mec1,
+                'mec2' => $value->mec2,
+                'cantidad' => $value->cantidad
+            ]);
         }
         return $listMateriales->toJson();
     }

@@ -151,7 +151,7 @@
               {!! Form::text('pseancho[]', null, ['class'=>'form-control form-control-sm','autocomplete' => 'off', 'v-model' => 'item.ancho']) !!}
             </td>
             <td>
-              {!! Form::select('pseespesor[]', [3=>3,4=>4,6=>6,10=>10,12=>12,15=>15,16=>16,18=>18,19=>19], null, ['class'=>'form-control form-control-sm', 'v-model'=> 'item.espesor']) !!}
+              {!! Form::select('pseespesor[]', [3=>3,4=>4,6=>6,10=>10,12=>12,15=>15,16=>16,18=>18,19=>19], null, ['class'=>'form-control form-control-sm', 'v-model'=> 'item.profundidad']) !!}
             </td>
             <td>
               {!! Form::select('pselargo_izq[]', ['0.45'=>'0.45','1'=>'1','2'=>'2'], null, ['class'=>'form-control form-control-sm', 'v-model' => 'item.largo_izq']) !!}
