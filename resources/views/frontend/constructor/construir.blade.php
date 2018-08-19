@@ -54,7 +54,7 @@
             {!! Form::text('ptoancho', null, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Ancho']) !!}
           </div>
           <div class="form-group mr-1">
-            {!! Form::text('ptoespesor', null, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Espesor']) !!}
+            {!! Form::text('ptoprofundidad', null, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Profundidad']) !!}
           </div>
         </div>
       </div>
@@ -115,7 +115,7 @@
               <td class="align-middle">Descripcion</td>
               <td class="align-middle">Largo</td>
               <td class="align-middle">Ancho</td>
-              <td class="align-middle">Espesor</td>
+              <td class="align-middle">Profundidad</td>
               <td class="align-middle text-center">L-IZQ</td>
               <td class="align-middle text-center">L-DER</td>
               <td class="align-middle text-center">A-SUP</td>
@@ -147,7 +147,7 @@
                 {!! Form::text('pseancho[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Ancho','v-model' => 'material.ancho']) !!}
               </td>
               <td>
-                {!! Form::select('pseespesor[]', [3=>3,4=>4,6=>6,10=>10,12=>12,15=>15,16=>16,18=>18,19=>19,20=>20,25=>25], null, ['class'=>'form-control form-control-sm', 'placeholder'=>'']) !!}
+                {!! Form::select('pseprofundidad[]', [3=>3,4=>4,6=>6,10=>10,12=>12,15=>15,16=>16,18=>18,19=>19,20=>20,25=>25], null, ['class'=>'form-control form-control-sm', 'placeholder'=>'']) !!}
               </td>
               <td>
                 <select class="form-control form-control-sm" name="pselargo_izq[]" v-model="material.largo_izq">

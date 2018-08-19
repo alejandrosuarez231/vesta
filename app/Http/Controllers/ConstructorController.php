@@ -33,7 +33,7 @@ class ConstructorController extends Controller
     //   'descripcion' => 'required',
     //   'ptolargo' => 'nullable',
     //   'ptoancho' => 'nullable',
-    //   'ptoespesor' => 'nullable',
+    //   'ptoprofundidad' => 'nullable',
     //   'mtp_tipo_id.*' => 'required',
     //   'mtp_subtipo_id.*' => 'required',
     //   'mtp_cantidad.*' => 'required',
@@ -41,7 +41,7 @@ class ConstructorController extends Controller
     //   'psedescripcion.*' => 'required',
     //   'pselargo.*' => 'nullable',
     //   'pseancho.*' => 'nullable',
-    //   'pseespesor.*' => 'nullable',
+    //   'pseprofundidad.*' => 'nullable',
     //   'pselargo_izq.*' => 'nullable',
     //   'pselargo_der.*' => 'nullable',
     //   'pseancho_sup.*' => 'nullable',
@@ -61,7 +61,7 @@ class ConstructorController extends Controller
       'descripcion'=>$request->descripcion,
       'largo'=>$request->ptolargo,
       'ancho'=>$request->ptoancho,
-      'espesor'=>$request->ptoespesor,
+      'profundidad'=>$request->ptoprofundidad,
       'importado'=>0
     ]);
 
@@ -85,7 +85,7 @@ class ConstructorController extends Controller
       $newListaMaterial->largo = $request->pselargo[$i];
       $newListaMaterial->ancho = $request->pseancho[$i];
       $newListaMaterial->ancho = $request->pseancho[$i];
-      $newListaMaterial->espesor = $request->pseespesor[$i];
+      $newListaMaterial->profundidad = $request->pseprofundidad[$i];
       $newListaMaterial->largo_izq = $request->pselargo_izq[$i];
       $newListaMaterial->largo_der = $request->pselargo_der[$i];
       $newListaMaterial->ancho_sup = $request->pseancho_sup[$i];
@@ -123,7 +123,7 @@ class ConstructorController extends Controller
     $producto->descripcion = $request->descripcion;
     $producto->largo = $request->ptolargo;
     $producto->ancho = $request->ptoancho;
-    $producto->espesor = $request->ptoespesor;
+    $producto->profundidad = $request->ptoprofundidad;
     $producto->importado = 0;
     $producto->save();
 
@@ -166,7 +166,7 @@ class ConstructorController extends Controller
           'largo' => $request->pselargo[$key],
           'ancho' => $request->pseancho[$key],
           'ancho' => $request->pseancho[$key],
-          'espesor' => $request->pseespesor[$key],
+          'profundidad' => $request->pseprofundidad[$key],
           'largo_izq' => $request->pselargo_izq[$key],
           'largo_der' => $request->pselargo_der[$key],
           'ancho_sup' => $request->pseancho_sup[$key],
@@ -192,7 +192,7 @@ class ConstructorController extends Controller
           'largo' => $request->pselargo[$key],
           'ancho' => $request->pseancho[$key],
           'ancho' => $request->pseancho[$key],
-          'espesor' => $request->pseespesor[$key],
+          'profundidad' => $request->pseprofundidad[$key],
           'largo_izq' => $request->pselargo_izq[$key],
           'largo_der' => $request->pselargo_der[$key],
           'ancho_sup' => $request->pseancho_sup[$key],

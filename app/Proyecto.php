@@ -28,7 +28,7 @@ class Proyecto extends Model
     'largo',
     'ancho',
     'area',
-    'espesor',
+    'profundidad',
     'propiedades',
     'importado',
     'min',

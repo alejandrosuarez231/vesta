@@ -53,7 +53,7 @@
             {!! Form::text('ptoancho', $proyecto->ancho, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Ancho']) !!}
           </div>
           <div class="form-group mr-1">
-            {!! Form::text('ptoespesor', $proyecto->espesor, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Profundidad']) !!}
+            {!! Form::text('ptoprofundidad', $proyecto->profundidad, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Profundidad']) !!}
           </div>
         </div>
       </div>
