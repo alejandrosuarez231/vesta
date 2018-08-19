@@ -216,7 +216,7 @@
       mtps: [{ tipo: '', subtipo: '', cantidad: 0 }],
       materialMatriz: '',
       descripciones: [],
-      materiales: [{ material_id: '', descripcion_id: '', largo: '', ancho: '', espesor: '', largo_izq: '', largo_der: '', ancho_sup: '', ancho_inf: '', veta: '', mec1: '', mec2: '', cant: 0 }]
+      materiales: [{ material_id: '', descripcion_id: '', largo: '', ancho: '', profundidad: '', largo_izq: '', largo_der: '', ancho_sup: '', ancho_inf: '', veta: '', mec1: '', mec2: '', cant: 0 }]
     },
 
     watch: {
@@ -245,7 +245,7 @@
       },
       addRowMAT: function (indice) {
         try {
-          this.materiales.splice(indice + 1, 1, { material_id: '', descripcion: '', largo: '', ancho: '', espesor: '', largo_izq: '', largo_der: '', ancho_sup: '', ancho_inf: '', veta: '', mec1: '', mec2: '', cant: 0 });
+          this.materiales.splice(indice + 1, 1, { material_id: '', descripcion: '', largo: '', ancho: '', profundidad: '', largo_izq: '', largo_der: '', ancho_sup: '', ancho_inf: '', veta: '', mec1: '', mec2: '', cant: 0 });
         } catch(e)
         {
           console.log(e);
@@ -336,7 +336,7 @@
         this.materiales[indice].descripcion_id = row.value;
         this.materiales[indice].ancho = row.fancho;
         this.materiales[indice].largo = row.flargo;
-        this.materiales[indice].espesor = row.espesor;
+        this.materiales[indice].profundidad = row.profundidad;
       },
       getSubtipo: function(index,tipo){
         // console.log(index);

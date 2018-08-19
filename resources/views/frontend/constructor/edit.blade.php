@@ -116,7 +116,7 @@
             <td class="align-middle">Descripcion</td>
             <td class="align-middle">Largo</td>
             <td class="align-middle">Ancho</td>
-            <td class="align-middle">Espesor</td>
+            <td class="align-middle">Profundidad</td>
             <td class="align-middle">LargoIZQ</td>
             <td class="align-middle">LargoDER</td>
             <td class="align-middle">AnchoSUP</td>
@@ -151,7 +151,7 @@
               {!! Form::text('pseancho[]', null, ['class'=>'form-control form-control-sm','autocomplete' => 'off', 'v-model' => 'item.ancho']) !!}
             </td>
             <td>
-              {!! Form::select('pseespesor[]', [3=>3,4=>4,6=>6,10=>10,12=>12,15=>15,16=>16,18=>18,19=>19], null, ['class'=>'form-control form-control-sm', 'v-model'=> 'item.profundidad']) !!}
+              {!! Form::select('pseprofundidad[]', [3=>3,4=>4,6=>6,10=>10,12=>12,15=>15,16=>16,18=>18,19=>19], null, ['class'=>'form-control form-control-sm', 'v-model'=> 'item.profundidad']) !!}
             </td>
             <td>
               {!! Form::select('pselargo_izq[]', ['0.45'=>'0.45','1'=>'1','2'=>'2'], null, ['class'=>'form-control form-control-sm', 'v-model' => 'item.largo_izq']) !!}
@@ -263,7 +263,7 @@
       },
       addRowMAT: function (indice) {
         try {
-          this.materiales.splice(indice + 1, 1, { material_id: '', descripcion: '', largo: '', ancho: '', espesor: '', largo_izq: '', largo_der: '', ancho_sup: '', ancho_inf: '', mec1: '', mec2: '', cant: 0 });
+          this.materiales.splice(indice + 1, 1, { material_id: '', descripcion: '', largo: '', ancho: '', profundidad: '', largo_izq: '', largo_der: '', ancho_sup: '', ancho_inf: '', mec1: '', mec2: '', cant: 0 });
         } catch(e)
         {
           console.log(e);
@@ -302,7 +302,7 @@
         this.materiales[indice].descripcion_id = row.value;
         this.materiales[indice].ancho = row.fancho;
         this.materiales[indice].largo = row.flargo;
-        this.materiales[indice].espesor = row.espesor;
+        this.materiales[indice].profundidad = row.profundidad;
       }
     }
   })
