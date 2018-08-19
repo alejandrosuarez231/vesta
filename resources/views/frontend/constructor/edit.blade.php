@@ -50,7 +50,7 @@
             {!! Form::text('ptolargo', $proyecto->largo, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Largo']) !!}
           </div>
           <div class="form-group mr-1">
-            {!! Form::text('ptoancho', $proyecto->ancho, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Ancho']) !!}
+            {!! Form::text('ptoalto', $proyecto->alto, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'alto']) !!}
           </div>
           <div class="form-group mr-1">
             {!! Form::text('ptoprofundidad', $proyecto->profundidad, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Profundidad']) !!}
@@ -115,12 +115,12 @@
             <td class="align-middle">Material</td>
             <td class="align-middle">Descripcion</td>
             <td class="align-middle">Largo</td>
-            <td class="align-middle">Ancho</td>
+            <td class="align-middle">alto</td>
             <td class="align-middle">Profundidad</td>
             <td class="align-middle">LargoIZQ</td>
             <td class="align-middle">LargoDER</td>
-            <td class="align-middle">AnchoSUP</td>
-            <td class="align-middle">AnchoINF</td>
+            <td class="align-middle">altoSUP</td>
+            <td class="align-middle">altoINF</td>
             <td class="align-middle" width="8%">Mec1</td>
             <td class="align-middle" width="8%">Mec2</td>
             <td class="align-middle" width="5%">Cantidad</td>
@@ -148,7 +148,7 @@
               {!! Form::text('pselargo[]', null, ['class'=>'form-control form-control-sm','autocomplete' => 'off', 'v-model'=> 'item.largo']) !!}
             </td>
             <td>
-              {!! Form::text('pseancho[]', null, ['class'=>'form-control form-control-sm','autocomplete' => 'off', 'v-model' => 'item.ancho']) !!}
+              {!! Form::text('psealto[]', null, ['class'=>'form-control form-control-sm','autocomplete' => 'off', 'v-model' => 'item.alto']) !!}
             </td>
             <td>
               {!! Form::select('pseprofundidad[]', [3=>3,4=>4,6=>6,10=>10,12=>12,15=>15,16=>16,18=>18,19=>19], null, ['class'=>'form-control form-control-sm', 'v-model'=> 'item.profundidad']) !!}
@@ -160,10 +160,10 @@
               {!! Form::select('pselargo_der[]', ['0.45'=>'0.45','1'=>'1','2'=>'2'], null, ['class'=>'form-control form-control-sm', 'v-model' => 'item.largo_der']) !!}
             </td>
             <td>
-              {!! Form::select('pseancho_sup[]', ['0.45'=>'0.45','1'=>'1','2'=>'2'], null, ['class'=>'form-control form-control-sm', 'v-model' => 'item.ancho_sup']) !!}
+              {!! Form::select('psealto_sup[]', ['0.45'=>'0.45','1'=>'1','2'=>'2'], null, ['class'=>'form-control form-control-sm', 'v-model' => 'item.alto_sup']) !!}
             </td>
             <td>
-              {!! Form::select('pseancho_inf[]', ['0.45'=>'0.45','1'=>'1','2'=>'2'], null, ['class'=>'form-control form-control-sm', 'v-model' => 'item.ancho_inf']) !!}
+              {!! Form::select('psealto_inf[]', ['0.45'=>'0.45','1'=>'1','2'=>'2'], null, ['class'=>'form-control form-control-sm', 'v-model' => 'item.alto_inf']) !!}
             </td>
             <td>
               {!! Form::text('psemec1', null, ['class'=>'form-control form-control-sm','autocomplete' => 'off', 'v-model' => 'item.mec1']) !!}
@@ -263,7 +263,7 @@
       },
       addRowMAT: function (indice) {
         try {
-          this.materiales.splice(indice + 1, 1, { material_id: '', descripcion: '', largo: '', ancho: '', profundidad: '', largo_izq: '', largo_der: '', ancho_sup: '', ancho_inf: '', mec1: '', mec2: '', cant: 0 });
+          this.materiales.splice(indice + 1, 1, { material_id: '', descripcion: '', largo: '', alto: '', profundidad: '', largo_izq: '', largo_der: '', alto_sup: '', alto_inf: '', mec1: '', mec2: '', cant: 0 });
         } catch(e)
         {
           console.log(e);
@@ -300,7 +300,7 @@
           }
         })
         this.materiales[indice].descripcion_id = row.value;
-        this.materiales[indice].ancho = row.fancho;
+        this.materiales[indice].alto = row.falto;
         this.materiales[indice].largo = row.flargo;
         this.materiales[indice].profundidad = row.profundidad;
       }

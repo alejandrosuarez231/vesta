@@ -26,7 +26,7 @@ class Proyecto extends Model
     'unidad_id',
     'color_id',
     'largo',
-    'ancho',
+    'alto',
     'area',
     'profundidad',
     'propiedades',

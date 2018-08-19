@@ -20,10 +20,10 @@
           <h6 class="card-subtitle mb-2 text-muted">{{ $proyecto->descripcion }}</h6>
           <p class="card-text">
             Largo: <span class="text-uppercase badge badge-success">{{ $proyecto->largo }}</span><br>
-            Ancho: <span class="text-uppercase badge badge-success">{{ $proyecto->ancho }}</span><br>
-            Espesor: <span class="text-uppercase badge badge-success">{{ $proyecto->espesor }}</span><br>
-            Sist. de Apertura: <span class="text-uppercase badge badge-success">{{ @$proyecto->sap }}</span><br>
-            Sist. de Armado: <span class="text-uppercase badge badge-success">{{ @$proyecto->sar }}</span>
+            Alto: <span class="text-uppercase badge badge-success">{{ $proyecto->alto }}</span><br>
+            Profundidad: <span class="text-uppercase badge badge-success">{{ $proyecto->profundidad }}</span><br>
+            Sist. de Apertura: <span class="text-uppercase badge badge-success">{{ @$proyecto->saps->valor }}</span><br>
+            Sist. de Armado: <span class="text-uppercase badge badge-success">{{ @$proyecto->sars->valor }}</span>
           </p>
         </div>
       </div>
@@ -113,12 +113,12 @@
                             <thead>
                               <tr>
                                 <th>Largo</th>
-                                <th>Ancho</th>
-                                <th>Espesor</th>
-                                <th>Largo IZQ <small>Canto</small></th>
-                                <th>Largo DER <small>Canto</small></th>
-                                <th>Ancho SUP <small>Canto</small></th>
-                                <th>Ancho INF <small>Canto</small></th>
+                                <th>Alto</th>
+                                <th>Profundidad</th>
+                                <th>Canto <small>IZQ</small></th>
+                                <th>Canto <small>DER</small></th>
+                                <th>Canto <small>SUP</small></th>
+                                <th>Canto <small>INF</small></th>
                                 <th>Mec 1</th>
                                 <th>Mec 2</th>
                               </tr>
@@ -126,12 +126,12 @@
                             <tbody>
                               <tr>
                                 <td class="text-center">{{ $item->largo }}</td>
-                                <td class="text-center">{{ $item->ancho }}</td>
-                                <td class="text-center">{{ $item->espesor }}</td>
+                                <td class="text-center">{{ $item->alto }}</td>
+                                <td class="text-center">{{ $item->profundidad }}</td>
                                 <td class="text-center">{{ $item->largo_izq }}</td>
                                 <td class="text-center">{{ $item->largo_der }}</td>
-                                <td class="text-center">{{ $item->ancho_sup }}</td>
-                                <td class="text-center">{{ $item->ancho_inf }}</td>
+                                <td class="text-center">{{ $item->alto_sup }}</td>
+                                <td class="text-center">{{ $item->alto_inf }}</td>
                                 <td class="text-center">{{ $item->mec1 }}</td>
                                 <td class="text-center">{{ $item->mec2 }}</td>
                               </tr>

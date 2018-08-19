@@ -32,7 +32,7 @@ class ConstructorController extends Controller
     //   'nombre' => 'required|unique:proyectos',
     //   'descripcion' => 'required',
     //   'ptolargo' => 'nullable',
-    //   'ptoancho' => 'nullable',
+    //   'ptoalto' => 'nullable',
     //   'ptoprofundidad' => 'nullable',
     //   'mtp_tipo_id.*' => 'required',
     //   'mtp_subtipo_id.*' => 'required',
@@ -40,12 +40,12 @@ class ConstructorController extends Controller
     //   'psematerial_id.*' => 'required',
     //   'psedescripcion.*' => 'required',
     //   'pselargo.*' => 'nullable',
-    //   'pseancho.*' => 'nullable',
+    //   'psealto.*' => 'nullable',
     //   'pseprofundidad.*' => 'nullable',
     //   'pselargo_izq.*' => 'nullable',
     //   'pselargo_der.*' => 'nullable',
-    //   'pseancho_sup.*' => 'nullable',
-    //   'pseancho_inf.*' => 'nullable',
+    //   'psealto_sup.*' => 'nullable',
+    //   'psealto_inf.*' => 'nullable',
     //   'psemec1.*' => 'nullable',
     //   'psemec2.*' => 'nullable',
     //   'psecantidad.*' => 'nullable',
@@ -60,7 +60,7 @@ class ConstructorController extends Controller
       'sar'=>$request->sar,
       'descripcion'=>$request->descripcion,
       'largo'=>$request->ptolargo,
-      'ancho'=>$request->ptoancho,
+      'alto'=>$request->ptoalto,
       'profundidad'=>$request->ptoprofundidad,
       'importado'=>0
     ]);
@@ -83,13 +83,13 @@ class ConstructorController extends Controller
       $newListaMaterial->material_id = $request->psematerial_id[$i];
       $newListaMaterial->descripcion_id = $request->psedescripcion[$i];
       $newListaMaterial->largo = $request->pselargo[$i];
-      $newListaMaterial->ancho = $request->pseancho[$i];
-      $newListaMaterial->ancho = $request->pseancho[$i];
+      $newListaMaterial->alto = $request->psealto[$i];
+      $newListaMaterial->alto = $request->psealto[$i];
       $newListaMaterial->profundidad = $request->pseprofundidad[$i];
       $newListaMaterial->largo_izq = $request->pselargo_izq[$i];
       $newListaMaterial->largo_der = $request->pselargo_der[$i];
-      $newListaMaterial->ancho_sup = $request->pseancho_sup[$i];
-      $newListaMaterial->ancho_inf = $request->pseancho_inf[$i];
+      $newListaMaterial->alto_sup = $request->psealto_sup[$i];
+      $newListaMaterial->alto_inf = $request->psealto_inf[$i];
       $newListaMaterial->mec1 = $request->psemec1[$i];
       $newListaMaterial->mec2 = $request->psemec2[$i];
       $newListaMaterial->cantidad = $request->psecantidad[$i];
@@ -122,7 +122,7 @@ class ConstructorController extends Controller
     $producto->sar = $request->sar;
     $producto->descripcion = $request->descripcion;
     $producto->largo = $request->ptolargo;
-    $producto->ancho = $request->ptoancho;
+    $producto->alto = $request->ptoalto;
     $producto->profundidad = $request->ptoprofundidad;
     $producto->importado = 0;
     $producto->save();
@@ -164,13 +164,13 @@ class ConstructorController extends Controller
           'material_id' => $request->psematerial_id[$key],
           'descripcion_id' => $request->psedescripcion[$key],
           'largo' => $request->pselargo[$key],
-          'ancho' => $request->pseancho[$key],
-          'ancho' => $request->pseancho[$key],
+          'alto' => $request->psealto[$key],
+          'alto' => $request->psealto[$key],
           'profundidad' => $request->pseprofundidad[$key],
           'largo_izq' => $request->pselargo_izq[$key],
           'largo_der' => $request->pselargo_der[$key],
-          'ancho_sup' => $request->pseancho_sup[$key],
-          'ancho_inf' => $request->pseancho_inf[$key],
+          'alto_sup' => $request->psealto_sup[$key],
+          'alto_inf' => $request->psealto_inf[$key],
           'mec1' => $request->psemec1[$key],
           'mec2' => $request->psemec2[$key],
           'cantidad' => $request->psecantidad[$key]
@@ -190,13 +190,13 @@ class ConstructorController extends Controller
           'material_id' => $request->psematerial_id[$key],
           'descripcion_id' => $request->psedescripcion[$key],
           'largo' => $request->pselargo[$key],
-          'ancho' => $request->pseancho[$key],
-          'ancho' => $request->pseancho[$key],
+          'alto' => $request->psealto[$key],
+          'alto' => $request->psealto[$key],
           'profundidad' => $request->pseprofundidad[$key],
           'largo_izq' => $request->pselargo_izq[$key],
           'largo_der' => $request->pselargo_der[$key],
-          'ancho_sup' => $request->pseancho_sup[$key],
-          'ancho_inf' => $request->pseancho_inf[$key],
+          'alto_sup' => $request->psealto_sup[$key],
+          'alto_inf' => $request->psealto_inf[$key],
           'mec1' => $request->psemec1[$key],
           'mec2' => $request->psemec2[$key],
           'cantidad' => $request->psecantidad[$key]

@@ -51,7 +51,7 @@
             {!! Form::text('ptolargo', null, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Largo']) !!}
           </div>
           <div class="form-group mr-1">
-            {!! Form::text('ptoancho', null, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Ancho']) !!}
+            {!! Form::text('ptoalto', null, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'alto']) !!}
           </div>
           <div class="form-group mr-1">
             {!! Form::text('ptoprofundidad', null, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Profundidad']) !!}
@@ -114,7 +114,7 @@
               <td class="align-middle">Material</td>
               <td class="align-middle">Descripcion</td>
               <td class="align-middle">Largo</td>
-              <td class="align-middle">Ancho</td>
+              <td class="align-middle">Alto</td>
               <td class="align-middle">Profundidad</td>
               <td class="align-middle text-center">L-IZQ</td>
               <td class="align-middle text-center">L-DER</td>
@@ -144,7 +144,7 @@
                 {!! Form::text('pselargo[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Largo','v-model'=>'material.largo']) !!}
               </td>
               <td>
-                {!! Form::text('pseancho[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Ancho','v-model' => 'material.ancho']) !!}
+                {!! Form::text('psealto[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'alto','v-model' => 'material.alto']) !!}
               </td>
               <td>
                 {!! Form::select('pseprofundidad[]', [3=>3,4=>4,6=>6,10=>10,12=>12,15=>15,16=>16,18=>18,19=>19,20=>20,25=>25], null, ['class'=>'form-control form-control-sm', 'placeholder'=>'']) !!}
@@ -164,14 +164,14 @@
                 </select>
               </td>
               <td>
-                <select class="form-control form-control-sm" name="pseancho_sup[]" v-model="material.ancho_sup">
+                <select class="form-control form-control-sm" name="psealto_sup[]" v-model="material.alto_sup">
                   <option value="0.45" >0.45</option>
                   <option value="1" >1</option>
                   <option value="2" >2</option>
                 </select>
               </td>
               <td>
-                <select class="form-control form-control-sm" name="pseancho_inf[]" v-model="material.ancho_inf">
+                <select class="form-control form-control-sm" name="psealto_inf[]" v-model="material.alto_inf">
                   <option value="0.45" >0.45</option>
                   <option value="1" >1</option>
                   <option value="2" >2</option>
@@ -216,7 +216,7 @@
       mtps: [{ tipo: '', subtipo: '', cantidad: 0 }],
       materialMatriz: '',
       descripciones: [],
-      materiales: [{ material_id: '', descripcion_id: '', largo: '', ancho: '', profundidad: '', largo_izq: '', largo_der: '', ancho_sup: '', ancho_inf: '', veta: '', mec1: '', mec2: '', cant: 0 }]
+      materiales: [{ material_id: '', descripcion_id: '', largo: '', alto: '', profundidad: '', largo_izq: '', largo_der: '', alto_sup: '', alto_inf: '', veta: '', mec1: '', mec2: '', cant: 0 }]
     },
 
     watch: {
@@ -245,7 +245,7 @@
       },
       addRowMAT: function (indice) {
         try {
-          this.materiales.splice(indice + 1, 1, { material_id: '', descripcion: '', largo: '', ancho: '', profundidad: '', largo_izq: '', largo_der: '', ancho_sup: '', ancho_inf: '', veta: '', mec1: '', mec2: '', cant: 0 });
+          this.materiales.splice(indice + 1, 1, { material_id: '', descripcion: '', largo: '', alto: '', profundidad: '', largo_izq: '', largo_der: '', alto_sup: '', alto_inf: '', veta: '', mec1: '', mec2: '', cant: 0 });
         } catch(e)
         {
           console.log(e);
@@ -334,7 +334,7 @@
         console.log(row);
         console.log(this.materiales[indice]);
         this.materiales[indice].descripcion_id = row.value;
-        this.materiales[indice].ancho = row.fancho;
+        this.materiales[indice].alto = row.falto;
         this.materiales[indice].largo = row.flargo;
         this.materiales[indice].profundidad = row.profundidad;
       },

@@ -15,10 +15,14 @@ class ModProyectosTable extends Migration
     {
         Schema::table('proyectos', function (Blueprint $table) {
             $table->renameColumn('espesor','profundidad');
+            $table->renameColumn('ancho','alto');
         });
 
         Schema::table('lista_materiales', function (Blueprint $table) {
             $table->renameColumn('espesor','profundidad');
+            $table->renameColumn('ancho','alto');
+            $table->renameColumn('ancho_sup','alto_sup');
+            $table->renameColumn('ancho_inf','alto_inf');
         });
     }
 
@@ -31,10 +35,14 @@ class ModProyectosTable extends Migration
     {
         Schema::table('proyectos', function (Blueprint $table) {
             $table->renameColumn('profundidad','espesor');
+            $table->renameColumn('alto','ancho');
         });
 
         Schema::table('lista_materiales', function (Blueprint $table) {
             $table->renameColumn('profundidad','espesor');
+            $table->renameColumn('alto','ancho');
+            $table->renameColumn('alto_sup','ancho_sup');
+            $table->renameColumn('alto_inf','ancho_inf');
         });
     }
 }
