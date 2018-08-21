@@ -58,7 +58,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-5" @keyup.ctrl.alt.97="addRowMTP(this.app.mtps.length -1)">
       <table class="table table-sm table-bordered">
         <caption>Complementos</caption>
         <thead class="font-weight-bold" style="font-size: 0.8em;">
@@ -66,7 +66,7 @@
             <th width="33%" class="align-middle">Tipo</th>
             <th width="33%" class="align-middle">SubTipo</th>
             <th width="33%" class="align-middle text-right"  width="18%">Cantidad</th>
-            <th class="align-middle text-center"><a class="btn btn-link" href="#" title="Agregar" @click="addRowMTP(this.app.mtps.length -1)"><i class="fas fa-plus fa-xs"></i></a></th>
+            <th class="align-middle text-center"><a class="btn btn-link" href="#" alt="Ctrl+Alt+1" title="Agregar | Ctrl+Alt+1" @click="addRowMTP(this.app.mtps.length -1)"><i class="fas fa-plus fa-xs"></i></a></th>
           </tr>
         </thead>
         <tbody>
@@ -87,14 +87,14 @@
               {!! Form::number('mtp_cantidad[]', null, ['class' => 'form-control form-control-sm text-right','min' => 1, 'v-model'=>'item.mtp_cantidad', 'required']) !!}
             </td>
             <td>
-              <a class="btn btn-link  align-middle text-danger" href="#" title="Eliminar" @click="removeRowMTP(index)" v-if="mtps.length > 1"><i class="fas fa-minus fa-xs"></i></a>
+              <a class="btn btn-link  align-middle text-danger" href="#" alt="Ctrl+Alt+2" title="Eliminar | Ctrl+Alt+2" @click="removeRowMTP(index)" v-if="mtps.length > 1"><i class="fas fa-minus fa-xs"></i></a>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
-  <div class="row mt-2 mb-2">
+  <div class="row mt-2 mb-2" @keyup.ctrl.alt.98="addRowMAT(this.app.materiales.length -1)">
     <div class="col-md card">
       <table class="table table-sm table-bordered">
         <caption>Piezas</caption>
@@ -125,7 +125,7 @@
             <td class="align-middle" width="8%">Mec2</td>
             <td class="align-middle" width="5%">Cantidad</td>
             <td class="align-middle">
-              <a class="btn btn-link  float-right" href="#" title="Agregar" @click="addRowMAT(this.app.materiales.length -1)"><i class="fas fa-plus fa-xs"></i></a>
+              <a class="btn btn-link  float-right" href="#" alt="Ctrl+Alt+2" title="Agregar | Ctrl+Alt+2" @click="addRowMAT(this.app.materiales.length -1)"><i class="fas fa-plus fa-xs"></i></a>
             </td>
           </tr>
         </thead>

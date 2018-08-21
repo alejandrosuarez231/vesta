@@ -59,7 +59,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-5" @keyup.ctrl.alt.97="addRowMTP(this.app.mtps.length -1)">
       <table class="table table-sm table-bordered">
         <caption>Complementos</caption>
         <thead class="font-weight-bold" style="font-size: 0.8em;">
@@ -67,7 +67,7 @@
             <th width="33%" class="align-middle text-left">Tipo</th>
             <th width="33%" class="align-middle text-left">Sub-Tipo</th>
             <th width="33%" class="align-middle text-right">Cantidad</th>
-            <th class="align-middle text-center"><a class="btn btn-link" href="#" title="Agregar" @click="addRowMTP(this.app.mtps.length -1)"><i class="fas fa-plus fa-xs"></i></a></th>
+            <th class="align-middle text-center"><a class="btn btn-link" alt="Ctrl+Alt+1" href="#" title="Agregar | Cntrl+Alt+1" @click="addRowMTP(this.app.mtps.length -1)"><i class="fas fa-plus fa-xs"></i></a></th>
           </tr>
         </thead>
           <tbody>
@@ -93,7 +93,7 @@
       </table>
     </div>
   </div>
-  <div class="row mt-2 mb-2">
+  <div class="row mt-2 mb-2"  @keyup.ctrl.alt.98="addRowMAT(this.app.materiales.length -1)">
     <div class="col-md card">
         <table class="table table-sm table-bordered">
           <caption>Piezas</caption>
@@ -124,7 +124,7 @@
               <td class="align-middle">Mec2</td>
               <td class="align-middle">Cantidad</td>
               <td class="align-middle text-center">
-                <a class="btn btn-link float-right align-middle" href="#" title="Agregar" @click="addRowMAT(this.app.materiales.length -1)"><i class="fas fa-plus fa-xs"></i></a>
+                <a class="btn btn-link float-right align-middle" href="#" alt="Ctrl+Alt+2" title="Agregar | Ctrl+Alt+2" @click="addRowMAT(this.app.materiales.length -1)"><i class="fas fa-plus fa-xs"></i></a>
               </td>
             </tr>
           </thead>
@@ -181,7 +181,7 @@
               <td>{!! Form::text('psemec2[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Mec2','v-model'=>'material.mec2']) !!}</td>
               <td>{!! Form::number('psecantidad[]', null, ['class' => 'form-control form-control-sm text-right', 'min' => 1, 'title' =>'Cant', 'v-model' => 'material.cant','required']) !!}</td>
               <td class="align-middle text-center">
-                <a class="btn btn-link text-danger align-middle" href="#" title="Eliminar" @click="removeRowMAT($indice)" v-if="materiales.length > 1"><i class="fas fa-minus fa-xs"></i></a>
+                <a class="btn btn-link text-danger align-middle" alt="Ctrl+Alt+7" href="#" title="Eliminar | Ctrl+Alt+7" @click="removeRowMAT($indice)" v-if="materiales.length > 1"><i class="fas fa-minus fa-xs"></i></a>
               </td>
             </tr>
           </tbody>
