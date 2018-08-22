@@ -132,8 +132,6 @@ class DescripcioneController extends Controller
         'subtipos.*' => 'required'
       ]);
 
-      $descripcione->tipos = implode(",",$request->tipos);
-      $descripcione->subtipos = implode(",",$request->subtipos);
       $descripcione->materiale_id = $request->materiale_id;
       $descripcione->descripcion = $request->descripcion;
       $descripcione->flargo = $request->flargo;
