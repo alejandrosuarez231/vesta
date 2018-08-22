@@ -116,7 +116,7 @@
             <td class="align-middle">Descripcion</td>
             <td class="align-middle">Largo</td>
             <td class="align-middle">alto</td>
-            <td class="align-middle">Profundidad</td>
+            <td class="align-middle">Espesor</td>
             <td class="align-middle">LargoIZQ</td>
             <td class="align-middle">LargoDER</td>
             <td class="align-middle">altoSUP</td>
