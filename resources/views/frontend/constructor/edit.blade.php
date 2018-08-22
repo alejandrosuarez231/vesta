@@ -47,7 +47,7 @@
       <div>
         <div class="form-row">
           <div class="form-group mr-1">
-            {!! Form::text('ptolargo', $proyecto->largo, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Largo']) !!}
+            {!! Form::text('ptolargo', $proyecto->largo, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Ancho']) !!}
           </div>
           <div class="form-group mr-1">
             {!! Form::text('ptoalto', $proyecto->alto, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'alto']) !!}

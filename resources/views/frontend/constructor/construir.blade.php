@@ -48,7 +48,7 @@
       <div v-if="tipo > 10">
         <div class="form-row">
           <div class="form-group mr-1">
-            {!! Form::text('ptolargo', null, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Largo']) !!}
+            {!! Form::text('ptolargo', null, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'Ancho']) !!}
           </div>
           <div class="form-group mr-1">
             {!! Form::text('ptoalto', null, ['class'=>'form-control form-control-sm text-uppercase','placeholder'=>'alto']) !!}
