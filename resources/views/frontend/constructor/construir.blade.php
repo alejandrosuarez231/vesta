@@ -35,10 +35,10 @@
       </div>
       <div class="form-row">
         <div class="form-group mr-2">
-          {!! Form::select('sap', \App\Confpart::where('nombre','=','Sist. de Apertura')->pluck('valor','id'), null, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Apertura']) !!}
+          {!! Form::select('sap', \App\Confpart::where('nombre','=','Sist. de Apertura')->pluck('valor','id'), null, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Apertura','v-model' => 'sap']) !!}
         </div>
         <div class="form-group mr-2">
-          {!! Form::select('sar', \App\Confpart::where('nombre','=','Sist. de Armado')->pluck('valor','id'), null, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Armado']) !!}
+          {!! Form::select('sar', \App\Confpart::where('nombre','=','Sist. de Armado')->pluck('valor','id'), null, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Armado','v-model' => 'sar']) !!}
         </div>
       </div>
       <div class="form-group">
@@ -209,6 +209,8 @@
       tipo: '',
       subtipos: '',
       subtipo: '',
+      sap: '',
+      sar: '',
       base: '',
       basesku: '',
       numeracion: '',
@@ -293,7 +295,7 @@
             }
             this.ptosku = this.ptosku + '-' + num.pad(6);
           }else {
-            this.ptosku = this.ptosku + '-' + '000001';
+            this.ptosku = this.ptosku + '-' + '0001';
           }
           this.setMateriales();
         })
