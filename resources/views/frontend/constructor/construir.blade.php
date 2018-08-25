@@ -20,7 +20,7 @@
           {!! Form::select('tipo_id', \App\Tipo::where('tipologia','=','PTO')->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'TIPO', 'v-model' => 'tipo']) !!}
         </div>
         <div class="form-group mr-2" v-if="tipo > 10 && tipo < 18">
-          <select class="form-control form-control-sm" name="subtipo_id" v-model="subtipo" @change="getSkuBase">
+          <select class="form-control form-control-sm" name="subtipo_id" v-model="subtipo" @change="getNombres()">
             <option value="" disabled>Selección</option>
             <option v-for="(item, index) in subtipos" :value="item.value">@{{ item.label }}</option>
           </select>
@@ -40,7 +40,7 @@
           {!! Form::select('sap', \App\Confpart::where('nombre','=','Sist. de Apertura')->pluck('valor','id'), null, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Apertura','v-model' => 'sap']) !!}
         </div>
         <div class="form-group mr-2">
-          <select name="sar" class="form-control form-control-sm" v-model="sar">
+          <select name="sar" class="form-control form-control-sm" v-model="sar" @change="getSkuBase()">
             <option value="" disabled selected>Sist. de Armado</option>
             <option v-for="item in sarList" :value="item.id">@{{ item.valor }}</option>
           </select>
@@ -201,54 +201,68 @@
 
 @section('scripts')
 <script type="text/javascript">
-  var app = new Vue({
-    el: '#app',
+  function formatted_string(pad, user_str, pad_pos)
+  {
+    if (typeof user_str === 'undefined')
+      return pad;
+    if (pad_pos == 'l')
+    {
+     return (pad + user_str).slice(-pad.length);
+   }
+   else
+   {
+    return (user_str + pad).substring(0, pad.length);
+  }
+}
 
-    created(){
-      axios.get('/TiposMTP').then( response => { this.tipos = response.data }).catch(function(error) { console.log(error) });
-    },
+var app = new Vue({
+  el: '#app',
 
-    data: {
-      ptosku: '',
-      tipos: '',
-      tipo: '',
-      subtipos: '',
-      subtipo: '',
-      nombre: '',
-      nombresList: [],
-      sap: '',
-      sarList: [],
-      sarsel: '',
-      sar: '',
-      base: '',
-      basesku: '',
-      numeracion: '',
-      mtpsList: [],
-      mtps: [{ tipo: '', subtipo: '', cantidad: 0 }],
-      materialMatriz: '',
-      descripciones: [],
-      materiales: [{ material_id: '', descripcion_id: '', largo: '', alto: '', profundidad: '', largo_izq: '', largo_der: '', alto_sup: '', alto_inf: '', veta: '', mec1: '', mec2: '', cant: 0 }]
-    },
+  created(){
+    axios.get('/TiposMTP').then( response => { this.tipos = response.data }).catch(function(error) { console.log(error) });
+  },
 
-    watch: {
-      tipo: function(){
-        if(this.tipo > 0){
-          axios.get('/subtipos/' + this.tipo)
-          .then( response => {
-            this.subtipos = response.data;
-          })
-          .catch(function(error){
-            console.log(error)
-          })
-        }
+  data: {
+    ptosku: '',
+    tipos: '',
+    tipo: '',
+    subtipos: '',
+    subtipo: '',
+    nombre: '',
+    nombresList: [],
+    sap: '',
+    sarList: [],
+    sarsel: '',
+    sar: '',
+    base: '',
+    basesku: '',
+    numeracion: '',
+    mtpsList: [],
+    mtps: [{ tipo: '', subtipo: '', cantidad: 0 }],
+    materialMatriz: '',
+    descripciones: [],
+    materiales: [{ material_id: '', descripcion_id: '', largo: '', alto: '', profundidad: '', largo_izq: '', largo_der: '', alto_sup: '', alto_inf: '', veta: '', mec1: '', mec2: '', cant: 0 }]
+  },
+
+  watch: {
+    tipo: function(){
+      if(this.tipo > 0){
+        axios.get('/subtipos/' + this.tipo)
+        .then( response => {
+          this.subtipos = response.data;
+        })
+        .catch(function(error){
+          console.log(error)
+        })
       }
-    },
+    }
+  },
 
-    methods: {
-      addRowMTP: function (index) {
-        this.mtps.splice(index + 1, 1, { tipo: null, subtipo: null, cantidad: 0 });
-      },
-      removeRowMTP: function(index){
+  methods: {
+    addRowMTP: function (index) {
+      this.mtps.splice(index + 1, 1, { tipo: null, subtipo: null, cantidad: 0 });
+    },
+    removeRowMTP: function(index){
         // console.log(index);
         if( this.mtps.length > 1){
           this.mtps.splice(index, 1);
@@ -285,7 +299,7 @@
           this.base = response.data[0].skubase;
           this.ptosku = this.base;
           this.searchSKU();
-          this.getNombres();
+          // this.getNombres();
         })
         .catch(function(error) {
           console.log(error)
@@ -303,9 +317,9 @@
               while (s.length < (size || 2)) { s = "0" + s; }
               return s;
             }
-            this.ptosku = this.ptosku + '-' + num.pad(6);
+            this.ptosku = this.ptosku + '-' + num.pad(4);
           }else {
-            this.ptosku = this.ptosku + '-' + '0001';
+            this.ptosku = this.ptosku + '-' + '0' + formatted_string('00',this.sar,'l') + '1';
           }
           this.setMateriales();
         })
