@@ -68,6 +68,13 @@ class ConfpartController extends Controller
         //
     }
 
+    public function menusar($ids)
+    {
+        $confparts = Confpart::whereIn('id',explode(',',$ids))->select('id','valor')->get();
+        return $confparts->toJson();
+    }
+
+
     /**
      * Show the form for editing the specified resource.
      *

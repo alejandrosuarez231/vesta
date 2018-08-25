@@ -29,16 +29,21 @@
           {!! Form::text('sku', 'SKU', ['class' => 'form-control form-control-sm','placeholder'=>'SKU','v-model'=>'ptosku']) !!}
         </div>
       </div>
-      <!-- Nombre y Descripcion  -->
+      <!-- Nombre  -->
       <div class="form-group">
-        {!! Form::text('nombre', null, ['class'=>'form-control form-control-sm col-md-6','placeholder'=>'Nombre']) !!}
+        <select name="nombre" class="form-control form-control-sm col-md-6" v-model="nombre" @change="setSAR()">
+          <option v-for="(item, index) in nombresList" :value="item.value">@{{ item.label }}</option>
+        </select>
       </div>
       <div class="form-row">
         <div class="form-group mr-2">
           {!! Form::select('sap', \App\Confpart::where('nombre','=','Sist. de Apertura')->pluck('valor','id'), null, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Apertura','v-model' => 'sap']) !!}
         </div>
         <div class="form-group mr-2">
-          {!! Form::select('sar', \App\Confpart::where('nombre','=','Sist. de Armado')->pluck('valor','id'), null, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Armado','v-model' => 'sar']) !!}
+          <select name="sar" class="form-control form-control-sm" v-model="sar">
+            <option value="" disabled selected>Sist. de Armado</option>
+            <option v-for="item in sarList" :value="item.id">@{{ item.valor }}</option>
+          </select>
         </div>
       </div>
       <div class="form-group">
@@ -70,126 +75,126 @@
             <th class="align-middle text-center"><a class="btn btn-link" alt="Ctrl+Alt+1" href="#" title="Agregar | Cntrl+Alt+1" @click="addRowMTP(this.app.mtps.length -1)"><i class="fas fa-plus fa-xs"></i></a></th>
           </tr>
         </thead>
-          <tbody>
-            <tr v-for="(mtp, $index) in mtps" track-by="$index">
-              <td>
-                <select class="form-control form-control-sm" name="mtp_tipo_id[]" v-model="mtp.tipo" @change="getSubtipo($index,mtps[$index].tipo)" required>
-                  <option v-for="(tipo, indice) in tipos" :value="tipo.value">@{{ tipo.label }}</option>
-                </select>
-              </td>
-              <td>
-                <select class="form-control form-control-sm" name="mtp_subtipo_id[]" v-model="mtp.subtipo" required>
-                  <option v-for="(subtipo, indice) in mtpsList[$index]" :value="subtipo.value">@{{ subtipo.label }}</option>
-                </select>
-              </td>
-              <td>
-                {!! Form::number('mtp_cantidad[]', null, ['class'=>'form-control form-control-sm text-right','placeholder'=>'Cantidad','min' => 1, 'v-model'=>'mtp.cantidad','required']) !!}
-              </td>
-              <td class="align-middle text-center">
-                <a class="btn btn-link text-danger align-middle" href="#" title="Eliminar" @click="removeRowMTP($index)" v-if="mtps.length > 1"><i class="fas fa-minus fa-xs"></i></a>
-              </td>
-            </tr>
-          </tbody>
+        <tbody>
+          <tr v-for="(mtp, $index) in mtps" track-by="$index">
+            <td>
+              <select class="form-control form-control-sm" name="mtp_tipo_id[]" v-model="mtp.tipo" @change="getSubtipo($index,mtps[$index].tipo)" required>
+                <option v-for="(tipo, indice) in tipos" :value="tipo.value">@{{ tipo.label }}</option>
+              </select>
+            </td>
+            <td>
+              <select class="form-control form-control-sm" name="mtp_subtipo_id[]" v-model="mtp.subtipo" required>
+                <option v-for="(subtipo, indice) in mtpsList[$index]" :value="subtipo.value">@{{ subtipo.label }}</option>
+              </select>
+            </td>
+            <td>
+              {!! Form::number('mtp_cantidad[]', null, ['class'=>'form-control form-control-sm text-right','placeholder'=>'Cantidad','min' => 1, 'v-model'=>'mtp.cantidad','required']) !!}
+            </td>
+            <td class="align-middle text-center">
+              <a class="btn btn-link text-danger align-middle" href="#" title="Eliminar" @click="removeRowMTP($index)" v-if="mtps.length > 1"><i class="fas fa-minus fa-xs"></i></a>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>
   <div class="row mt-2 mb-2"  @keyup.ctrl.alt.98="addRowMAT(this.app.materiales.length -1)">
     <div class="col-md card">
-        <table class="table table-sm table-bordered">
-          <caption>Piezas</caption>
-          <thead class="font-weight-bold" style="font-size: 0.8em;">
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td colspan="4" class="text-center">Canto</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td class="align-middle">Material</td>
-              <td class="align-middle">Descripcion</td>
-              <td class="align-middle">Largo</td>
-              <td class="align-middle">Alto</td>
-              <td class="align-middle">Espesor</td>
-              <td class="align-middle text-center">L-IZQ</td>
-              <td class="align-middle text-center">L-DER</td>
-              <td class="align-middle text-center">A-SUP</td>
-              <td class="align-middle text-center">A-INF</td>
-              <td class="align-middle">Mec1</td>
-              <td class="align-middle">Mec2</td>
-              <td class="align-middle">Cantidad</td>
-              <td class="align-middle text-center">
-                <a class="btn btn-link float-right align-middle" href="#" alt="Ctrl+Alt+2" title="Agregar | Ctrl+Alt+2" @click="addRowMAT(this.app.materiales.length -1)"><i class="fas fa-plus fa-xs"></i></a>
-              </td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(material, $indice) in materiales" track-by="$indice">
-              <td>
-                <select class="form-control form-control-sm" title="Material" name="psematerial_id[]" v-model="material.material_id" required @change="filterMaterial(materiales[$indice].material_id,$indice)">
-                  <option v-for="(item, indice) in materialMatriz" :value="item.value">@{{ item.label }}</option>
-                </select>
-              </td>
-              <td>
-                <select name="psedescripcion[]" class="form-control form-control-sm" v-model="material.descripcion_id" required @change="setFormulas(materiales[$indice].descripcion_id,$indice)">
-                  <option v-for="(descripcion, index) in descripciones[$indice]" :value="descripcion.value">@{{ descripcion.label }}</option>
-                </select>
-              </td>
-              <td>
-                {!! Form::text('pselargo[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Largo','v-model'=>'material.largo']) !!}
-              </td>
-              <td>
-                {!! Form::text('psealto[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'alto','v-model' => 'material.alto']) !!}
-              </td>
-              <td>
-                {!! Form::select('pseprofundidad[]', [3=>3,4=>4,6=>6,10=>10,12=>12,15=>15,16=>16,18=>18,19=>19,20=>20,25=>25], null, ['class'=>'form-control form-control-sm', 'placeholder'=>'']) !!}
-              </td>
-              <td>
-                <select class="form-control form-control-sm" name="pselargo_izq[]" v-model="material.largo_izq">
-                  <option value="0.45" >0.45</option>
-                  <option value="1" >1</option>
-                  <option value="2" >2</option>
-                </select>
-              </td>
-              <td>
-                <select class="form-control form-control-sm" name="pselargo_der[]" v-model="material.largo_der">
-                  <option value="0.45" >0.45</option>
-                  <option value="1" >1</option>
-                  <option value="2" >2</option>
-                </select>
-              </td>
-              <td>
-                <select class="form-control form-control-sm" name="psealto_sup[]" v-model="material.alto_sup">
-                  <option value="0.45" >0.45</option>
-                  <option value="1" >1</option>
-                  <option value="2" >2</option>
-                </select>
-              </td>
-              <td>
-                <select class="form-control form-control-sm" name="psealto_inf[]" v-model="material.alto_inf">
-                  <option value="0.45" >0.45</option>
-                  <option value="1" >1</option>
-                  <option value="2" >2</option>
-                </select>
-              </td>
-              <td>{!! Form::text('psemec1[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Mec1','v-model'=>'material.mec1']) !!}</td>
-              <td>{!! Form::text('psemec2[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Mec2','v-model'=>'material.mec2']) !!}</td>
-              <td>{!! Form::number('psecantidad[]', null, ['class' => 'form-control form-control-sm text-right', 'min' => 1, 'title' =>'Cant', 'v-model' => 'material.cant','required']) !!}</td>
-              <td class="align-middle text-center">
-                <a class="btn btn-link text-danger align-middle" alt="Ctrl+Alt+7" href="#" title="Eliminar | Ctrl+Alt+7" @click="removeRowMAT($indice)" v-if="materiales.length > 1"><i class="fas fa-minus fa-xs"></i></a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <table class="table table-sm table-bordered">
+        <caption>Piezas</caption>
+        <thead class="font-weight-bold" style="font-size: 0.8em;">
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td colspan="4" class="text-center">Canto</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="align-middle">Material</td>
+            <td class="align-middle">Descripcion</td>
+            <td class="align-middle">Largo</td>
+            <td class="align-middle">Alto</td>
+            <td class="align-middle">Espesor</td>
+            <td class="align-middle text-center">L-IZQ</td>
+            <td class="align-middle text-center">L-DER</td>
+            <td class="align-middle text-center">A-SUP</td>
+            <td class="align-middle text-center">A-INF</td>
+            <td class="align-middle">Mec1</td>
+            <td class="align-middle">Mec2</td>
+            <td class="align-middle">Cantidad</td>
+            <td class="align-middle text-center">
+              <a class="btn btn-link float-right align-middle" href="#" alt="Ctrl+Alt+2" title="Agregar | Ctrl+Alt+2" @click="addRowMAT(this.app.materiales.length -1)"><i class="fas fa-plus fa-xs"></i></a>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(material, $indice) in materiales" track-by="$indice">
+            <td>
+              <select class="form-control form-control-sm" title="Material" name="psematerial_id[]" v-model="material.material_id" required @change="filterMaterial(materiales[$indice].material_id,$indice)">
+                <option v-for="(item, indice) in materialMatriz" :value="item.value">@{{ item.label }}</option>
+              </select>
+            </td>
+            <td>
+              <select name="psedescripcion[]" class="form-control form-control-sm" v-model="material.descripcion_id" required @change="setFormulas(materiales[$indice].descripcion_id,$indice)">
+                <option v-for="(descripcion, index) in descripciones[$indice]" :value="descripcion.value">@{{ descripcion.label }}</option>
+              </select>
+            </td>
+            <td>
+              {!! Form::text('pselargo[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Largo','v-model'=>'material.largo']) !!}
+            </td>
+            <td>
+              {!! Form::text('psealto[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'alto','v-model' => 'material.alto']) !!}
+            </td>
+            <td>
+              {!! Form::select('pseprofundidad[]', [3=>3,4=>4,6=>6,10=>10,12=>12,15=>15,16=>16,18=>18,19=>19,20=>20,25=>25], null, ['class'=>'form-control form-control-sm', 'placeholder'=>'']) !!}
+            </td>
+            <td>
+              <select class="form-control form-control-sm" name="pselargo_izq[]" v-model="material.largo_izq">
+                <option value="0.45" >0.45</option>
+                <option value="1" >1</option>
+                <option value="2" >2</option>
+              </select>
+            </td>
+            <td>
+              <select class="form-control form-control-sm" name="pselargo_der[]" v-model="material.largo_der">
+                <option value="0.45" >0.45</option>
+                <option value="1" >1</option>
+                <option value="2" >2</option>
+              </select>
+            </td>
+            <td>
+              <select class="form-control form-control-sm" name="psealto_sup[]" v-model="material.alto_sup">
+                <option value="0.45" >0.45</option>
+                <option value="1" >1</option>
+                <option value="2" >2</option>
+              </select>
+            </td>
+            <td>
+              <select class="form-control form-control-sm" name="psealto_inf[]" v-model="material.alto_inf">
+                <option value="0.45" >0.45</option>
+                <option value="1" >1</option>
+                <option value="2" >2</option>
+              </select>
+            </td>
+            <td>{!! Form::text('psemec1[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Mec1','v-model'=>'material.mec1']) !!}</td>
+            <td>{!! Form::text('psemec2[]', null, ['class'=>'form-control form-control-sm text-uppercase mb-1','autocomplete' => 'off', 'title'=>'Mec2','v-model'=>'material.mec2']) !!}</td>
+            <td>{!! Form::number('psecantidad[]', null, ['class' => 'form-control form-control-sm text-right', 'min' => 1, 'title' =>'Cant', 'v-model' => 'material.cant','required']) !!}</td>
+            <td class="align-middle text-center">
+              <a class="btn btn-link text-danger align-middle" alt="Ctrl+Alt+7" href="#" title="Eliminar | Ctrl+Alt+7" @click="removeRowMAT($indice)" v-if="materiales.length > 1"><i class="fas fa-minus fa-xs"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
   <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Registrar</button>
-  <a class="btn btn-warning text-danger" href="{{ url('/home') }}" title="Cancelar"><i class="fas fa-ban"></i> Cancelar</a>
+  <a class="btn btn-warning text-danger" href="{{ url('/frontend/proyectos') }}" title="Cancelar"><i class="fas fa-ban"></i> Cancelar</a>
   {!! Form::close() !!}
 </div>
 @endsection
@@ -209,7 +214,11 @@
       tipo: '',
       subtipos: '',
       subtipo: '',
+      nombre: '',
+      nombresList: [],
       sap: '',
+      sarList: [],
+      sarsel: '',
       sar: '',
       base: '',
       basesku: '',
@@ -276,6 +285,7 @@
           this.base = response.data[0].skubase;
           this.ptosku = this.base;
           this.searchSKU();
+          this.getNombres();
         })
         .catch(function(error) {
           console.log(error)
@@ -301,6 +311,36 @@
         })
         .catch(function(error) {
           console.log(error);
+        })
+      },
+      getNombres: function(){
+        axios.get('/modulosConstructor/' + this.tipo + '/' + this.subtipo)
+        .then( response => {
+          if(response.data.length < 1){
+            swal(
+              'No hay nombres!',
+              'No hay Modulos Registrados!',
+              'error'
+              )
+            console.log(response.data.length);
+          }
+          this.nombresList = response.data;
+        })
+        .catch(function(error) {
+          console.log(error)
+        })
+      },
+      setSAR: function(){
+        var sarSelect = this.nombresList.filter(item => {
+          if(item.value == this.nombre){
+            axios.get('/menuConfparts/' + item.sar)
+            .then( response => {
+              this.sarList = response.data
+            })
+            .catch(function(error) {
+              console.log(error)
+            })
+          }
         })
       },
       setMateriales: function(){

@@ -31,15 +31,19 @@ class ProyectoController extends Controller
         ->editColumn('sku', function(Proyecto $proyecto){
             if($proyecto->sku){
                 return $proyecto->sku;
+            }else {
+                return ' <span class="text-danger"><i class="fas fa-ban"></i></span>';
             }
         })
         ->editColumn('saps.valor', function(Proyecto $proyecto){
-            if($proyecto->saps->valor){
+            if($proyecto->saps){
                 return $proyecto->saps->valor;
+            }else {
+                return ' <span class="text-danger"><i class="fas fa-ban"></i></span>';
             }
         })
         ->editColumn('sars.valor', function(Proyecto $proyecto){
-            if($proyecto->sars->valor){
+            if($proyecto->sars){
                 return $proyecto->sars->valor;
             }
         })
@@ -49,6 +53,7 @@ class ProyectoController extends Controller
             <a href="constructor/'.$proyecto->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
             ';
         })
+        ->rawColumns(['saps.valor','sars.valor','action'])
         ->make(true);
     }
 

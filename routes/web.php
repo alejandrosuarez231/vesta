@@ -52,8 +52,10 @@ Route::get('/dataDescripciones', 'DescripcioneController@indexData')->name('data
 Route::get('/descripcionMaterial/{material}', 'DescripcioneController@descripcionMaterial');
 Route::resource('/backend/materiales/descripciones', 'DescripcioneController');
 Route::get('/dataConfparts', 'ConfpartController@dataIndex')->name('data.confparts');
+Route::get('/menuConfparts/{ids}', 'ConfpartController@menusar')->name('data.menuConfparts');
 Route::resource('/backend/confparts', 'ConfpartController');
 Route::get('/dataModulos', 'ModuloController@indexData')->name('data.modulos');
+Route::get('/modulosConstructor/{tipos}/{subtipos}', 'ModuloController@modulosContructor')->name('data.moduloconstructor');
 Route::get('/ModuloEditData/{id}', 'ModuloController@editData')->name('data.modulosedit');
 Route::resource('/backend/modulos', 'ModuloController');
 

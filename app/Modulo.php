@@ -27,7 +27,7 @@ class Modulo extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function sar()
+    public function sars()
     {
         // belongsTo(RelatedModel, foreignKey = sar_id, keyOnRelatedModel = id)
         return $this->belongsTo(Confpart::class,'sar','id');

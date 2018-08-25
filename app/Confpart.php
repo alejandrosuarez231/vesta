@@ -49,4 +49,15 @@ class Confpart extends Model
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = confpart_id, localKey = id)
         return $this->hasMany(Proyecto::class,'sap','id');
     }
+
+    /**
+     * Confpart has many Modulo.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function modulos()
+    {
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = confpart_id, localKey = id)
+        return $this->hasMany(Modulo::class,'sar','id');
+    }
 }

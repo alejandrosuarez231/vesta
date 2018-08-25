@@ -78,6 +78,21 @@ class ModuloController extends Controller
         //
     }
 
+    public function modulosContructor($tipos,$subtipos)
+    {
+        $modulos = Modulo::where('tipos','like','%'.$tipos.'%')
+        ->where('subtipos','like','%'.$subtipos.'%')
+        ->get();
+
+        $nombres = collect();
+        foreach ($modulos as $key => $value) {
+            $nombres->push(['label' => $value->nombre, 'value' => $value->id, 'sar' => $value->sar, 'numerologia' => str_pad($value->numerologia, 2, '0', STR_PAD_LEFT)]);
+        }
+
+        return $nombres->toJson();
+
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
