@@ -16,7 +16,7 @@
     <div class="col-md-4">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">{{ $proyecto->nombres->nombre }}</h5>
+          <h5 class="card-title">{{ $proyecto->sku }}</h5>
           <h6 class="card-subtitle mb-2 text-muted">{{ $proyecto->descripcion }}</h6>
           <p class="card-text">
             Largo: <span class="text-uppercase badge badge-success">{{ $proyecto->largo }}</span><br>

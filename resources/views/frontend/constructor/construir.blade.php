@@ -20,18 +20,18 @@
           {!! Form::select('tipo_id', \App\Tipo::where('tipologia','=','PTO')->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'TIPO', 'v-model' => 'tipo']) !!}
         </div>
         <div class="form-group mr-2" v-if="tipo > 10 && tipo < 18">
-          <select class="form-control form-control-sm" name="subtipo_id" v-model="subtipo" @change="getNombres()">
+          <select class="form-control form-control-sm" name="subtipo_id" v-model="subtipo" @change="getNombres();getSkuBase();">
             <option value="" disabled>Selección</option>
             <option v-for="(item, index) in subtipos" :value="item.value">@{{ item.label }}</option>
           </select>
         </div>
         <div class="form-group">
-          {!! Form::text('sku', 'SKU', ['class' => 'form-control form-control-sm','placeholder'=>'SKU','v-model'=>'ptosku']) !!}
+          {!! Form::text('sku', 'SKU', ['class' => 'form-control form-control-sm','placeholder'=>'SKU','v-model'=>'ptosku','readonly']) !!}
         </div>
       </div>
       <!-- Nombre  -->
       <div class="form-group">
-        <select name="nombre" class="form-control form-control-sm col-md-6" v-model="nombre" @change="setSAR()">
+        <select name="nombre" class="form-control form-control-sm col-md-6" v-model="nombre" @change="setSAR();">
           <option v-for="(item, index) in nombresList" :value="item.value">@{{ item.label }}</option>
         </select>
       </div>
@@ -40,7 +40,7 @@
           {!! Form::select('sap', \App\Confpart::where('nombre','=','Sist. de Apertura')->pluck('valor','id'), null, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Apertura','v-model' => 'sap']) !!}
         </div>
         <div class="form-group mr-2">
-          <select name="sar" class="form-control form-control-sm" v-model="sar" @change="getSkuBase()">
+          <select name="sar" class="form-control form-control-sm" v-model="sar" @change="setSKUsar();">
             <option value="" disabled selected>Sist. de Armado</option>
             <option v-for="item in sarList" :value="item.id">@{{ item.valor }}</option>
           </select>
@@ -224,6 +224,9 @@ var app = new Vue({
 
   data: {
     ptosku: '',
+    ptonouse: '0',
+    ptoskunom: '',
+    ptoskusar: '',
     tipos: '',
     tipo: '',
     subtipos: '',
@@ -255,7 +258,7 @@ var app = new Vue({
           console.log(error)
         })
       }
-    }
+    },
   },
 
   methods: {
@@ -294,16 +297,20 @@ var app = new Vue({
       getSkuBase: function(){
         axios.get('/getBaseSku/' + this.tipo + '/' + this.subtipo)
         .then( response => {
-          // console.log(response.data);
           this.numeracion = response.data[0].numeracion;
           this.base = response.data[0].skubase;
-          this.ptosku = this.base;
-          this.searchSKU();
-          // this.getNombres();
         })
         .catch(function(error) {
           console.log(error)
         })
+      },
+      setSkUnom: function(){
+        this.ptoskunom = formatted_string('00',this.nombre,'l');
+        this.ptosku = this.base + '-' + this.ptonouse + this.ptoskusar + this.ptoskunom;
+      },
+      setSKUsar: function(){
+        this.ptoskusar = this.sar;
+        this.ptosku = this.base + '-' + this.ptonouse + this.ptoskusar + this.ptoskunom;
       },
       searchSKU: function(){
         axios.get('/querySKU/' + this.ptosku)
@@ -319,7 +326,7 @@ var app = new Vue({
             }
             this.ptosku = this.ptosku + '-' + num.pad(4);
           }else {
-            this.ptosku = this.ptosku + '-' + '0' + formatted_string('00',this.sar,'l') + '1';
+            this.ptosku = this.ptosku + '-' + '0' + this.sar + formatted_string('00',this.nombre,'l')
           }
           this.setMateriales();
         })
@@ -345,6 +352,7 @@ var app = new Vue({
         })
       },
       setSAR: function(){
+        this.setSkUnom();
         var sarSelect = this.nombresList.filter(item => {
           if(item.value == this.nombre){
             axios.get('/menuConfparts/' + item.sar)

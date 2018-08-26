@@ -17,20 +17,23 @@
     <div class="col-md-6"><!-- Data Seleccion -->
       <div class="form-row">
         <div class="form-group mr-2">
-          {!! Form::select('tipo_id', \App\Tipo::where('tipologia','=','PTO')->pluck('nombre','id'), null, ['readonly','class' => 'form-control form-control-sm','placeholder' => 'TIPO','v-model'=>'tipo_id','readonly','disabled']) !!}
+          {!! Form::select('tipo_id_show', \App\Tipo::where('tipologia','=','PTO')->pluck('nombre','id'), null, ['readonly','class' => 'form-control form-control-sm','readonly','disabled','v-model'=>'tipo_id']) !!}
+          {!! Form::hidden('tipo_id', null, ['v-model'=>'tipo_id']) !!}
         </div>
         <div class="form-group mr-2">
-          <select class="form-control form-control-sm" name="subtipo_id" v-model="subtipo_id" readonly disabled>
+          <input type="hidden" name="subtipo_id" value="" v-model="subtipo_id">
+          <select class="form-control form-control-sm" name="subtipo_id_show" v-model="subtipo_id" readonly disabled>
             <option v-for="subtipo in subtipos" :value="subtipo.value">@{{ subtipo.label }}</option>
           </select>
         </div>
         <div class="form-group">
-          {!! Form::text('sku', $proyecto->sku, ['readonly','class' => 'form-control form-control-sm']) !!}
+          {!! Form::text('sku', $proyecto->sku, ['readonly','class' => 'form-control form-control-sm','v-model'=>'ptosku']) !!}
         </div>
       </div>
       <!-- Nombre -->
       <div class="form-group">
-        <select name="nombre" class="form-control form-control-sm col-md-6" v-model="nombre" @change="setSAR()" readonly disabled>
+        <input type="hidden" name="nombre" value="" v-model="nombre">
+        <select name="nombre_show" class="form-control form-control-sm col-md-6" v-model="nombre" @change="setSAR()" readonly disabled>
           <option v-for="(item, index) in nombresList" :value="item.value">@{{ item.label }}</option>
         </select>
       </div>
@@ -39,7 +42,7 @@
           {!! Form::select('sap', \App\Confpart::where('nombre','=','Sist. de Apertura')->pluck('valor','id'), $proyecto->sap, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Apertura']) !!}
         </div>
         <div class="form-group mr-2">
-          <select name="sar" class="form-control form-control-sm" v-model="sar" @change="getSkuBase()">
+          <select name="sar" class="form-control form-control-sm" v-model="sar" @change="setSKUsar();">
             <option value="" disabled selected>Sist. de Armado</option>
             <option v-for="item in sarList" :value="item.id">@{{ item.valor }}</option>
           </select>
@@ -196,6 +199,20 @@
 
 @section('scripts')
 <script>
+
+  function formatted_string(pad, user_str, pad_pos)
+  {
+    if (typeof user_str === 'undefined')
+      return pad;
+    if (pad_pos == 'l')
+    {
+     return (pad + user_str).slice(-pad.length);
+   }
+   else
+   {
+    return (user_str + pad).substring(0, pad.length);
+  }
+}
   var app = new Vue({
     el: '#app',
 
@@ -214,9 +231,23 @@
       axios.get('/getMateriales/' + '{{ $proyecto->id }}').then( response => { this.materiales = response.data }).catch(function(error){ console.log(error)});
       axios.get('/setMaterial/' + '{{ $proyecto->tipo_id }}' + '/' + '{{ $proyecto->subtipo_id }}').then( response => { this.materialesPSE = response.data }).catch(function(error){ console.log(error) });
       axios.get('/modulosConstructor/' + '{{ $proyecto->tipo_id }}' + '/' + '{{ $proyecto->subtipo_id }}').then( response => { this.nombresList = response.data; }).catch(function(error) { console.log(error) });
+      if(this.ptosku.length != 0){
+        axios.get('/getBaseSku/' + '{{ $proyecto->tipo_id }}' + '/' + '{{ $proyecto->subtipo_id }}').then( response => {
+          console.log(response.data)
+          this.base = response.data[0].skubase;
+          this.numeracion = response.data[0].numeracion;
+          /* FIX SKU */
+          this.ptosku = this.base + '-' + '0' + this.sar + formatted_string('00',this.nombre,'l');
+
+        })
+      }
     },
 
     data: {
+      ptosku: '{{ $proyecto->sku }}',
+      ptonouse: '0',
+      ptoskunom: '{{ $proyecto->nombre }}',
+      ptoskusar: '{{ $proyecto->sar }}',
       tipo_id: '{{ $proyecto->tipo_id }}',
       subtipo_id: '{{ $proyecto->subtipo_id }}',
       subtipos: [],
@@ -228,6 +259,9 @@
       sarList: [],
       sarsel: '',
       sar: '{{ $proyecto->sar }}',
+      base: '',
+      basesku: '',
+      numeracion: '',
       mtps: [],
       materiales: [],
       materialesPSE: [],
@@ -278,6 +312,7 @@
         }
       },
     },
+
     methods: {
       addRowMTP: function (index) {
         this.mtps.splice(index + 1, 1, { tipo: null, subtipo: null, cantidad: 0 });
@@ -329,7 +364,47 @@
         this.materiales[indice].alto = row.falto;
         this.materiales[indice].largo = row.flargo;
         this.materiales[indice].profundidad = row.profundidad;
-      }
+      },
+      getSkuBase: function(){
+        axios.get('/getBaseSku/' + this.tipo + '/' + this.subtipo)
+        .then( response => {
+          this.numeracion = response.data[0].numeracion;
+          this.base = response.data[0].skubase;
+        })
+        .catch(function(error) {
+          console.log(error)
+        })
+      },
+      setSkUnom: function(){
+        this.ptoskunom = formatted_string('00',this.nombre,'l');
+        this.ptosku = this.base + '-' + this.ptonouse + this.ptoskusar + this.ptoskunom;
+      },
+      setSKUsar: function(){
+        this.ptoskusar = this.sar;
+        this.ptosku = this.base + '-' + this.ptonouse + this.ptoskusar + this.ptoskunom;
+      },
+      searchSKU: function(){
+        axios.get('/querySKU/' + this.ptosku)
+        .then( response => {
+          if(response.data.length > 0){
+            // console.log(response.data[0].sku);
+            this.numeracion = Number(response.data[0].ptosku.substr(-6));
+            var num = this.numeracion + 1;
+            Number.prototype.pad = function(size){
+              var s = String(this);
+              while (s.length < (size || 2)) { s = "0" + s; }
+              return s;
+            }
+            this.ptosku = this.ptosku + '-' + num.pad(4);
+          }else {
+            this.ptosku = this.ptosku + '-' + this.sar + formatted_string('00',this.nombre,'l');
+          }
+          this.setMateriales();
+        })
+        .catch(function(error) {
+          console.log(error);
+        })
+      },
     }
   })
 </script>
