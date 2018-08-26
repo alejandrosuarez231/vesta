@@ -52,7 +52,7 @@
       {data: 'sku', name: 'sku', title: 'SKU'},
       {data: 'tipo.nombre', name: 'tipo.nombre', title: 'Tipo'},
       {data: 'subtipo.nombre', name: 'subtipo.nombre', title: 'Subtipo'},
-      {data: 'nombre', name: 'nombre', title: 'Nombre'},
+      {data: 'nombres.nombre', name: 'nombres.nombre', title: 'Nombre'},
       {data: 'saps.valor', name: 'saps.valor', title: 'Sist. de Apertura', className: 'text-center'},
       {data: 'sars.valor', name: 'sars.valor', title: 'Sist. de Armado', className: 'text-center'},
       {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'}

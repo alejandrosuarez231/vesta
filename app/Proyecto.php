@@ -130,4 +130,15 @@ class Proyecto extends Model
     return $this->belongsTo(Confpart::class,'sar','id');
   }
 
+  /**
+   * Proyecto belongs to Nombres.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+   */
+  public function nombres()
+  {
+    // belongsTo(RelatedModel, foreignKey = nombres_id, keyOnRelatedModel = id)
+    return $this->belongsTo(Modulo::class,'nombre','id');
+  }
+
 }

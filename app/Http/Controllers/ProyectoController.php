@@ -26,7 +26,7 @@ class ProyectoController extends Controller
 
     public function indexData()
     {
-        $proyectos = Proyecto::with('tipo:id,nombre,tipologia','subtipo:id,nombre','unidad:id,nombre','saps:id,valor','sars:id,valor')->get();
+        $proyectos = Proyecto::with('tipo:id,nombre,tipologia','subtipo:id,nombre','unidad:id,nombre','saps:id,valor','sars:id,valor','nombres:id,nombre')->get();
         return DataTables::of($proyectos)
         ->editColumn('sku', function(Proyecto $proyecto){
             if($proyecto->sku){
