@@ -349,7 +349,7 @@ var app = new Vue({
           if(item.value == this.nombre){
             axios.get('/menuConfparts/' + item.sar)
             .then( response => {
-              this.sarList = response.data
+              this.sarList = response.data;
             })
             .catch(function(error) {
               console.log(error)

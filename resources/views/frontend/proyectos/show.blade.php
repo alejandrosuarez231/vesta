@@ -4,7 +4,7 @@
 <div class="container-fluid" id="app">
   <div class="row">
     <div class="col-md">
-      <h3>Proyecto <span class="font-weight-bold text-info">{{ $proyecto->nombre }}</span></h3>
+      <h3>Proyecto <span class="font-weight-bold text-info">{{ $proyecto->nombres->nombre }}</span></h3>
       <ul class="nav">
         <li class="nav-item">
           <a href="{{ url()->previous() }}" class="btn btn-link">Regresar</a>
@@ -16,7 +16,7 @@
     <div class="col-md-4">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">{{ $proyecto->nombre }}</h5>
+          <h5 class="card-title">{{ $proyecto->nombres->nombre }}</h5>
           <h6 class="card-subtitle mb-2 text-muted">{{ $proyecto->descripcion }}</h6>
           <p class="card-text">
             Largo: <span class="text-uppercase badge badge-success">{{ $proyecto->largo }}</span><br>

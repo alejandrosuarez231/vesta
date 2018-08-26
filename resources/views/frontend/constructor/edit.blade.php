@@ -17,10 +17,10 @@
     <div class="col-md-6"><!-- Data Seleccion -->
       <div class="form-row">
         <div class="form-group mr-2">
-          {!! Form::select('tipo_id', \App\Tipo::where('tipologia','=','PTO')->pluck('nombre','id'), null, ['readonly','class' => 'form-control form-control-sm','placeholder' => 'TIPO','v-model'=>'tipo_id']) !!}
+          {!! Form::select('tipo_id', \App\Tipo::where('tipologia','=','PTO')->pluck('nombre','id'), null, ['readonly','class' => 'form-control form-control-sm','placeholder' => 'TIPO','v-model'=>'tipo_id','readonly','disabled']) !!}
         </div>
         <div class="form-group mr-2">
-          <select class="form-control form-control-sm" name="subtipo_id" v-model="subtipo_id" readonly>
+          <select class="form-control form-control-sm" name="subtipo_id" v-model="subtipo_id" readonly disabled>
             <option v-for="subtipo in subtipos" :value="subtipo.value">@{{ subtipo.label }}</option>
           </select>
         </div>
@@ -28,16 +28,21 @@
           {!! Form::text('sku', $proyecto->sku, ['readonly','class' => 'form-control form-control-sm']) !!}
         </div>
       </div>
-      <!-- Nombre y Descripcion  -->
+      <!-- Nombre -->
       <div class="form-group">
-        {!! Form::text('nombre', $proyecto->nombre, ['class'=>'form-control form-control-sm col-md-6','placeholder'=>'Nombre','required']) !!}
+        <select name="nombre" class="form-control form-control-sm col-md-6" v-model="nombre" @change="setSAR()" readonly disabled>
+          <option v-for="(item, index) in nombresList" :value="item.value">@{{ item.label }}</option>
+        </select>
       </div>
       <div class="form-row">
         <div class="form-group mr-2">
           {!! Form::select('sap', \App\Confpart::where('nombre','=','Sist. de Apertura')->pluck('valor','id'), $proyecto->sap, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Apertura']) !!}
         </div>
         <div class="form-group mr-2">
-          {!! Form::select('sar', \App\Confpart::where('nombre','=','Sist. de Armado')->pluck('valor','id'), $proyecto->sar, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Armado']) !!}
+          <select name="sar" class="form-control form-control-sm" v-model="sar" @change="getSkuBase()">
+            <option value="" disabled selected>Sist. de Armado</option>
+            <option v-for="item in sarList" :value="item.id">@{{ item.valor }}</option>
+          </select>
         </div>
       </div>
       <div class="form-group">
@@ -100,17 +105,17 @@
         <caption>Piezas</caption>
         <thead class="font-weight-bold" style="font-size: 0.8em;">
           <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td colspan="4" class="text-center">Canto</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td colspan="4" class="text-center">Canto</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
           <tr>
             <td class="align-middle">Material</td>
             <td class="align-middle">Descripcion</td>
@@ -208,6 +213,7 @@
       axios.get('/TiposMTP').then( response => { this.tiposMTP = response.data }).catch(function(error) { console.log(error) });
       axios.get('/getMateriales/' + '{{ $proyecto->id }}').then( response => { this.materiales = response.data }).catch(function(error){ console.log(error)});
       axios.get('/setMaterial/' + '{{ $proyecto->tipo_id }}' + '/' + '{{ $proyecto->subtipo_id }}').then( response => { this.materialesPSE = response.data }).catch(function(error){ console.log(error) });
+      axios.get('/modulosConstructor/' + '{{ $proyecto->tipo_id }}' + '/' + '{{ $proyecto->subtipo_id }}').then( response => { this.nombresList = response.data; }).catch(function(error) { console.log(error) });
     },
 
     data: {
@@ -216,6 +222,12 @@
       subtipos: [],
       tiposMTP: [],
       subtipoMTP: [],
+      nombre: '{{ $proyecto->nombre }}',
+      nombresList: [],
+      sap: '',
+      sarList: [],
+      sarsel: '',
+      sar: '{{ $proyecto->sar }}',
       mtps: [],
       materiales: [],
       materialesPSE: [],
@@ -223,6 +235,21 @@
     },
 
     watch: {
+      nombresList: function(){
+        if(this.nombresList.length > 0){
+          var sarSelect = this.nombresList.filter(item => {
+            if(item.value == this.nombre){
+              axios.get('/menuConfparts/' + item.sar)
+              .then( response => {
+                this.sarList = response.data;
+              })
+              .catch(function(error) {
+                console.log(error)
+              })
+            }
+          })
+        }
+      },
       mtps: function(){
         for (var i = 0; i < this.mtps.length; i++) {
           // console.log(this.mtps[i].mtp_tipo_id);
@@ -249,9 +276,8 @@
             })
           }
         }
-      }
+      },
     },
-
     methods: {
       addRowMTP: function (index) {
         this.mtps.splice(index + 1, 1, { tipo: null, subtipo: null, cantidad: 0 });
