@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Materiale;
+use App\Tipo;
+use App\Subtipo;
 use Alert;
 use Yajra\DataTables\DataTables;
 
@@ -25,14 +27,20 @@ class MaterialeController extends Controller
         $materiales = Materiale::all();
         return Datatables::of($materiales)
         ->editColumn('tipos', function(Materiale $material){
-            if($material->tipos){
-              return '<span class="badge badge-success">'.$material->tipos.'</span>';
-          }
+            $output = null;
+            $tipos = Tipo::whereIn('id',explode(',',$material->tipos))->get();
+            foreach ($tipos as $key => $value) {
+                $output .= '<span class="badge badge-info mr-1">'. $value->nombre .'</span>';
+            }
+            return $output;
       })
         ->editColumn('subtipos', function(Materiale $material){
-            if($material->subtipos){
-              return '<span class="badge badge-success">'.$material->subtipos.'</span>';
-          }
+            $output = null;
+            $subtipos = Subtipo::whereIn('id',explode(',',$material->subtipos))->get();
+            foreach ($subtipos as $key => $value) {
+                $output .= '<span class="badge badge-info mr-1">'. $value->nombre .'</span>';
+            }
+            return $output;
       })
         ->addColumn('action', function ($material) {
             return '<a href="materiales/'.$material->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>';

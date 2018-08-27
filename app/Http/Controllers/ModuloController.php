@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Modulo;
+use App\Tipo;
+use App\Subtipo;
 use Illuminate\Http\Request;
 use Alert;
 use Yajra\DataTables\DataTables;
@@ -23,9 +25,26 @@ class ModuloController extends Controller
     {
         $modulos = Modulo::all();
         return Datatables::of($modulos)
+        ->editColumn('tipos', function(Modulo $modulo) {
+            $output = null;
+            $tipos = Tipo::whereIn('id',explode(',',$modulo->tipos))->get();
+            foreach ($tipos as $key => $value) {
+                $output .= '<span class="badge badge-info mr-1">'. $value->nombre .'</span>';
+            }
+            return $output;
+        })
+        ->editColumn('subtipos', function(Modulo $modulo) {
+            $output = null;
+            $subtipos = Subtipo::whereIn('id',explode(',',$modulo->subtipos))->get();
+            foreach ($subtipos as $key => $value) {
+                $output .= '<span class="badge badge-info mr-1">'. $value->nombre .'</span>';
+            }
+            return $output;
+        })
         ->addColumn('action', function ($modulo) {
             return '<a href="modulos/'.$modulo->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>';
         })
+        ->rawColumns(['tipos','subtipos','sar','action'])
         ->make(true);
     }
 

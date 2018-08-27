@@ -96,4 +96,16 @@ class Tipo extends Model
     // hasMany(RelatedModel, foreignKeyOnRelatedModel = tipo_id, localKey = id)
     return $this->hasMany(Mtp::class,'mtp_tipo_id');
   }
+
+  /**
+   * Tipo has many Modulos.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function modulos()
+  {
+    // hasMany(RelatedModel, foreignKeyOnRelatedModel = tipo_id, localKey = id)
+    return $this->hasMany(Modulo::class,'tipos');
+  }
+
 }

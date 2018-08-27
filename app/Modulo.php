@@ -32,4 +32,15 @@ class Modulo extends Model
         // belongsTo(RelatedModel, foreignKey = sar_id, keyOnRelatedModel = id)
         return $this->belongsTo(Confpart::class,'sar','id');
     }
+
+    /**
+     * Modulo belongs to Tipos.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function tipos()
+    {
+        // belongsTo(RelatedModel, foreignKey = tipos_id, keyOnRelatedModel = id)
+        return $this->belongsTo(Tipo::class,'tipos');
+    }
   }
