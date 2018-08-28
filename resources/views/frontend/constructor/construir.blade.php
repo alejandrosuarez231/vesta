@@ -20,7 +20,7 @@
           {!! Form::select('tipo_id', \App\Tipo::where('tipologia','=','PTO')->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'TIPO', 'v-model' => 'tipo']) !!}
         </div>
         <div class="form-group mr-2" v-if="tipo > 10 && tipo < 18">
-          <select class="form-control form-control-sm" name="subtipo_id" v-model="subtipo" @change="getNombres();getSkuBase();">
+          <select class="form-control form-control-sm" name="subtipo_id" v-model="subtipo" @change="getNombres();getSkuBase();setMateriales();">
             <option value="" disabled>Selección</option>
             <option v-for="(item, index) in subtipos" :value="item.value">@{{ item.label }}</option>
           </select>
@@ -313,6 +313,7 @@ var app = new Vue({
         this.ptosku = this.base + '-' + this.ptonouse + this.ptoskusar + this.ptoskunom;
       },
       searchSKU: function(){
+        // this.setMateriales();
         axios.get('/querySKU/' + this.ptosku)
         .then( response => {
           if(response.data.length > 0){
@@ -328,7 +329,6 @@ var app = new Vue({
           }else {
             this.ptosku = this.ptosku + '-' + '0' + this.sar + formatted_string('00',this.nombre,'l')
           }
-          this.setMateriales();
         })
         .catch(function(error) {
           console.log(error);
