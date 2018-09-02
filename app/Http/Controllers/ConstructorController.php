@@ -25,34 +25,38 @@ class ConstructorController extends Controller
   public function ensamble(Request $request)
   {
     // dd($request->all());
-    // $this->validate($request, [
-    //   'tipos_id' => 'required',
-    //   'subtipos_id' => 'required',
-    //   'sku' => 'required|unique:proyectos',
-    //   'nombre' => 'required|unique:proyectos',
-    //   'descripcion' => 'required',
-    //   'ptolargo' => 'nullable',
-    //   'ptoalto' => 'nullable',
-    //   'ptoprofundidad' => 'nullable',
-    //   'mtp_tipo_id.*' => 'required',
-    //   'mtp_subtipo_id.*' => 'required',
-    //   'mtp_cantidad.*' => 'required',
-    //   'psematerial_id.*' => 'required',
-    //   'psedescripcion.*' => 'required',
-    //   'pselargo.*' => 'nullable',
-    //   'psealto.*' => 'nullable',
-    //   'pseprofundidad.*' => 'nullable',
-    //   'pselargo_izq.*' => 'nullable',
-    //   'pselargo_der.*' => 'nullable',
-    //   'psealto_sup.*' => 'nullable',
-    //   'psealto_inf.*' => 'nullable',
-    //   'psemec1.*' => 'nullable',
-    //   'psemec2.*' => 'nullable',
-    //   'psecantidad.*' => 'nullable',
-    // ]);
+    $this->validate($request, [
+      'tipos_id' => 'required',
+      'subtipos_id' => 'required',
+      'sku' => 'required|unique:proyectos',
+      'codigo' => 'required|unique:proyectos',
+      'nombre' => 'required',
+      'descripcion' => 'required',
+      'ptolargo' => 'nullable',
+      'ptoalto' => 'nullable',
+      'ptoprofundidad' => 'nullable',
+      // complementos
+      'mtp_tipo_id.*' => 'required',
+      'mtp_subtipo_id.*' => 'required',
+      'mtp_cantidad.*' => 'required',
+      // Piezas
+      'psematerial_id.*' => 'required',
+      'psedescripcion.*' => 'required',
+      'pselargo.*' => 'nullable',
+      'psealto.*' => 'nullable',
+      'pseprofundidad.*' => 'nullable',
+      'pselargo_izq.*' => 'nullable',
+      'pselargo_der.*' => 'nullable',
+      'psealto_sup.*' => 'nullable',
+      'psealto_inf.*' => 'nullable',
+      'psemec1.*' => 'nullable',
+      'psemec2.*' => 'nullable',
+      'psecantidad.*' => 'required',
+    ]);
 
     $producto = collect([
       'sku'=>$request->sku,
+      'codigo' => $request->codigo,
       'tipo_id'=>$request->tipo_id,
       'subtipo_id'=>$request->subtipo_id,
       'nombre'=>$request->nombre,
@@ -114,6 +118,7 @@ class ConstructorController extends Controller
     /* Proyecto */
     $producto = Proyecto::findOrFail($id);
     $producto->id = $id;
+    $producto->codigo = $request->codigo;
     $producto->sku = $request->sku;
     $producto->tipo_id = $request->tipo_id;
     $producto->subtipo_id = $request->subtipo_id;

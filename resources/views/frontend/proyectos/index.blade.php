@@ -25,6 +25,7 @@
             <tr>
               <th>ID</th>
               <th>SKU</th>
+              <th>SKU Comercial</th>
               <th>Tipo</th>
               <th>Sub Tipo</th>
               <th>Nombre</th>
@@ -50,6 +51,7 @@
       columns: [
       {data: 'id', name: 'id', title: 'Id'},
       {data: 'sku', name: 'sku', title: 'SKU'},
+      {data: 'codigo', name: 'codigo', title: 'SKU Comercial'},
       {data: 'tipo.nombre', name: 'tipo.nombre', title: 'Tipo'},
       {data: 'subtipo.nombre', name: 'subtipo.nombre', title: 'Subtipo'},
       {data: 'nombres.nombre', name: 'nombres.nombre', title: 'Nombre'},

@@ -25,8 +25,11 @@
             <option v-for="(item, index) in subtipos" :value="item.value">@{{ item.label }}</option>
           </select>
         </div>
-        <div class="form-group">
+        <div class="form-group mr-2">
           {!! Form::text('sku', 'SKU', ['class' => 'form-control form-control-sm','placeholder'=>'SKU','v-model'=>'ptosku','readonly']) !!}
+        </div>
+        <div class="form-group">
+          {!! Form::text('codigo', null, ['class' => 'form-control form-control-sm','placeholder'=>'SKU Comercial','v-model'=>'ptoskucomercial']) !!}
         </div>
       </div>
       <!-- Nombre  -->
@@ -37,12 +40,12 @@
       </div>
       <div class="form-row">
         <div class="form-group mr-2">
-          {!! Form::select('sap', \App\Confpart::where('nombre','=','Sist. de Apertura')->pluck('valor','id'), null, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Apertura','v-model' => 'sap']) !!}
+          {!! Form::select('sar', \App\Confpart::where('nombre','=','Sist. de Armado')->pluck('valor','id'), null, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Armado','v-model' => 'sar']) !!}
         </div>
         <div class="form-group mr-2">
-          <select name="sar" class="form-control form-control-sm" v-model="sar" @change="setSKUsar();">
-            <option value="" disabled selected>Sist. de Armado</option>
-            <option v-for="item in sarList" :value="item.id">@{{ item.valor }}</option>
+          <select name="sap" class="form-control form-control-sm" v-model="sap" @change="setSKUsap();">
+            <option value="" disabled selected>Sist. de Apertura</option>
+            <option v-for="item in sapList" :value="item.id">@{{ item.valor }}</option>
           </select>
         </div>
       </div>
@@ -224,9 +227,11 @@ var app = new Vue({
 
   data: {
     ptosku: '',
+    ptoskucomercial: '',
     ptonouse: '0',
     ptoskunom: '',
     ptoskusar: '',
+    ptoskusap: '',
     tipos: '',
     tipo: '',
     subtipos: '',
@@ -234,7 +239,7 @@ var app = new Vue({
     nombre: '',
     nombresList: [],
     sap: '',
-    sarList: [],
+    sapList: [],
     sarsel: '',
     sar: '',
     base: '',
@@ -306,11 +311,11 @@ var app = new Vue({
       },
       setSkUnom: function(){
         this.ptoskunom = formatted_string('00',this.nombre,'l');
-        this.ptosku = this.base + '-' + this.ptonouse + this.ptoskusar + this.ptoskunom;
+        this.ptosku = this.base + '-' + this.ptonouse + this.ptoskusap + this.ptoskunom;
       },
-      setSKUsar: function(){
-        this.ptoskusar = this.sar;
-        this.ptosku = this.base + '-' + this.ptonouse + this.ptoskusar + this.ptoskunom;
+      setSKUsap: function(){
+        this.ptoskusap = this.sap;
+        this.ptosku = this.base + '-' + this.ptonouse + this.ptoskusap + this.ptoskunom;
       },
       searchSKU: function(){
         // this.setMateriales();
@@ -357,7 +362,7 @@ var app = new Vue({
           if(item.value == this.nombre){
             axios.get('/menuConfparts/' + item.sar)
             .then( response => {
-              this.sarList = response.data;
+              this.sapList = response.data;
             })
             .catch(function(error) {
               console.log(error)

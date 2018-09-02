@@ -16,6 +16,7 @@ class Proyecto extends Model
     protected $table = 'proyectos';
     protected $fillable = [
     'sku',
+    'codigo',
     'tipo_id',
     'subtipo_id',
     'nombre',

@@ -26,8 +26,11 @@
             <option v-for="subtipo in subtipos" :value="subtipo.value">@{{ subtipo.label }}</option>
           </select>
         </div>
-        <div class="form-group">
+        <div class="form-group mr-2">
           {!! Form::text('sku', $proyecto->sku, ['readonly','class' => 'form-control form-control-sm','v-model'=>'ptosku']) !!}
+        </div>
+        <div class="form-group mr-2">
+          {!! Form::text('codigo', null, ['class' => 'form-control form-control-sm','placeholder'=>'SKU Comercial','v-model'=>'ptoskucomercial']) !!}
         </div>
       </div>
       <!-- Nombre -->
@@ -39,12 +42,12 @@
       </div>
       <div class="form-row">
         <div class="form-group mr-2">
-          {!! Form::select('sap', \App\Confpart::where('nombre','=','Sist. de Apertura')->pluck('valor','id'), $proyecto->sap, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Apertura']) !!}
+          {!! Form::select('sar', \App\Confpart::where('nombre','=','Sist. de Armado')->pluck('valor','id'), $proyecto->sar, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Armado','v-model' => 'sar']) !!}
         </div>
         <div class="form-group mr-2">
-          <select name="sar" class="form-control form-control-sm" v-model="sar" @change="setSKUsar();">
-            <option value="" disabled selected>Sist. de Armado</option>
-            <option v-for="item in sarList" :value="item.id">@{{ item.valor }}</option>
+          <select name="sap" class="form-control form-control-sm" v-model="sap" @change="setSKUsar();">
+            <option value="" disabled selected>Sist. de Apertura</option>
+            <option v-for="item in sapList" :value="item.id">@{{ item.valor }}</option>
           </select>
         </div>
       </div>
@@ -237,7 +240,7 @@
           this.base = response.data[0].skubase;
           this.numeracion = response.data[0].numeracion;
           /* FIX SKU */
-          this.ptosku = this.base + '-' + '0' + this.sar + formatted_string('00',this.nombre,'l');
+          this.ptosku = this.base + '-' + '0' + this.sap + formatted_string('00',this.nombre,'l');
 
         })
       }
@@ -245,9 +248,11 @@
 
     data: {
       ptosku: '{{ $proyecto->sku }}',
+      ptoskucomercial: '{{ $proyecto->codigo }}',
       ptonouse: '0',
       ptoskunom: '{{ $proyecto->nombre }}',
       ptoskusar: '{{ $proyecto->sar }}',
+      ptoskusap: '{{ $proyecto->sap }}',
       tipo_id: '{{ $proyecto->tipo_id }}',
       subtipo_id: '{{ $proyecto->subtipo_id }}',
       subtipos: [],
@@ -255,8 +260,8 @@
       subtipoMTP: [],
       nombre: '{{ $proyecto->nombre }}',
       nombresList: [],
-      sap: '',
-      sarList: [],
+      sap: '{{ $proyecto->sap }}',
+      sapList: [],
       sarsel: '',
       sar: '{{ $proyecto->sar }}',
       base: '',
@@ -275,7 +280,7 @@
             if(item.value == this.nombre){
               axios.get('/menuConfparts/' + item.sar)
               .then( response => {
-                this.sarList = response.data;
+                this.sapList = response.data;
               })
               .catch(function(error) {
                 console.log(error)
@@ -377,11 +382,12 @@
       },
       setSkUnom: function(){
         this.ptoskunom = formatted_string('00',this.nombre,'l');
-        this.ptosku = this.base + '-' + this.ptonouse + this.ptoskusar + this.ptoskunom;
+        this.ptosku = this.base + '-' + this.ptonouse + this.ptoskusap + this.ptoskunom;
       },
       setSKUsar: function(){
-        this.ptoskusar = this.sar;
-        this.ptosku = this.base + '-' + this.ptonouse + this.ptoskusar + this.ptoskunom;
+        this.ptoskusap = this.sap;
+        this.ptosku = null;
+        this.ptosku = this.base + '-' + this.ptonouse + this.sap + this.ptoskunom;
       },
       searchSKU: function(){
         axios.get('/querySKU/' + this.ptosku)
