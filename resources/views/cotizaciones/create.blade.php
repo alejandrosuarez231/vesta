@@ -27,9 +27,6 @@
         <div class="card-body">
           <h5 class="card-title">Modulos</h5>
           <div class="row">
-            <div class="col-md">
-              <button type="button" class="btn btn-sm btn-primary" @click="addRowMAT($indice)">Añadir Modulo</button>
-            </div>
             <div class="col-md-10">
               <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
@@ -46,16 +43,22 @@
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                   <div class="form-row">
                     <div class="form-group mt-2 mr-2">
-                      {!! Form::select('tipo_id', \App\Tipo::where('tipologia','=','PTO')->pluck('nombre','id'), null, ['class' => 'form-control','placeholder'=>'Indique el Tipo','v-model' => 'tipo']) !!}
+                      {!! Form::select('tipo_id', \App\Tipo::where('tipologia','=','PTO')->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder'=>'Indique el Tipo','v-model' => 'tipo']) !!}
                     </div>
                     <div class="form-group mt-2 mr-2">
-                      <select class="form-control" name="subtipo_id" v-model="subtipo">
+                      <select class="form-control form-control-sm" name="subtipo_id" v-model="subtipo" @change="getModulos()">
                         <option value="" disabled>Indique el SubTipo</option>
-                        <option v-for="(item, index) in subtipos" :value="index">@{{ item }}</option>
+                        <option v-for="(item, index) in subtipos" :value="item.value">@{{ item.label }}</option>
                       </select>
                     </div>
                     <div class="form-group mt-2 mr-2">
-                      {!! Form::text('modulo', 'Modulo', ['class'=>'form-control','placeholder'=>'Modulo']) !!}
+                      <select name="modulo" class="form-control form-control-sm" v-model="modulo">
+                        <option value="" disabled>Indique el Modulo</option>
+                        <option v-for="item in modulosList" :value="item.value">@{{ item.label + ' | ' + item.sap }}</option>
+                      </select>
+                    </div>
+                    <div class="form-group mt-2 mr-2">
+                      <button type="button" class="btn btn-sm btn-primary" @click="addRowMAT($indice)">Añadir Modulo</button>
                     </div>
                   </div>
                 </div>
@@ -100,6 +103,10 @@
       </div>
     </div>
   </div>
+
+  <div class="row mt-2"></div>
+
+
   <div class="row mt-2">
     <div class="col-md">
       <table class="table">
@@ -155,6 +162,8 @@
     el: '#app',
 
     data: {
+      modulo: '',
+      modulosList: [],
       ptosku: '',
       tipo: '',
       subtipos: '',
@@ -232,6 +241,15 @@
           console.log(error)
         })
       },
+      getModulos: function(){
+        axios.get('/getModulos/' + this.tipo + '/' + this.subtipo)
+        .then( response => {
+          this.modulosList = response.data
+        })
+        .catch( function(error) {
+          console.log(error)
+        })
+      }
     },
 
   })

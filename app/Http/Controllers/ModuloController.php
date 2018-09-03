@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Modulo;
 use App\Tipo;
 use App\Subtipo;
+use App\Proyecto;
 use Illuminate\Http\Request;
 use Alert;
 use Yajra\DataTables\DataTables;
+use DB;
 
 class ModuloController extends Controller
 {
@@ -95,6 +97,22 @@ class ModuloController extends Controller
     public function show(Modulo $modulo)
     {
         //
+    }
+
+    public function getModulos($tipo, $subtipo)
+    {
+        $modulos = Proyecto::with('nombres:id,nombre','saps:id,valor')
+        ->where('tipo_id', $tipo)
+        ->where('subtipo_id', $subtipo)
+        ->get();
+
+        $listado = collect();
+        foreach ($modulos as $key => $value) {
+            $listado->push(['label' => $value->nombres->nombre, 'value' => $value->id, 'sap' => $value->saps->valor ,'sku' => $value->sku, 'codigo' => $value->codigo]);
+        }
+
+        $listado = $listado->sortBy('label');
+        return $listado->values()->all();
     }
 
     public function modulosContructor($tipos,$subtipos)

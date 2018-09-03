@@ -57,6 +57,7 @@ Route::resource('/backend/confparts', 'ConfpartController');
 Route::get('/dataModulos', 'ModuloController@indexData')->name('data.modulos');
 Route::get('/modulosConstructor/{tipos}/{subtipos}', 'ModuloController@modulosContructor')->name('data.moduloconstructor');
 Route::get('/ModuloEditData/{id}', 'ModuloController@editData')->name('data.modulosedit');
+Route::get('/getModulos/{tipo}/{sutipo}', 'ModuloController@getModulos')->name('data.getmodulos');
 Route::resource('/backend/modulos', 'ModuloController');
 
 
