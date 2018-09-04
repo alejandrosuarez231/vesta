@@ -51,6 +51,26 @@ class CotizacioneController extends Controller
         //
     }
 
+    public function getMateriales($id)
+    {
+        $proyecto = Proyecto::with('tipo:id,nombre','subtipo:id,nombre','nombres:id,nombre','saps:id,valor','sars:id,valor')->where('id',$id)->get();
+        $data = collect();
+
+        foreach ($proyecto as $key => $value) {
+            $data->push([
+                'id' => $value->id,
+                'sku' => $value->sku,
+                'skucomercial' => $value->codigo,
+                'tipo' => $value->tipo->nombre,
+                'subtipo' => $value->subtipo->nombre,
+                'nombre' => $value->nombres->nombre,
+                'sap' => $value->saps->valor,
+                'sar' => $value->sars->valor
+            ]);
+        }
+        return $data;
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

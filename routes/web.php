@@ -69,7 +69,6 @@ Route::post('/frontend/constructor','ConstructorController@ensamble')->name('con
 Route::get('/frontend/constructor/{id}/edit','ConstructorController@edit')->name('constructor.edit');
 Route::get('/ProyectoComplementos/{id}','ConstructorController@dataComplementos')->name('constructor.dataComplementos');
 Route::get('/getMateriales/{producto}', 'ListaMaterialeController@getMateriales')->name('constructor.dataPiezas');
-
 /* Constructor edit */
 Route::patch('/frontend/constructor/{id}','ConstructorController@update')->name('constructor.update');
 Route::get('/productoslist', 'ProductoController@indexData')->name('productos.data');
@@ -79,8 +78,8 @@ Route::resource('/frontend/productos', 'ProductoController');
 Route::get('/dataProyectos', 'ProyectoController@indexData')->name('data.proyectos');
 Route::resource('/frontend/proyectos', 'ProyectoController');
 Route::resource('/frontend/inventarios', 'InventarioController');
-
 Route::resource('/backend/codigos', 'CodigoController');
+
 /* Truncate Codigos */
 Route::get('/truncateCodigos', function(){
   \DB::table('codigos')->truncate();
@@ -95,6 +94,9 @@ Route::get('/backend/extras/asignar/{id}', 'PropsextraController@create')->name(
 Route::get('/backend/extras/extras/{id}', 'PropsextraController@index')->name('extras.extras');
 Route::post('/setextras', 'PropsextraController@store')->name('extras.setting');
 Route::resource('/backend/extras', 'ExtraController');
+
+/* Cotizaciones */
+Route::get('/getMaterial/{id}', 'CotizacioneController@getMateriales')->name('cotiza.material');
 
 Route::resource('/cotizaciones','CotizacioneController');
 

@@ -58,7 +58,7 @@
                       </select>
                     </div>
                     <div class="form-group mt-2 mr-2">
-                      <button type="button" class="btn btn-sm btn-primary" @click="addRowMAT($indice)">Añadir Modulo</button>
+                      <button type="button" class="btn btn-sm btn-primary" @click="getMaterial()">Añadir Modulo</button>
                     </div>
                   </div>
                 </div>
@@ -104,13 +104,41 @@
     </div>
   </div>
 
-  <div class="row mt-2"></div>
+  <div class="row mt-2">
+    <div class="col-md">
+      <table class="table">
+        <caption>Modulos</caption>
+        <thead>
+          <tr>
+            <th>SKU</th>
+            <th>SKU <small>Comercial</small></th>
+            <th>Tipo</th>
+            <th>Subtipo</th>
+            <th>Nombre</th>
+            <th>Sist. de Apertura</th>
+            <th>Sist. de Armado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item, index) in modulos" track-by="index">
+            <td>@{{ item.sku }}</td>
+            <td>@{{ item.skucomercial }}</td>
+            <td>@{{ item.tipo }}</td>
+            <td>@{{ item.subtipo }}</td>
+            <td>@{{ item.nombre }}</td>
+            <td>@{{ item.sap }}</td>
+            <td>@{{ item.sar }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
 
   <div class="row mt-2">
     <div class="col-md">
       <table class="table">
-        <caption>Modulos</caption>
+        <caption>Complementos y Piezas</caption>
         <thead>
           <tr>
             <th>Codigo</th>
@@ -131,7 +159,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(material, $indice) in materiales" track-by="$indice">
+          <tr v-for="(material, indice) in materiales" track-by="indice">
             <td>data</td>
             <td>data</td>
             <td>data</td>
@@ -146,7 +174,7 @@
             <td>data</td>
             <td>data</td>
             <td>data</td>
-            <td><a class="btn btn-link text-danger" href="#" title="Eliminar" @click="removeRowMAT($indice)" v-if="materiales.length > 1"><i class="fas fa-minus"></i></a></td>
+            <td><a class="btn btn-link text-danger" href="#" title="Eliminar" @click="removeRowMAT(indice)" v-if="materiales.length > 1"><i class="fas fa-minus"></i></a></td>
           </tr>
         </tbody>
       </table>
@@ -162,18 +190,13 @@
     el: '#app',
 
     data: {
-      modulo: '',
-      modulosList: [],
-      ptosku: '',
       tipo: '',
       subtipos: '',
       subtipo: '',
-      base: '',
-      basesku: '',
-      numeracion: '',
-      mtps: [{ mtp: '', cantidad: '' }],
-      materialMatriz: '',
-      materiales: [{ sku: '', material_id: '', nombre: '', largo_izq: '', largo_der: '', ancho_sup: '', ancho_inf: '', veta: '', mec1: '', mec2: '' }],
+      modulo: '',
+      modulosList: [],
+      modulos: [],
+      materiales: [],
       banda: ''
     },
 
@@ -189,62 +212,20 @@
     },
 
     methods: {
-      addRowMTP: function (index) {
-        if(this.mtps[index].cantidad = ''){
-          alert('Indique la cantidad');
-        }
-        try {
-          this.mtps.splice(index + 1, 0, {});
-        } catch(e)
-        {
-          console.log(e);
-        }
-      },
-      removeRowMTP: function(index){
-        console.log(index);
-        if( this.mtps.length > 1){
-          this.mtps.splice(index, 1);
-        }
-      },
-      addRowMAT: function (indice) {
-        try {
-          this.materiales.splice(indice + 1, 0, {});
-        } catch(e)
-        {
-          console.log(e);
-        }
-      },
-      removeRowMAT: function(indice){
-        console.log(indice);
-        if( this.materiales.length > 1){
-          this.materiales.splice(indice, 1);
-        }
-      },
-      getMateriales: function(){
-        axios.get('/materiales')
-        .then( response => {
-          this.materialMatriz = response.data
-        })
-        .catch(function(error) {
-          console.log(error);
-        })
-      },
-      getSkuBase: function(){
-        axios.get('/getBaseSku/' + this.tipo + '/' + this.subtipo)
-        .then( response => {
-          console.log(response.data);
-          this.numeracion = response.data[0].numeracion;
-          this.base = response.data[0].skubase;
-          this.ptosku = this.base;
-        })
-        .catch(function(error) {
-          console.log(error)
-        })
-      },
       getModulos: function(){
         axios.get('/getModulos/' + this.tipo + '/' + this.subtipo)
         .then( response => {
           this.modulosList = response.data
+        })
+        .catch( function(error) {
+          console.log(error)
+        })
+      },
+      getMaterial: function() {
+        axios.get('/getMaterial/' + this.modulo)
+        .then( response => {
+          // console.log(response.data)
+          this.modulos.push(response.data[0])
         })
         .catch( function(error) {
           console.log(error)
