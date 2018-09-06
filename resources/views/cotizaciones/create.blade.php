@@ -24,116 +24,128 @@
     </div>
     <div class="col-md-9">
 
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Tipologia</h5>
-          <div class="form-row">
-            <div class="form-group mt-2 mr-2">
-              {!! Form::select('tipo_id', \App\Tipo::where('tipologia','=','PTO')->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder'=>'Indique el Tipo','v-model' => 'tipo']) !!}
-            </div>
-            <div class="form-group mt-2 mr-2">
-              <select class="form-control form-control-sm" name="subtipo_id" v-model="subtipo" @change="getModulos()">
-                <option value="" disabled>Indique el SubTipo</option>
-                <option v-for="(item, index) in subtipos" :value="item.value">@{{ item.label }}</option>
-              </select>
-            </div>
-            <div class="form-group mt-2 mr-2">
-              <select name="modulo" class="form-control form-control-sm" v-model="modulo">
-                <option value="" disabled>Indique el Modulo</option>
-                <option v-for="item in modulosList" :value="item.value">@{{ item.label + ' | ' + item.sap }}</option>
-              </select>
-            </div>
-            <div class="form-group mt-2 mr-2">
-              <select class="form-control form-control-sm" name="sap">
-                <option value="" disabled selected>Sist. de Apertura</option>
-              </select>
-            </div>
-            <div class="form-group mt-2 mr-2">
-              <select class="form-control form-control-sm" name="sar">
-                <option value="" disabled selected>Sist. de Armado</option>
-              </select>
-            </div>
-            <div class="form-group mt-2 mr-2">
-              <button type="button" class="btn btn-sm btn-primary" @click="getMaterial()">Añadir Modulo</button>
-            </div>
-          </div>
-          <hr>
-          <h5 class="card-title">Propiedades</h5>
-          <div class="form-row">
-            <div class="form-group mt-2 mr-2">
-              {!! Form::text('ancho', null, ['class' => 'form-control form-control-sm','placeholder'=>'Ancho']) !!}
-            </div>
-            <div class="form-group mt-2 mr-2">
-              {!! Form::text('alto', null, ['class' => 'form-control form-control-sm','placeholder'=>'Alto']) !!}
-            </div>
-            <div class="form-group mt-2 mr-2">
-              {!! Form::text('profundidad', null, ['class' => 'form-control form-control-sm','placeholder'=>'Profundidad']) !!}
-            </div>
-            <div class="form-group mt-2 mr-2">
-              <select class="form-control form-control-sm" name="tipo_gaveta" >
-                <option value="" disabled selected>Tipo Gaveta</option>
-              </select>
-            </div>
-            <div class="form-group mt-2 mr-2">
-              <select class="form-control form-control-sm" name="tipo_bisagra" >
-                <option value="" disabled selected>Tipo Bisagra</option>
-              </select>
-            </div>
-            <div class="form-group mt-2 mr-2">
-              <select class="form-control form-control-sm" name="tirado" >
-                <option value="" disabled selected>Tirador</option>
-              </select>
-            </div>
-            <div class="form-group mt-2 mr-2">
-              <select class="form-control form-control-sm" name="posicion_tirador" >
-                <option value="" disabled selected>Tirador posición</option>
-              </select>
-            </div>
-          </div>
-          <hr>
-          <h5 class="card-title">Materiales</h5>
-          <div class="form-row">
-            <div class="form-group mt-2 mr-2">
-              {!! Form::number('espesor_caja', null, ['class' => 'form-control form-control-sm','placeholder' => 'Espesor Caja']) !!}
-            </div>
-            <div class="form-group mt-2 mr-2">
-              {!! Form::number('espesor_frente', null, ['class' => 'form-control form-control-sm','placeholder' => 'Espesor Frente']) !!}
-            </div>
-            <div class="form-group mt-2 mr-2">
-              {!! Form::number('espesor_fondo', null, ['class' => 'form-control form-control-sm','placeholder' => 'Espesor Fondo']) !!}
-            </div>
-            <div class="form-group mt-2 mr-2">
-              <select class="form-control form-control-sm" name="material_caja">
-                <option value="" disabled selected>Material Caja</option>
-              </select>
-            </div>
-            <div class="form-group mt-2 mr-2">
-              <select class="form-control form-control-sm" name="material_frente">
-                <option value="" disabled selected>Material Frente</option>
-              </select>
-            </div>
-            <div class="form-group mt-2 mr-2">
-              <select class="form-control form-control-sm" name="material_fondo">
-                <option value="" disabled selected>Material Fondo</option>
-              </select>
-            </div>
-            <div class="form-group mt-2 mr-2">
-              <select class="form-control form-control-sm" name="material_gaveta">
-                <option value="" disabled selected>Material Gaveta</option>
-              </select>
-            </div>
-          </div>
-          <hr>
-          <div class="form-row">
-            <div class="form-group mt-2 mr-2">
-              {!! Form::select('banda', ['-1'=>'Crear Categoria', '1'=>'Categoria 1', '2'=>'Categoria 2'], null, ['class'=>'form-control','v-model'=>'banda','placeholder'=>'Inidique la Categoria']) !!}
-            </div>
-            <div class="form-group mt-2 mr-2" v-if="banda == -1 ">
-              {!! Form::text('nuevabanda', null, ['class'=>'form-control','placeholder'=>'Nueva Banda']) !!}
+      <div class="row">
+        <div class="col-md-3">
+          <div class="card">
+            <div class="card-body">
+              <h6 class="card-title">Tipologia</h6>
+              <div class="form-group mt-2 mr-2">
+                {!! Form::select('tipo_id', \App\Tipo::where('tipologia','=','PTO')->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder'=>'Indique el Tipo','v-model' => 'tipo']) !!}
+              </div>
+              <div class="form-group mt-2 mr-2">
+                <select class="form-control form-control-sm" name="subtipo_id" v-model="subtipo" @change="getModulos()">
+                  <option value="" disabled>Indique el SubTipo</option>
+                  <option v-for="(item, index) in subtipos" :value="item.value">@{{ item.label }}</option>
+                </select>
+              </div>
+              <div class="form-group mt-2 mr-2">
+                {!! Form::select('sap', \App\Confpart::pluck('valor','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Sist. de Apertura']) !!}
+              </div>
+              <div class="form-group mt-2 mr-2">
+                {!! Form::select('sar', [], null, ['class' => 'form-control form-control-sm','placeholder' => 'Sist. de Armado']) !!}
+              </div>
+              <div class="form-group mt-2 mr-2">
+                <select name="modulo" class="form-control form-control-sm" v-model="modulo">
+                  <option value="" disabled>Indique el Modulo</option>
+                  <option v-for="item in modulosList" :value="item.value">@{{ item.label + ' | ' + item.sap }}</option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
+
+        <div class="col-md-3">
+          <div class="card">
+            <div class="card-body">
+              <h6 class="card-title">Propiedades</h6>
+              <div class="form-group mt-2 mr-2">
+                {!! Form::text('ancho', null, ['class' => 'form-control form-control-sm','placeholder'=>'Ancho']) !!}
+              </div>
+              <div class="form-group mt-2 mr-2">
+                {!! Form::text('alto', null, ['class' => 'form-control form-control-sm','placeholder'=>'Alto']) !!}
+              </div>
+              <div class="form-group mt-2 mr-2">
+                {!! Form::text('profundidad', null, ['class' => 'form-control form-control-sm','placeholder'=>'Profundidad']) !!}
+              </div>
+              <div class="form-group mt-2 mr-2">
+                <select class="form-control form-control-sm" name="tipo_gaveta" >
+                  <option value="" disabled selected>Tipo Gaveta</option>
+                </select>
+              </div>
+              <div class="form-group mt-2 mr-2">
+                <select class="form-control form-control-sm" name="tipo_bisagra" >
+                  <option value="" disabled selected>Tipo Bisagra</option>
+                </select>
+              </div>
+              <div class="form-group mt-2 mr-2">
+                <select class="form-control form-control-sm" name="tirado" >
+                  <option value="" disabled selected>Tirador</option>
+                </select>
+              </div>
+              <div class="form-group mt-2 mr-2">
+                <select class="form-control form-control-sm" name="posicion_tirador" >
+                  <option value="" disabled selected>Tirador posición</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="card">
+            <div class="card-body">
+              <h6 class="card-title">Materiales</h6>
+              <div class="form-group mt-2 mr-2">
+                {!! Form::number('espesor_caja', null, ['class' => 'form-control form-control-sm','placeholder' => 'Espesor Caja']) !!}
+              </div>
+              <div class="form-group mt-2 mr-2">
+                {!! Form::number('espesor_frente', null, ['class' => 'form-control form-control-sm','placeholder' => 'Espesor Frente']) !!}
+              </div>
+              <div class="form-group mt-2 mr-2">
+                {!! Form::number('espesor_fondo', null, ['class' => 'form-control form-control-sm','placeholder' => 'Espesor Fondo']) !!}
+              </div>
+              <div class="form-group mt-2 mr-2">
+                <select class="form-control form-control-sm" name="material_caja">
+                  <option value="" disabled selected>Material Caja</option>
+                </select>
+              </div>
+              <div class="form-group mt-2 mr-2">
+                <select class="form-control form-control-sm" name="material_frente">
+                  <option value="" disabled selected>Material Frente</option>
+                </select>
+              </div>
+              <div class="form-group mt-2 mr-2">
+                <select class="form-control form-control-sm" name="material_fondo">
+                  <option value="" disabled selected>Material Fondo</option>
+                </select>
+              </div>
+              <div class="form-group mt-2 mr-2">
+                <select class="form-control form-control-sm" name="material_gaveta">
+                  <option value="" disabled selected>Material Gaveta</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="card">
+            <div class="card-body">
+              <h6 class="card-title">Categoria</h6>
+              <div class="form-group mt-2 mr-2">
+                {!! Form::select('banda', ['-1'=>'Crear Categoria', '1'=>'Categoria 1', '2'=>'Categoria 2'], null, ['class'=>'form-control form-control-sm','v-model'=>'banda','placeholder'=>'Inidique la Categoria']) !!}
+              </div>
+              <div class="form-group mt-2 mr-2" v-if="banda == -1 ">
+                {!! Form::text('nuevabanda', null, ['class'=>'form-control form-control-sm','placeholder'=>'Nueva Banda']) !!}
+              </div>
+            </div>
+          </div>
+          <div class="form-group mt-2 mr-2">
+            <button type="button" class="btn btn-sm btn-primary" @click="getMaterial()">Añadir Modulo</button>
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
 
