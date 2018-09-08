@@ -33,16 +33,16 @@
                 {!! Form::select('tipo_id', \App\Tipo::where('tipologia','=','PTO')->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder'=>'Indique el Tipo','v-model' => 'tipo']) !!}
               </div>
               <div class="form-group mt-2 mr-2">
-                <select class="form-control form-control-sm" name="subtipo_id" v-model="subtipo" @change="getModulos()">
+                <select class="form-control form-control-sm" name="subtipo_id" v-model="subtipo">
                   <option value="" disabled>Indique el SubTipo</option>
                   <option v-for="(item, index) in subtipos" :value="item.value">@{{ item.label }}</option>
                 </select>
               </div>
               <div class="form-group mt-2 mr-2">
-                {!! Form::select('sap', \App\Confpart::pluck('valor','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Sist. de Apertura']) !!}
+                {!! Form::select('sap', \App\Confpart::where('acronimo','=','sap')->pluck('valor','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Sist. de Apertura']) !!}
               </div>
               <div class="form-group mt-2 mr-2">
-                {!! Form::select('sar', [], null, ['class' => 'form-control form-control-sm','placeholder' => 'Sist. de Armado']) !!}
+                {!! Form::select('sar', \App\Confpart::where('acronimo','=','sar')->pluck('valor','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Sist. de Armado']) !!}
               </div>
               <div class="form-group mt-2 mr-2">
                 <select name="modulo" class="form-control form-control-sm" v-model="modulo">
@@ -73,14 +73,10 @@
                 </select>
               </div>
               <div class="form-group mt-2 mr-2">
-                <select class="form-control form-control-sm" name="tipo_bisagra" >
-                  <option value="" disabled selected>Tipo Bisagra</option>
-                </select>
+                {!! Form::select('tipo_bisagra', \App\Producto::where('tipo_id',1)->whereIn('subtipo_id',[1,2,3,4])->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Tipo de Bisagra']) !!}
               </div>
               <div class="form-group mt-2 mr-2">
-                <select class="form-control form-control-sm" name="tirado" >
-                  <option value="" disabled selected>Tirador</option>
-                </select>
+                {!! Form::select('tirador', \App\Producto::where('tipo_id',9)->where('subtipo_id',37)->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Tirador']) !!}
               </div>
               <div class="form-group mt-2 mr-2">
                 <select class="form-control form-control-sm" name="posicion_tirador" >

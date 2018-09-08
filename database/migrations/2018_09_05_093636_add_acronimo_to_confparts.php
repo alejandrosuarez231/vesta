@@ -13,9 +13,9 @@ class AddAcronimoToConfparts extends Migration
      */
     public function up()
     {
-        Schema::table('confparts', function (Blueprint $table) {
-            $table->string('acronimo',6)->after('nombre');
-        });
+      Schema::table('confparts', function (Blueprint $table) {
+        $table->string('acronimo',6)->after('nombre');
+      });
     }
 
     /**
@@ -25,8 +25,8 @@ class AddAcronimoToConfparts extends Migration
      */
     public function down()
     {
-        Schema::table('confparts', function (Blueprint $table) {
-            $table->dropColumn('acronimo');
-        });
+      Schema::table('confparts', function (Blueprint $table) {
+        $table->dropColumn('acronimo');
+      });
     }
-}
+  }

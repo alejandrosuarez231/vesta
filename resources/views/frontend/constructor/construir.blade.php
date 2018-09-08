@@ -18,18 +18,21 @@
       <div class="form-row">
         <div class="form-group mr-2">
           {!! Form::select('tipo_id', \App\Tipo::where('tipologia','=','PTO')->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'TIPO', 'v-model' => 'tipo']) !!}
+          {!! $errors->first('tipo_id', '<small class="help-block text-danger">:message</small>') !!}
         </div>
         <div class="form-group mr-2" v-if="tipo > 10 && tipo < 18">
           <select class="form-control form-control-sm" name="subtipo_id" v-model="subtipo" @change="getNombres();getSkuBase();setMateriales();">
             <option value="" disabled>Selección</option>
             <option v-for="(item, index) in subtipos" :value="item.value">@{{ item.label }}</option>
           </select>
+          {!! $errors->first('subtipo_id', '<small class="help-block text-danger">:message</small>') !!}
         </div>
         <div class="form-group mr-2">
           {!! Form::text('sku', 'SKU', ['class' => 'form-control form-control-sm','placeholder'=>'SKU','v-model'=>'ptosku','readonly']) !!}
         </div>
         <div class="form-group">
           {!! Form::text('codigo', null, ['class' => 'form-control form-control-sm','placeholder'=>'SKU Comercial','v-model'=>'ptoskucomercial']) !!}
+          {!! $errors->first('codigo', '<small class="help-block text-danger">:message</small>') !!}
         </div>
       </div>
       <!-- Nombre  -->

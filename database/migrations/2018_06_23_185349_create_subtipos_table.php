@@ -13,18 +13,18 @@ class CreateSubtiposTable extends Migration
      */
     public function up()
     {
-        Schema::create('subtipos', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('tipo_id');
-            $table->string('nombre');
-            $table->string('acronimo',6);
-            $table->boolean('ancho')->nullable();
-            $table->boolean('largo')->nullable();
-            $table->boolean('espesor')->nullable();
-            $table->boolean('color')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-        });
+      Schema::create('subtipos', function (Blueprint $table) {
+        $table->increments('id');
+        $table->integer('tipo_id');
+        $table->string('nombre');
+        $table->string('acronimo',6);
+        $table->boolean('ancho')->nullable();
+        $table->boolean('largo')->nullable();
+        $table->boolean('espesor')->nullable();
+        $table->boolean('color')->nullable();
+        $table->timestamps();
+        $table->softDeletes();
+      });
     }
 
     /**
@@ -34,6 +34,6 @@ class CreateSubtiposTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subtipos');
+      Schema::dropIfExists('subtipos');
     }
-}
+  }

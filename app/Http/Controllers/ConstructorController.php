@@ -26,8 +26,8 @@ class ConstructorController extends Controller
   {
     // dd($request->all());
     $this->validate($request, [
-      'tipos_id' => 'required',
-      'subtipos_id' => 'required',
+      'tipo_id' => 'required',
+      'subtipo_id' => 'required',
       'sku' => 'required|unique:proyectos',
       'codigo' => 'required|unique:proyectos',
       'nombre' => 'required',

@@ -19,7 +19,7 @@
   <div class="row justify-content-center">
     <div class="col-md">
       <div class="table-responsive">
-        <table class="table table-striped table-bordered" id="proyectos-list">
+        <table class="table table-striped table-bordered" id="proyectos-list" data-page-length="100">
           <caption>Listado de Proyectos</caption>
           <thead>
             <tr>
