@@ -102,7 +102,7 @@ Route::get('VACIAR-TABLAS', function() {
   \DB::table('productos')->truncate();
   \DB::table('propiedades')->truncate();
   \DB::table('propsextras')->truncate();
-  \DB::table('propforms')->truncate();
+  \DB::table('propsforms')->truncate();
   \DB::table('proyectos')->truncate();
   \DB::table('tipos')->truncate();
   \DB::table('subtipos')->truncate();
