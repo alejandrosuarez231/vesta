@@ -26,6 +26,10 @@ class DatabaseSeeder extends Seeder
           PropsextrasSeeder::class,
           ProductosSeeder::class,
           ConfpartSeed::class,
+          ProyectosSeeder::class,
+          MtpsSeeder::class,
+          ModulosSeeder::class,
+          ListaMaterialesSeeder::class,
         ]);
     }
 }
