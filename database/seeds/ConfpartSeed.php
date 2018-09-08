@@ -13,12 +13,12 @@ class ConfpartSeed extends Seeder
     public function run()
     {
       DB::table('confparts')->insert([
-        ['id' => 1, 'nombre' => 'Sist. de Armado', 'valor' => 'Gola'],
-        ['id' => 2, 'nombre' => 'Sist. de Armado', 'valor' => 'Tirador'],
-        ['id' => 3, 'nombre' => 'Sist. de Armado', 'valor' => 'Tip On'],
-        ['id' => 4, 'nombre' => 'Sist. de Armado', 'valor' => 'Riel'],
-        ['id' => 5, 'nombre' => 'Sist. de Apertura', 'valor' => 'Mini Fix'],
-        ['id' => 6, 'nombre' => 'Sist. de Apertura', 'valor' => 'Tornillo']
+        ['id' => 1, 'nombre' => 'Sist. de Apertura', 'acronimo' => 'sap', 'valor' => 'Gola'],
+        ['id' => 2, 'nombre' => 'Sist. de Apertura', 'acronimo' => 'sap', 'valor' => 'Tirador'],
+        ['id' => 3, 'nombre' => 'Sist. de Apertura', 'acronimo' => 'sap', 'valor' => 'Tip On'],
+        ['id' => 4, 'nombre' => 'Sist. de Apertura', 'acronimo' => 'sap', 'valor' => 'Riel'],
+        ['id' => 5, 'nombre' => 'Sist. de Armado', 'acronimo' => 'sar', 'valor' => 'Mini Fix'],
+        ['id' => 6, 'nombre' => 'Sist. de Armado', 'acronimo' => 'sar', 'valor' => 'Tornillo']
       ]);
     }
   }

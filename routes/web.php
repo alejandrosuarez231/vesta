@@ -87,6 +87,30 @@ Route::get('/truncateCodigos', function(){
   return redirect('/backend/codigos');
 });
 
+/* Vaciar Tablas */
+Route::get('VACIAR-TABLAS', function() {
+  \DB::table('codigos')->truncate();
+  \DB::table('colores')->truncate();
+  \DB::table('confparts')->truncate();
+  \DB::table('descripciones')->truncate();
+  \DB::table('extras')->truncate();
+  \DB::table('lista_materiales')->truncate();
+  \DB::table('marcas')->truncate();
+  \DB::table('materiales')->truncate();
+  \DB::table('modulos')->truncate();
+  \DB::table('mtps')->truncate();
+  \DB::table('productos')->truncate();
+  \DB::table('propiedades')->truncate();
+  \DB::table('propsextras')->truncate();
+  \DB::table('propforms')->truncate();
+  \DB::table('proyectos')->truncate();
+  \DB::table('tipos')->truncate();
+  \DB::table('subtipos')->truncate();
+  \DB::table('tipos')->truncate();
+  \DB::table('unidades')->truncate();
+  \DB::table('users')->truncate();
+});
+
 Route::resource('/backend/proveedores', 'ProveedoreController');
 
 
