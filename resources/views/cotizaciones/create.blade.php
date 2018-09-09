@@ -39,15 +39,15 @@
                 </select>
               </div>
               <div class="form-group mt-2 mr-2">
-                {!! Form::select('sap', \App\Confpart::where('acronimo','=','sap')->pluck('valor','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Sist. de Apertura']) !!}
+                {!! Form::select('sap', \App\Confpart::where('acronimo','=','sap')->pluck('valor','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Sist. de Apertura','v-model' => 'sap']) !!}
               </div>
               <div class="form-group mt-2 mr-2">
-                {!! Form::select('sar', \App\Confpart::where('acronimo','=','sar')->pluck('valor','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Sist. de Armado']) !!}
+                {!! Form::select('sar', \App\Confpart::where('acronimo','=','sar')->pluck('valor','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Sist. de Armado', 'v-model' => 'sar', '@change' => 'getModulos();']) !!}
               </div>
               <div class="form-group mt-2 mr-2">
                 <select name="modulo" class="form-control form-control-sm" v-model="modulo">
                   <option value="" disabled>Indique el Modulo</option>
-                  <option v-for="item in modulosList" :value="item.value">@{{ item.label + ' | ' + item.sap }}</option>
+                  <option v-for="item in modulosList" :value="item.value">@{{ item.label }}</option>
                 </select>
               </div>
             </div>
@@ -73,7 +73,7 @@
                 </select>
               </div>
               <div class="form-group mt-2 mr-2">
-                {!! Form::select('tipo_bisagra', \App\Producto::where('tipo_id',1)->whereIn('subtipo_id',[1,2,3,4])->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Tipo de Bisagra']) !!}
+                {!! Form::select('tipo_bisagra', \App\Subtipo::where('tipo_id',1)->whereIn('id',[1,2,3,4])->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Tipo de Bisagra']) !!}
               </div>
               <div class="form-group mt-2 mr-2">
                 {!! Form::select('tirador', \App\Producto::where('tipo_id',9)->where('subtipo_id',37)->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Tirador']) !!}
@@ -101,24 +101,28 @@
                 {!! Form::number('espesor_fondo', null, ['class' => 'form-control form-control-sm','placeholder' => 'Espesor Fondo']) !!}
               </div>
               <div class="form-group mt-2 mr-2">
-                <select class="form-control form-control-sm" name="material_caja">
+                {!! Form::select('material_caja', \App\Confmat::where('materiale_id',1)->pluck('productos','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Material Caja']) !!}
+                {{-- <select class="form-control form-control-sm" name="material_caja">
                   <option value="" disabled selected>Material Caja</option>
-                </select>
+                </select> --}}
               </div>
               <div class="form-group mt-2 mr-2">
-                <select class="form-control form-control-sm" name="material_frente">
+                {!! Form::select('material_frente', \App\Confmat::where('materiale_id',2)->pluck('productos','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Material Frente']) !!}
+                {{-- <select class="form-control form-control-sm" name="material_frente">
                   <option value="" disabled selected>Material Frente</option>
-                </select>
+                </select> --}}
               </div>
               <div class="form-group mt-2 mr-2">
-                <select class="form-control form-control-sm" name="material_fondo">
+                {!! Form::select('material_fondo', \App\Confmat::where('materiale_id',3)->pluck('productos','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Material Fondo']) !!}
+                {{-- <select class="form-control form-control-sm" name="material_fondo">
                   <option value="" disabled selected>Material Fondo</option>
-                </select>
+                </select> --}}
               </div>
               <div class="form-group mt-2 mr-2">
-                <select class="form-control form-control-sm" name="material_gaveta">
+                {!! Form::select('material_gaveta', \App\Confmat::where('materiale_id',7)->pluck('productos','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Material Gaveta']) !!}
+                {{-- <select class="form-control form-control-sm" name="material_gaveta">
                   <option value="" disabled selected>Material Gaveta</option>
-                </select>
+                </select> --}}
               </div>
             </div>
           </div>
@@ -234,6 +238,8 @@
       tipo: '',
       subtipos: '',
       subtipo: '',
+      sap: '',
+      sar: '',
       modulo: '',
       modulosList: [],
       modulos: [],
@@ -248,13 +254,25 @@
           .then( response => {
             this.subtipos = response.data;
           })
+        }else if(this.tipo > 0 && this.subtipo > 0 && this.sap > 0 && this.sar > 0){
+          this.getModulos();
+        }
+      },
+      sap: function(){
+        if(this.tipo > 0 && this.subtipo > 0 && this.sap > 0 && this.sar > 0){
+          this.getModulos();
+        }
+      },
+      sar: function(){
+        if(this.tipo > 0 && this.subtipo > 0 && this.sap > 0 && this.sar > 0){
+          this.getModulos();
         }
       }
     },
 
     methods: {
       getModulos: function(){
-        axios.get('/getModulos/' + this.tipo + '/' + this.subtipo)
+        axios.get('/getModulos/' + this.tipo + '/' + this.subtipo + '/' + this.sap + '/' + this.sar)
         .then( response => {
           this.modulosList = response.data
         })

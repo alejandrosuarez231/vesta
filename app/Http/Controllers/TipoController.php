@@ -47,7 +47,7 @@ class TipoController extends Controller
 
     public function tiposMTP()
     {
-      $tipos = Tipo::where('tipologia','=','MTP')->whereNotIn('id',[2,9])->get();
+      $tipos = Tipo::where('tipologia','=','MTP')->whereNotIn('id',[2,4,9])->get();
       $tiposList = collect();
       foreach ($tipos as $key => $value){
         $tiposList->push(['label' => $value->nombre, 'value' => $value->id]);

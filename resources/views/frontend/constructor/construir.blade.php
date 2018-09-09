@@ -20,9 +20,9 @@
           {!! Form::select('tipo_id', \App\Tipo::where('tipologia','=','PTO')->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'TIPO', 'v-model' => 'tipo']) !!}
           {!! $errors->first('tipo_id', '<small class="help-block text-danger">:message</small>') !!}
         </div>
-        <div class="form-group mr-2" v-if="tipo > 10 && tipo < 18">
-          <select class="form-control form-control-sm" name="subtipo_id" v-model="subtipo" @change="getNombres();getSkuBase();setMateriales();">
-            <option value="" disabled>Selección</option>
+        <div class="form-group mr-2">
+          <select class="form-control form-control-sm" name="subtipo_id" v-model="subtipo" @change="getSkuBase();setMateriales();">
+            <option value="" disabled>SUBTIPO</option>
             <option v-for="(item, index) in subtipos" :value="item.value">@{{ item.label }}</option>
           </select>
           {!! $errors->first('subtipo_id', '<small class="help-block text-danger">:message</small>') !!}
@@ -35,22 +35,19 @@
           {!! $errors->first('codigo', '<small class="help-block text-danger">:message</small>') !!}
         </div>
       </div>
-      <!-- Nombre  -->
-      <div class="form-group">
-        <select name="nombre" class="form-control form-control-sm col-md-6" v-model="nombre" @change="setSAR();">
-          <option v-for="(item, index) in nombresList" :value="item.value">@{{ item.label }}</option>
-        </select>
-      </div>
       <div class="form-row">
         <div class="form-group mr-2">
-          {!! Form::select('sar', \App\Confpart::where('nombre','=','Sist. de Armado')->pluck('valor','id'), null, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Armado','v-model' => 'sar']) !!}
+          {!! Form::select('sar', \App\Confpart::where('acronimo','=','sar')->pluck('valor','id'), null, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Armado','v-model' => 'sar', '@change' => 'getNombres()']) !!}
         </div>
         <div class="form-group mr-2">
-          <select name="sap" class="form-control form-control-sm" v-model="sap" @change="setSKUsap();">
-            <option value="" disabled selected>Sist. de Apertura</option>
-            <option v-for="item in sapList" :value="item.id">@{{ item.valor }}</option>
-          </select>
+          {!! Form::select('sap', \App\Confpart::where('acronimo','=','sap')->pluck('valor','id'), null, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Apertura','v-model' => 'sap', '@change' => 'setSKUsap();']) !!}
         </div>
+      </div>
+      <!-- Nombre  -->
+      <div class="form-group">
+        <select name="nombre" class="form-control form-control-sm col-md-6" v-model="nombre" @change="setSkUnom();">
+          <option v-for="(item, index) in nombresList" :value="item.value">@{{ item.label }}</option>
+        </select>
       </div>
       <div class="form-group">
         {!! Form::textarea('descripcion', null, ['class'=>'form-control form-control-sm col-md-6','size'=>'30x3','placeholder'=>'Descripción']) !!}
@@ -312,6 +309,20 @@ var app = new Vue({
           console.log(error)
         })
       },
+      setSAR: function(){
+        this.setSkUnom();
+        var sarSelect = this.nombresList.filter(item => {
+          if(item.value == this.nombre){
+            axios.get('/menuConfparts/' + item.sar)
+            .then( response => {
+              this.sapList = response.data;
+            })
+            .catch(function(error) {
+              console.log(error)
+            })
+          }
+        })
+      },
       setSkUnom: function(){
         this.ptoskunom = formatted_string('00',this.nombre,'l');
         this.ptosku = this.base + '-' + this.ptonouse + this.ptoskusap + this.ptoskunom;
@@ -343,7 +354,7 @@ var app = new Vue({
         })
       },
       getNombres: function(){
-        axios.get('/modulosConstructor/' + this.tipo + '/' + this.subtipo)
+        axios.get('/modulosConstructor/' + this.tipo + '/' + this.subtipo + '/' + this.sar)
         .then( response => {
           if(response.data.length < 1){
             swal(
@@ -357,20 +368,6 @@ var app = new Vue({
         })
         .catch(function(error) {
           console.log(error)
-        })
-      },
-      setSAR: function(){
-        this.setSkUnom();
-        var sarSelect = this.nombresList.filter(item => {
-          if(item.value == this.nombre){
-            axios.get('/menuConfparts/' + item.sar)
-            .then( response => {
-              this.sapList = response.data;
-            })
-            .catch(function(error) {
-              console.log(error)
-            })
-          }
         })
       },
       setMateriales: function(){

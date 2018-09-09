@@ -30,7 +30,7 @@
           {!! Form::label('subtipo_id', 'Sub-Tipo', ['class'=>'form-control-label']) !!}
           <select class="form-control" name="subtipo_id" v-model="subtipo" @change="getSkuBase">
             <option value="" disabled>Seleccion</option>
-            <option v-for="(item,index) in subtipos" :value="index">@{{ item }}</option>
+            <option v-for="(item,index) in subtipos" :value="item.value">@{{ item.label }}</option>
           </select>
           {!! $errors->first('subtipo_id', '<small class="help-block text-danger">:message</small>') !!}
         </div>

@@ -42,7 +42,7 @@ class DescripcionesSeeder extends Seeder
             ['id' => 27, 'materiale_id' => 7, 'descripcion' => 'Gaveta 96', 'flargo' => 'L', 'fancho' => 'A'],
             ['id' => 28, 'materiale_id' => 7, 'descripcion' => 'Gavetas 160', 'flargo' => NULL, 'fancho' => NULL],
             ['id' => 29, 'materiale_id' => 7, 'descripcion' => 'Gavetas 256', 'flargo' => NULL, 'fancho' => NULL],
-            ['id' => 30, 'materiale_id' => 1, 'descripcion' => 'Jamba Lateral', 'flargo' => 'H-100', 'fancho' => '70'],
+            ['id' => 30, 'materiale_id' => 2, 'descripcion' => 'Jamba Lateral', 'flargo' => 'H-100', 'fancho' => '70'],
             ['id' => 31, 'materiale_id' => 2, 'descripcion' => 'Jamba 140mm', 'flargo' => 'H', 'fancho' => '140'],
             ['id' => 32, 'materiale_id' => 2, 'descripcion' => 'Jamba Gola 140mm', 'flargo' => 'H-32', 'fancho' => '140'],
             ['id' => 33, 'materiale_id' => 2, 'descripcion' => 'Panel Cierre a Piso con Zocalo de 15cm', 'flargo' => 'H+150', 'fancho' => 'P+EF+2'],

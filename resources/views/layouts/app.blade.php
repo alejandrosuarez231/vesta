@@ -98,6 +98,7 @@
               <a class="dropdown-item" href="{{ url('backend/colores') }}" title="Colores">Colores</a>
               <a class="dropdown-item" href="{{ url('backend/materiales') }}" title="Materiales">Materiales</a>
               <a class="dropdown-item" href="{{ url('backend/confparts') }}" title="ConfParts">Conf-Mat</a>
+              <a class="dropdown-item" href="{{ url('backend/confmats') }}" title="ConfMats">Asig-Mat</a>
               <a class="dropdown-item" href="{{ url('backend/modulos') }}" title="Modulos">Modulos</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{ url('backend/codigos') }}" title="Codigos">Codigos</a>

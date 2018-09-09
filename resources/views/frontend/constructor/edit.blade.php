@@ -33,23 +33,24 @@
           {!! Form::text('codigo', null, ['class' => 'form-control form-control-sm','placeholder'=>'SKU Comercial','v-model'=>'ptoskucomercial']) !!}
         </div>
       </div>
+      <div class="form-row">
+        <div class="form-group mr-2">
+          {!! Form::select('sar', \App\Confpart::where('nombre','=','Sist. de Armado')->pluck('valor','id'), $proyecto->sar, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Armado','v-model' => 'sar']) !!}
+        </div>
+        <div class="form-group mr-2">
+          {!! Form::select('sap', \App\Confpart::where('acronimo','=','sap')->pluck('valor','id'), $proyecto->sap, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Apertura','v-model' => 'sap', '@change' => 'setSKUsap();']) !!}
+          {{-- <select name="sap" class="form-control form-control-sm" v-model="sap" @change="setSKUsar();">
+            <option value="" disabled selected>Sist. de Apertura</option>
+            <option v-for="item in sapList" :value="item.id">@{{ item.valor }}</option>
+          </select> --}}
+        </div>
+      </div>
       <!-- Nombre -->
       <div class="form-group">
         <input type="hidden" name="nombre" value="" v-model="nombre">
         <select name="nombre_show" class="form-control form-control-sm col-md-6" v-model="nombre" @change="setSAR()" readonly disabled>
           <option v-for="(item, index) in nombresList" :value="item.value">@{{ item.label }}</option>
         </select>
-      </div>
-      <div class="form-row">
-        <div class="form-group mr-2">
-          {!! Form::select('sar', \App\Confpart::where('nombre','=','Sist. de Armado')->pluck('valor','id'), $proyecto->sar, ['class' => 'form-control form-control-sm','placeholder'=>'Sist. de Armado','v-model' => 'sar']) !!}
-        </div>
-        <div class="form-group mr-2">
-          <select name="sap" class="form-control form-control-sm" v-model="sap" @change="setSKUsar();">
-            <option value="" disabled selected>Sist. de Apertura</option>
-            <option v-for="item in sapList" :value="item.id">@{{ item.valor }}</option>
-          </select>
-        </div>
       </div>
       <div class="form-group">
         {!! Form::textarea('descripcion', $proyecto->descripcion, ['class'=>'form-control form-control-sm col-md-6','size'=>'30x3','placeholder'=>'Descripción','required']) !!}
@@ -233,10 +234,26 @@
       axios.get('/TiposMTP').then( response => { this.tiposMTP = response.data }).catch(function(error) { console.log(error) });
       axios.get('/getMateriales/' + '{{ $proyecto->id }}').then( response => { this.materiales = response.data }).catch(function(error){ console.log(error)});
       axios.get('/setMaterial/' + '{{ $proyecto->tipo_id }}' + '/' + '{{ $proyecto->subtipo_id }}').then( response => { this.materialesPSE = response.data }).catch(function(error){ console.log(error) });
-      axios.get('/modulosConstructor/' + '{{ $proyecto->tipo_id }}' + '/' + '{{ $proyecto->subtipo_id }}').then( response => { this.nombresList = response.data; }).catch(function(error) { console.log(error) });
+
+      axios.get('/modulosConstructor/' + '{{ $proyecto->tipo_id }}' + '/' + '{{ $proyecto->subtipo_id }}' + '/' + '{{ $proyecto->sap }}')
+        .then( response => {
+          if(response.data.length < 1){
+            swal(
+              'No hay nombres!',
+              'No hay Modulos Registrados!',
+              'error'
+              )
+            console.log(response.data.length);
+          }
+          this.nombresList = response.data;
+        })
+        .catch(function(error) {
+          console.log(error)
+        })
+
       if(this.ptosku.length != 0){
         axios.get('/getBaseSku/' + '{{ $proyecto->tipo_id }}' + '/' + '{{ $proyecto->subtipo_id }}').then( response => {
-          console.log(response.data)
+          // console.log(response.data)
           this.base = response.data[0].skubase;
           this.numeracion = response.data[0].numeracion;
           /* FIX SKU */

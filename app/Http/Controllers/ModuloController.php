@@ -6,6 +6,7 @@ use App\Modulo;
 use App\Tipo;
 use App\Subtipo;
 use App\Proyecto;
+use App\Confpart;
 use Illuminate\Http\Request;
 use Alert;
 use Yajra\DataTables\DataTables;
@@ -25,7 +26,8 @@ class ModuloController extends Controller
 
     public function indexData()
     {
-        $modulos = Modulo::all();
+        $modulos = Modulo::with('sars:id,valor')->get();
+        // dd($modulos);
         return Datatables::of($modulos)
         ->editColumn('tipos', function(Modulo $modulo) {
             $output = null;
@@ -43,10 +45,18 @@ class ModuloController extends Controller
             }
             return $output;
         })
+        ->editColumn('sars.valor', function(Modulo $modulo){
+            $output = null;
+            $confparts = Confpart::whereIn('id',explode(',',$modulo->sar))->get();
+            foreach ($confparts as $key => $value) {
+                $output .= '<span class="badge badge-info mr-1">'. $value->valor .'</span>';
+            }
+            return $output;
+      })
         ->addColumn('action', function ($modulo) {
             return '<a href="modulos/'.$modulo->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>';
         })
-        ->rawColumns(['tipos','subtipos','sar','action'])
+        ->rawColumns(['tipos','subtipos','sars.valor','action'])
         ->make(true);
     }
 
@@ -99,11 +109,13 @@ class ModuloController extends Controller
         //
     }
 
-    public function getModulos($tipo, $subtipo)
+    public function getModulos($tipo, $subtipo, $sap, $sar)
     {
         $modulos = Proyecto::with('nombres:id,nombre','saps:id,valor')
         ->where('tipo_id', $tipo)
         ->where('subtipo_id', $subtipo)
+        ->where('sap', $sap)
+        ->where('sar', $sar)
         ->get();
 
         $listado = collect();
@@ -115,11 +127,14 @@ class ModuloController extends Controller
         return $listado->values()->all();
     }
 
-    public function modulosContructor($tipos,$subtipos)
+    public function modulosContructor($tipos, $subtipos, $sars)
     {
         $modulos = Modulo::where('tipos','like','%'.$tipos.'%')
         ->where('subtipos','like','%'.$subtipos.'%')
+        ->where('sar','like','%'.$sars.'%')
         ->get();
+
+        // dd($modulos);
 
         $nombres = collect();
         foreach ($modulos as $key => $value) {

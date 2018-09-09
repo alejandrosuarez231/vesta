@@ -50,7 +50,7 @@
       {data: 'tipos', name: 'tipos', title: 'Tipos'},
       {data: 'subtipos', name: 'subtipos', title: 'Subtipos'},
       {data: 'nombre', name: 'nombre', title: 'Nombre'},
-      {data: 'sar', name: 'sar', title: 'SAR', className: 'text-center'},
+      {data: 'sars.valor', name: 'sars.valor', title: 'SAR', className: 'text-center'},
       {data: 'numerologia', name: 'numerologia', title: 'SKU', className: 'text-center'},
       {data: 'action', name: 'action', title: 'Acciones', orderable: false, searchable: false, className: 'text-center'}
       ],

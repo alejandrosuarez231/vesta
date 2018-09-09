@@ -1,0 +1,108 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Confmat;
+use Illuminate\Http\Request;
+use Alert;
+use Yajra\DataTables\DataTables;
+
+class ConfmatController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('backend.confmats.index');
+    }
+
+    public function dataIndex()
+    {
+        $confmats = Confmat::with('materiale:id,nombre')->get();
+        return Datatables::of($confmats)
+        ->addColumn('action', function ($confmat) {
+            return '<a href="confmats/'.$confmat->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>';
+        })
+        ->make(true);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('backend.confmats.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'materiale_id' => 'required',
+            'productos.*' => 'required'
+        ]);
+
+        $confmat= new Confmat;
+        $confmat->materiale_id = $request->materiale_id;
+        $confmat->productos = implode(",",$request->productos);
+        $confmat->save();
+
+        toast('Registro creado!','success','top-right');
+        return redirect('/backend/confmats');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Confmat  $confmat
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Confmat $confmat)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Confmat  $confmat
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Confmat $confmat)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Confmat  $confmat
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Confmat $confmat)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Confmat  $confmat
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Confmat $confmat)
+    {
+        //
+    }
+}
