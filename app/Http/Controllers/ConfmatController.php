@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Confmat;
+use App\Producto;
 use Illuminate\Http\Request;
 use Alert;
 use Yajra\DataTables\DataTables;
@@ -23,9 +24,18 @@ class ConfmatController extends Controller
     {
         $confmats = Confmat::with('materiale:id,nombre')->get();
         return Datatables::of($confmats)
+        ->editColumn('productos', function(Confmat $confmat){
+            $output = null;
+            $productos = Producto::whereIn('id',explode(',',$confmat->productos))->get();
+            foreach ($productos as $key => $value) {
+                $output .= '<span class="badge badge-info mr-1">'. $value->nombre .'</span>';
+            }
+            return $output;
+      })
         ->addColumn('action', function ($confmat) {
             return '<a href="confmats/'.$confmat->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>';
         })
+        ->rawColumns(['productos','action'])
         ->make(true);
     }
 
