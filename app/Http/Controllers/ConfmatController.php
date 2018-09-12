@@ -71,6 +71,27 @@ class ConfmatController extends Controller
         return redirect('/backend/confmats');
     }
 
+    public function cotizar($material)
+    {
+        $confmats = Confmat::where('materiale_id',$material)->get();
+        $productos = Producto::whereIn('id', explode(',', $confmats->first()->productos))->get();
+
+        $listado = collect();
+        foreach ($productos as $value) {
+            $listado->push([
+                'label' => $value->nombre,
+                'value' => $value->id,
+                'sku' => $value->sku,
+                'ancho' => $value->ancho,
+                'largo' => $value->largo,
+                'espesor' => $value->espesor,
+                'extra' => $value->extra_id,
+                'color' => $value->color_id
+            ]);
+        }
+        return $listado;
+    }
+
     /**
      * Display the specified resource.
      *

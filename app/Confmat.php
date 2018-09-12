@@ -43,4 +43,5 @@ class Confmat extends Model
     // belongsTo(RelatedModel, foreignKey = materiale_id, keyOnRelatedModel = id)
     return $this->belongsTo(Materiale::class);
   }
+
 }

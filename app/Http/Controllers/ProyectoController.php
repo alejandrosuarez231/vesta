@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Proyecto;
 use App\Mtp;
 use App\Lista_materiale;
+use App\Descripcione;
 use Alert;
 use Yajra\DataTables\DataTables;
 
@@ -92,6 +93,38 @@ class ProyectoController extends Controller
         $materiales = Lista_materiale::with('material:id,nombre','descripcion:id,descripcion')->where('producto_id','=',$id)->get();
         // dd($materiales);
         return view('frontend.proyectos.show', compact('proyecto','mtps','materiales'));
+    }
+
+    public function cotizar($id)
+    {
+        $proyecto = Proyecto::with('tipo:id,nombre,tipologia','subtipo:id,nombre','unidad:id,nombre','saps:id,valor','sars:id,valor','nombres:id,nombre')->findOrFail($id);
+        $complementos = Mtp::with('tipo:id,nombre','subtipo:id,nombre','producto:id,nombre')->where('producto_id', $id)->get();
+        $piezas = Lista_materiale::with('material:id,nombre','descripcion:id,descripcion')->where('producto_id', $id)->get();
+
+        $gavetas_cant = Lista_materiale::where('producto_id', $id)->where('material_id',7)->count();
+
+        /* Data compuesta */
+        $data = collect(['proyecto' => $proyecto, 'complementos' => $complementos, 'piezas' => $piezas, 'gavetas_cant' => $gavetas_cant]);
+        return $data->toJson();
+    }
+
+    public function gavetas($tipo)
+    {
+        $gavetas_proyectos = Proyecto::with('tipo:id,nombre,tipologia','subtipo:id,nombre','unidad:id,nombre','saps:id,valor','sars:id,valor','nombres:id,nombre')
+        ->where('tipo_id', $tipo)
+        ->where('subtipo_id',46)
+        ->get();
+
+        $gavetas = collect();
+
+        foreach ($gavetas_proyectos as $value) {
+            $gavetas->push([
+                'value' => $value->id,
+                'label' => $value->descripcion,
+                'sku' => $value->sku
+            ]);
+        }
+        return $gavetas->toJson();
     }
 
     /**

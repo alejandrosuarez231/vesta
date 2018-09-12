@@ -94,6 +94,24 @@ class DescripcioneController extends Controller
         //
     }
 
+    public function gavetasTipo()
+    {
+      /* Define Gavetas */
+      $gaveta_descripciones = Descripcione::where('materiale_id','=', 7)->get();
+      $gavetas = collect();
+      foreach ($gaveta_descripciones as $value) {
+        $gavetas->push([
+          'value' => $value->id,
+          'label' => $value->descripcion,
+          'flargo' => $value->flargo,
+          'fancho' => $value->fancho,
+          'espesor' => $value->espesor,
+          'alto' => intval(preg_replace('/[^0-9]+/', '', $value->descripcion), 10)
+        ]);
+      }
+      return $gavetas->toJson();
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

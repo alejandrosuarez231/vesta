@@ -127,6 +127,11 @@ class ModuloController extends Controller
         return $listado->values()->all();
     }
 
+    public function moduloarmado(Proyecto $proyecto, $modulo)
+    {
+        //
+    }
+
     public function modulosContructor($tipos, $subtipos, $sars)
     {
         $modulos = Modulo::where('tipos','like','%'.$tipos.'%')

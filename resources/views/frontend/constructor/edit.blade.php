@@ -235,7 +235,7 @@
       axios.get('/getMateriales/' + '{{ $proyecto->id }}').then( response => { this.materiales = response.data }).catch(function(error){ console.log(error)});
       axios.get('/setMaterial/' + '{{ $proyecto->tipo_id }}' + '/' + '{{ $proyecto->subtipo_id }}').then( response => { this.materialesPSE = response.data }).catch(function(error){ console.log(error) });
 
-      axios.get('/modulosConstructor/' + '{{ $proyecto->tipo_id }}' + '/' + '{{ $proyecto->subtipo_id }}' + '/' + '{{ $proyecto->sap }}')
+      axios.get('/modulosConstructor/' + '{{ $proyecto->tipo_id }}' + '/' + '{{ $proyecto->subtipo_id }}' + '/' + '{{ $proyecto->sar }}')
         .then( response => {
           if(response.data.length < 1){
             swal(

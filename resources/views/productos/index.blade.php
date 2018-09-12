@@ -38,6 +38,7 @@
               <th>Importado</th>
               <th>Min</th>
               <th>Max</th>
+              <th>Acciones</th>
             </tr>
           </thead>
         </table>
@@ -66,6 +67,7 @@
       {data: 'sku', name: 'sku', title: 'SKU'},
       {data: 'tipo.nombre', name: 'tipo.nombre', title: 'Tipo'},
       {data: 'subtipo.nombre', name: 'subtipo.nombre', title: 'Sub Tipo'},
+      {data: 'nombre', name: 'nombre', title: 'Nombre'},
       {data: 'unidad.acronimo', name: 'unidad.acronimo', title: 'Unidad'},
       {data: 'ancho', name: 'ancho', title: 'Ancho', className: 'text-center'},
       {data: 'largo', name: 'largo', title: 'Largo', className: 'text-center'},
@@ -75,7 +77,7 @@
       {data: 'importado', name: 'importado', title: 'Importado'},
       {data: 'minimo', name: 'minimo', title: 'min'},
       {data: 'maximo', name: 'maximo', title: 'max'},
-      {data: 'action', name: 'action', orderable: false, searchable: false}
+      {data: 'action', name: 'action', title: 'Acciones', orderable: false, searchable: false}
       ],
       "language": {
         "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"

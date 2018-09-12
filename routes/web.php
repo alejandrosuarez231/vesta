@@ -48,14 +48,18 @@ Route::get('/dataMateriales', 'MaterialeController@indexData')->name('data.mater
 Route::get('/MaterialEditData/{id}', 'MaterialeController@editData')->name('data.materialesedit');
 Route::get('/setMaterial/{tipo}/{subtipo}', 'MaterialeController@setMaterial');
 Route::resource('/backend/materiales','MaterialeController');
+
 Route::get('/dataDescripciones', 'DescripcioneController@indexData')->name('data.descripciones');
+// Route::get('/gavetasTipo', 'DescripcioneController@gavetasTipo')->name('data.gavetasTipo');
 Route::get('/descripcionMaterial/{material}', 'DescripcioneController@descripcionMaterial');
 Route::resource('/backend/materiales/descripciones', 'DescripcioneController');
+
 Route::get('/dataConfparts', 'ConfpartController@dataIndex')->name('data.confparts');
 Route::get('/menuConfparts/{ids}', 'ConfpartController@menusar')->name('data.menuConfparts');
 Route::resource('/backend/confparts', 'ConfpartController');
 
 Route::get('/dataConfmats', 'ConfmatController@dataIndex')->name('data.confmats');
+Route::get('/materialCotiza/{material}', 'ConfmatController@cotizar')->name('data.materialCotiza');
 Route::resource('/backend/confmats', 'ConfmatController');
 
 Route::get('/dataModulos', 'ModuloController@indexData')->name('data.modulos');
@@ -77,9 +81,13 @@ Route::get('/getMateriales/{producto}', 'ListaMaterialeController@getMateriales'
 Route::patch('/frontend/constructor/{id}','ConstructorController@update')->name('constructor.update');
 Route::get('/productoslist', 'ProductoController@indexData')->name('productos.data');
 
-
+Route::get('/setCotizacion/{tipo}/{subtipo}', 'ProductoController@setCotizacion')->name('data.setCotizacion');
+Route::get('/getMtpSKU/{id}', 'ProductoController@getSKU')->name('data.getMtpSKU');
 Route::resource('/frontend/productos', 'ProductoController');
+
 Route::get('/dataProyectos', 'ProyectoController@indexData')->name('data.proyectos');
+Route::get('/dataGavetas/{tipo}', 'ProyectoController@gavetas')->name('data.gavetas');
+Route::get('/cotizaProyecto/{id}', 'ProyectoController@cotizar')->name('data.proyectocotiza');
 Route::resource('/frontend/proyectos', 'ProyectoController');
 Route::resource('/frontend/inventarios', 'InventarioController');
 Route::resource('/backend/codigos', 'CodigoController');

@@ -102,7 +102,7 @@ class Proyecto extends Model
   public function mtp()
   {
     // hasMany(RelatedModel, foreignKeyOnRelatedModel = producto_id, localKey = id)
-    return $this->hasMany(Mtp::class,'mtp','id');
+    return $this->hasMany(Mtp::class,'producto_id','id');
   }
   /**
    * Producto has many Lista.
@@ -112,7 +112,7 @@ class Proyecto extends Model
   public function lista_materiales()
   {
     // hasMany(RelatedModel, foreignKeyOnRelatedModel = producto_id, localKey = id)
-    return $this->hasMany(Lista_materiale::class);
+    return $this->hasMany(Lista_materiale::class,'producto_id','id');
   }
 
   /**

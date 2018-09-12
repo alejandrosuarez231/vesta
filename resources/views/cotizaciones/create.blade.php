@@ -67,20 +67,44 @@
               <div class="form-group mt-2 mr-2">
                 {!! Form::text('profundidad', null, ['class' => 'form-control form-control-sm','placeholder'=>'Profundidad']) !!}
               </div>
-              <div class="form-group mt-2 mr-2">
-                <select class="form-control form-control-sm" name="tipo_gaveta" >
-                  <option value="" disabled selected>Tipo Gaveta</option>
-                </select>
+
+              <div class="form-row">
+                <div class="form-group col-md-8 mt-2 mr-2">
+                  <select class="form-control form-control-sm" name="tipo_gaveta">
+                    <option value="" disabled selected>Tipo Gaveta</option>
+                    <option v-for="item in gavetas" :value="item.value">@{{ item.label }}</option>
+                  </select>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" value="1" id="prop_corredera">
+                  <label class="form-check-label" for="defaultCheck1">
+                    <small class="text-primary">c/Freno</small>
+                  </label>
+                </div>
               </div>
-              <div class="form-group mt-2 mr-2">
-                {!! Form::select('tipo_bisagra', \App\Subtipo::where('tipo_id',1)->whereIn('id',[1,2,3,4])->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Tipo de Bisagra']) !!}
+
+              <div class="form-row">
+                <div class="form-group col-md-8 mt-2 mr-2">
+                  {!! Form::select('tipo_bisagra', \App\Subtipo::where('tipo_id',1)->whereIn('id',[1,2,3,4])->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Tipo Bisagra', 'title' => 'Tipo de Bisagras']) !!}
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" value="1" id="prop_bisagra">
+                  <label class="form-check-label" for="defaultCheck1">
+                    <small class="text-primary">c/Freno</small>
+                  </label>
+                </div>
               </div>
+
               <div class="form-group mt-2 mr-2">
-                {!! Form::select('tirador', \App\Producto::where('tipo_id',9)->where('subtipo_id',37)->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Tirador']) !!}
+                {!! Form::select('tirador', \App\Producto::where('tipo_id',9)->where('subtipo_id',39)->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Tirador']) !!}
               </div>
               <div class="form-group mt-2 mr-2">
                 <select class="form-control form-control-sm" name="posicion_tirador" >
                   <option value="" disabled selected>Tirador posición</option>
+                  <option value="1">Central Superior</option>
+                  <option value="2">Exterior Superior</option>
+                  <option value="3">Exterior Medio</option>
+                  <option value="4">Exterior Inferior</option>
                 </select>
               </div>
             </div>
@@ -101,28 +125,28 @@
                 {!! Form::number('espesor_fondo', null, ['class' => 'form-control form-control-sm','placeholder' => 'Espesor Fondo']) !!}
               </div>
               <div class="form-group mt-2 mr-2">
-                {!! Form::select('material_caja', \App\Confmat::where('materiale_id',1)->pluck('productos','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Material Caja']) !!}
-                {{-- <select class="form-control form-control-sm" name="material_caja">
-                  <option value="" disabled selected>Material Caja</option>
-                </select> --}}
+                <select name="material_caja" class="form-control form-control-sm" v-model="material_caja">
+                  <option disabled selected value="">Material Caja</option>
+                  <option v-for="item in matcaja" :value="item.value">@{{ item.label }}</option>
+                </select>
               </div>
               <div class="form-group mt-2 mr-2">
-                {!! Form::select('material_frente', \App\Confmat::where('materiale_id',2)->pluck('productos','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Material Frente']) !!}
-                {{-- <select class="form-control form-control-sm" name="material_frente">
-                  <option value="" disabled selected>Material Frente</option>
-                </select> --}}
+                <select name="material_frente" class="form-control form-control-sm" v-model="material_frente">
+                  <option disabled selected value="">Material Frente</option>
+                  <option v-for="item in matfrente" :value="item.value">@{{ item.label }}</option>
+                </select>
               </div>
               <div class="form-group mt-2 mr-2">
-                {!! Form::select('material_fondo', \App\Confmat::where('materiale_id',3)->pluck('productos','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Material Fondo']) !!}
-                {{-- <select class="form-control form-control-sm" name="material_fondo">
-                  <option value="" disabled selected>Material Fondo</option>
-                </select> --}}
+                <select name="material_fondo" class="form-control form-control-sm" v-model="material_fondo">
+                  <option disabled selected value="">Material Fondo</option>
+                  <option v-for="item in matfondo" :value="item.value">@{{ item.label }}</option>
+                </select>
               </div>
               <div class="form-group mt-2 mr-2">
-                {!! Form::select('material_gaveta', \App\Confmat::where('materiale_id',7)->pluck('productos','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Material Gaveta']) !!}
-                {{-- <select class="form-control form-control-sm" name="material_gaveta">
-                  <option value="" disabled selected>Material Gaveta</option>
-                </select> --}}
+                <select name="material_gaveta" class="form-control form-control-sm" v-model="material_gaveta">
+                  <option disabled selected value="">Material Gaveta</option>
+                  <option v-for="item in matgaveta" :value="item.value">@{{ item.label }}</option>
+                </select>
               </div>
             </div>
           </div>
@@ -141,7 +165,7 @@
             </div>
           </div>
           <div class="form-group mt-2 mr-2">
-            <button type="button" class="btn btn-sm btn-primary" @click="getMaterial()">Añadir Modulo</button>
+            <button type="button" class="btn btn-sm btn-primary" @click="addModulo()">Añadir Modulo</button>
           </div>
         </div>
       </div>
@@ -151,7 +175,7 @@
 
   <div class="row mt-2">
     <div class="col-md">
-      <table class="table">
+      <table class="table table-sm">
         <caption>Modulos</caption>
         <thead>
           <tr>
@@ -167,12 +191,51 @@
         <tbody>
           <tr v-for="(item, index) in modulos" track-by="index">
             <td>@{{ item.sku }}</td>
-            <td>@{{ item.skucomercial }}</td>
-            <td>@{{ item.tipo }}</td>
-            <td>@{{ item.subtipo }}</td>
-            <td>@{{ item.nombre }}</td>
-            <td>@{{ item.sap }}</td>
-            <td>@{{ item.sar }}</td>
+            <td>@{{ item.codigo }}</td>
+            <td>@{{ item.tipo.nombre }}</td>
+            <td>@{{ item.subtipo.nombre }}</td>
+            <td>@{{ item.nombres.nombre }}</td>
+            <td>@{{ item.saps.valor }}</td>
+            <td>@{{ item.sars.valor }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-md">
+      <table class="table table-sm">
+        <caption>Complementos (MTP's)</caption>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>SKU/Padre</th>
+            <th>Tipo</th>
+            <th>Subtipo</th>
+            <th>Producto</th>
+            <th class="text-center">SKU</th>
+            <th class="text-center">Cantidad</th>
+            <th>Precio/Unid</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(mtp, index) in mtps" track-by="index">
+            <td>@{{ index + 1 }}</td>
+            <td>@{{ sku_padre }}</td>
+            <td>@{{ mtp.tipo.nombre }}</td>
+            <td>@{{ mtp.subtipo.nombre }}</td>
+            <td width="20%">
+              <select name="mtp_producto[]" class="form-control form-control-sm" v-model="mtp.producto" @change="skumtp(mtp.producto,index)">
+                <option value="" disabled selected>Producto</option>
+                <option v-for="item in mtpProductosList[index]" :value="item.value">@{{ item.label }}</option>
+              </select>
+            </td>
+            <td class="text-center">@{{ skumtpPro[index] }}</td>
+            <td class="text-center">@{{ mtp.cantidad }}</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
           </tr>
         </tbody>
       </table>
@@ -182,44 +245,32 @@
 
   <div class="row mt-2">
     <div class="col-md">
-      <table class="table">
-        <caption>Complementos y Piezas</caption>
+      <table class="table table-sm">
+        <caption>Piezas (Materiales)</caption>
         <thead>
           <tr>
-            <th>Codigo</th>
-            <th>Codigo/Padre</th>
+            <th>#</th>
+            <th>SKU/Padre</th>
+            <th>SKU</th>
+            <th>Material</th>
             <th>Descripción</th>
-            <th>Categoria</th>
-            <th>Bisagras</th>
-            <th>Gavetas</th>
-            <th>Tirador</th>
-            <th>Posición</th>
-            <th>Alto</th>
-            <th>Ancho</th>
-            <th>Profundidad</th>
-            <th>Cantidad</th>
+            <th class="text-center">Categoria</th>
+            <th class="text-center">Cantidad</th>
             <th>Precio/Unid</th>
             <th>Subtotal</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(material, indice) in materiales" track-by="indice">
-            <td>data</td>
-            <td>data</td>
-            <td>data</td>
-            <td>data</td>
-            <td>data</td>
-            <td>data</td>
-            <td>data</td>
-            <td>data</td>
-            <td>data</td>
-            <td>data</td>
-            <td>data</td>
-            <td>data</td>
-            <td>data</td>
-            <td>data</td>
-            <td><a class="btn btn-link text-danger" href="#" title="Eliminar" @click="removeRowMAT(indice)" v-if="materiales.length > 1"><i class="fas fa-minus"></i></a></td>
+            <td>@{{ indice + 1 }}</td>
+            <td>@{{ sku_padre }}</td>
+            <td></td>
+            <td>@{{ material.material.nombre }}</td>
+            <td>@{{ material.descripcion.descripcion }}</td>
+            <td class="text-center">@{{ banda }}</td>
+            <td class="text-center">@{{ material.cantidad }}</td>
+            <td></td>
+            <td></td>
           </tr>
         </tbody>
       </table>
@@ -234,7 +285,16 @@
   var app = new Vue({
     el: '#app',
 
+    created(){
+      axios.get('/materialCotiza/1').then( response => { this.matcaja = response.data }).catch(function(error) { console.log(error) });
+      axios.get('/materialCotiza/2').then( response => { this.matfrente = response.data }).catch(function(error) { console.log(error) });
+      axios.get('/materialCotiza/3').then( response => { this.matfondo = response.data }).catch(function(error) { console.log(error) });
+      axios.get('/materialCotiza/7').then( response => { this.matgaveta = response.data }).catch(function(error) { console.log(error) });
+      // axios.get('/gavetasTipo').then( response => { this.gavetas = response.data }).catch(function(error) { console.log(error)});
+    },
+
     data: {
+      sku_padre: '',
       tipo: '',
       subtipos: '',
       subtipo: '',
@@ -244,17 +304,36 @@
       modulosList: [],
       modulos: [],
       materiales: [],
-      banda: ''
+      banda: '',
+      matcaja: [],
+      material_caja: '',
+      matfrente: [],
+      material_frente: '',
+      matfondo: [],
+      material_fondo: '',
+      matgaveta: [],
+      material_gaveta: '',
+      proyecto: '',
+      complementos: '',
+      mtpProductosList: [],
+      mtps: '',
+      piezas: '',
+      gavetas_cant: '',
+      gavetas: '',
+      skumtpPro: []
     },
 
     watch: {
       tipo: function(){
         if(this.tipo > 0){
+          axios.get('/dataGavetas/' + this.tipo).then( response => { this.gavetas = response.data }).catch( function(error) { console.log(error)});
           axios.get('/subtipos/' + this.tipo)
           .then( response => {
             this.subtipos = response.data;
           })
+          .catch(function(error) { console.log(error)})
         }else if(this.tipo > 0 && this.subtipo > 0 && this.sap > 0 && this.sar > 0){
+          axios.get('/dataGavetas/' + this.tipo).then( response => { this.gavetas = response.data }).catch( function(error) { console.log(error)});
           this.getModulos();
         }
       },
@@ -266,6 +345,35 @@
       sar: function(){
         if(this.tipo > 0 && this.subtipo > 0 && this.sap > 0 && this.sar > 0){
           this.getModulos();
+        }
+      },
+      modulo: function(){
+        if(this.modulo > 0){
+          axios.get('/cotizaProyecto/' + this.modulo)
+          .then( response => {
+            this.proyecto = response.data.proyecto;
+            this.sku_padre = response.data.proyecto.sku;
+            this.complementos = response.data.complementos;
+            this.piezas = response.data.piezas;
+            this.gavetas_cant = response.data.gavetas_cant;
+            // console.log(this.complementos);
+            // console.log(this.proyecto)
+          })
+          .catch(function(error){
+            console.log(error)
+          })
+        }
+      },
+      mtps: function(){
+        for (var i = 0; i < this.mtps.length; i++) {
+          // console.log(i);
+          axios.get('/setCotizacion/' + this.mtps[i].mtp_tipo_id + '/' + this.mtps[i].mtp_subtipo_id)
+          .then(response => {
+            this.mtpProductosList.splice(i, 1, response.data)
+          })
+          .catch(function(error){
+            console.log(error)
+          })
         }
       }
     },
@@ -288,6 +396,18 @@
         })
         .catch( function(error) {
           console.log(error)
+        })
+      },
+      addModulo: function(){
+        this.modulos.push(this.proyecto);
+        this.mtps = this.complementos;
+        this.materiales = this.piezas;
+      },
+      skumtp: function(id,index){
+        axios.get('/getMtpSKU/' + id)
+        .then( response => {
+          this.skumtpPro.splice(index, 1, response.data);
+          // console.log(response.data);
         })
       }
     },

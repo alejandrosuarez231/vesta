@@ -98,7 +98,7 @@ class ProductoController extends Controller
       $mtp->ancho = $request->ancho;
       $mtp->largo = $request->largo;
       $mtp->espesor = $request->espesor;
-      $mtp->propiedades = $request->propiedades;
+      $mtp->propiedad_id = $request->propiedades;
       $mtp->extra_id = $request->extra_id;
       $mtp->minimo = $request->minimo;
       $mtp->maximo = $request->maximo;
@@ -150,7 +150,8 @@ class ProductoController extends Controller
     {
       if($request->tipo_id < 11){
         $this->validate($request, [
-          'sku' => 'required|unique:productos,sku|min:14',
+          // 'sku' => 'required|unique:productos,sku|min:14',
+          'sku' => 'required',
           'tipo_id' => 'required',
           'subtipo_id' => 'required',
           'nombre' => 'required',
@@ -188,6 +189,44 @@ class ProductoController extends Controller
       $mtp->save();
       alert()->success('Registro Actualizado','Producto Editado');
       return redirect('frontend/productos');
+    }
+
+    public function setCotizacion($tipo,$subtipo)
+    {
+      $productos = Producto::with('tipo:id,nombre','extra:id,propiedad','marca:id,nombre')
+      ->where('tipo_id',$tipo)
+      ->where('subtipo_id', $subtipo)
+      ->get();
+
+      if($productos->count() > 0){
+        $coleccion = collect();
+        foreach ($productos as $value) {
+          if( isset($value->extra->propiedad) ){
+            $coleccion->push([
+              'label' => $value->nombre .'|:'.$value->extra->propiedad . '|: '. $value->marca->nombre,
+              'value' => $value->id,
+              'sku' => $value->sku
+            ]);
+          }else {
+            $coleccion->push([
+              'label' => $value->nombre . '|: ' . $value->marca->nombre,
+              'value' => $value->id,
+              'sku' => $value->sku
+            ]);
+          }
+        }
+        return $coleccion->toJson();
+      }else {
+        $coleccion = collect(['label' => 'Sin Registros', 'value' => -1]);
+        return $coleccion->toJson();
+      }
+    }
+
+    public function getSKU($id)
+    {
+      $producto = Producto::findOrFail($id);
+      $sku = $producto->sku;
+      return $sku;
     }
 
     /**

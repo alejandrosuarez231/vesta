@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
           PropsextrasSeeder::class,
           ProductosSeeder::class,
           ConfpartSeed::class,
+          ConfMatsSeeder::class,
           ProyectosSeeder::class,
           MtpsSeeder::class,
           ModulosSeeder::class,
