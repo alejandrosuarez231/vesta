@@ -186,6 +186,7 @@
             <th>Nombre</th>
             <th>Sist. de Apertura</th>
             <th>Sist. de Armado</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -197,6 +198,7 @@
             <td>@{{ item.nombres.nombre }}</td>
             <td>@{{ item.saps.valor }}</td>
             <td>@{{ item.sars.valor }}</td>
+            <td><a class="btn btn-link text-danger align-middle" href="#" title="Eliminar"><i class="fas fa-minus fa-xs"></i></a></td>
           </tr>
         </tbody>
       </table>
