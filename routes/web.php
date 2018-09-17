@@ -86,7 +86,9 @@ Route::get('/getMtpSKU/{id}', 'ProductoController@getSKU')->name('data.getMtpSKU
 Route::resource('/frontend/productos', 'ProductoController');
 
 Route::get('/dataProyectos', 'ProyectoController@indexData')->name('data.proyectos');
-Route::get('/dataGavetas/{tipo}', 'ProyectoController@gavetas')->name('data.gavetas');
+Route::get('/dataGavetas', 'ProyectoController@gavetas')->name('data.gavetas');
+Route::get('/dataBisagras', 'ProyectoController@bisagras')->name('data.bisagras');
+Route::get('/dataTiradores', 'ProyectoController@tiradores')->name('data.tiradores');
 Route::get('/cotizaProyecto/{id}', 'ProyectoController@cotizar')->name('data.proyectocotiza');
 Route::resource('/frontend/proyectos', 'ProyectoController');
 Route::resource('/frontend/inventarios', 'InventarioController');

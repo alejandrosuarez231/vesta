@@ -7,6 +7,7 @@ use App\Proyecto;
 use App\Mtp;
 use App\Lista_materiale;
 use App\Descripcione;
+use App\Producto;
 use Alert;
 use Yajra\DataTables\DataTables;
 
@@ -99,32 +100,96 @@ class ProyectoController extends Controller
     {
         $proyecto = Proyecto::with('tipo:id,nombre,tipologia','subtipo:id,nombre','unidad:id,nombre','saps:id,valor','sars:id,valor','nombres:id,nombre')->findOrFail($id);
         $complementos = Mtp::with('tipo:id,nombre','subtipo:id,nombre','producto:id,nombre')->where('producto_id', $id)->get();
+        $complementos_list = collect();
+        foreach ($complementos as $value) {
+            $complementos_list->push([
+                'id' => $value->id,
+                'skup' => $proyecto->sku,
+                'producto_id' => $value->producto_id,
+                'tipo' => $value->tipo->nombre,
+                'subtipo' => $value->subtipo->nombre,
+                'cantidad' => $value->cantidad
+            ]);
+        }
         $piezas = Lista_materiale::with('material:id,nombre','descripcion:id,descripcion')->where('producto_id', $id)->get();
+        $piezas_list = collect();
+        foreach ($piezas as $value) {
+            $piezas_list->push([
+                'id' => $value->id,
+                'skup' => $proyecto->sku,
+                'material' => $value->material->nombre ,
+                'descripcion' => $value->descripcion->descripcion ,
+                'largo' => $value->largo ,
+                'alto' => $value->alto ,
+                'profundidad' => $value->profundidad ,
+                'largo_izq' => $value->largo_izq ,
+                'largo_der' => $value->largo_der ,
+                'alto_sup' => $value->alto_sup ,
+                'alto_inf' => $value->alto_inf ,
+                'mec1' => $value->mec1,
+                'mec2' => $value->mec2,
+                'cantidad' => $value->cantidad ,
+            ]);
+        }
 
         $gavetas_cant = Lista_materiale::where('producto_id', $id)->where('material_id',7)->count();
 
         /* Data compuesta */
-        $data = collect(['proyecto' => $proyecto, 'complementos' => $complementos, 'piezas' => $piezas, 'gavetas_cant' => $gavetas_cant]);
+        $data = collect(['proyecto' => $proyecto, 'complementos' => $complementos_list, 'piezas' => $piezas_list, 'gavetas_cant' => $gavetas_cant]);
         return $data->toJson();
     }
 
-    public function gavetas($tipo)
+    public function gavetas()
     {
-        $gavetas_proyectos = Proyecto::with('tipo:id,nombre,tipologia','subtipo:id,nombre','unidad:id,nombre','saps:id,valor','sars:id,valor','nombres:id,nombre')
-        ->where('tipo_id', $tipo)
-        ->where('subtipo_id',46)
-        ->get();
+        $gavetas_proyectos = Producto::with('marca:id,nombre','extra:id,propiedad')->where('tipo_id',3)->get();
+
+        // dd($gavetas_proyectos);
 
         $gavetas = collect();
 
         foreach ($gavetas_proyectos as $value) {
             $gavetas->push([
                 'value' => $value->id,
-                'label' => $value->descripcion,
+                'label' => $value->nombre . ' : ' . $value->marca->nombre,
                 'sku' => $value->sku
             ]);
         }
         return $gavetas->toJson();
+    }
+
+    public function bisagras()
+    {
+        $bisagras_proyectos = Producto::with('subtipo:id,nombre','marca:id,nombre','extra:id,propiedad')->where('tipo_id',1)->get();
+
+        // dd($bisagras_proyectos);
+
+        $bisagras = collect();
+        foreach ($bisagras_proyectos->sortBy('nombre') as $value) {
+            $bisagras->push([
+                'value' => $value->id,
+                'label' => $value->nombre . ' : ' . $value->marca->nombre,
+                'sku' => $value->sku
+            ]);
+        }
+
+        return $bisagras->toJson();
+    }
+
+    public function tiradores()
+    {
+        $tirador_proyecto = Producto::with('marca:id,nombre')->where('tipo_id',9)->where('subtipo_id',39)->get();
+        // dd($tirador_proyecto);
+
+        $tiradores = collect();
+        foreach ($tirador_proyecto as $value) {
+            $tiradores->push([
+                'value' => $value->id,
+                'label' => $value->nombre . ' : ' . $value->marca->nombre,
+                'sku' => $value->sku
+            ]);
+        }
+
+        return $tiradores->toJson();
     }
 
     /**

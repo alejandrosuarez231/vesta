@@ -23,7 +23,7 @@ class ProductoController extends Controller
     }
 
     public function indexData(){
-      $productos = Producto::with('tipo:id,nombre,tipologia','subtipo:id,nombre','unidad:id,nombre,acronimo','extra:id,propiedad')->get();
+      $productos = Producto::with('tipo:id,nombre,tipologia','subtipo:id,nombre','unidad:id,nombre,acronimo','extra:id,propiedad','marca:id,nombre')->get();
       // dd($productos->first());
       return Datatables::of($productos)
       ->editColumn('extra.propiedad', function(Producto $producto){

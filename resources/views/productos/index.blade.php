@@ -29,6 +29,7 @@
               <th>Tipo</th>
               <th>Sub Tipo</th>
               <th>Nombre</th>
+              <th>Marca</th>
               <th>Unidad</th>
               <th>Ancho</th>
               <th>Largo</th>
@@ -68,6 +69,7 @@
       {data: 'tipo.nombre', name: 'tipo.nombre', title: 'Tipo'},
       {data: 'subtipo.nombre', name: 'subtipo.nombre', title: 'Sub Tipo'},
       {data: 'nombre', name: 'nombre', title: 'Nombre'},
+      {data: 'marca.nombre', name: 'marca.nombre', title: 'Marca'},
       {data: 'unidad.acronimo', name: 'unidad.acronimo', title: 'Unidad'},
       {data: 'ancho', name: 'ancho', title: 'Ancho', className: 'text-center'},
       {data: 'largo', name: 'largo', title: 'Largo', className: 'text-center'},

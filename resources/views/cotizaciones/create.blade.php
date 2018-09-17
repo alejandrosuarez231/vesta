@@ -67,36 +67,26 @@
               <div class="form-group mt-2 mr-2">
                 {!! Form::text('profundidad', null, ['class' => 'form-control form-control-sm','placeholder'=>'Profundidad']) !!}
               </div>
-
-              <div class="form-row">
-                <div class="form-group col-md-8 mt-2 mr-2">
-                  <select class="form-control form-control-sm" name="tipo_gaveta">
-                    <option value="" disabled selected>Tipo Gaveta</option>
-                    <option v-for="item in gavetas" :value="item.value">@{{ item.label }}</option>
-                  </select>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" value="1" id="prop_corredera">
-                  <label class="form-check-label" for="defaultCheck1">
-                    <small class="text-primary">c/Freno</small>
-                  </label>
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div class="form-group col-md-8 mt-2 mr-2">
-                  {!! Form::select('tipo_bisagra', \App\Subtipo::where('tipo_id',1)->whereIn('id',[1,2,3,4])->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Tipo Bisagra', 'title' => 'Tipo de Bisagras']) !!}
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" value="1" id="prop_bisagra">
-                  <label class="form-check-label" for="defaultCheck1">
-                    <small class="text-primary">c/Freno</small>
-                  </label>
-                </div>
+              <div class="form-group mt-2 mr-2">
+                <select class="form-control form-control-sm" name="tipo_gaveta" v-model="gaveta_tipo">
+                  <option value="" disabled selected>Tipo Gaveta</option>
+                  <option v-for="item in gavetas" :value="item.value">@{{ item.label }}</option>
+                </select>
               </div>
 
               <div class="form-group mt-2 mr-2">
-                {!! Form::select('tirador', \App\Producto::where('tipo_id',9)->where('subtipo_id',39)->pluck('nombre','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Tirador']) !!}
+                <select class="form-control form-control-sm" name="tipo_bisagra" v-model="bisagra_tipo">
+                  <option value="" disabled selected>Tipo Bisagras</option>
+                  <option v-for="item in bisagras" :value="item.value">@{{ item.label }}</option>
+                </select>
+              </div>
+
+
+              <div class="form-group mt-2 mr-2">
+                <select class="form-control form-control-sm" name="tirador" v-model="tirador">
+                  <option value="" disabled selected>Tirador</option>
+                  <option v-for="item in tiradores" :value="item.value">@{{ item.label }}</option>
+                </select>
               </div>
               <div class="form-group mt-2 mr-2">
                 <select class="form-control form-control-sm" name="posicion_tirador" >
@@ -215,8 +205,6 @@
             <th>SKU/Padre</th>
             <th>Tipo</th>
             <th>Subtipo</th>
-            <th>Producto</th>
-            <th class="text-center">SKU</th>
             <th class="text-center">Cantidad</th>
             <th>Precio/Unid</th>
             <th>Subtotal</th>
@@ -225,16 +213,9 @@
         <tbody>
           <tr v-for="(mtp, index) in mtps" track-by="index">
             <td>@{{ index + 1 }}</td>
-            <td>@{{ sku_padre }}</td>
-            <td>@{{ mtp.tipo.nombre }}</td>
-            <td>@{{ mtp.subtipo.nombre }}</td>
-            <td width="20%">
-              <select name="mtp_producto[]" class="form-control form-control-sm" v-model="mtp.producto" @change="skumtp(mtp.producto,index)">
-                <option value="" disabled selected>Producto</option>
-                <option v-for="item in mtpProductosList[index]" :value="item.value">@{{ item.label }}</option>
-              </select>
-            </td>
-            <td class="text-center">@{{ skumtpPro[index] }}</td>
+            <td>@{{ mtp.skup }}</td>
+            <td>@{{ mtp.tipo }}</td>
+            <td>@{{ mtp.subtipo }}</td>
             <td class="text-center">@{{ mtp.cantidad }}</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -253,9 +234,17 @@
           <tr>
             <th>#</th>
             <th>SKU/Padre</th>
-            <th>SKU</th>
             <th>Material</th>
             <th>Descripción</th>
+            <th>Largo</th>
+            <th>Alto</th>
+            <th>Profundidad</th>
+            <th>Canto <small>Izq</small></th>
+            <th>Canto <small>Der</small></th>
+            <th>Canto <small>Sup</small></th>
+            <th>Canto <small>Inf</small></th>
+            <th>Mec1</th>
+            <th>Mec2</th>
             <th class="text-center">Categoria</th>
             <th class="text-center">Cantidad</th>
             <th>Precio/Unid</th>
@@ -265,10 +254,18 @@
         <tbody>
           <tr v-for="(material, indice) in materiales" track-by="indice">
             <td>@{{ indice + 1 }}</td>
-            <td>@{{ sku_padre }}</td>
-            <td></td>
-            <td>@{{ material.material.nombre }}</td>
-            <td>@{{ material.descripcion.descripcion }}</td>
+            <td>@{{ material.skup }}</td>
+            <td>@{{ material.material }}</td>
+            <td>@{{ material.descripcion }}</td>
+            <td>@{{ material.largo }}</td>
+            <td>@{{ material.alto }}</td>
+            <td>@{{ material.profundidad }}</td>
+            <td>@{{ material.largo_izq }}</td>
+            <td>@{{ material.largo_der }}</td>
+            <td>@{{ material.alto_sup }}</td>
+            <td>@{{ material.alto_inf }}</td>
+            <td>@{{ material.mec1 }}</td>
+            <td>@{{ material.mec2 }}</td>
             <td class="text-center">@{{ banda }}</td>
             <td class="text-center">@{{ material.cantidad }}</td>
             <td></td>
@@ -292,7 +289,9 @@
       axios.get('/materialCotiza/2').then( response => { this.matfrente = response.data }).catch(function(error) { console.log(error) });
       axios.get('/materialCotiza/3').then( response => { this.matfondo = response.data }).catch(function(error) { console.log(error) });
       axios.get('/materialCotiza/7').then( response => { this.matgaveta = response.data }).catch(function(error) { console.log(error) });
-      // axios.get('/gavetasTipo').then( response => { this.gavetas = response.data }).catch(function(error) { console.log(error)});
+      axios.get('/dataGavetas').then( response => { this.gavetas = response.data }).catch( function(error) { console.log(error)});
+      axios.get('/dataBisagras').then( response => { this.bisagras = response.data }).catch( function(error) { console.log(error)});
+      axios.get('/dataTiradores').then( response => { this.tiradores = response.data }).catch( function(error) { console.log(error)});
     },
 
     data: {
@@ -317,25 +316,28 @@
       material_gaveta: '',
       proyecto: '',
       complementos: '',
-      mtpProductosList: [],
-      mtps: '',
+      // mtpProductosList: [],
+      mtps: [],
       piezas: '',
       gavetas_cant: '',
       gavetas: '',
-      skumtpPro: []
+      gaveta_tipo: '',
+      bisagras: '',
+      bisagra_tipo: '',
+      tirador: '',
+      tiradores: '',
+      // skumtpPro: []
     },
 
     watch: {
       tipo: function(){
         if(this.tipo > 0){
-          axios.get('/dataGavetas/' + this.tipo).then( response => { this.gavetas = response.data }).catch( function(error) { console.log(error)});
           axios.get('/subtipos/' + this.tipo)
           .then( response => {
             this.subtipos = response.data;
           })
           .catch(function(error) { console.log(error)})
         }else if(this.tipo > 0 && this.subtipo > 0 && this.sap > 0 && this.sar > 0){
-          axios.get('/dataGavetas/' + this.tipo).then( response => { this.gavetas = response.data }).catch( function(error) { console.log(error)});
           this.getModulos();
         }
       },
@@ -359,19 +361,7 @@
             this.piezas = response.data.piezas;
             this.gavetas_cant = response.data.gavetas_cant;
             // console.log(this.complementos);
-            // console.log(this.proyecto)
-          })
-          .catch(function(error){
-            console.log(error)
-          })
-        }
-      },
-      mtps: function(){
-        for (var i = 0; i < this.mtps.length; i++) {
-          // console.log(i);
-          axios.get('/setCotizacion/' + this.mtps[i].mtp_tipo_id + '/' + this.mtps[i].mtp_subtipo_id)
-          .then(response => {
-            this.mtpProductosList.splice(i, 1, response.data)
+            // console.log(this.piezas)
           })
           .catch(function(error){
             console.log(error)
@@ -402,17 +392,16 @@
       },
       addModulo: function(){
         this.modulos.push(this.proyecto);
-        this.mtps = this.complementos;
-        this.materiales = this.piezas;
+
+        for (var i = 0; i < this.complementos.length; i++) {
+          this.mtps.push(this.complementos[i]);
+        }
+
+        for (var i = 0; i < this.piezas.length; i++) {
+          this.materiales.push(this.piezas[i]);
+        }
       },
-      skumtp: function(id,index){
-        axios.get('/getMtpSKU/' + id)
-        .then( response => {
-          this.skumtpPro.splice(index, 1, response.data);
-          // console.log(response.data);
-        })
-      }
-    },
+    }
 
   })
 </script>
