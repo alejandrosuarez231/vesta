@@ -8,6 +8,7 @@ use App\Mtp;
 use App\Lista_materiale;
 use App\Descripcione;
 use App\Producto;
+use App\Subtipo;
 use Alert;
 use Yajra\DataTables\DataTables;
 
@@ -141,17 +142,13 @@ class ProyectoController extends Controller
 
     public function gavetas()
     {
-        $gavetas_proyectos = Producto::with('marca:id,nombre','extra:id,propiedad')->where('tipo_id',3)->get();
-
-        // dd($gavetas_proyectos);
-
+        $gavetas_proyectos = SubTipo::where('tipo_id',3)->get();
         $gavetas = collect();
 
         foreach ($gavetas_proyectos as $value) {
             $gavetas->push([
                 'value' => $value->id,
-                'label' => $value->nombre . ' : ' . $value->marca->nombre,
-                'sku' => $value->sku
+                'label' => str_replace('Correderas ','',$value->nombre)
             ]);
         }
         return $gavetas->toJson();
@@ -159,16 +156,12 @@ class ProyectoController extends Controller
 
     public function bisagras()
     {
-        $bisagras_proyectos = Producto::with('subtipo:id,nombre','marca:id,nombre','extra:id,propiedad')->where('tipo_id',1)->get();
-
-        // dd($bisagras_proyectos);
-
+        $bisagras_proyectos = SubTipo::where('tipo_id',1)->get();
         $bisagras = collect();
         foreach ($bisagras_proyectos->sortBy('nombre') as $value) {
             $bisagras->push([
                 'value' => $value->id,
-                'label' => $value->nombre . ' : ' . $value->marca->nombre,
-                'sku' => $value->sku
+                'label' => str_replace('Bisagras ','',$value->nombre)
             ]);
         }
 
@@ -190,6 +183,26 @@ class ProyectoController extends Controller
         }
 
         return $tiradores->toJson();
+    }
+
+    public function marcasHerrajes($tipo, $subtipo, $extra)
+    {
+        $marcas_proyectos = Producto::with('marca:id,nombre')
+        ->where('tipo_id',$tipo)
+        ->where('subtipo_id', $subtipo)
+        ->where('extra_id', $extra)
+        ->get();
+
+        $marcas = collect();
+        foreach ($marcas_proyectos as $value) {
+            $marcas->push([
+                'value' => $value->id,
+                'label' => $value->marca->nombre,
+                'sku' => $value->sku
+            ]);
+        }
+
+        return $marcas->toJson();
     }
 
     /**

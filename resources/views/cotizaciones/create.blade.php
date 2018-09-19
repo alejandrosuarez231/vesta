@@ -54,49 +54,85 @@
           </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-4">
           <div class="card">
             <div class="card-body">
               <h6 class="card-title">Propiedades</h6>
-              <div class="form-group mt-2 mr-2">
-                {!! Form::text('ancho', null, ['class' => 'form-control form-control-sm','placeholder'=>'Ancho']) !!}
-              </div>
-              <div class="form-group mt-2 mr-2">
-                {!! Form::text('alto', null, ['class' => 'form-control form-control-sm','placeholder'=>'Alto']) !!}
-              </div>
-              <div class="form-group mt-2 mr-2">
-                {!! Form::text('profundidad', null, ['class' => 'form-control form-control-sm','placeholder'=>'Profundidad']) !!}
-              </div>
-              <div class="form-group mt-2 mr-2">
-                <select class="form-control form-control-sm" name="tipo_gaveta" v-model="gaveta_tipo">
-                  <option value="" disabled selected>Tipo Gaveta</option>
-                  <option v-for="item in gavetas" :value="item.value">@{{ item.label }}</option>
-                </select>
+
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  {!! Form::text('ancho', null, ['class' => 'form-control form-control-sm','placeholder'=>'Ancho']) !!}
+                </div>
+                <div class="form-group col-md-4">
+                  {!! Form::text('alto', null, ['class' => 'form-control form-control-sm','placeholder'=>'Alto']) !!}
+                </div>
+                <div class="form-group col-md-4">
+                  {!! Form::text('profundidad', null, ['class' => 'form-control form-control-sm','placeholder'=>'Profundidad']) !!}
+                </div>
               </div>
 
-              <div class="form-group mt-2 mr-2">
-                <select class="form-control form-control-sm" name="tipo_bisagra" v-model="bisagra_tipo">
-                  <option value="" disabled selected>Tipo Bisagras</option>
-                  <option v-for="item in bisagras" :value="item.value">@{{ item.label }}</option>
-                </select>
+              <div class="form-row">
+                <div class="form-group col-md">
+                  <select class="form-control form-control-sm" name="tipo_gaveta" v-model="gaveta_tipo">
+                    <option value="" disabled selected>Tipo Gaveta</option>
+                    <option v-for="item in gavetas" :value="item.value">@{{ item.label }}</option>
+                  </select>
+                </div>
+                <div class="form-group col-md">
+                  <select class="form-control form-control-sm" name="tipo_gaveta_prop" v-model="gaveta_tipo_prop">
+                    <option value="" disabled selected>Pro/Ext</option>
+                    <option value="1">Con Freno</option>
+                    <option value="2">Sin Freno</option>
+                  </select>
+                </div>
+                <div class="form-group col-md">
+                  <select name="" class="form-control form-control-sm" v-model="corredera">
+                    <option value="" disabled selected>Marca</option>
+                    <option v-for="item in MarcasGavList" :value="item.value">@{{ item.label }}</option>
+                  </select>
+                </div>
               </div>
 
+              <div class="form-row">
+                <div class="form-group col-md">
+                  <select class="form-control form-control-sm" name="tipo_bisagra" v-model="bisagra_tipo">
+                    <option value="" disabled selected>Tipo Bisagras</option>
+                    <option v-for="item in bisagras" :value="item.value">@{{ item.label }}</option>
+                  </select>
+                </div>
+                <div class="form-group col-md">
+                  <select class="form-control form-control-sm" name="bisagra_tipo_prop" v-model="bisagra_tipo_prop">
+                    <option value="" disabled selected>Pro/Ext</option>
+                    <option value="1">Con Freno</option>
+                    <option value="2">Sin Freno</option>
+                  </select>
+                </div>
+                <div class="form-group col-md">
+                  <select name="" class="form-control form-control-sm" v-model="bisagra">
+                    <option value="" disabled selected>Marca</option>
+                    <option v-for="item in MarcasBisList" :value="item.value">@{{ item.label }}</option>
+                  </select>
+                </div>
+              </div>
 
-              <div class="form-group mt-2 mr-2">
-                <select class="form-control form-control-sm" name="tirador" v-model="tirador">
-                  <option value="" disabled selected>Tirador</option>
-                  <option v-for="item in tiradores" :value="item.value">@{{ item.label }}</option>
-                </select>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <select class="form-control form-control-sm" name="tirador" v-model="tirador">
+                    <option value="" disabled selected>Tirador</option>
+                    <option v-for="item in tiradores" :value="item.value">@{{ item.label }}</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <select class="form-control form-control-sm" name="posicion_tirador" >
+                    <option value="" disabled selected>Tirador posición</option>
+                    <option value="1">Central Superior</option>
+                    <option value="2">Exterior Superior</option>
+                    <option value="3">Exterior Medio</option>
+                    <option value="4">Exterior Inferior</option>
+                  </select>
+                </div>
               </div>
-              <div class="form-group mt-2 mr-2">
-                <select class="form-control form-control-sm" name="posicion_tirador" >
-                  <option value="" disabled selected>Tirador posición</option>
-                  <option value="1">Central Superior</option>
-                  <option value="2">Exterior Superior</option>
-                  <option value="3">Exterior Medio</option>
-                  <option value="4">Exterior Inferior</option>
-                </select>
-              </div>
+
             </div>
           </div>
         </div>
@@ -105,34 +141,34 @@
           <div class="card">
             <div class="card-body">
               <h6 class="card-title">Materiales</h6>
-              <div class="form-group mt-2 mr-2">
+              <div class="form-group mr-2">
                 {!! Form::number('espesor_caja', null, ['class' => 'form-control form-control-sm','placeholder' => 'Espesor Caja']) !!}
               </div>
-              <div class="form-group mt-2 mr-2">
+              <div class="form-group mr-2">
                 {!! Form::number('espesor_frente', null, ['class' => 'form-control form-control-sm','placeholder' => 'Espesor Frente']) !!}
               </div>
-              <div class="form-group mt-2 mr-2">
+              <div class="form-group mr-2">
                 {!! Form::number('espesor_fondo', null, ['class' => 'form-control form-control-sm','placeholder' => 'Espesor Fondo']) !!}
               </div>
-              <div class="form-group mt-2 mr-2">
+              <div class="form-group mr-2">
                 <select name="material_caja" class="form-control form-control-sm" v-model="material_caja">
                   <option disabled selected value="">Material Caja</option>
                   <option v-for="item in matcaja" :value="item.value">@{{ item.label }}</option>
                 </select>
               </div>
-              <div class="form-group mt-2 mr-2">
+              <div class="form-group mr-2">
                 <select name="material_frente" class="form-control form-control-sm" v-model="material_frente">
                   <option disabled selected value="">Material Frente</option>
                   <option v-for="item in matfrente" :value="item.value">@{{ item.label }}</option>
                 </select>
               </div>
-              <div class="form-group mt-2 mr-2">
+              <div class="form-group mr-2">
                 <select name="material_fondo" class="form-control form-control-sm" v-model="material_fondo">
                   <option disabled selected value="">Material Fondo</option>
                   <option v-for="item in matfondo" :value="item.value">@{{ item.label }}</option>
                 </select>
               </div>
-              <div class="form-group mt-2 mr-2">
+              <div class="form-group mr-2">
                 <select name="material_gaveta" class="form-control form-control-sm" v-model="material_gaveta">
                   <option disabled selected value="">Material Gaveta</option>
                   <option v-for="item in matgaveta" :value="item.value">@{{ item.label }}</option>
@@ -142,7 +178,7 @@
           </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-2">
           <div class="card">
             <div class="card-body">
               <h6 class="card-title">Categoria</h6>
@@ -238,7 +274,7 @@
             <th>Descripción</th>
             <th>Largo</th>
             <th>Alto</th>
-            <th>Profundidad</th>
+            <th>Espesor</th>
             <th>Canto <small>Izq</small></th>
             <th>Canto <small>Der</small></th>
             <th>Canto <small>Sup</small></th>
@@ -322,8 +358,16 @@
       gavetas_cant: '',
       gavetas: '',
       gaveta_tipo: '',
+      gaveta_tipo_id: 3,
+      gaveta_tipo_prop: '',
+      MarcasGavList: '',
+      MarcasBisList: '',
+      corredera: '',
+      bisagra: '',
       bisagras: '',
       bisagra_tipo: '',
+      bisagra_tipo_id: 1,
+      bisagra_tipo_prop: '',
       tirador: '',
       tiradores: '',
       // skumtpPro: []
@@ -367,6 +411,26 @@
             console.log(error)
           })
         }
+      },
+      gaveta_tipo: function(){
+        if(this.gaveta_tipo > 0 && this.gaveta_tipo_prop > 0){
+          this.setMarcasGavetas(this.gaveta_tipo_id,this.gaveta_tipo,this.gaveta_tipo_prop);
+        }
+      },
+      gaveta_tipo_prop: function(){
+        if(this.gaveta_tipo > 0 && this.gaveta_tipo_prop > 0){
+          this.setMarcasGavetas(this.gaveta_tipo_id,this.gaveta_tipo,this.gaveta_tipo_prop);
+        }
+      },
+      bisagra_tipo: function(){
+        if(this.bisagra_tipo > 0 && this.bisagra_tipo_prop > 0){
+          this.setMarcasBisagras(this.bisagra_tipo_id,this.bisagra_tipo,this.bisagra_tipo_prop);
+        }
+      },
+      bisagra_tipo_prop: function(){
+        if(this.bisagra_tipo > 0 && this.bisagra_tipo_prop > 0){
+          this.setMarcasBisagras(this.bisagra_tipo_id,this.bisagra_tipo,this.bisagra_tipo_prop);
+        }
       }
     },
 
@@ -401,6 +465,28 @@
           this.materiales.push(this.piezas[i]);
         }
       },
+      setMarcasGavetas: function(tipo,subtipo,extra){
+        if(this.gaveta_tipo > 0 && this.gaveta_tipo_prop > 0){
+          axios.get('/dataMarcasHerrajes/' + tipo + '/' + subtipo + '/' + extra)
+          .then(response => {
+            this.MarcasGavList = response.data
+          })
+          .catch( function(error){
+            console.log(error)
+          })
+        }
+      },
+      setMarcasBisagras: function(tipo,subtipo,extra){
+        if(this.bisagra_tipo > 0 && this.bisagra_tipo_prop > 0){
+          axios.get('/dataMarcasHerrajes/' + tipo + '/' + subtipo + '/' + extra)
+          .then(response => {
+            this.MarcasBisList = response.data
+          })
+          .catch( function(error){
+            console.log(error)
+          })
+        }
+      }
     }
 
   })

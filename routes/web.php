@@ -89,6 +89,7 @@ Route::get('/dataProyectos', 'ProyectoController@indexData')->name('data.proyect
 Route::get('/dataGavetas', 'ProyectoController@gavetas')->name('data.gavetas');
 Route::get('/dataBisagras', 'ProyectoController@bisagras')->name('data.bisagras');
 Route::get('/dataTiradores', 'ProyectoController@tiradores')->name('data.tiradores');
+Route::get('/dataMarcasHerrajes/{tipo}/{subtipo}/{extra}', 'ProyectoController@marcasHerrajes')->name('data.marcasHerrajes');
 Route::get('/cotizaProyecto/{id}', 'ProyectoController@cotizar')->name('data.proyectocotiza');
 Route::resource('/frontend/proyectos', 'ProyectoController');
 Route::resource('/frontend/inventarios', 'InventarioController');
