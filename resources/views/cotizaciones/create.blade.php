@@ -15,7 +15,10 @@
           <h5 class="card-title">Cliente</h5>
           <div class="form-group">
             {!! Form::label('cliente_id', 'Cliente', ['class'=>'form-control-label']) !!}
-            {!! Form::select('cliente_id', [], null, ['class'=>'form-control','placeholder'=>'Seleccion Cliente']) !!}
+            <select name="cliente_id" class="form-control form-control-sm" v-model="cliente_id">
+              <option disabled selected value="">Clientes</option>
+              <option v-for="item in clientes" :value="item.value">@{{ item.label }}</option>
+            </select>
             <span><small>Información del cliente.</small></span>
           </div>
           <button type="button" class="btn btn-sm btn-primary">Cargar Cotización</button>
@@ -321,6 +324,7 @@
     el: '#app',
 
     created(){
+      axios.get('/zohoClientes').then( response => { this.clientes = response.data }).catch(function(error) { console.log(error) });
       axios.get('/materialCotiza/1').then( response => { this.matcaja = response.data }).catch(function(error) { console.log(error) });
       axios.get('/materialCotiza/2').then( response => { this.matfrente = response.data }).catch(function(error) { console.log(error) });
       axios.get('/materialCotiza/3').then( response => { this.matfondo = response.data }).catch(function(error) { console.log(error) });
@@ -331,6 +335,8 @@
     },
 
     data: {
+      clientes: '',
+      cliente_id: '',
       sku_padre: '',
       tipo: '',
       subtipos: '',

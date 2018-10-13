@@ -18,7 +18,7 @@ Route::get('dashboard', function () {
   return view('dashboard');
 });
 
-Route::get('/zohoClientIndex', 'ZohoController@clientIndex')->name('zoho.clientindex');
+Route::get('/zohoClientes', 'ZohoController@clientIndex')->name('zoho.clientindex');
 
 Auth::routes();
 
