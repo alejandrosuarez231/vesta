@@ -23,4 +23,27 @@ class ZohoController extends Controller
     $resultados = $clientes_listado->values()->all();
     return $resultados;
   }
+
+  public function productsIndex()
+  {
+    $client = new Client('0615079017f7956b1d47442349b17804');
+    $records = $client->getRecords('Products');
+
+    $productos = collect();
+    foreach ($records as $value) {
+      if($value['Product Active'] == true)
+      {
+        $productos->push([
+          'id' => $value['PRODUCTID'],
+          'categoria' => $value['Product Category'],
+          'producto' => $value['Product Name'],
+          'unidad' => $value['Usage Unit']
+        ]);
+      }
+    }
+    $productos_listado = $productos->sortBy('producto');
+    $resultados = $productos_listado->values()->all();
+    $collection = collect([$records, $resultados]);
+    return $collection;
+  }
 }

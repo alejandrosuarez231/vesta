@@ -105,6 +105,9 @@
               <a class="dropdown-item" href="{{ route('extras.create') }}" title="Extras">Props. Extras</a>
               <a class="dropdown-item" href="{{ url('backend/extras') }}">Set Props. Extras</a>
               <a class="dropdown-item disabled" href="#">Usuarios</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{{ url('/zohoClientes') }}" target="_blank" title="ZohoClients">Zoho-Clientes</a>
+              <a class="dropdown-item" href="{{ url('/zohoProductos') }}" target="_blank" title="ZohoProducts">Zoho-Productos</a>
             </div>
           </li>
         </ul>

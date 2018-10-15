@@ -19,6 +19,7 @@ Route::get('dashboard', function () {
 });
 
 Route::get('/zohoClientes', 'ZohoController@clientIndex')->name('zoho.clientindex');
+Route::get('/zohoProductos', 'ZohoController@productsIndex')->name('zoho.productsIndex');
 
 Auth::routes();
 
