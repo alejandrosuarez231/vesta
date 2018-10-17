@@ -10,6 +10,7 @@
         "cristianpontes/zoho-crm-client-php": "^1.7",
         "doctrine/dbal": "^2.7",
         "fideloper/proxy": "^4.0",
+        "guzzlehttp/guzzle": "^6.3",
         "jeroennoten/laravel-adminlte": "^1.23",
         "laravel/framework": "5.6.*",
         "laravel/tinker": "^1.0",

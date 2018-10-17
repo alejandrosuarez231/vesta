@@ -7,6 +7,8 @@ use Maidmaid\Zoho\Client;
 
 class ZohoController extends Controller
 {
+  // inventory token: 2bb4657169a4edd6971204fcc8490e64
+  
   public function clientIndex()
   {
     $client = new Client('0615079017f7956b1d47442349b17804');
@@ -27,6 +29,7 @@ class ZohoController extends Controller
   public function productsIndex()
   {
     $client = new Client('0615079017f7956b1d47442349b17804');
+    
     $records = $client->getRecords('Products');
 
     $productos = collect();
