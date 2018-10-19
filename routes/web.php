@@ -22,6 +22,9 @@ Route::get('/zohoClientes', 'ZohoController@clientIndex')->name('zoho.clientinde
 Route::get('/zohoProductos', 'ZohoController@productsIndex')->name('zoho.productsIndex');
 
 Route::get('/zohoinventario', 'Zohoinventario@inventarioTotal')->name('zoho.inventario');
+Route::get('/zohoinventariogroupsall', 'Zohoinventario@itemsGroupAll')->name('zoho.inventariogroupsall');
+Route::get('/inventario/{groupid}', 'Zohoinventario@itemsGroup')->name('inventario.show');
+Route::get('/inventario', 'Zohoinventario@itemsGroupAll')->name('inventario.index');
 
 Auth::routes();
 

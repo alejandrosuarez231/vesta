@@ -108,6 +108,7 @@
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{ url('/zohoClientes') }}" target="_blank" title="ZohoClients">Zoho-Clientes</a>
               <a class="dropdown-item" href="{{ url('/zohoProductos') }}" target="_blank" title="ZohoProducts">Zoho-Productos</a>
+              <a class="dropdown-item" href="{{ url('/inventario') }}" target="_blank" title="ZohoInventario">Zoho-Inventario</a>
             </div>
           </li>
         </ul>
