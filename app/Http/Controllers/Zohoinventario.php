@@ -12,6 +12,7 @@ class Zohoinventario extends Controller
 	public function __construct()
 	{
 		$this->token = 'f88f3029f640cc52fad097c509800ed9';
+		$this->tokenFinance = '76d13b4fb1f07cb36712eae92284350e'; //Token Zoho Finance
 		$this->empresaid = '672220601';
 	}
 
