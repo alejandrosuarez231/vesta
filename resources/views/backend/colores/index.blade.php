@@ -25,6 +25,7 @@
             <tr>
               <th>Id</th>
               <th>Color</th>
+              <th>Acronimo</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -46,6 +47,7 @@
       columns: [
       {data: 'id', name: 'id', title: 'Id'},
       {data: 'nombre', name: 'nombre', title: 'Color'},
+      {data: 'acronimo', name: 'acronimo', title: 'Acronimo'},
       {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'}
       ],
       "language": {
