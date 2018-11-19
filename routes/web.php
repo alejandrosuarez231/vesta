@@ -44,12 +44,20 @@ Route::get('/dataSubtipos', 'SubtipoController@indexData')->name('data.subtipos'
 Route::get('/subtiposAll', 'SubtipoController@subtiposAll')->name('data.subtiposAll');
 Route::get('/subtipos/{tipo}', 'SubtipoController@subtipos' );
 Route::resource('/backend/subtipos','SubtipoController');
+
+/*Categorias*/
+Route::get('/datacategorias', 'CategoriasController@indexData')->name('data.categorias');
+Route::resource('/backend/categorias', 'CategoriasController');
+
 Route::get('/dataUnidades', 'UnidadController@indexData')->name('data.unidades');
 Route::resource('/backend/unidades', 'UnidadController');
+
 Route::get('/dataMarcas', 'MarcaController@indexData')->name('data.marcas');
 Route::resource('/backend/marcas', 'MarcaController');
+
 Route::get('/dataColores', 'ColoreController@indexData')->name('data.colores');
 Route::resource('/backend/colores','ColoreController');
+
 Route::get('/dataMateriales', 'MaterialeController@indexData')->name('data.materiales');
 Route::get('/MaterialEditData/{id}', 'MaterialeController@editData')->name('data.materialesedit');
 Route::get('/setMaterial/{tipo}/{subtipo}', 'MaterialeController@setMaterial');
@@ -68,11 +76,16 @@ Route::get('/dataConfmats', 'ConfmatController@dataIndex')->name('data.confmats'
 Route::get('/materialCotiza/{material}', 'ConfmatController@cotizar')->name('data.materialCotiza');
 Route::resource('/backend/confmats', 'ConfmatController');
 
+/* Modulos OLD */
 Route::get('/dataModulos', 'ModuloController@indexData')->name('data.modulos');
 Route::get('/modulosConstructor/{tipos}/{subtipos}/{sar}', 'ModuloController@modulosContructor')->name('data.moduloconstructor');
 Route::get('/ModuloEditData/{id}', 'ModuloController@editData')->name('data.modulosedit');
 Route::get('/getModulos/{tipo}/{sutipo}/{sap}/{sar}', 'ModuloController@getModulos')->name('data.getmodulos');
 Route::resource('/backend/modulos', 'ModuloController');
+
+/* Lista de Modulos (SKU Grupos) */
+Route::get('/dataModulosLista', 'ModulolistaController@indexData')->name('data.moduloslista');
+Route::resource('/frontend/moduloslista', 'ModulolistaController');
 
 
 

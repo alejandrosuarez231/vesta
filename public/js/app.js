@@ -5053,7 +5053,7 @@ module.exports = function(module) {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* WEBPACK VAR INJECTION */(function(global) {/**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.
- * @version 1.14.3
+ * @version 1.14.5
  * @license
  * Copyright (c) 2016 Federico Zivolo and contributors
  *
@@ -5150,7 +5150,8 @@ function getStyleComputedProperty(element, property) {
     return [];
   }
   // NOTE: 1 DOM access here
-  var css = getComputedStyle(element, null);
+  var window = element.ownerDocument.defaultView;
+  var css = window.getComputedStyle(element, null);
   return property ? css[property] : css;
 }
 
@@ -5238,7 +5239,7 @@ function getOffsetParent(element) {
   var noOffsetParent = isIE(10) ? document.body : null;
 
   // NOTE: 1 DOM access here
-  var offsetParent = element.offsetParent;
+  var offsetParent = element.offsetParent || null;
   // Skip hidden elements which don't have an offsetParent
   while (offsetParent === noOffsetParent && element.nextElementSibling) {
     offsetParent = (element = element.nextElementSibling).offsetParent;
@@ -5250,9 +5251,9 @@ function getOffsetParent(element) {
     return element ? element.ownerDocument.documentElement : document.documentElement;
   }
 
-  // .offsetParent will return the closest TD or TABLE in case
+  // .offsetParent will return the closest TH, TD or TABLE in case
   // no offsetParent is present, I hate this job...
-  if (['TD', 'TABLE'].indexOf(offsetParent.nodeName) !== -1 && getStyleComputedProperty(offsetParent, 'position') === 'static') {
+  if (['TH', 'TD', 'TABLE'].indexOf(offsetParent.nodeName) !== -1 && getStyleComputedProperty(offsetParent, 'position') === 'static') {
     return getOffsetParent(offsetParent);
   }
 
@@ -5390,10 +5391,10 @@ function getBordersSize(styles, axis) {
 }
 
 function getSize(axis, body, html, computedStyle) {
-  return Math.max(body['offset' + axis], body['scroll' + axis], html['client' + axis], html['offset' + axis], html['scroll' + axis], isIE(10) ? html['offset' + axis] + computedStyle['margin' + (axis === 'Height' ? 'Top' : 'Left')] + computedStyle['margin' + (axis === 'Height' ? 'Bottom' : 'Right')] : 0);
+  return Math.max(body['offset' + axis], body['scroll' + axis], html['client' + axis], html['offset' + axis], html['scroll' + axis], isIE(10) ? parseInt(html['offset' + axis]) + parseInt(computedStyle['margin' + (axis === 'Height' ? 'Top' : 'Left')]) + parseInt(computedStyle['margin' + (axis === 'Height' ? 'Bottom' : 'Right')]) : 0);
 }
 
-function getWindowSizes() {
+function getWindowSizes(document) {
   var body = document.body;
   var html = document.documentElement;
   var computedStyle = isIE(10) && getComputedStyle(html);
@@ -5510,7 +5511,7 @@ function getBoundingClientRect(element) {
   };
 
   // subtract scrollbar size from sizes
-  var sizes = element.nodeName === 'HTML' ? getWindowSizes() : {};
+  var sizes = element.nodeName === 'HTML' ? getWindowSizes(element.ownerDocument) : {};
   var width = sizes.width || element.clientWidth || result.right - result.left;
   var height = sizes.height || element.clientHeight || result.bottom - result.top;
 
@@ -5545,7 +5546,7 @@ function getOffsetRectRelativeToArbitraryNode(children, parent) {
   var borderLeftWidth = parseFloat(styles.borderLeftWidth, 10);
 
   // In cases where the parent is fixed, we must ignore negative scroll in offset calc
-  if (fixedPosition && parent.nodeName === 'HTML') {
+  if (fixedPosition && isHTML) {
     parentRect.top = Math.max(parentRect.top, 0);
     parentRect.left = Math.max(parentRect.left, 0);
   }
@@ -5683,7 +5684,7 @@ function getBoundaries(popper, reference, padding, boundariesElement) {
 
     // In case of HTML, we need a different computation
     if (boundariesNode.nodeName === 'HTML' && !isFixed(offsetParent)) {
-      var _getWindowSizes = getWindowSizes(),
+      var _getWindowSizes = getWindowSizes(popper.ownerDocument),
           height = _getWindowSizes.height,
           width = _getWindowSizes.width;
 
@@ -5698,10 +5699,12 @@ function getBoundaries(popper, reference, padding, boundariesElement) {
   }
 
   // Add paddings
-  boundaries.left += padding;
-  boundaries.top += padding;
-  boundaries.right -= padding;
-  boundaries.bottom -= padding;
+  padding = padding || 0;
+  var isPaddingNumber = typeof padding === 'number';
+  boundaries.left += isPaddingNumber ? padding : padding.left || 0;
+  boundaries.top += isPaddingNumber ? padding : padding.top || 0;
+  boundaries.right -= isPaddingNumber ? padding : padding.right || 0;
+  boundaries.bottom -= isPaddingNumber ? padding : padding.bottom || 0;
 
   return boundaries;
 }
@@ -5798,7 +5801,8 @@ function getReferenceOffsets(state, popper, reference) {
  * @returns {Object} object containing width and height properties
  */
 function getOuterSizes(element) {
-  var styles = getComputedStyle(element);
+  var window = element.ownerDocument.defaultView;
+  var styles = window.getComputedStyle(element);
   var x = parseFloat(styles.marginTop) + parseFloat(styles.marginBottom);
   var y = parseFloat(styles.marginLeft) + parseFloat(styles.marginRight);
   var result = {
@@ -6026,7 +6030,7 @@ function getSupportedPropertyName(property) {
 }
 
 /**
- * Destroy the popper
+ * Destroys the popper.
  * @method
  * @memberof Popper
  */
@@ -6133,7 +6137,7 @@ function removeEventListeners(reference, state) {
 
 /**
  * It will remove resize/scroll events and won't recalculate popper position
- * when they are triggered. It also won't trigger onUpdate callback anymore,
+ * when they are triggered. It also won't trigger `onUpdate` callback anymore,
  * unless you call `update` method manually.
  * @method
  * @memberof Popper
@@ -6310,12 +6314,22 @@ function computeStyle(data, options) {
   var left = void 0,
       top = void 0;
   if (sideA === 'bottom') {
-    top = -offsetParentRect.height + offsets.bottom;
+    // when offsetParent is <html> the positioning is relative to the bottom of the screen (excluding the scrollbar)
+    // and not the bottom of the html element
+    if (offsetParent.nodeName === 'HTML') {
+      top = -offsetParent.clientHeight + offsets.bottom;
+    } else {
+      top = -offsetParentRect.height + offsets.bottom;
+    }
   } else {
     top = offsets.top;
   }
   if (sideB === 'right') {
-    left = -offsetParentRect.width + offsets.right;
+    if (offsetParent.nodeName === 'HTML') {
+      left = -offsetParent.clientWidth + offsets.right;
+    } else {
+      left = -offsetParentRect.width + offsets.right;
+    }
   } else {
     left = offsets.left;
   }
@@ -6424,7 +6438,7 @@ function arrow(data, options) {
 
   //
   // extends keepTogether behavior making sure the popper and its
-  // reference have enough pixels in conjuction
+  // reference have enough pixels in conjunction
   //
 
   // top/left side
@@ -6494,7 +6508,7 @@ function getOppositeVariation(variation) {
  * - `top-end` (on top of reference, right aligned)
  * - `right-start` (on right of reference, top aligned)
  * - `bottom` (on bottom, centered)
- * - `auto-right` (on the side with more space available, alignment depends by placement)
+ * - `auto-end` (on the side with more space available, alignment depends by placement)
  *
  * @static
  * @type {Array}
@@ -7036,7 +7050,7 @@ var modifiers = {
    * The `offset` modifier can shift your popper on both its axis.
    *
    * It accepts the following units:
-   * - `px` or unitless, interpreted as pixels
+   * - `px` or unit-less, interpreted as pixels
    * - `%` or `%r`, percentage relative to the length of the reference element
    * - `%p`, percentage relative to the length of the popper element
    * - `vw`, CSS viewport width unit
@@ -7044,7 +7058,7 @@ var modifiers = {
    *
    * For length is intended the main axis relative to the placement of the popper.<br />
    * This means that if the placement is `top` or `bottom`, the length will be the
-   * `width`. In case of `left` or `right`, it will be the height.
+   * `width`. In case of `left` or `right`, it will be the `height`.
    *
    * You can provide a single value (as `Number` or `String`), or a pair of values
    * as `String` divided by a comma or one (or more) white spaces.<br />
@@ -7065,7 +7079,7 @@ var modifiers = {
    * ```
    * > **NB**: If you desire to apply offsets to your poppers in a way that may make them overlap
    * > with their reference element, unfortunately, you will have to disable the `flip` modifier.
-   * > More on this [reading this issue](https://github.com/FezVrasta/popper.js/issues/373)
+   * > You can read more on this at this [issue](https://github.com/FezVrasta/popper.js/issues/373).
    *
    * @memberof modifiers
    * @inner
@@ -7086,7 +7100,7 @@ var modifiers = {
   /**
    * Modifier used to prevent the popper from being positioned outside the boundary.
    *
-   * An scenario exists where the reference itself is not within the boundaries.<br />
+   * A scenario exists where the reference itself is not within the boundaries.<br />
    * We can say it has "escaped the boundaries" — or just "escaped".<br />
    * In this case we need to decide whether the popper should either:
    *
@@ -7116,23 +7130,23 @@ var modifiers = {
     /**
      * @prop {number} padding=5
      * Amount of pixel used to define a minimum distance between the boundaries
-     * and the popper this makes sure the popper has always a little padding
+     * and the popper. This makes sure the popper always has a little padding
      * between the edges of its container
      */
     padding: 5,
     /**
      * @prop {String|HTMLElement} boundariesElement='scrollParent'
-     * Boundaries used by the modifier, can be `scrollParent`, `window`,
+     * Boundaries used by the modifier. Can be `scrollParent`, `window`,
      * `viewport` or any DOM element.
      */
     boundariesElement: 'scrollParent'
   },
 
   /**
-   * Modifier used to make sure the reference and its popper stay near eachothers
-   * without leaving any gap between the two. Expecially useful when the arrow is
-   * enabled and you want to assure it to point to its reference element.
-   * It cares only about the first axis, you can still have poppers with margin
+   * Modifier used to make sure the reference and its popper stay near each other
+   * without leaving any gap between the two. Especially useful when the arrow is
+   * enabled and you want to ensure that it points to its reference element.
+   * It cares only about the first axis. You can still have poppers with margin
    * between the popper and its reference element.
    * @memberof modifiers
    * @inner
@@ -7150,7 +7164,7 @@ var modifiers = {
    * This modifier is used to move the `arrowElement` of the popper to make
    * sure it is positioned between the reference element and its popper element.
    * It will read the outer size of the `arrowElement` node to detect how many
-   * pixels of conjuction are needed.
+   * pixels of conjunction are needed.
    *
    * It has no effect if no `arrowElement` is provided.
    * @memberof modifiers
@@ -7189,7 +7203,7 @@ var modifiers = {
      * @prop {String|Array} behavior='flip'
      * The behavior used to change the popper's placement. It can be one of
      * `flip`, `clockwise`, `counterclockwise` or an array with a list of valid
-     * placements (with optional variations).
+     * placements (with optional variations)
      */
     behavior: 'flip',
     /**
@@ -7199,9 +7213,9 @@ var modifiers = {
     padding: 5,
     /**
      * @prop {String|HTMLElement} boundariesElement='viewport'
-     * The element which will define the boundaries of the popper position,
-     * the popper will never be placed outside of the defined boundaries
-     * (except if keepTogether is enabled)
+     * The element which will define the boundaries of the popper position.
+     * The popper will never be placed outside of the defined boundaries
+     * (except if `keepTogether` is enabled)
      */
     boundariesElement: 'viewport'
   },
@@ -7265,8 +7279,8 @@ var modifiers = {
     fn: computeStyle,
     /**
      * @prop {Boolean} gpuAcceleration=true
-     * If true, it uses the CSS 3d transformation to position the popper.
-     * Otherwise, it will use the `top` and `left` properties.
+     * If true, it uses the CSS 3D transformation to position the popper.
+     * Otherwise, it will use the `top` and `left` properties
      */
     gpuAcceleration: true,
     /**
@@ -7293,7 +7307,7 @@ var modifiers = {
    * Note that if you disable this modifier, you must make sure the popper element
    * has its position set to `absolute` before Popper.js can do its work!
    *
-   * Just disable this modifier and define you own to achieve the desired effect.
+   * Just disable this modifier and define your own to achieve the desired effect.
    *
    * @memberof modifiers
    * @inner
@@ -7310,27 +7324,27 @@ var modifiers = {
     /**
      * @deprecated since version 1.10.0, the property moved to `computeStyle` modifier
      * @prop {Boolean} gpuAcceleration=true
-     * If true, it uses the CSS 3d transformation to position the popper.
-     * Otherwise, it will use the `top` and `left` properties.
+     * If true, it uses the CSS 3D transformation to position the popper.
+     * Otherwise, it will use the `top` and `left` properties
      */
     gpuAcceleration: undefined
   }
 };
 
 /**
- * The `dataObject` is an object containing all the informations used by Popper.js
- * this object get passed to modifiers and to the `onCreate` and `onUpdate` callbacks.
+ * The `dataObject` is an object containing all the information used by Popper.js.
+ * This object is passed to modifiers and to the `onCreate` and `onUpdate` callbacks.
  * @name dataObject
  * @property {Object} data.instance The Popper.js instance
  * @property {String} data.placement Placement applied to popper
  * @property {String} data.originalPlacement Placement originally defined on init
  * @property {Boolean} data.flipped True if popper has been flipped by flip modifier
- * @property {Boolean} data.hide True if the reference element is out of boundaries, useful to know when to hide the popper.
+ * @property {Boolean} data.hide True if the reference element is out of boundaries, useful to know when to hide the popper
  * @property {HTMLElement} data.arrowElement Node used as arrow by arrow modifier
- * @property {Object} data.styles Any CSS property defined here will be applied to the popper, it expects the JavaScript nomenclature (eg. `marginBottom`)
- * @property {Object} data.arrowStyles Any CSS property defined here will be applied to the popper arrow, it expects the JavaScript nomenclature (eg. `marginBottom`)
+ * @property {Object} data.styles Any CSS property defined here will be applied to the popper. It expects the JavaScript nomenclature (eg. `marginBottom`)
+ * @property {Object} data.arrowStyles Any CSS property defined here will be applied to the popper arrow. It expects the JavaScript nomenclature (eg. `marginBottom`)
  * @property {Object} data.boundaries Offsets of the popper boundaries
- * @property {Object} data.offsets The measurements of popper, reference and arrow elements.
+ * @property {Object} data.offsets The measurements of popper, reference and arrow elements
  * @property {Object} data.offsets.popper `top`, `left`, `width`, `height` values
  * @property {Object} data.offsets.reference `top`, `left`, `width`, `height` values
  * @property {Object} data.offsets.arrow] `top` and `left` offsets, only one of them will be different from 0
@@ -7338,9 +7352,9 @@ var modifiers = {
 
 /**
  * Default options provided to Popper.js constructor.<br />
- * These can be overriden using the `options` argument of Popper.js.<br />
- * To override an option, simply pass as 3rd argument an object with the same
- * structure of this object, example:
+ * These can be overridden using the `options` argument of Popper.js.<br />
+ * To override an option, simply pass an object with the same
+ * structure of the `options` object, as the 3rd argument. For example:
  * ```
  * new Popper(ref, pop, {
  *   modifiers: {
@@ -7354,7 +7368,7 @@ var modifiers = {
  */
 var Defaults = {
   /**
-   * Popper's placement
+   * Popper's placement.
    * @prop {Popper.placements} placement='bottom'
    */
   placement: 'bottom',
@@ -7366,7 +7380,7 @@ var Defaults = {
   positionFixed: false,
 
   /**
-   * Whether events (resize, scroll) are initially enabled
+   * Whether events (resize, scroll) are initially enabled.
    * @prop {Boolean} eventsEnabled=true
    */
   eventsEnabled: true,
@@ -7380,17 +7394,17 @@ var Defaults = {
 
   /**
    * Callback called when the popper is created.<br />
-   * By default, is set to no-op.<br />
+   * By default, it is set to no-op.<br />
    * Access Popper.js instance with `data.instance`.
    * @prop {onCreate}
    */
   onCreate: function onCreate() {},
 
   /**
-   * Callback called when the popper is updated, this callback is not called
+   * Callback called when the popper is updated. This callback is not called
    * on the initialization/creation of the popper, but only on subsequent
    * updates.<br />
-   * By default, is set to no-op.<br />
+   * By default, it is set to no-op.<br />
    * Access Popper.js instance with `data.instance`.
    * @prop {onUpdate}
    */
@@ -7398,7 +7412,7 @@ var Defaults = {
 
   /**
    * List of modifiers used to modify the offsets before they are applied to the popper.
-   * They provide most of the functionalities of Popper.js
+   * They provide most of the functionalities of Popper.js.
    * @prop {modifiers}
    */
   modifiers: modifiers
@@ -7418,10 +7432,10 @@ var Defaults = {
 // Methods
 var Popper = function () {
   /**
-   * Create a new Popper.js instance
+   * Creates a new Popper.js instance.
    * @class Popper
    * @param {HTMLElement|referenceObject} reference - The reference element used to position the popper
-   * @param {HTMLElement} popper - The HTML element used as popper.
+   * @param {HTMLElement} popper - The HTML element used as the popper
    * @param {Object} options - Your custom options to override the ones defined in [Defaults](#defaults)
    * @return {Object} instance - The generated Popper.js instance
    */
@@ -7517,7 +7531,7 @@ var Popper = function () {
     }
 
     /**
-     * Schedule an update, it will run on the next UI update available
+     * Schedules an update. It will run on the next UI update available.
      * @method scheduleUpdate
      * @memberof Popper
      */
@@ -7554,7 +7568,7 @@ var Popper = function () {
  * new Popper(referenceObject, popperNode);
  * ```
  *
- * NB: This feature isn't supported in Internet Explorer 10
+ * NB: This feature isn't supported in Internet Explorer 10.
  * @name referenceObject
  * @property {Function} data.getBoundingClientRect
  * A function that returns a set of coordinates compatible with the native `getBoundingClientRect` method.
@@ -17951,7 +17965,7 @@ return jQuery;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*!
- * Vue.js v2.5.16
+ * Vue.js v2.5.17
  * (c) 2014-2018 Evan You
  * Released under the MIT License.
  */
@@ -23040,7 +23054,7 @@ Object.defineProperty(Vue, 'FunctionalRenderContext', {
   value: FunctionalRenderContext
 });
 
-Vue.version = '2.5.16';
+Vue.version = '2.5.17';
 
 /*  */
 
@@ -41463,7 +41477,7 @@ if (token) {
   var undefined;
 
   /** Used as the semantic version number. */
-  var VERSION = '4.17.10';
+  var VERSION = '4.17.11';
 
   /** Used as the size to enable large array optimizations. */
   var LARGE_ARRAY_SIZE = 200;
@@ -41727,7 +41741,7 @@ if (token) {
   var reHasUnicode = RegExp('[' + rsZWJ + rsAstralRange  + rsComboRange + rsVarRange + ']');
 
   /** Used to detect strings that need a more robust regexp to match words. */
-  var reHasUnicodeWord = /[a-z][A-Z]|[A-Z]{2,}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/;
+  var reHasUnicodeWord = /[a-z][A-Z]|[A-Z]{2}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/;
 
   /** Used to assign default `context` object properties. */
   var contextProps = [
@@ -42673,20 +42687,6 @@ if (token) {
       }
     }
     return result;
-  }
-
-  /**
-   * Gets the value at `key`, unless `key` is "__proto__".
-   *
-   * @private
-   * @param {Object} object The object to query.
-   * @param {string} key The key of the property to get.
-   * @returns {*} Returns the property value.
-   */
-  function safeGet(object, key) {
-    return key == '__proto__'
-      ? undefined
-      : object[key];
   }
 
   /**
@@ -45146,7 +45146,7 @@ if (token) {
           if (isArguments(objValue)) {
             newValue = toPlainObject(objValue);
           }
-          else if (!isObject(objValue) || (srcIndex && isFunction(objValue))) {
+          else if (!isObject(objValue) || isFunction(objValue)) {
             newValue = initCloneObject(srcValue);
           }
         }
@@ -48067,6 +48067,22 @@ if (token) {
         array[length] = isIndex(index, arrLength) ? oldArray[index] : undefined;
       }
       return array;
+    }
+
+    /**
+     * Gets the value at `key`, unless `key` is "__proto__".
+     *
+     * @private
+     * @param {Object} object The object to query.
+     * @param {string} key The key of the property to get.
+     * @returns {*} Returns the property value.
+     */
+    function safeGet(object, key) {
+      if (key == '__proto__') {
+        return;
+      }
+
+      return object[key];
     }
 
     /**
@@ -58563,7 +58579,7 @@ if (token) {
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
-  * Bootstrap v4.1.1 (https://getbootstrap.com/)
+  * Bootstrap v4.1.3 (https://getbootstrap.com/)
   * Copyright 2011-2018 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */
@@ -58634,7 +58650,7 @@ if (token) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): util.js
+   * Bootstrap (v4.1.3): util.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -58711,8 +58727,7 @@ if (token) {
         }
 
         try {
-          var $selector = $$$1(document).find(selector);
-          return $selector.length > 0 ? selector : null;
+          return document.querySelector(selector) ? selector : null;
         } catch (err) {
           return null;
         }
@@ -58767,7 +58782,7 @@ if (token) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): alert.js
+   * Bootstrap (v4.1.3): alert.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -58779,7 +58794,7 @@ if (token) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'alert';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.3';
     var DATA_KEY = 'bs.alert';
     var EVENT_KEY = "." + DATA_KEY;
     var DATA_API_KEY = '.data-api';
@@ -58842,7 +58857,7 @@ if (token) {
         var parent = false;
 
         if (selector) {
-          parent = $$$1(selector)[0];
+          parent = document.querySelector(selector);
         }
 
         if (!parent) {
@@ -58942,7 +58957,7 @@ if (token) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): button.js
+   * Bootstrap (v4.1.3): button.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -58954,7 +58969,7 @@ if (token) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'button';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.3';
     var DATA_KEY = 'bs.button';
     var EVENT_KEY = "." + DATA_KEY;
     var DATA_API_KEY = '.data-api';
@@ -58999,14 +59014,14 @@ if (token) {
         var rootElement = $$$1(this._element).closest(Selector.DATA_TOGGLE)[0];
 
         if (rootElement) {
-          var input = $$$1(this._element).find(Selector.INPUT)[0];
+          var input = this._element.querySelector(Selector.INPUT);
 
           if (input) {
             if (input.type === 'radio') {
-              if (input.checked && $$$1(this._element).hasClass(ClassName.ACTIVE)) {
+              if (input.checked && this._element.classList.contains(ClassName.ACTIVE)) {
                 triggerChangeEvent = false;
               } else {
-                var activeElement = $$$1(rootElement).find(Selector.ACTIVE)[0];
+                var activeElement = rootElement.querySelector(Selector.ACTIVE);
 
                 if (activeElement) {
                   $$$1(activeElement).removeClass(ClassName.ACTIVE);
@@ -59019,7 +59034,7 @@ if (token) {
                 return;
               }
 
-              input.checked = !$$$1(this._element).hasClass(ClassName.ACTIVE);
+              input.checked = !this._element.classList.contains(ClassName.ACTIVE);
               $$$1(input).trigger('change');
             }
 
@@ -59029,7 +59044,7 @@ if (token) {
         }
 
         if (addAriaPressed) {
-          this._element.setAttribute('aria-pressed', !$$$1(this._element).hasClass(ClassName.ACTIVE));
+          this._element.setAttribute('aria-pressed', !this._element.classList.contains(ClassName.ACTIVE));
         }
 
         if (triggerChangeEvent) {
@@ -59106,7 +59121,7 @@ if (token) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): carousel.js
+   * Bootstrap (v4.1.3): carousel.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -59118,7 +59133,7 @@ if (token) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'carousel';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.3';
     var DATA_KEY = 'bs.carousel';
     var EVENT_KEY = "." + DATA_KEY;
     var DATA_API_KEY = '.data-api';
@@ -59197,7 +59212,7 @@ if (token) {
         this.touchTimeout = null;
         this._config = this._getConfig(config);
         this._element = $$$1(element)[0];
-        this._indicatorsElement = $$$1(this._element).find(Selector.INDICATORS)[0];
+        this._indicatorsElement = this._element.querySelector(Selector.INDICATORS);
 
         this._addEventListeners();
       } // Getters
@@ -59231,7 +59246,7 @@ if (token) {
           this._isPaused = true;
         }
 
-        if ($$$1(this._element).find(Selector.NEXT_PREV)[0]) {
+        if (this._element.querySelector(Selector.NEXT_PREV)) {
           Util.triggerTransitionEnd(this._element);
           this.cycle(true);
         }
@@ -59258,7 +59273,7 @@ if (token) {
       _proto.to = function to(index) {
         var _this = this;
 
-        this._activeElement = $$$1(this._element).find(Selector.ACTIVE_ITEM)[0];
+        this._activeElement = this._element.querySelector(Selector.ACTIVE_ITEM);
 
         var activeIndex = this._getItemIndex(this._activeElement);
 
@@ -59364,7 +59379,7 @@ if (token) {
       };
 
       _proto._getItemIndex = function _getItemIndex(element) {
-        this._items = $$$1.makeArray($$$1(element).parent().find(Selector.ITEM));
+        this._items = element && element.parentNode ? [].slice.call(element.parentNode.querySelectorAll(Selector.ITEM)) : [];
         return this._items.indexOf(element);
       };
 
@@ -59389,7 +59404,7 @@ if (token) {
       _proto._triggerSlideEvent = function _triggerSlideEvent(relatedTarget, eventDirectionName) {
         var targetIndex = this._getItemIndex(relatedTarget);
 
-        var fromIndex = this._getItemIndex($$$1(this._element).find(Selector.ACTIVE_ITEM)[0]);
+        var fromIndex = this._getItemIndex(this._element.querySelector(Selector.ACTIVE_ITEM));
 
         var slideEvent = $$$1.Event(Event.SLIDE, {
           relatedTarget: relatedTarget,
@@ -59403,7 +59418,8 @@ if (token) {
 
       _proto._setActiveIndicatorElement = function _setActiveIndicatorElement(element) {
         if (this._indicatorsElement) {
-          $$$1(this._indicatorsElement).find(Selector.ACTIVE).removeClass(ClassName.ACTIVE);
+          var indicators = [].slice.call(this._indicatorsElement.querySelectorAll(Selector.ACTIVE));
+          $$$1(indicators).removeClass(ClassName.ACTIVE);
 
           var nextIndicator = this._indicatorsElement.children[this._getItemIndex(element)];
 
@@ -59416,7 +59432,7 @@ if (token) {
       _proto._slide = function _slide(direction, element) {
         var _this3 = this;
 
-        var activeElement = $$$1(this._element).find(Selector.ACTIVE_ITEM)[0];
+        var activeElement = this._element.querySelector(Selector.ACTIVE_ITEM);
 
         var activeElementIndex = this._getItemIndex(activeElement);
 
@@ -59582,11 +59598,13 @@ if (token) {
 
     $$$1(document).on(Event.CLICK_DATA_API, Selector.DATA_SLIDE, Carousel._dataApiClickHandler);
     $$$1(window).on(Event.LOAD_DATA_API, function () {
-      $$$1(Selector.DATA_RIDE).each(function () {
-        var $carousel = $$$1(this);
+      var carousels = [].slice.call(document.querySelectorAll(Selector.DATA_RIDE));
+
+      for (var i = 0, len = carousels.length; i < len; i++) {
+        var $carousel = $$$1(carousels[i]);
 
         Carousel._jQueryInterface.call($carousel, $carousel.data());
-      });
+      }
     });
     /**
      * ------------------------------------------------------------------------
@@ -59607,7 +59625,7 @@ if (token) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): collapse.js
+   * Bootstrap (v4.1.3): collapse.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -59619,7 +59637,7 @@ if (token) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'collapse';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.3';
     var DATA_KEY = 'bs.collapse';
     var EVENT_KEY = "." + DATA_KEY;
     var DATA_API_KEY = '.data-api';
@@ -59667,14 +59685,17 @@ if (token) {
         this._isTransitioning = false;
         this._element = element;
         this._config = this._getConfig(config);
-        this._triggerArray = $$$1.makeArray($$$1("[data-toggle=\"collapse\"][href=\"#" + element.id + "\"]," + ("[data-toggle=\"collapse\"][data-target=\"#" + element.id + "\"]")));
-        var tabToggles = $$$1(Selector.DATA_TOGGLE);
+        this._triggerArray = $$$1.makeArray(document.querySelectorAll("[data-toggle=\"collapse\"][href=\"#" + element.id + "\"]," + ("[data-toggle=\"collapse\"][data-target=\"#" + element.id + "\"]")));
+        var toggleList = [].slice.call(document.querySelectorAll(Selector.DATA_TOGGLE));
 
-        for (var i = 0; i < tabToggles.length; i++) {
-          var elem = tabToggles[i];
+        for (var i = 0, len = toggleList.length; i < len; i++) {
+          var elem = toggleList[i];
           var selector = Util.getSelectorFromElement(elem);
+          var filterElement = [].slice.call(document.querySelectorAll(selector)).filter(function (foundElem) {
+            return foundElem === element;
+          });
 
-          if (selector !== null && $$$1(selector).filter(element).length > 0) {
+          if (selector !== null && filterElement.length > 0) {
             this._selector = selector;
 
             this._triggerArray.push(elem);
@@ -59715,7 +59736,9 @@ if (token) {
         var activesData;
 
         if (this._parent) {
-          actives = $$$1.makeArray($$$1(this._parent).find(Selector.ACTIVES).filter("[data-parent=\"" + this._config.parent + "\"]"));
+          actives = [].slice.call(this._parent.querySelectorAll(Selector.ACTIVES)).filter(function (elem) {
+            return elem.getAttribute('data-parent') === _this._config.parent;
+          });
 
           if (actives.length === 0) {
             actives = null;
@@ -59750,7 +59773,7 @@ if (token) {
         $$$1(this._element).removeClass(ClassName.COLLAPSE).addClass(ClassName.COLLAPSING);
         this._element.style[dimension] = 0;
 
-        if (this._triggerArray.length > 0) {
+        if (this._triggerArray.length) {
           $$$1(this._triggerArray).removeClass(ClassName.COLLAPSED).attr('aria-expanded', true);
         }
 
@@ -59791,14 +59814,15 @@ if (token) {
         this._element.style[dimension] = this._element.getBoundingClientRect()[dimension] + "px";
         Util.reflow(this._element);
         $$$1(this._element).addClass(ClassName.COLLAPSING).removeClass(ClassName.COLLAPSE).removeClass(ClassName.SHOW);
+        var triggerArrayLength = this._triggerArray.length;
 
-        if (this._triggerArray.length > 0) {
-          for (var i = 0; i < this._triggerArray.length; i++) {
+        if (triggerArrayLength > 0) {
+          for (var i = 0; i < triggerArrayLength; i++) {
             var trigger = this._triggerArray[i];
             var selector = Util.getSelectorFromElement(trigger);
 
             if (selector !== null) {
-              var $elem = $$$1(selector);
+              var $elem = $$$1([].slice.call(document.querySelectorAll(selector)));
 
               if (!$elem.hasClass(ClassName.SHOW)) {
                 $$$1(trigger).addClass(ClassName.COLLAPSED).attr('aria-expanded', false);
@@ -59859,11 +59883,12 @@ if (token) {
             parent = this._config.parent[0];
           }
         } else {
-          parent = $$$1(this._config.parent)[0];
+          parent = document.querySelector(this._config.parent);
         }
 
         var selector = "[data-toggle=\"collapse\"][data-parent=\"" + this._config.parent + "\"]";
-        $$$1(parent).find(selector).each(function (i, element) {
+        var children = [].slice.call(parent.querySelectorAll(selector));
+        $$$1(children).each(function (i, element) {
           _this3._addAriaAndCollapsedClass(Collapse._getTargetFromElement(element), [element]);
         });
         return parent;
@@ -59873,7 +59898,7 @@ if (token) {
         if (element) {
           var isOpen = $$$1(element).hasClass(ClassName.SHOW);
 
-          if (triggerArray.length > 0) {
+          if (triggerArray.length) {
             $$$1(triggerArray).toggleClass(ClassName.COLLAPSED, !isOpen).attr('aria-expanded', isOpen);
           }
         }
@@ -59882,7 +59907,7 @@ if (token) {
 
       Collapse._getTargetFromElement = function _getTargetFromElement(element) {
         var selector = Util.getSelectorFromElement(element);
-        return selector ? $$$1(selector)[0] : null;
+        return selector ? document.querySelector(selector) : null;
       };
 
       Collapse._jQueryInterface = function _jQueryInterface(config) {
@@ -59940,7 +59965,8 @@ if (token) {
 
       var $trigger = $$$1(this);
       var selector = Util.getSelectorFromElement(this);
-      $$$1(selector).each(function () {
+      var selectors = [].slice.call(document.querySelectorAll(selector));
+      $$$1(selectors).each(function () {
         var $target = $$$1(this);
         var data = $target.data(DATA_KEY);
         var config = data ? 'toggle' : $trigger.data();
@@ -59967,7 +59993,7 @@ if (token) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): dropdown.js
+   * Bootstrap (v4.1.3): dropdown.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -59979,7 +60005,7 @@ if (token) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'dropdown';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.3';
     var DATA_KEY = 'bs.dropdown';
     var EVENT_KEY = "." + DATA_KEY;
     var DATA_API_KEY = '.data-api';
@@ -60188,14 +60214,16 @@ if (token) {
         if (!this._menu) {
           var parent = Dropdown._getParentFromElement(this._element);
 
-          this._menu = $$$1(parent).find(Selector.MENU)[0];
+          if (parent) {
+            this._menu = parent.querySelector(Selector.MENU);
+          }
         }
 
         return this._menu;
       };
 
       _proto._getPlacement = function _getPlacement() {
-        var $parentDropdown = $$$1(this._element).parent();
+        var $parentDropdown = $$$1(this._element.parentNode);
         var placement = AttachmentMap.BOTTOM; // Handle dropup
 
         if ($parentDropdown.hasClass(ClassName.DROPUP)) {
@@ -60283,15 +60311,19 @@ if (token) {
           return;
         }
 
-        var toggles = $$$1.makeArray($$$1(Selector.DATA_TOGGLE));
+        var toggles = [].slice.call(document.querySelectorAll(Selector.DATA_TOGGLE));
 
-        for (var i = 0; i < toggles.length; i++) {
+        for (var i = 0, len = toggles.length; i < len; i++) {
           var parent = Dropdown._getParentFromElement(toggles[i]);
 
           var context = $$$1(toggles[i]).data(DATA_KEY);
           var relatedTarget = {
             relatedTarget: toggles[i]
           };
+
+          if (event && event.type === 'click') {
+            relatedTarget.clickEvent = event;
+          }
 
           if (!context) {
             continue;
@@ -60331,7 +60363,7 @@ if (token) {
         var selector = Util.getSelectorFromElement(element);
 
         if (selector) {
-          parent = $$$1(selector)[0];
+          parent = document.querySelector(selector);
         }
 
         return parent || element.parentNode;
@@ -60363,7 +60395,7 @@ if (token) {
 
         if (!isActive && (event.which !== ESCAPE_KEYCODE || event.which !== SPACE_KEYCODE) || isActive && (event.which === ESCAPE_KEYCODE || event.which === SPACE_KEYCODE)) {
           if (event.which === ESCAPE_KEYCODE) {
-            var toggle = $$$1(parent).find(Selector.DATA_TOGGLE)[0];
+            var toggle = parent.querySelector(Selector.DATA_TOGGLE);
             $$$1(toggle).trigger('focus');
           }
 
@@ -60371,7 +60403,7 @@ if (token) {
           return;
         }
 
-        var items = $$$1(parent).find(Selector.VISIBLE_ITEMS).get();
+        var items = [].slice.call(parent.querySelectorAll(Selector.VISIBLE_ITEMS));
 
         if (items.length === 0) {
           return;
@@ -60449,7 +60481,7 @@ if (token) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): modal.js
+   * Bootstrap (v4.1.3): modal.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -60461,7 +60493,7 @@ if (token) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'modal';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.3';
     var DATA_KEY = 'bs.modal';
     var EVENT_KEY = "." + DATA_KEY;
     var DATA_API_KEY = '.data-api';
@@ -60505,8 +60537,7 @@ if (token) {
       DATA_TOGGLE: '[data-toggle="modal"]',
       DATA_DISMISS: '[data-dismiss="modal"]',
       FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
-      STICKY_CONTENT: '.sticky-top',
-      NAVBAR_TOGGLER: '.navbar-toggler'
+      STICKY_CONTENT: '.sticky-top'
       /**
        * ------------------------------------------------------------------------
        * Class Definition
@@ -60521,7 +60552,7 @@ if (token) {
       function Modal(element, config) {
         this._config = this._getConfig(config);
         this._element = element;
-        this._dialog = $$$1(element).find(Selector.DIALOG)[0];
+        this._dialog = element.querySelector(Selector.DIALOG);
         this._backdrop = null;
         this._isShown = false;
         this._isBodyOverflowing = false;
@@ -60778,7 +60809,7 @@ if (token) {
           this._backdrop.className = ClassName.BACKDROP;
 
           if (animate) {
-            $$$1(this._backdrop).addClass(animate);
+            this._backdrop.classList.add(animate);
           }
 
           $$$1(this._backdrop).appendTo(document.body);
@@ -60872,23 +60903,19 @@ if (token) {
         if (this._isBodyOverflowing) {
           // Note: DOMNode.style.paddingRight returns the actual value or '' if not set
           //   while $(DOMNode).css('padding-right') returns the calculated value or 0 if not set
-          // Adjust fixed content padding
-          $$$1(Selector.FIXED_CONTENT).each(function (index, element) {
-            var actualPadding = $$$1(element)[0].style.paddingRight;
+          var fixedContent = [].slice.call(document.querySelectorAll(Selector.FIXED_CONTENT));
+          var stickyContent = [].slice.call(document.querySelectorAll(Selector.STICKY_CONTENT)); // Adjust fixed content padding
+
+          $$$1(fixedContent).each(function (index, element) {
+            var actualPadding = element.style.paddingRight;
             var calculatedPadding = $$$1(element).css('padding-right');
             $$$1(element).data('padding-right', actualPadding).css('padding-right', parseFloat(calculatedPadding) + _this9._scrollbarWidth + "px");
           }); // Adjust sticky content margin
 
-          $$$1(Selector.STICKY_CONTENT).each(function (index, element) {
-            var actualMargin = $$$1(element)[0].style.marginRight;
+          $$$1(stickyContent).each(function (index, element) {
+            var actualMargin = element.style.marginRight;
             var calculatedMargin = $$$1(element).css('margin-right');
             $$$1(element).data('margin-right', actualMargin).css('margin-right', parseFloat(calculatedMargin) - _this9._scrollbarWidth + "px");
-          }); // Adjust navbar-toggler margin
-
-          $$$1(Selector.NAVBAR_TOGGLER).each(function (index, element) {
-            var actualMargin = $$$1(element)[0].style.marginRight;
-            var calculatedMargin = $$$1(element).css('margin-right');
-            $$$1(element).data('margin-right', actualMargin).css('margin-right', parseFloat(calculatedMargin) + _this9._scrollbarWidth + "px");
           }); // Adjust body padding
 
           var actualPadding = document.body.style.paddingRight;
@@ -60899,15 +60926,15 @@ if (token) {
 
       _proto._resetScrollbar = function _resetScrollbar() {
         // Restore fixed content padding
-        $$$1(Selector.FIXED_CONTENT).each(function (index, element) {
+        var fixedContent = [].slice.call(document.querySelectorAll(Selector.FIXED_CONTENT));
+        $$$1(fixedContent).each(function (index, element) {
           var padding = $$$1(element).data('padding-right');
+          $$$1(element).removeData('padding-right');
+          element.style.paddingRight = padding ? padding : '';
+        }); // Restore sticky content
 
-          if (typeof padding !== 'undefined') {
-            $$$1(element).css('padding-right', padding).removeData('padding-right');
-          }
-        }); // Restore sticky content and navbar-toggler margin
-
-        $$$1(Selector.STICKY_CONTENT + ", " + Selector.NAVBAR_TOGGLER).each(function (index, element) {
+        var elements = [].slice.call(document.querySelectorAll("" + Selector.STICKY_CONTENT));
+        $$$1(elements).each(function (index, element) {
           var margin = $$$1(element).data('margin-right');
 
           if (typeof margin !== 'undefined') {
@@ -60916,10 +60943,8 @@ if (token) {
         }); // Restore body padding
 
         var padding = $$$1(document.body).data('padding-right');
-
-        if (typeof padding !== 'undefined') {
-          $$$1(document.body).css('padding-right', padding).removeData('padding-right');
-        }
+        $$$1(document.body).removeData('padding-right');
+        document.body.style.paddingRight = padding ? padding : '';
       };
 
       _proto._getScrollbarWidth = function _getScrollbarWidth() {
@@ -60984,7 +61009,7 @@ if (token) {
       var selector = Util.getSelectorFromElement(this);
 
       if (selector) {
-        target = $$$1(selector)[0];
+        target = document.querySelector(selector);
       }
 
       var config = $$$1(target).data(DATA_KEY) ? 'toggle' : _objectSpread({}, $$$1(target).data(), $$$1(this).data());
@@ -61027,7 +61052,7 @@ if (token) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): tooltip.js
+   * Bootstrap (v4.1.3): tooltip.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -61039,7 +61064,7 @@ if (token) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'tooltip';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.3';
     var DATA_KEY = 'bs.tooltip';
     var EVENT_KEY = "." + DATA_KEY;
     var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
@@ -61249,7 +61274,7 @@ if (token) {
           var attachment = this._getAttachment(placement);
 
           this.addAttachmentClass(attachment);
-          var container = this.config.container === false ? document.body : $$$1(this.config.container);
+          var container = this.config.container === false ? document.body : $$$1(document).find(this.config.container);
           $$$1(tip).data(this.constructor.DATA_KEY, this);
 
           if (!$$$1.contains(this.element.ownerDocument.documentElement, this.tip)) {
@@ -61388,9 +61413,9 @@ if (token) {
       };
 
       _proto.setContent = function setContent() {
-        var $tip = $$$1(this.getTipElement());
-        this.setElementContent($tip.find(Selector.TOOLTIP_INNER), this.getTitle());
-        $tip.removeClass(ClassName.FADE + " " + ClassName.SHOW);
+        var tip = this.getTipElement();
+        this.setElementContent($$$1(tip.querySelectorAll(Selector.TOOLTIP_INNER)), this.getTitle());
+        $$$1(tip).removeClass(ClassName.FADE + " " + ClassName.SHOW);
       };
 
       _proto.setElementContent = function setElementContent($element, content) {
@@ -61583,15 +61608,18 @@ if (token) {
         var $tip = $$$1(this.getTipElement());
         var tabClass = $tip.attr('class').match(BSCLS_PREFIX_REGEX);
 
-        if (tabClass !== null && tabClass.length > 0) {
+        if (tabClass !== null && tabClass.length) {
           $tip.removeClass(tabClass.join(''));
         }
       };
 
-      _proto._handlePopperPlacementChange = function _handlePopperPlacementChange(data) {
+      _proto._handlePopperPlacementChange = function _handlePopperPlacementChange(popperData) {
+        var popperInstance = popperData.instance;
+        this.tip = popperInstance.popper;
+
         this._cleanTipClass();
 
-        this.addAttachmentClass(this._getAttachment(data.placement));
+        this.addAttachmentClass(this._getAttachment(popperData.placement));
       };
 
       _proto._fixTransition = function _fixTransition() {
@@ -61694,7 +61722,7 @@ if (token) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): popover.js
+   * Bootstrap (v4.1.3): popover.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -61706,7 +61734,7 @@ if (token) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'popover';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.3';
     var DATA_KEY = 'bs.popover';
     var EVENT_KEY = "." + DATA_KEY;
     var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
@@ -61891,7 +61919,7 @@ if (token) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): scrollspy.js
+   * Bootstrap (v4.1.3): scrollspy.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -61903,7 +61931,7 @@ if (token) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'scrollspy';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.3';
     var DATA_KEY = 'bs.scrollspy';
     var EVENT_KEY = "." + DATA_KEY;
     var DATA_API_KEY = '.data-api';
@@ -61985,13 +62013,13 @@ if (token) {
         this._offsets = [];
         this._targets = [];
         this._scrollHeight = this._getScrollHeight();
-        var targets = $$$1.makeArray($$$1(this._selector));
+        var targets = [].slice.call(document.querySelectorAll(this._selector));
         targets.map(function (element) {
           var target;
           var targetSelector = Util.getSelectorFromElement(element);
 
           if (targetSelector) {
-            target = $$$1(targetSelector)[0];
+            target = document.querySelector(targetSelector);
           }
 
           if (target) {
@@ -62088,7 +62116,9 @@ if (token) {
           return;
         }
 
-        for (var i = this._offsets.length; i--;) {
+        var offsetLength = this._offsets.length;
+
+        for (var i = offsetLength; i--;) {
           var isActiveTarget = this._activeTarget !== this._targets[i] && scrollTop >= this._offsets[i] && (typeof this._offsets[i + 1] === 'undefined' || scrollTop < this._offsets[i + 1]);
 
           if (isActiveTarget) {
@@ -62108,7 +62138,7 @@ if (token) {
         queries = queries.map(function (selector) {
           return selector + "[data-target=\"" + target + "\"]," + (selector + "[href=\"" + target + "\"]");
         });
-        var $link = $$$1(queries.join(','));
+        var $link = $$$1([].slice.call(document.querySelectorAll(queries.join(','))));
 
         if ($link.hasClass(ClassName.DROPDOWN_ITEM)) {
           $link.closest(Selector.DROPDOWN).find(Selector.DROPDOWN_TOGGLE).addClass(ClassName.ACTIVE);
@@ -62129,7 +62159,8 @@ if (token) {
       };
 
       _proto._clear = function _clear() {
-        $$$1(this._selector).filter(Selector.ACTIVE).removeClass(ClassName.ACTIVE);
+        var nodes = [].slice.call(document.querySelectorAll(this._selector));
+        $$$1(nodes).filter(Selector.ACTIVE).removeClass(ClassName.ACTIVE);
       }; // Static
 
 
@@ -62176,9 +62207,10 @@ if (token) {
 
 
     $$$1(window).on(Event.LOAD_DATA_API, function () {
-      var scrollSpys = $$$1.makeArray($$$1(Selector.DATA_SPY));
+      var scrollSpys = [].slice.call(document.querySelectorAll(Selector.DATA_SPY));
+      var scrollSpysLength = scrollSpys.length;
 
-      for (var i = scrollSpys.length; i--;) {
+      for (var i = scrollSpysLength; i--;) {
         var $spy = $$$1(scrollSpys[i]);
 
         ScrollSpy._jQueryInterface.call($spy, $spy.data());
@@ -62203,7 +62235,7 @@ if (token) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): tab.js
+   * Bootstrap (v4.1.3): tab.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -62215,7 +62247,7 @@ if (token) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'tab';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.3';
     var DATA_KEY = 'bs.tab';
     var EVENT_KEY = "." + DATA_KEY;
     var DATA_API_KEY = '.data-api';
@@ -62297,7 +62329,7 @@ if (token) {
         }
 
         if (selector) {
-          target = $$$1(selector)[0];
+          target = document.querySelector(selector);
         }
 
         this._activate(this._element, listElement);
@@ -62379,7 +62411,8 @@ if (token) {
           var dropdownElement = $$$1(element).closest(Selector.DROPDOWN)[0];
 
           if (dropdownElement) {
-            $$$1(dropdownElement).find(Selector.DROPDOWN_TOGGLE).addClass(ClassName.ACTIVE);
+            var dropdownToggleList = [].slice.call(dropdownElement.querySelectorAll(Selector.DROPDOWN_TOGGLE));
+            $$$1(dropdownToggleList).addClass(ClassName.ACTIVE);
           }
 
           element.setAttribute('aria-expanded', true);
@@ -62451,7 +62484,7 @@ if (token) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): index.js
+   * Bootstrap (v4.1.3): index.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -65736,7 +65769,7 @@ var config = api$1.config;
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
-* sweetalert2 v7.21.1
+* sweetalert2 v7.29.1
 * Released under the MIT License.
 */
 (function (global, factory) {
@@ -65745,189 +65778,200 @@ var config = api$1.config;
 	(global.Sweetalert2 = factory());
 }(this, (function () { 'use strict';
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-  return typeof obj;
-} : function (obj) {
-  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-};
+function _typeof(obj) {
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function (obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function (obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
 
+  return _typeof(obj);
+}
 
-
-
-
-
-
-
-
-
-
-var classCallCheck = function (instance, Constructor) {
+function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
-};
+}
 
-var createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
   }
+}
 
-  return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps);
-    return Constructor;
-  };
-}();
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
 
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
 
-
-
-
-
-
-var _extends = Object.assign || function (target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i];
-
-    for (var key in source) {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        target[key] = source[key];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
       }
     }
-  }
 
-  return target;
-};
+    return target;
+  };
 
-var get = function get(object, property, receiver) {
-  if (object === null) object = Function.prototype;
-  var desc = Object.getOwnPropertyDescriptor(object, property);
+  return _extends.apply(this, arguments);
+}
 
-  if (desc === undefined) {
-    var parent = Object.getPrototypeOf(object);
-
-    if (parent === null) {
-      return undefined;
-    } else {
-      return get(parent, property, receiver);
-    }
-  } else if ("value" in desc) {
-    return desc.value;
-  } else {
-    var getter = desc.get;
-
-    if (getter === undefined) {
-      return undefined;
-    }
-
-    return getter.call(receiver);
-  }
-};
-
-var inherits = function (subClass, superClass) {
+function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    throw new TypeError("Super expression must either be null or a function");
   }
 
   subClass.prototype = Object.create(superClass && superClass.prototype, {
     constructor: {
       value: subClass,
-      enumerable: false,
       writable: true,
       configurable: true
     }
   });
-  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-};
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
 
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
 
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
 
+  return _setPrototypeOf(o, p);
+}
 
+function isNativeReflectConstruct() {
+  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+  if (Reflect.construct.sham) return false;
+  if (typeof Proxy === "function") return true;
 
+  try {
+    Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
 
+function _construct(Parent, args, Class) {
+  if (isNativeReflectConstruct()) {
+    _construct = Reflect.construct;
+  } else {
+    _construct = function _construct(Parent, args, Class) {
+      var a = [null];
+      a.push.apply(a, args);
+      var Constructor = Function.bind.apply(Parent, a);
+      var instance = new Constructor();
+      if (Class) _setPrototypeOf(instance, Class.prototype);
+      return instance;
+    };
+  }
 
+  return _construct.apply(null, arguments);
+}
 
-
-
-
-var possibleConstructorReturn = function (self, call) {
-  if (!self) {
+function _assertThisInitialized(self) {
+  if (self === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
 
-  return call && (typeof call === "object" || typeof call === "function") ? call : self;
-};
+  return self;
+}
 
-
-
-
-
-var slicedToArray = function () {
-  function sliceIterator(arr, i) {
-    var _arr = [];
-    var _n = true;
-    var _d = false;
-    var _e = undefined;
-
-    try {
-      for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-        _arr.push(_s.value);
-
-        if (i && _arr.length === i) break;
-      }
-    } catch (err) {
-      _d = true;
-      _e = err;
-    } finally {
-      try {
-        if (!_n && _i["return"]) _i["return"]();
-      } finally {
-        if (_d) throw _e;
-      }
-    }
-
-    return _arr;
+function _possibleConstructorReturn(self, call) {
+  if (call && (typeof call === "object" || typeof call === "function")) {
+    return call;
   }
 
-  return function (arr, i) {
-    if (Array.isArray(arr)) {
-      return arr;
-    } else if (Symbol.iterator in Object(arr)) {
-      return sliceIterator(arr, i);
-    } else {
-      throw new TypeError("Invalid attempt to destructure non-iterable instance");
-    }
-  };
-}();
+  return _assertThisInitialized(self);
+}
+
+function _superPropBase(object, property) {
+  while (!Object.prototype.hasOwnProperty.call(object, property)) {
+    object = _getPrototypeOf(object);
+    if (object === null) break;
+  }
+
+  return object;
+}
+
+function _get(target, property, receiver) {
+  if (typeof Reflect !== "undefined" && Reflect.get) {
+    _get = Reflect.get;
+  } else {
+    _get = function _get(target, property, receiver) {
+      var base = _superPropBase(target, property);
+
+      if (!base) return;
+      var desc = Object.getOwnPropertyDescriptor(base, property);
+
+      if (desc.get) {
+        return desc.get.call(receiver);
+      }
+
+      return desc.value;
+    };
+  }
+
+  return _get(target, property, receiver || target);
+}
 
 var consolePrefix = 'SweetAlert2:';
-
 /**
  * Filter the unique values into a new array
  * @param arr
  */
+
 var uniqueArray = function uniqueArray(arr) {
   var result = [];
+
   for (var i = 0; i < arr.length; i++) {
     if (result.indexOf(arr[i]) === -1) {
       result.push(arr[i]);
     }
   }
+
   return result;
 };
+/**
+ * Convert NodeList to Array
+ * @param nodeList
+ */
 
+var toArray = function toArray(nodeList) {
+  return Array.prototype.slice.call(nodeList);
+};
 /**
  * Converts `inputOptions` into an array of `[value, label]`s
  * @param inputOptions
  */
+
 var formatInputOptions = function formatInputOptions(inputOptions) {
   var result = [];
+
   if (typeof Map !== 'undefined' && inputOptions instanceof Map) {
     inputOptions.forEach(function (value, key) {
       result.push([key, value]);
@@ -65937,54 +65981,54 @@ var formatInputOptions = function formatInputOptions(inputOptions) {
       result.push([key, inputOptions[key]]);
     });
   }
+
   return result;
 };
-
 /**
  * Standardise console warnings
  * @param message
  */
-var warn = function warn(message) {
-  console.warn(consolePrefix + ' ' + message);
-};
 
+var warn = function warn(message) {
+  console.warn("".concat(consolePrefix, " ").concat(message));
+};
 /**
  * Standardise console errors
  * @param message
  */
-var error = function error(message) {
-  console.error(consolePrefix + ' ' + message);
-};
 
+var error = function error(message) {
+  console.error("".concat(consolePrefix, " ").concat(message));
+};
 /**
  * Private global state for `warnOnce`
  * @type {Array}
  * @private
  */
-var previousWarnOnceMessages = [];
 
+var previousWarnOnceMessages = [];
 /**
  * Show a console warning, but only if it hasn't already been shown
  * @param message
  */
+
 var warnOnce = function warnOnce(message) {
   if (!(previousWarnOnceMessages.indexOf(message) !== -1)) {
     previousWarnOnceMessages.push(message);
     warn(message);
   }
 };
-
 /**
  * If `arg` is a function, call it (with no arguments or context) and return the result.
  * Otherwise, just pass the value through
  * @param arg
  */
+
 var callIfFunction = function callIfFunction(arg) {
   return typeof arg === 'function' ? arg() : arg;
 };
-
 var isThenable = function isThenable(arg) {
-  return (typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) === 'object' && typeof arg.then === 'function';
+  return arg && _typeof(arg) === 'object' && typeof arg.then === 'function';
 };
 
 var DismissReason = Object.freeze({
@@ -65995,33 +66039,31 @@ var DismissReason = Object.freeze({
   timer: 'timer'
 });
 
-var version = "7.21.1";
-
 var argsToParams = function argsToParams(args) {
   var params = {};
+
   switch (_typeof(args[0])) {
-    case 'string':
+    case 'object':
+      _extends(params, args[0]);
+
+      break;
+
+    default:
       ['title', 'html', 'type'].forEach(function (name, index) {
         switch (_typeof(args[index])) {
           case 'string':
             params[name] = args[index];
             break;
+
           case 'undefined':
             break;
+
           default:
-            error('Unexpected type of ' + name + '! Expected "string", got ' + _typeof(args[index]));
+            error("Unexpected type of ".concat(name, "! Expected \"string\", got ").concat(_typeof(args[index])));
         }
       });
-      break;
-
-    case 'object':
-      _extends(params, args[0]);
-      break;
-
-    default:
-      error('Unexpected type of argument! Expected "string" or "object", got ' + _typeof(args[0]));
-      return false;
   }
+
   return params;
 };
 
@@ -66032,44 +66074,36 @@ var adaptInputValidator = function adaptInputValidator(legacyValidator) {
   return function adaptedInputValidator(inputValue, extraParams) {
     return legacyValidator.call(this, inputValue, extraParams).then(function () {
       return undefined;
-    }, function (validationError) {
-      return validationError;
+    }, function (validationMessage) {
+      return validationMessage;
     });
   };
 };
 
 var swalPrefix = 'swal2-';
-
 var prefix = function prefix(items) {
   var result = {};
+
   for (var i in items) {
     result[items[i]] = swalPrefix + items[i];
   }
+
   return result;
 };
-
-var swalClasses = prefix(['container', 'shown', 'height-auto', 'iosfix', 'popup', 'modal', 'no-backdrop', 'toast', 'toast-shown', 'fade', 'show', 'hide', 'noanimation', 'close', 'title', 'header', 'content', 'actions', 'confirm', 'cancel', 'footer', 'icon', 'icon-text', 'image', 'input', 'has-input', 'file', 'range', 'select', 'radio', 'checkbox', 'textarea', 'inputerror', 'validationerror', 'progresssteps', 'activeprogressstep', 'progresscircle', 'progressline', 'loading', 'styled', 'top', 'top-start', 'top-end', 'top-left', 'top-right', 'center', 'center-start', 'center-end', 'center-left', 'center-right', 'bottom', 'bottom-start', 'bottom-end', 'bottom-left', 'bottom-right', 'grow-row', 'grow-column', 'grow-fullscreen']);
-
+var swalClasses = prefix(['container', 'shown', 'height-auto', 'iosfix', 'popup', 'modal', 'no-backdrop', 'toast', 'toast-shown', 'toast-column', 'fade', 'show', 'hide', 'noanimation', 'close', 'title', 'header', 'content', 'actions', 'confirm', 'cancel', 'footer', 'icon', 'icon-text', 'image', 'input', 'file', 'range', 'select', 'radio', 'checkbox', 'label', 'textarea', 'inputerror', 'validation-message', 'progresssteps', 'activeprogressstep', 'progresscircle', 'progressline', 'loading', 'styled', 'top', 'top-start', 'top-end', 'top-left', 'top-right', 'center', 'center-start', 'center-end', 'center-left', 'center-right', 'bottom', 'bottom-start', 'bottom-end', 'bottom-left', 'bottom-right', 'grow-row', 'grow-column', 'grow-fullscreen', 'rtl']);
 var iconTypes = prefix(['success', 'warning', 'info', 'question', 'error']);
 
-// Remember state in cases where opening and handling a modal will fiddle with it.
 var states = {
   previousBodyPadding: null
 };
-
 var hasClass = function hasClass(elem, className) {
-  if (elem.classList) {
-    return elem.classList.contains(className);
-  }
-  return false;
+  return elem.classList.contains(className);
 };
-
 var focusInput = function focusInput(input) {
-  input.focus();
+  input.focus(); // place cursor at end of text in text input
 
-  // place cursor at end of text in text input
   if (input.type !== 'file') {
-    // http://stackoverflow.com/a/2345915/1331425
+    // http://stackoverflow.com/a/2345915
     var val = input.value;
     input.value = '';
     input.value = val;
@@ -66080,9 +66114,11 @@ var addOrRemoveClass = function addOrRemoveClass(target, classList, add) {
   if (!target || !classList) {
     return;
   }
+
   if (typeof classList === 'string') {
     classList = classList.split(/\s+/).filter(Boolean);
   }
+
   classList.forEach(function (className) {
     if (target.forEach) {
       target.forEach(function (elem) {
@@ -66097,11 +66133,9 @@ var addOrRemoveClass = function addOrRemoveClass(target, classList, add) {
 var addClass = function addClass(target, classList) {
   addOrRemoveClass(target, classList, true);
 };
-
 var removeClass = function removeClass(target, classList) {
   addOrRemoveClass(target, classList, false);
 };
-
 var getChildByClass = function getChildByClass(elem, className) {
   for (var i = 0; i < elem.childNodes.length; i++) {
     if (hasClass(elem.childNodes[i], className)) {
@@ -66109,34 +66143,17 @@ var getChildByClass = function getChildByClass(elem, className) {
     }
   }
 };
-
 var show = function show(elem) {
   elem.style.opacity = '';
   elem.style.display = elem.id === swalClasses.content ? 'block' : 'flex';
 };
-
 var hide = function hide(elem) {
   elem.style.opacity = '';
   elem.style.display = 'none';
-};
+}; // borrowed from jquery $(elem).is(':visible') implementation
 
-var empty = function empty(elem) {
-  while (elem.firstChild) {
-    elem.removeChild(elem.firstChild);
-  }
-};
-
-// borrowed from jquery $(elem).is(':visible') implementation
 var isVisible = function isVisible(elem) {
   return elem && (elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length);
-};
-
-var removeStyleProperty = function removeStyleProperty(elem, property) {
-  if (elem.style.removeProperty) {
-    elem.style.removeProperty(property);
-  } else {
-    elem.style.removeAttribute(property);
-  }
 };
 
 var getContainer = function getContainer() {
@@ -66151,85 +66168,76 @@ var elementByClass = function elementByClass(className) {
 var getPopup = function getPopup() {
   return elementByClass(swalClasses.popup);
 };
-
 var getIcons = function getIcons() {
   var popup = getPopup();
-  return popup.querySelectorAll('.' + swalClasses.icon);
+  return toArray(popup.querySelectorAll('.' + swalClasses.icon));
 };
-
 var getTitle = function getTitle() {
   return elementByClass(swalClasses.title);
 };
-
 var getContent = function getContent() {
   return elementByClass(swalClasses.content);
 };
-
 var getImage = function getImage() {
   return elementByClass(swalClasses.image);
 };
-
 var getProgressSteps = function getProgressSteps() {
   return elementByClass(swalClasses.progresssteps);
 };
-
-var getValidationError = function getValidationError() {
-  return elementByClass(swalClasses.validationerror);
+var getValidationMessage = function getValidationMessage() {
+  return elementByClass(swalClasses['validation-message']);
 };
-
 var getConfirmButton = function getConfirmButton() {
   return elementByClass(swalClasses.confirm);
 };
-
 var getCancelButton = function getCancelButton() {
   return elementByClass(swalClasses.cancel);
 };
+/* @deprecated */
+
+/* istanbul ignore next */
 
 var getButtonsWrapper = function getButtonsWrapper() {
-  warnOnce('swal.getButtonsWrapper() is deprecated and will be removed in the next major release, use swal.getActions() instead');
+  warnOnce("swal.getButtonsWrapper() is deprecated and will be removed in the next major release, use swal.getActions() instead");
   return elementByClass(swalClasses.actions);
 };
-
 var getActions = function getActions() {
   return elementByClass(swalClasses.actions);
 };
-
 var getFooter = function getFooter() {
   return elementByClass(swalClasses.footer);
 };
-
 var getCloseButton = function getCloseButton() {
   return elementByClass(swalClasses.close);
 };
-
 var getFocusableElements = function getFocusableElements() {
-  var focusableElementsWithTabindex = Array.prototype.slice.call(getPopup().querySelectorAll('[tabindex]:not([tabindex="-1"]):not([tabindex="0"])'))
-  // sort according to tabindex
+  var focusableElementsWithTabindex = toArray(getPopup().querySelectorAll('[tabindex]:not([tabindex="-1"]):not([tabindex="0"])')) // sort according to tabindex
   .sort(function (a, b) {
     a = parseInt(a.getAttribute('tabindex'));
     b = parseInt(b.getAttribute('tabindex'));
+
     if (a > b) {
       return 1;
     } else if (a < b) {
       return -1;
     }
+
     return 0;
+  }); // https://github.com/jkup/focusable/blob/master/index.js
+
+  var otherFocusableElements = toArray(getPopup().querySelectorAll('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable], audio[controls], video[controls]')).filter(function (el) {
+    return el.getAttribute('tabindex') !== '-1';
   });
-
-  // https://github.com/jkup/focusable/blob/master/index.js
-  var otherFocusableElements = Array.prototype.slice.call(getPopup().querySelectorAll('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable], audio[controls], video[controls]'));
-
-  return uniqueArray(focusableElementsWithTabindex.concat(otherFocusableElements));
+  return uniqueArray(focusableElementsWithTabindex.concat(otherFocusableElements)).filter(function (el) {
+    return isVisible(el);
+  });
 };
-
 var isModal = function isModal() {
-  return !document.body.classList.contains(swalClasses['toast-shown']);
+  return !isToast() && !document.body.classList.contains(swalClasses['no-backdrop']);
 };
-
 var isToast = function isToast() {
   return document.body.classList.contains(swalClasses['toast-shown']);
 };
-
 var isLoading = function isLoading() {
   return getPopup().hasAttribute('data-loading');
 };
@@ -66239,18 +66247,21 @@ var isNodeEnv = function isNodeEnv() {
   return typeof window === 'undefined' || typeof document === 'undefined';
 };
 
-var sweetHTML = ('\n <div aria-labelledby="' + swalClasses.title + '" aria-describedby="' + swalClasses.content + '" class="' + swalClasses.popup + '" tabindex="-1">\n   <div class="' + swalClasses.header + '">\n     <ul class="' + swalClasses.progresssteps + '"></ul>\n     <div class="' + swalClasses.icon + ' ' + iconTypes.error + '">\n       <span class="swal2-x-mark"><span class="swal2-x-mark-line-left"></span><span class="swal2-x-mark-line-right"></span></span>\n     </div>\n     <div class="' + swalClasses.icon + ' ' + iconTypes.question + '">\n       <span class="' + swalClasses['icon-text'] + '">?</span>\n      </div>\n     <div class="' + swalClasses.icon + ' ' + iconTypes.warning + '">\n       <span class="' + swalClasses['icon-text'] + '">!</span>\n      </div>\n     <div class="' + swalClasses.icon + ' ' + iconTypes.info + '">\n       <span class="' + swalClasses['icon-text'] + '">i</span>\n      </div>\n     <div class="' + swalClasses.icon + ' ' + iconTypes.success + '">\n       <div class="swal2-success-circular-line-left"></div>\n       <span class="swal2-success-line-tip"></span> <span class="swal2-success-line-long"></span>\n       <div class="swal2-success-ring"></div> <div class="swal2-success-fix"></div>\n       <div class="swal2-success-circular-line-right"></div>\n     </div>\n     <img class="' + swalClasses.image + '" />\n     <h2 class="' + swalClasses.title + '" id="' + swalClasses.title + '"></h2>\n     <button type="button" class="' + swalClasses.close + '">\xD7</button>\n   </div>\n   <div class="' + swalClasses.content + '">\n     <div id="' + swalClasses.content + '"></div>\n     <input class="' + swalClasses.input + '" />\n     <input type="file" class="' + swalClasses.file + '" />\n     <div class="' + swalClasses.range + '">\n       <input type="range" />\n       <output></output>\n     </div>\n     <select class="' + swalClasses.select + '"></select>\n     <div class="' + swalClasses.radio + '"></div>\n     <label for="' + swalClasses.checkbox + '" class="' + swalClasses.checkbox + '">\n       <input type="checkbox" />\n     </label>\n     <textarea class="' + swalClasses.textarea + '"></textarea>\n     <div class="' + swalClasses.validationerror + '" id="' + swalClasses.validationerror + '"></div>\n   </div>\n   <div class="' + swalClasses.actions + '">\n     <button type="button" class="' + swalClasses.confirm + '">OK</button>\n     <button type="button" class="' + swalClasses.cancel + '">Cancel</button>\n   </div>\n   <div class="' + swalClasses.footer + '">\n   </div>\n </div>\n').replace(/(^|\n)\s*/g, '');
-
+var sweetHTML = "\n <div aria-labelledby=\"".concat(swalClasses.title, "\" aria-describedby=\"").concat(swalClasses.content, "\" class=\"").concat(swalClasses.popup, "\" tabindex=\"-1\">\n   <div class=\"").concat(swalClasses.header, "\">\n     <ul class=\"").concat(swalClasses.progresssteps, "\"></ul>\n     <div class=\"").concat(swalClasses.icon, " ").concat(iconTypes.error, "\">\n       <span class=\"swal2-x-mark\"><span class=\"swal2-x-mark-line-left\"></span><span class=\"swal2-x-mark-line-right\"></span></span>\n     </div>\n     <div class=\"").concat(swalClasses.icon, " ").concat(iconTypes.question, "\">\n       <span class=\"").concat(swalClasses['icon-text'], "\">?</span>\n      </div>\n     <div class=\"").concat(swalClasses.icon, " ").concat(iconTypes.warning, "\">\n       <span class=\"").concat(swalClasses['icon-text'], "\">!</span>\n      </div>\n     <div class=\"").concat(swalClasses.icon, " ").concat(iconTypes.info, "\">\n       <span class=\"").concat(swalClasses['icon-text'], "\">i</span>\n      </div>\n     <div class=\"").concat(swalClasses.icon, " ").concat(iconTypes.success, "\">\n       <div class=\"swal2-success-circular-line-left\"></div>\n       <span class=\"swal2-success-line-tip\"></span> <span class=\"swal2-success-line-long\"></span>\n       <div class=\"swal2-success-ring\"></div> <div class=\"swal2-success-fix\"></div>\n       <div class=\"swal2-success-circular-line-right\"></div>\n     </div>\n     <img class=\"").concat(swalClasses.image, "\" />\n     <h2 class=\"").concat(swalClasses.title, "\" id=\"").concat(swalClasses.title, "\"></h2>\n     <button type=\"button\" class=\"").concat(swalClasses.close, "\">\xD7</button>\n   </div>\n   <div class=\"").concat(swalClasses.content, "\">\n     <div id=\"").concat(swalClasses.content, "\"></div>\n     <input class=\"").concat(swalClasses.input, "\" />\n     <input type=\"file\" class=\"").concat(swalClasses.file, "\" />\n     <div class=\"").concat(swalClasses.range, "\">\n       <input type=\"range\" />\n       <output></output>\n     </div>\n     <select class=\"").concat(swalClasses.select, "\"></select>\n     <div class=\"").concat(swalClasses.radio, "\"></div>\n     <label for=\"").concat(swalClasses.checkbox, "\" class=\"").concat(swalClasses.checkbox, "\">\n       <input type=\"checkbox\" />\n       <span class=\"").concat(swalClasses.label, "\"></span>\n     </label>\n     <textarea class=\"").concat(swalClasses.textarea, "\"></textarea>\n     <div class=\"").concat(swalClasses['validation-message'], "\" id=\"").concat(swalClasses['validation-message'], "\"></div>\n   </div>\n   <div class=\"").concat(swalClasses.actions, "\">\n     <button type=\"button\" class=\"").concat(swalClasses.confirm, "\">OK</button>\n     <button type=\"button\" class=\"").concat(swalClasses.cancel, "\">Cancel</button>\n   </div>\n   <div class=\"").concat(swalClasses.footer, "\">\n   </div>\n </div>\n").replace(/(^|\n)\s*/g, '');
 /*
  * Add modal + backdrop to DOM
  */
+
 var init = function init(params) {
   // Clean up the old popup if it exists
   var c = getContainer();
+
   if (c) {
     c.parentNode.removeChild(c);
-    removeClass([document.documentElement, document.body], [swalClasses['no-backdrop'], swalClasses['has-input'], swalClasses['toast-shown']]);
+    removeClass([document.documentElement, document.body], [swalClasses['no-backdrop'], swalClasses['toast-shown'], swalClasses['has-column']]);
   }
+  /* istanbul ignore if */
+
 
   if (isNodeEnv()) {
     error('SweetAlert2 requires document to initialize');
@@ -66260,48 +66271,53 @@ var init = function init(params) {
   var container = document.createElement('div');
   container.className = swalClasses.container;
   container.innerHTML = sweetHTML;
-
   var targetElement = typeof params.target === 'string' ? document.querySelector(params.target) : params.target;
   targetElement.appendChild(container);
-
   var popup = getPopup();
   var content = getContent();
   var input = getChildByClass(content, swalClasses.input);
   var file = getChildByClass(content, swalClasses.file);
-  var range = content.querySelector('.' + swalClasses.range + ' input');
-  var rangeOutput = content.querySelector('.' + swalClasses.range + ' output');
+  var range = content.querySelector(".".concat(swalClasses.range, " input"));
+  var rangeOutput = content.querySelector(".".concat(swalClasses.range, " output"));
   var select = getChildByClass(content, swalClasses.select);
-  var checkbox = content.querySelector('.' + swalClasses.checkbox + ' input');
-  var textarea = getChildByClass(content, swalClasses.textarea);
+  var checkbox = content.querySelector(".".concat(swalClasses.checkbox, " input"));
+  var textarea = getChildByClass(content, swalClasses.textarea); // a11y
 
-  // a11y
   popup.setAttribute('role', params.toast ? 'alert' : 'dialog');
   popup.setAttribute('aria-live', params.toast ? 'polite' : 'assertive');
+
   if (!params.toast) {
     popup.setAttribute('aria-modal', 'true');
+  } // RTL
+
+
+  if (window.getComputedStyle(targetElement).direction === 'rtl') {
+    addClass(getContainer(), swalClasses.rtl);
   }
 
-  var oldInputVal = void 0; // IE11 workaround, see #1109 for details
-  var resetValidationError = function resetValidationError(e) {
+  var oldInputVal; // IE11 workaround, see #1109 for details
+
+  var resetValidationMessage = function resetValidationMessage(e) {
     if (Swal.isVisible() && oldInputVal !== e.target.value) {
-      Swal.resetValidationError();
+      Swal.resetValidationMessage();
     }
+
     oldInputVal = e.target.value;
   };
 
-  input.oninput = resetValidationError;
-  file.onchange = resetValidationError;
-  select.onchange = resetValidationError;
-  checkbox.onchange = resetValidationError;
-  textarea.oninput = resetValidationError;
+  input.oninput = resetValidationMessage;
+  file.onchange = resetValidationMessage;
+  select.onchange = resetValidationMessage;
+  checkbox.onchange = resetValidationMessage;
+  textarea.oninput = resetValidationMessage;
 
-  range.oninput = function () {
-    resetValidationError();
+  range.oninput = function (e) {
+    resetValidationMessage(e);
     rangeOutput.value = range.value;
   };
 
-  range.onchange = function () {
-    resetValidationError();
+  range.onchange = function (e) {
+    resetValidationMessage(e);
     range.nextSibling.value = range.value;
   };
 
@@ -66313,8 +66329,9 @@ var parseHtmlToContainer = function parseHtmlToContainer(param, target) {
     return hide(target);
   }
 
-  if ((typeof param === 'undefined' ? 'undefined' : _typeof(param)) === 'object') {
+  if (_typeof(param) === 'object') {
     target.innerHTML = '';
+
     if (0 in param) {
       for (var i = 0; i in param; i++) {
         target.appendChild(param[i].cloneNode(true));
@@ -66324,12 +66341,15 @@ var parseHtmlToContainer = function parseHtmlToContainer(param, target) {
     }
   } else if (param) {
     target.innerHTML = param;
-  } else {}
+  }
+
   show(target);
 };
 
 var animationEndEvent = function () {
   // Prevent run in Node env
+
+  /* istanbul ignore if */
   if (isNodeEnv()) {
     return false;
   }
@@ -66340,6 +66360,7 @@ var animationEndEvent = function () {
     'OAnimation': 'oAnimationEnd oanimationend',
     'animation': 'animationend'
   };
+
   for (var i in transEndEventNames) {
     if (transEndEventNames.hasOwnProperty(i) && typeof testEl.style[i] !== 'undefined') {
       return transEndEventNames[i];
@@ -66353,9 +66374,11 @@ var animationEndEvent = function () {
 // https://github.com/twbs/bootstrap/blob/master/js/modal.js#L279-L286
 var measureScrollbar = function measureScrollbar() {
   var supportsTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints;
+
   if (supportsTouch) {
     return 0;
   }
+
   var scrollDiv = document.createElement('div');
   scrollDiv.style.width = '50px';
   scrollDiv.style.height = '50px';
@@ -66366,19 +66389,195 @@ var measureScrollbar = function measureScrollbar() {
   return scrollbarWidth;
 };
 
+var renderActions = function renderActions(params) {
+  var actions = getActions();
+  var confirmButton = getConfirmButton();
+  var cancelButton = getCancelButton(); // Actions (buttons) wrapper
+
+  if (!params.showConfirmButton && !params.showCancelButton) {
+    hide(actions);
+  } else {
+    show(actions);
+  } // Cancel button
+
+
+  if (params.showCancelButton) {
+    cancelButton.style.display = 'inline-block';
+  } else {
+    hide(cancelButton);
+  } // Confirm button
+
+
+  if (params.showConfirmButton) {
+    confirmButton.style.removeProperty('display');
+  } else {
+    hide(confirmButton);
+  } // Edit text on confirm and cancel buttons
+
+
+  confirmButton.innerHTML = params.confirmButtonText;
+  cancelButton.innerHTML = params.cancelButtonText; // ARIA labels for confirm and cancel buttons
+
+  confirmButton.setAttribute('aria-label', params.confirmButtonAriaLabel);
+  cancelButton.setAttribute('aria-label', params.cancelButtonAriaLabel); // Add buttons custom classes
+
+  confirmButton.className = swalClasses.confirm;
+  addClass(confirmButton, params.confirmButtonClass);
+  cancelButton.className = swalClasses.cancel;
+  addClass(cancelButton, params.cancelButtonClass); // Buttons styling
+
+  if (params.buttonsStyling) {
+    addClass([confirmButton, cancelButton], swalClasses.styled); // Buttons background colors
+
+    if (params.confirmButtonColor) {
+      confirmButton.style.backgroundColor = params.confirmButtonColor;
+    }
+
+    if (params.cancelButtonColor) {
+      cancelButton.style.backgroundColor = params.cancelButtonColor;
+    } // Loading state
+
+
+    var confirmButtonBackgroundColor = window.getComputedStyle(confirmButton).getPropertyValue('background-color');
+    confirmButton.style.borderLeftColor = confirmButtonBackgroundColor;
+    confirmButton.style.borderRightColor = confirmButtonBackgroundColor;
+  } else {
+    removeClass([confirmButton, cancelButton], swalClasses.styled);
+    confirmButton.style.backgroundColor = confirmButton.style.borderLeftColor = confirmButton.style.borderRightColor = '';
+    cancelButton.style.backgroundColor = cancelButton.style.borderLeftColor = cancelButton.style.borderRightColor = '';
+  }
+};
+
+var renderContent = function renderContent(params) {
+  var content = getContent().querySelector('#' + swalClasses.content); // Content as HTML
+
+  if (params.html) {
+    parseHtmlToContainer(params.html, content); // Content as plain text
+  } else if (params.text) {
+    content.textContent = params.text;
+    show(content);
+  } else {
+    hide(content);
+  }
+};
+
+var renderIcon = function renderIcon(params) {
+  var icons = getIcons();
+
+  for (var i = 0; i < icons.length; i++) {
+    hide(icons[i]);
+  }
+
+  if (params.type) {
+    if (Object.keys(iconTypes).indexOf(params.type) !== -1) {
+      var icon = Swal.getPopup().querySelector(".".concat(swalClasses.icon, ".").concat(iconTypes[params.type]));
+      show(icon); // Animate icon
+
+      if (params.animation) {
+        addClass(icon, "swal2-animate-".concat(params.type, "-icon"));
+      }
+    } else {
+      error("Unknown type! Expected \"success\", \"error\", \"warning\", \"info\" or \"question\", got \"".concat(params.type, "\""));
+    }
+  }
+};
+
+var renderImage = function renderImage(params) {
+  var image = getImage();
+
+  if (params.imageUrl) {
+    image.setAttribute('src', params.imageUrl);
+    image.setAttribute('alt', params.imageAlt);
+    show(image);
+
+    if (params.imageWidth) {
+      image.setAttribute('width', params.imageWidth);
+    } else {
+      image.removeAttribute('width');
+    }
+
+    if (params.imageHeight) {
+      image.setAttribute('height', params.imageHeight);
+    } else {
+      image.removeAttribute('height');
+    }
+
+    image.className = swalClasses.image;
+
+    if (params.imageClass) {
+      addClass(image, params.imageClass);
+    }
+  } else {
+    hide(image);
+  }
+};
+
+var renderProgressSteps = function renderProgressSteps(params) {
+  var progressStepsContainer = getProgressSteps();
+  var currentProgressStep = parseInt(params.currentProgressStep === null ? Swal.getQueueStep() : params.currentProgressStep, 10);
+
+  if (params.progressSteps && params.progressSteps.length) {
+    show(progressStepsContainer);
+    progressStepsContainer.innerHTML = '';
+
+    if (currentProgressStep >= params.progressSteps.length) {
+      warn('Invalid currentProgressStep parameter, it should be less than progressSteps.length ' + '(currentProgressStep like JS arrays starts from 0)');
+    }
+
+    params.progressSteps.forEach(function (step, index) {
+      var circle = document.createElement('li');
+      addClass(circle, swalClasses.progresscircle);
+      circle.innerHTML = step;
+
+      if (index === currentProgressStep) {
+        addClass(circle, swalClasses.activeprogressstep);
+      }
+
+      progressStepsContainer.appendChild(circle);
+
+      if (index !== params.progressSteps.length - 1) {
+        var line = document.createElement('li');
+        addClass(line, swalClasses.progressline);
+
+        if (params.progressStepsDistance) {
+          line.style.width = params.progressStepsDistance;
+        }
+
+        progressStepsContainer.appendChild(line);
+      }
+    });
+  } else {
+    hide(progressStepsContainer);
+  }
+};
+
+var renderTitle = function renderTitle(params) {
+  var title = getTitle();
+
+  if (params.titleText) {
+    title.innerText = params.titleText;
+  } else if (params.title) {
+    if (typeof params.title === 'string') {
+      params.title = params.title.split('\n').join('<br />');
+    }
+
+    parseHtmlToContainer(params.title, title);
+  }
+};
+
 var fixScrollbar = function fixScrollbar() {
   // for queues, do not do this more than once
   if (states.previousBodyPadding !== null) {
     return;
-  }
-  // if the body has overflow
+  } // if the body has overflow
+
+
   if (document.body.scrollHeight > window.innerHeight) {
     // add padding so the content doesn't shift after removal of scrollbar
     states.previousBodyPadding = parseInt(window.getComputedStyle(document.body).getPropertyValue('padding-right'));
     document.body.style.paddingRight = states.previousBodyPadding + measureScrollbar() + 'px';
   }
 };
-
 var undoScrollbar = function undoScrollbar() {
   if (states.previousBodyPadding !== null) {
     document.body.style.paddingRight = states.previousBodyPadding;
@@ -66386,15 +66585,18 @@ var undoScrollbar = function undoScrollbar() {
   }
 };
 
-// Fix iOS scrolling http://stackoverflow.com/q/39626302/1331425
+/* istanbul ignore next */
+
 var iOSfix = function iOSfix() {
   var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
   if (iOS && !hasClass(document.body, swalClasses.iosfix)) {
     var offset = document.body.scrollTop;
     document.body.style.top = offset * -1 + 'px';
     addClass(document.body, swalClasses.iosfix);
   }
 };
+/* istanbul ignore next */
 
 var undoIOSfix = function undoIOSfix() {
   if (hasClass(document.body, swalClasses.iosfix)) {
@@ -66405,31 +66607,102 @@ var undoIOSfix = function undoIOSfix() {
   }
 };
 
-var globalState = {};
+var isIE11 = function isIE11() {
+  return !!window.MSInputMethodContext && !!document.documentMode;
+}; // Fix IE11 centering sweetalert2/issues/933
 
-// Restore previous active (focused) element
+/* istanbul ignore next */
+
+
+var fixVerticalPositionIE = function fixVerticalPositionIE() {
+  var container = getContainer();
+  var popup = getPopup();
+  container.style.removeProperty('align-items');
+
+  if (popup.offsetTop < 0) {
+    container.style.alignItems = 'flex-start';
+  }
+};
+/* istanbul ignore next */
+
+
+var IEfix = function IEfix() {
+  if (typeof window !== 'undefined' && isIE11()) {
+    fixVerticalPositionIE();
+    window.addEventListener('resize', fixVerticalPositionIE);
+  }
+};
+/* istanbul ignore next */
+
+var undoIEfix = function undoIEfix() {
+  if (typeof window !== 'undefined' && isIE11()) {
+    window.removeEventListener('resize', fixVerticalPositionIE);
+  }
+};
+
+// Adding aria-hidden="true" to elements outside of the active modal dialog ensures that
+// elements not within the active modal dialog will not be surfaced if a user opens a screen
+// reader’s list of elements (headings, form controls, landmarks, etc.) in the document.
+
+var setAriaHidden = function setAriaHidden() {
+  var bodyChildren = toArray(document.body.children);
+  bodyChildren.forEach(function (el) {
+    if (el === getContainer() || el.contains(getContainer())) {
+      return;
+    }
+
+    if (el.hasAttribute('aria-hidden')) {
+      el.setAttribute('data-previous-aria-hidden', el.getAttribute('aria-hidden'));
+    }
+
+    el.setAttribute('aria-hidden', 'true');
+  });
+};
+var unsetAriaHidden = function unsetAriaHidden() {
+  var bodyChildren = toArray(document.body.children);
+  bodyChildren.forEach(function (el) {
+    if (el.hasAttribute('data-previous-aria-hidden')) {
+      el.setAttribute('aria-hidden', el.getAttribute('data-previous-aria-hidden'));
+      el.removeAttribute('data-previous-aria-hidden');
+    } else {
+      el.removeAttribute('aria-hidden');
+    }
+  });
+};
+
+var RESTORE_FOCUS_TIMEOUT = 100;
+
+var globalState = {};
 var restoreActiveElement = function restoreActiveElement() {
-  if (globalState.previousActiveElement && globalState.previousActiveElement.focus) {
-    var previousActiveElement = globalState.previousActiveElement;
-    globalState.previousActiveElement = null;
+  return new Promise(function (resolve) {
     var x = window.scrollX;
     var y = window.scrollY;
-    setTimeout(function () {
-      previousActiveElement.focus && previousActiveElement.focus();
-    }, 100); // issues/900
+    globalState.restoreFocusTimeout = setTimeout(function () {
+      if (globalState.previousActiveElement && globalState.previousActiveElement.focus) {
+        globalState.previousActiveElement.focus();
+        globalState.previousActiveElement = null;
+      } else if (document.body) {
+        document.body.focus();
+      }
+
+      resolve();
+    }, RESTORE_FOCUS_TIMEOUT); // issues/900
+
     if (typeof x !== 'undefined' && typeof y !== 'undefined') {
       // IE doesn't have scrollX/scrollY support
       window.scrollTo(x, y);
     }
-  }
+  });
 };
 
 /*
  * Global function to close sweetAlert
  */
+
 var close = function close(onClose, onAfterClose) {
   var container = getContainer();
   var popup = getPopup();
+
   if (!popup) {
     return;
   }
@@ -66443,32 +66716,36 @@ var close = function close(onClose, onAfterClose) {
 
   var removePopupAndResetState = function removePopupAndResetState() {
     if (!isToast()) {
-      restoreActiveElement();
-      window.removeEventListener('keydown', globalState.keydownHandler, { capture: true });
+      restoreActiveElement().then(function () {
+        return triggerOnAfterClose(onAfterClose);
+      });
+      globalState.keydownTarget.removeEventListener('keydown', globalState.keydownHandler, {
+        capture: globalState.keydownListenerCapture
+      });
       globalState.keydownHandlerAdded = false;
+    } else {
+      triggerOnAfterClose(onAfterClose);
     }
 
     if (container.parentNode) {
       container.parentNode.removeChild(container);
     }
-    removeClass([document.documentElement, document.body], [swalClasses.shown, swalClasses['height-auto'], swalClasses['no-backdrop'], swalClasses['has-input'], swalClasses['toast-shown']]);
+
+    removeClass([document.documentElement, document.body], [swalClasses.shown, swalClasses['height-auto'], swalClasses['no-backdrop'], swalClasses['toast-shown'], swalClasses['toast-column']]);
 
     if (isModal()) {
       undoScrollbar();
       undoIOSfix();
+      undoIEfix();
+      unsetAriaHidden();
     }
+  }; // If animation is supported, animate
 
-    if (onAfterClose !== null && typeof onAfterClose === 'function') {
-      setTimeout(function () {
-        onAfterClose();
-      });
-    }
-  };
 
-  // If animation is supported, animate
   if (animationEndEvent && !hasClass(popup, swalClasses.noanimation)) {
     popup.addEventListener(animationEndEvent, function swalCloseEventFinished() {
       popup.removeEventListener(animationEndEvent, swalCloseEventFinished);
+
       if (hasClass(popup, swalClasses.hide)) {
         removePopupAndResetState();
       }
@@ -66479,26 +66756,45 @@ var close = function close(onClose, onAfterClose) {
   }
 };
 
+var triggerOnAfterClose = function triggerOnAfterClose(onAfterClose) {
+  if (onAfterClose !== null && typeof onAfterClose === 'function') {
+    setTimeout(function () {
+      onAfterClose();
+    });
+  }
+};
+
 /*
  * Global function to determine if swal2 popup is shown
  */
+
 var isVisible$1 = function isVisible() {
   return !!getPopup();
 };
-
 /*
  * Global function to click 'Confirm' button
  */
+
 var clickConfirm = function clickConfirm() {
   return getConfirmButton().click();
 };
-
 /*
  * Global function to click 'Cancel' button
  */
+
 var clickCancel = function clickCancel() {
   return getCancelButton().click();
 };
+
+function fire() {
+  var Swal = this;
+
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+
+  return _construct(Swal, args);
+}
 
 /**
  * Extends a Swal class making it able to be instantiated without the `new` keyword (and thus without `Swal.fire`)
@@ -66507,24 +66803,31 @@ var clickCancel = function clickCancel() {
  */
 function withNoNewKeyword(ParentSwal) {
   var NoNewKeywordSwal = function NoNewKeywordSwal() {
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
     if (!(this instanceof NoNewKeywordSwal)) {
-      return new (Function.prototype.bind.apply(NoNewKeywordSwal, [null].concat(args)))();
+      return _construct(NoNewKeywordSwal, args);
     }
+
     Object.getPrototypeOf(NoNewKeywordSwal).apply(this, args);
   };
-  NoNewKeywordSwal.prototype = _extends(Object.create(ParentSwal.prototype), { constructor: NoNewKeywordSwal });
+
+  NoNewKeywordSwal.prototype = _extends(Object.create(ParentSwal.prototype), {
+    constructor: NoNewKeywordSwal
+  });
 
   if (typeof Object.setPrototypeOf === 'function') {
     Object.setPrototypeOf(NoNewKeywordSwal, ParentSwal);
   } else {
     // Android 4.4
+
+    /* istanbul ignore next */
     // eslint-disable-next-line
     NoNewKeywordSwal.__proto__ = ParentSwal;
   }
+
   return NoNewKeywordSwal;
 }
 
@@ -66544,6 +66847,8 @@ var defaultParams = {
   allowOutsideClick: true,
   allowEscapeKey: true,
   allowEnterKey: true,
+  stopKeydownPropagation: true,
+  keydownListenerCapture: false,
   showConfirmButton: true,
   showCancelButton: false,
   preConfirm: null,
@@ -66579,6 +66884,7 @@ var defaultParams = {
   inputClass: null,
   inputAttributes: {},
   inputValidator: null,
+  validationMessage: null,
   grow: false,
   position: 'center',
   progressSteps: [],
@@ -66591,84 +66897,92 @@ var defaultParams = {
   useRejections: false,
   expectRejections: false
 };
-
-var deprecatedParams = ['useRejections', 'expectRejections'];
-
+var deprecatedParams = ['useRejections', 'expectRejections', 'extraParams'];
+var toastIncompatibleParams = ['allowOutsideClick', 'allowEnterKey', 'backdrop', 'focusConfirm', 'focusCancel', 'heightAuto', 'keydownListenerCapture'];
 /**
  * Is valid parameter
  * @param {String} paramName
  */
+
 var isValidParameter = function isValidParameter(paramName) {
   return defaultParams.hasOwnProperty(paramName) || paramName === 'extraParams';
 };
-
 /**
  * Is deprecated parameter
  * @param {String} paramName
  */
+
 var isDeprecatedParameter = function isDeprecatedParameter(paramName) {
   return deprecatedParams.indexOf(paramName) !== -1;
 };
-
 /**
  * Show relevant warnings for given params
  *
  * @param params
  */
+
 var showWarningsForParams = function showWarningsForParams(params) {
   for (var param in params) {
     if (!isValidParameter(param)) {
-      warn('Unknown parameter "' + param + '"');
+      warn("Unknown parameter \"".concat(param, "\""));
     }
+
+    if (params.toast && toastIncompatibleParams.indexOf(param) !== -1) {
+      warn("The parameter \"".concat(param, "\" is incompatible with toasts"));
+    }
+
     if (isDeprecatedParameter(param)) {
-      warnOnce('The parameter "' + param + '" is deprecated and will be removed in the next major release.');
+      warnOnce("The parameter \"".concat(param, "\" is deprecated and will be removed in the next major release."));
     }
   }
 };
 
-var deprecationWarning = '"setDefaults" & "resetDefaults" methods are deprecated in favor of "mixin" method and will be removed in the next major release. For new projects, use "mixin". For past projects already using "setDefaults", support will be provided through an additional package.';
-var defaults$1 = {};
-
+var deprecationWarning = "\"setDefaults\" & \"resetDefaults\" methods are deprecated in favor of \"mixin\" method and will be removed in the next major release. For new projects, use \"mixin\". For past projects already using \"setDefaults\", support will be provided through an additional package.";
+var defaults = {};
 function withGlobalDefaults(ParentSwal) {
-  var SwalWithGlobalDefaults = function (_ParentSwal) {
-    inherits(SwalWithGlobalDefaults, _ParentSwal);
+  var SwalWithGlobalDefaults =
+  /*#__PURE__*/
+  function (_ParentSwal) {
+    _inherits(SwalWithGlobalDefaults, _ParentSwal);
 
     function SwalWithGlobalDefaults() {
-      classCallCheck(this, SwalWithGlobalDefaults);
-      return possibleConstructorReturn(this, (SwalWithGlobalDefaults.__proto__ || Object.getPrototypeOf(SwalWithGlobalDefaults)).apply(this, arguments));
+      _classCallCheck(this, SwalWithGlobalDefaults);
+
+      return _possibleConstructorReturn(this, _getPrototypeOf(SwalWithGlobalDefaults).apply(this, arguments));
     }
 
-    createClass(SwalWithGlobalDefaults, [{
-      key: '_main',
+    _createClass(SwalWithGlobalDefaults, [{
+      key: "_main",
       value: function _main(params) {
-        return get(SwalWithGlobalDefaults.prototype.__proto__ || Object.getPrototypeOf(SwalWithGlobalDefaults.prototype), '_main', this).call(this, _extends({}, defaults$1, params));
+        return _get(_getPrototypeOf(SwalWithGlobalDefaults.prototype), "_main", this).call(this, _extends({}, defaults, params));
       }
     }], [{
-      key: 'setDefaults',
+      key: "setDefaults",
       value: function setDefaults(params) {
         warnOnce(deprecationWarning);
-        if (!params || (typeof params === 'undefined' ? 'undefined' : _typeof(params)) !== 'object') {
+
+        if (!params || _typeof(params) !== 'object') {
           throw new TypeError('SweetAlert2: The argument for setDefaults() is required and has to be a object');
         }
-        showWarningsForParams(params);
-        // assign valid params from `params` to `defaults`
+
+        showWarningsForParams(params); // assign valid params from `params` to `defaults`
+
         Object.keys(params).forEach(function (param) {
           if (ParentSwal.isValidParameter(param)) {
-            defaults$1[param] = params[param];
+            defaults[param] = params[param];
           }
         });
       }
     }, {
-      key: 'resetDefaults',
+      key: "resetDefaults",
       value: function resetDefaults() {
         warnOnce(deprecationWarning);
-        defaults$1 = {};
+        defaults = {};
       }
     }]);
-    return SwalWithGlobalDefaults;
-  }(ParentSwal);
 
-  // Set default params if `window._swalDefaults` is an object
+    return SwalWithGlobalDefaults;
+  }(ParentSwal); // Set default params if `window._swalDefaults` is an object
 
 
   if (typeof window !== 'undefined' && _typeof(window._swalDefaults) === 'object') {
@@ -66696,82 +67010,92 @@ function withGlobalDefaults(ParentSwal) {
  *
  * @param mixinParams
  */
+
 function mixin(mixinParams) {
-  var Swal = this;
-  return withNoNewKeyword(function (_Swal) {
-    inherits(MixinSwal, _Swal);
+  return withNoNewKeyword(
+  /*#__PURE__*/
+  function (_this) {
+    _inherits(MixinSwal, _this);
 
     function MixinSwal() {
-      classCallCheck(this, MixinSwal);
-      return possibleConstructorReturn(this, (MixinSwal.__proto__ || Object.getPrototypeOf(MixinSwal)).apply(this, arguments));
+      _classCallCheck(this, MixinSwal);
+
+      return _possibleConstructorReturn(this, _getPrototypeOf(MixinSwal).apply(this, arguments));
     }
 
-    createClass(MixinSwal, [{
-      key: '_main',
+    _createClass(MixinSwal, [{
+      key: "_main",
       value: function _main(params) {
-        return get(MixinSwal.prototype.__proto__ || Object.getPrototypeOf(MixinSwal.prototype), '_main', this).call(this, _extends({}, mixinParams, params));
+        return _get(_getPrototypeOf(MixinSwal.prototype), "_main", this).call(this, _extends({}, mixinParams, params));
       }
     }]);
+
     return MixinSwal;
-  }(Swal));
+  }(this));
 }
 
 // private global state for the queue feature
 var currentSteps = [];
-
 /*
  * Global function for chaining sweetAlert popups
  */
+
 var queue = function queue(steps) {
   var swal = this;
   currentSteps = steps;
+
   var resetQueue = function resetQueue() {
     currentSteps = [];
     document.body.removeAttribute('data-swal2-queue-step');
   };
+
   var queueResult = [];
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
     (function step(i, callback) {
       if (i < currentSteps.length) {
         document.body.setAttribute('data-swal2-queue-step', i);
-
         swal(currentSteps[i]).then(function (result) {
           if (typeof result.value !== 'undefined') {
             queueResult.push(result.value);
             step(i + 1, callback);
           } else {
             resetQueue();
-            resolve({ dismiss: result.dismiss });
+            resolve({
+              dismiss: result.dismiss
+            });
           }
         });
       } else {
         resetQueue();
-        resolve({ value: queueResult });
+        resolve({
+          value: queueResult
+        });
       }
     })(0);
   });
 };
-
 /*
  * Global function for getting the index of current popup in queue
  */
+
 var getQueueStep = function getQueueStep() {
   return document.body.getAttribute('data-swal2-queue-step');
 };
-
 /*
  * Global function for inserting a popup to the queue
  */
+
 var insertQueueStep = function insertQueueStep(step, index) {
   if (index && index < currentSteps.length) {
     return currentSteps.splice(index, 0, step);
   }
+
   return currentSteps.push(step);
 };
-
 /*
  * Global function for deleting a popup from the queue
  */
+
 var deleteQueueStep = function deleteQueueStep(index) {
   if (typeof currentSteps[index] !== 'undefined') {
     currentSteps.splice(index, 1);
@@ -66781,36 +67105,36 @@ var deleteQueueStep = function deleteQueueStep(index) {
 /**
  * Show spinner instead of Confirm button and disable Cancel button
  */
+
 var showLoading = function showLoading() {
   var popup = getPopup();
+
   if (!popup) {
     Swal('');
   }
+
   popup = getPopup();
   var actions = getActions();
   var confirmButton = getConfirmButton();
   var cancelButton = getCancelButton();
-
   show(actions);
   show(confirmButton);
   addClass([popup, actions], swalClasses.loading);
   confirmButton.disabled = true;
   cancelButton.disabled = true;
-
   popup.setAttribute('data-loading', true);
   popup.setAttribute('aria-busy', true);
   popup.focus();
 };
 
-function fire() {
-  var Swal = this;
+/**
+ * If `timer` parameter is set, returns number os milliseconds of timer remained.
+ * Otherwise, returns null.
+ */
 
-  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-
-  return new (Function.prototype.bind.apply(Swal, [null].concat(args)))();
-}
+var getTimerLeft = function getTimerLeft() {
+  return globalState.timeout && globalState.timeout.getTimerLeft();
+};
 
 
 
@@ -66826,16 +67150,22 @@ var staticMethods = Object.freeze({
 	isVisible: isVisible$1,
 	clickConfirm: clickConfirm,
 	clickCancel: clickCancel,
+	getContainer: getContainer,
 	getPopup: getPopup,
 	getTitle: getTitle,
 	getContent: getContent,
 	getImage: getImage,
+	getIcons: getIcons,
+	getCloseButton: getCloseButton,
 	getButtonsWrapper: getButtonsWrapper,
 	getActions: getActions,
 	getConfirmButton: getConfirmButton,
 	getCancelButton: getCancelButton,
 	getFooter: getFooter,
+	getFocusableElements: getFocusableElements,
+	getValidationMessage: getValidationMessage,
 	isLoading: isLoading,
+	fire: fire,
 	mixin: mixin,
 	queue: queue,
 	getQueueStep: getQueueStep,
@@ -66843,8 +67173,54 @@ var staticMethods = Object.freeze({
 	deleteQueueStep: deleteQueueStep,
 	showLoading: showLoading,
 	enableLoading: showLoading,
-	fire: fire
+	getTimerLeft: getTimerLeft
 });
+
+// https://github.com/Riim/symbol-polyfill/blob/master/index.js
+
+/* istanbul ignore next */
+var _Symbol = typeof Symbol === 'function' ? Symbol : function () {
+  var idCounter = 0;
+
+  function _Symbol(key) {
+    return '__' + key + '_' + Math.floor(Math.random() * 1e9) + '_' + ++idCounter + '__';
+  }
+
+  _Symbol.iterator = _Symbol('Symbol.iterator');
+  return _Symbol;
+}();
+
+// WeakMap polyfill, needed for Android 4.4
+// Related issue: https://github.com/sweetalert2/sweetalert2/issues/1071
+// http://webreflection.blogspot.fi/2015/04/a-weakmap-polyfill-in-20-lines-of-code.html
+/* istanbul ignore next */
+
+var WeakMap$1 = typeof WeakMap === 'function' ? WeakMap : function (s, dP, hOP) {
+  function WeakMap() {
+    dP(this, s, {
+      value: _Symbol('WeakMap')
+    });
+  }
+
+  WeakMap.prototype = {
+    'delete': function del(o) {
+      delete o[this[s]];
+    },
+    get: function get(o) {
+      return o[this[s]];
+    },
+    has: function has(o) {
+      return hOP.call(o, this[s]);
+    },
+    set: function set(o, v) {
+      dP(o, this[s], {
+        configurable: true,
+        value: v
+      });
+    }
+  };
+  return WeakMap;
+}(_Symbol('WeakMap'), Object.defineProperty, {}.hasOwnProperty);
 
 /**
  * This module containts `WeakMap`s for each effectively-"private  property" that a `swal` has.
@@ -66855,58 +67231,28 @@ var staticMethods = Object.freeze({
  * Once we have the changes from that PR in Babel, and our core class fits reasonable in *one module*
  *   then we can use that language feature.
  */
-
-// WeakMap polyfill, needed for Android 4.4
-// Related issue: https://github.com/sweetalert2/sweetalert2/issues/1071
-if (typeof window !== 'undefined' && typeof window.WeakMap !== 'function') {
-  // https://github.com/Riim/symbol-polyfill/blob/master/index.js
-  var idCounter = 0;
-  window.Symbol = function _Symbol(key) {
-    return '__' + key + '_' + Math.floor(Math.random() * 1e9) + '_' + ++idCounter + '__';
-  };
-  Symbol.iterator = Symbol('Symbol.iterator');
-
-  // http://webreflection.blogspot.fi/2015/04/a-weakmap-polyfill-in-20-lines-of-code.html
-  window.WeakMap = function (s, dP, hOP) {
-    function WeakMap() {
-      dP(this, s, { value: Symbol('WeakMap') });
-    }
-    WeakMap.prototype = {
-      'delete': function del(o) {
-        delete o[this[s]];
-      },
-      get: function get(o) {
-        return o[this[s]];
-      },
-      has: function has(o) {
-        return hOP.call(o, this[s]);
-      },
-      set: function set(o, v) {
-        dP(o, this[s], { configurable: true, value: v });
-      }
-    };
-    return WeakMap;
-  }(Symbol('WeakMap'), Object.defineProperty, {}.hasOwnProperty);
-}
-
 var privateProps = {
-  promise: new WeakMap(),
-  innerParams: new WeakMap(),
-  domCache: new WeakMap()
+  promise: new WeakMap$1(),
+  innerParams: new WeakMap$1(),
+  domCache: new WeakMap$1()
 };
 
 /**
- * Show spinner instead of Confirm button and disable Cancel button
+ * Enables buttons and hide loader.
  */
+
 function hideLoading() {
   var innerParams = privateProps.innerParams.get(this);
   var domCache = privateProps.domCache.get(this);
+
   if (!innerParams.showConfirmButton) {
     hide(domCache.confirmButton);
+
     if (!innerParams.showCancelButton) {
       hide(domCache.actions);
     }
   }
+
   removeClass([domCache.popup, domCache.actions], swalClasses.loading);
   domCache.popup.removeAttribute('aria-busy');
   domCache.popup.removeAttribute('data-loading');
@@ -66914,25 +67260,30 @@ function hideLoading() {
   domCache.cancelButton.disabled = false;
 }
 
-// Get input element by specified type or, if type isn't specified, by params.input
 function getInput(inputType) {
   var innerParams = privateProps.innerParams.get(this);
   var domCache = privateProps.domCache.get(this);
   inputType = inputType || innerParams.input;
+
   if (!inputType) {
     return null;
   }
+
   switch (inputType) {
     case 'select':
     case 'textarea':
     case 'file':
       return getChildByClass(domCache.content, swalClasses[inputType]);
+
     case 'checkbox':
-      return domCache.popup.querySelector('.' + swalClasses.checkbox + ' input');
+      return domCache.popup.querySelector(".".concat(swalClasses.checkbox, " input"));
+
     case 'radio':
-      return domCache.popup.querySelector('.' + swalClasses.radio + ' input:checked') || domCache.popup.querySelector('.' + swalClasses.radio + ' input:first-child');
+      return domCache.popup.querySelector(".".concat(swalClasses.radio, " input:checked")) || domCache.popup.querySelector(".".concat(swalClasses.radio, " input:first-child"));
+
     case 'range':
-      return domCache.popup.querySelector('.' + swalClasses.range + ' input');
+      return domCache.popup.querySelector(".".concat(swalClasses.range, " input"));
+
     default:
       return getChildByClass(domCache.content, swalClasses.input);
   }
@@ -66943,31 +67294,30 @@ function enableButtons() {
   domCache.confirmButton.disabled = false;
   domCache.cancelButton.disabled = false;
 }
-
 function disableButtons() {
   var domCache = privateProps.domCache.get(this);
   domCache.confirmButton.disabled = true;
   domCache.cancelButton.disabled = true;
 }
-
 function enableConfirmButton() {
   var domCache = privateProps.domCache.get(this);
   domCache.confirmButton.disabled = false;
 }
-
 function disableConfirmButton() {
   var domCache = privateProps.domCache.get(this);
   domCache.confirmButton.disabled = true;
 }
-
 function enableInput() {
   var input = this.getInput();
+
   if (!input) {
     return false;
   }
+
   if (input.type === 'radio') {
     var radiosContainer = input.parentNode.parentNode;
     var radios = radiosContainer.querySelectorAll('input');
+
     for (var i = 0; i < radios.length; i++) {
       radios[i].disabled = false;
     }
@@ -66975,15 +67325,17 @@ function enableInput() {
     input.disabled = false;
   }
 }
-
 function disableInput() {
   var input = this.getInput();
+
   if (!input) {
     return false;
   }
+
   if (input && input.type === 'radio') {
     var radiosContainer = input.parentNode.parentNode;
     var radios = radiosContainer.querySelectorAll('input');
+
     for (var i = 0; i < radios.length; i++) {
       radios[i].disabled = true;
     }
@@ -66992,48 +67344,113 @@ function disableInput() {
   }
 }
 
-// Show block with validation error
-function showValidationError(error) {
+function showValidationMessage(error$$1) {
   var domCache = privateProps.domCache.get(this);
-  domCache.validationError.innerHTML = error;
+  domCache.validationMessage.innerHTML = error$$1;
   var popupComputedStyle = window.getComputedStyle(domCache.popup);
-  domCache.validationError.style.marginLeft = '-' + popupComputedStyle.getPropertyValue('padding-left');
-  domCache.validationError.style.marginRight = '-' + popupComputedStyle.getPropertyValue('padding-right');
-  show(domCache.validationError);
-
+  domCache.validationMessage.style.marginLeft = "-".concat(popupComputedStyle.getPropertyValue('padding-left'));
+  domCache.validationMessage.style.marginRight = "-".concat(popupComputedStyle.getPropertyValue('padding-right'));
+  show(domCache.validationMessage);
   var input = this.getInput();
+
   if (input) {
     input.setAttribute('aria-invalid', true);
-    input.setAttribute('aria-describedBy', swalClasses.validationerror);
+    input.setAttribute('aria-describedBy', swalClasses['validation-message']);
     focusInput(input);
     addClass(input, swalClasses.inputerror);
   }
-}
+} // Hide block with validation message
 
-// Hide block with validation error
-function resetValidationError() {
+function resetValidationMessage() {
   var domCache = privateProps.domCache.get(this);
-  if (domCache.validationError) {
-    hide(domCache.validationError);
+
+  if (domCache.validationMessage) {
+    hide(domCache.validationMessage);
   }
 
   var input = this.getInput();
+
   if (input) {
     input.removeAttribute('aria-invalid');
     input.removeAttribute('aria-describedBy');
     removeClass(input, swalClasses.inputerror);
   }
+} // @deprecated
+
+/* istanbul ignore next */
+
+function resetValidationError() {
+  warnOnce("Swal.resetValidationError() is deprecated and will be removed in the next major release, use Swal.resetValidationMessage() instead");
+  resetValidationMessage.bind(this)();
+} // @deprecated
+
+/* istanbul ignore next */
+
+function showValidationError(error$$1) {
+  warnOnce("Swal.showValidationError() is deprecated and will be removed in the next major release, use Swal.showValidationMessage() instead");
+  showValidationMessage.bind(this)(error$$1);
 }
+
+function getProgressSteps$1() {
+  var innerParams = privateProps.innerParams.get(this);
+  return innerParams.progressSteps;
+}
+function setProgressSteps(progressSteps) {
+  var innerParams = privateProps.innerParams.get(this);
+
+  var updatedParams = _extends({}, innerParams, {
+    progressSteps: progressSteps
+  });
+
+  privateProps.innerParams.set(this, updatedParams);
+  renderProgressSteps(updatedParams);
+}
+function showProgressSteps() {
+  var domCache = privateProps.domCache.get(this);
+  show(domCache.progressSteps);
+}
+function hideProgressSteps() {
+  var domCache = privateProps.domCache.get(this);
+  hide(domCache.progressSteps);
+}
+
+var Timer = function Timer(callback, delay) {
+  _classCallCheck(this, Timer);
+
+  var id, started, running;
+  var remaining = delay;
+
+  this.start = function () {
+    running = true;
+    started = new Date();
+    id = setTimeout(callback, remaining);
+  };
+
+  this.stop = function () {
+    running = false;
+    clearTimeout(id);
+    remaining -= new Date() - started;
+  };
+
+  this.getTimerLeft = function () {
+    if (running) {
+      this.stop();
+      this.start();
+    }
+
+    return remaining;
+  };
+
+  this.start();
+};
 
 var defaultInputValidators = {
   email: function email(string, extraParams) {
-    return (/^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9-]{2,24}$/.test(string) ? Promise.resolve() : Promise.reject(extraParams && extraParams.validationMessage ? extraParams.validationMessage : 'Invalid email address')
-    );
+    return /^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9-]{2,24}$/.test(string) ? Promise.resolve() : Promise.reject(extraParams && extraParams.validationMessage ? extraParams.validationMessage : 'Invalid email address');
   },
   url: function url(string, extraParams) {
-    // taken from https://stackoverflow.com/a/3809435/1331425
-    return (/^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$/.test(string) ? Promise.resolve() : Promise.reject(extraParams && extraParams.validationMessage ? extraParams.validationMessage : 'Invalid URL')
-    );
+    // taken from https://stackoverflow.com/a/3809435
+    return /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$/.test(string) ? Promise.resolve() : Promise.reject(extraParams && extraParams.validationMessage ? extraParams.validationMessage : 'Invalid URL');
   }
 };
 
@@ -67043,6 +67460,7 @@ var defaultInputValidators = {
  * @param params
  * @returns {boolean}
  */
+
 function setParameters(params) {
   // Use default `inputValidator` for supported input types if not provided
   if (!params.inputValidator) {
@@ -67051,59 +67469,67 @@ function setParameters(params) {
         params.inputValidator = params.expectRejections ? defaultInputValidators[key] : Swal.adaptInputValidator(defaultInputValidators[key]);
       }
     });
-  }
+  } // params.extraParams is @deprecated
 
-  // Determine if the custom target element is valid
+
+  if (params.validationMessage) {
+    if (_typeof(params.extraParams) !== 'object') {
+      params.extraParams = {};
+    }
+
+    params.extraParams.validationMessage = params.validationMessage;
+  } // Determine if the custom target element is valid
+
+
   if (!params.target || typeof params.target === 'string' && !document.querySelector(params.target) || typeof params.target !== 'string' && !params.target.appendChild) {
     warn('Target parameter is not valid, defaulting to "body"');
     params.target = 'body';
+  } // Animation
+
+
+  if (typeof params.animation === 'function') {
+    params.animation = params.animation.call();
   }
 
-  var popup = void 0;
+  var popup;
   var oldPopup = getPopup();
-  var targetElement = typeof params.target === 'string' ? document.querySelector(params.target) : params.target;
-  // If the model target has changed, refresh the popup
+  var targetElement = typeof params.target === 'string' ? document.querySelector(params.target) : params.target; // If the model target has changed, refresh the popup
+
   if (oldPopup && targetElement && oldPopup.parentNode !== targetElement.parentNode) {
     popup = init(params);
   } else {
     popup = oldPopup || init(params);
-  }
+  } // Set popup width
 
-  // Set popup width
+
   if (params.width) {
     popup.style.width = typeof params.width === 'number' ? params.width + 'px' : params.width;
-  }
+  } // Set popup padding
 
-  // Set popup padding
+
   if (params.padding) {
     popup.style.padding = typeof params.padding === 'number' ? params.padding + 'px' : params.padding;
-  }
+  } // Set popup background
 
-  // Set popup background
+
   if (params.background) {
     popup.style.background = params.background;
   }
+
   var popupBackgroundColor = window.getComputedStyle(popup).getPropertyValue('background-color');
   var successIconParts = popup.querySelectorAll('[class^=swal2-success-circular-line], .swal2-success-fix');
+
   for (var i = 0; i < successIconParts.length; i++) {
     successIconParts[i].style.backgroundColor = popupBackgroundColor;
   }
 
   var container = getContainer();
-  var title = getTitle();
-  var content = getContent().querySelector('#' + swalClasses.content);
-  var actions = getActions();
-  var confirmButton = getConfirmButton();
-  var cancelButton = getCancelButton();
   var closeButton = getCloseButton();
-  var footer = getFooter();
+  var footer = getFooter(); // Title
 
-  // Title
-  if (params.titleText) {
-    title.innerText = params.titleText;
-  } else if (params.title) {
-    title.innerHTML = params.title.split('\n').join('<br />');
-  }
+  renderTitle(params); // Content
+
+  renderContent(params); // Backdrop
 
   if (typeof params.backdrop === 'string') {
     getContainer().style.background = params.backdrop;
@@ -67111,213 +67537,68 @@ function setParameters(params) {
     addClass([document.documentElement, document.body], swalClasses['no-backdrop']);
   }
 
-  // Content as HTML
-  if (params.html) {
-    parseHtmlToContainer(params.html, content);
+  if (!params.backdrop && params.allowOutsideClick) {
+    warn('"allowOutsideClick" parameter requires `backdrop` parameter to be set to `true`');
+  } // Position
 
-    // Content as plain text
-  } else if (params.text) {
-    content.textContent = params.text;
-    show(content);
-  } else {
-    hide(content);
-  }
 
-  // Position
   if (params.position in swalClasses) {
     addClass(container, swalClasses[params.position]);
   } else {
     warn('The "position" parameter is not valid, defaulting to "center"');
     addClass(container, swalClasses.center);
-  }
+  } // Grow
 
-  // Grow
+
   if (params.grow && typeof params.grow === 'string') {
     var growClass = 'grow-' + params.grow;
+
     if (growClass in swalClasses) {
       addClass(container, swalClasses[growClass]);
     }
-  }
+  } // Close button
 
-  // Animation
-  if (typeof params.animation === 'function') {
-    params.animation = params.animation.call();
-  }
 
-  // Close button
   if (params.showCloseButton) {
     closeButton.setAttribute('aria-label', params.closeButtonAriaLabel);
     show(closeButton);
   } else {
     hide(closeButton);
-  }
+  } // Default Class
 
-  // Default Class
+
   popup.className = swalClasses.popup;
+
   if (params.toast) {
     addClass([document.documentElement, document.body], swalClasses['toast-shown']);
     addClass(popup, swalClasses.toast);
   } else {
     addClass(popup, swalClasses.modal);
-  }
+  } // Custom Class
 
-  // Custom Class
+
   if (params.customClass) {
     addClass(popup, params.customClass);
-  }
+  } // Progress steps
 
-  // Progress steps
-  var progressStepsContainer = getProgressSteps();
-  var currentProgressStep = parseInt(params.currentProgressStep === null ? Swal.getQueueStep() : params.currentProgressStep, 10);
-  if (params.progressSteps && params.progressSteps.length) {
-    show(progressStepsContainer);
-    empty(progressStepsContainer);
-    if (currentProgressStep >= params.progressSteps.length) {
-      warn('Invalid currentProgressStep parameter, it should be less than progressSteps.length ' + '(currentProgressStep like JS arrays starts from 0)');
-    }
-    params.progressSteps.forEach(function (step, index) {
-      var circle = document.createElement('li');
-      addClass(circle, swalClasses.progresscircle);
-      circle.innerHTML = step;
-      if (index === currentProgressStep) {
-        addClass(circle, swalClasses.activeprogressstep);
-      }
-      progressStepsContainer.appendChild(circle);
-      if (index !== params.progressSteps.length - 1) {
-        var line = document.createElement('li');
-        addClass(line, swalClasses.progressline);
-        if (params.progressStepsDistance) {
-          line.style.width = params.progressStepsDistance;
-        }
-        progressStepsContainer.appendChild(line);
-      }
-    });
-  } else {
-    hide(progressStepsContainer);
-  }
 
-  // Icon
-  var icons = getIcons();
-  for (var _i = 0; _i < icons.length; _i++) {
-    hide(icons[_i]);
-  }
-  if (params.type) {
-    var validType = false;
-    for (var iconType in iconTypes) {
-      if (params.type === iconType) {
-        validType = true;
-        break;
-      }
-    }
-    if (!validType) {
-      error('Unknown alert type: ' + params.type);
-      return false;
-    }
-    var icon = popup.querySelector('.' + swalClasses.icon + '.' + iconTypes[params.type]);
-    show(icon);
+  renderProgressSteps(params); // Icon
 
-    // Animate icon
-    if (params.animation) {
-      addClass(icon, 'swal2-animate-' + params.type + '-icon');
-    }
-  }
+  renderIcon(params); // Image
 
-  // Custom image
-  var image = getImage();
-  if (params.imageUrl) {
-    image.setAttribute('src', params.imageUrl);
-    image.setAttribute('alt', params.imageAlt);
-    show(image);
+  renderImage(params); // Actions (buttons)
 
-    if (params.imageWidth) {
-      image.setAttribute('width', params.imageWidth);
-    } else {
-      image.removeAttribute('width');
-    }
+  renderActions(params); // Footer
 
-    if (params.imageHeight) {
-      image.setAttribute('height', params.imageHeight);
-    } else {
-      image.removeAttribute('height');
-    }
+  parseHtmlToContainer(params.footer, footer); // CSS animation
 
-    image.className = swalClasses.image;
-    if (params.imageClass) {
-      addClass(image, params.imageClass);
-    }
-  } else {
-    hide(image);
-  }
-
-  // Cancel button
-  if (params.showCancelButton) {
-    cancelButton.style.display = 'inline-block';
-  } else {
-    hide(cancelButton);
-  }
-
-  // Confirm button
-  if (params.showConfirmButton) {
-    removeStyleProperty(confirmButton, 'display');
-  } else {
-    hide(confirmButton);
-  }
-
-  // Actions (buttons) wrapper
-  if (!params.showConfirmButton && !params.showCancelButton) {
-    hide(actions);
-  } else {
-    show(actions);
-  }
-
-  // Edit text on confirm and cancel buttons
-  confirmButton.innerHTML = params.confirmButtonText;
-  cancelButton.innerHTML = params.cancelButtonText;
-
-  // ARIA labels for confirm and cancel buttons
-  confirmButton.setAttribute('aria-label', params.confirmButtonAriaLabel);
-  cancelButton.setAttribute('aria-label', params.cancelButtonAriaLabel);
-
-  // Add buttons custom classes
-  confirmButton.className = swalClasses.confirm;
-  addClass(confirmButton, params.confirmButtonClass);
-  cancelButton.className = swalClasses.cancel;
-  addClass(cancelButton, params.cancelButtonClass);
-
-  // Buttons styling
-  if (params.buttonsStyling) {
-    addClass([confirmButton, cancelButton], swalClasses.styled);
-
-    // Buttons background colors
-    if (params.confirmButtonColor) {
-      confirmButton.style.backgroundColor = params.confirmButtonColor;
-    }
-    if (params.cancelButtonColor) {
-      cancelButton.style.backgroundColor = params.cancelButtonColor;
-    }
-
-    // Loading state
-    var confirmButtonBackgroundColor = window.getComputedStyle(confirmButton).getPropertyValue('background-color');
-    confirmButton.style.borderLeftColor = confirmButtonBackgroundColor;
-    confirmButton.style.borderRightColor = confirmButtonBackgroundColor;
-  } else {
-    removeClass([confirmButton, cancelButton], swalClasses.styled);
-
-    confirmButton.style.backgroundColor = confirmButton.style.borderLeftColor = confirmButton.style.borderRightColor = '';
-    cancelButton.style.backgroundColor = cancelButton.style.borderLeftColor = cancelButton.style.borderRightColor = '';
-  }
-
-  // Footer
-  parseHtmlToContainer(params.footer, footer);
-
-  // CSS animation
   if (params.animation === true) {
     removeClass(popup, swalClasses.noanimation);
   } else {
     addClass(popup, swalClasses.noanimation);
-  }
+  } // showLoaderOnConfirm && preConfirm
 
-  // showLoaderOnConfirm && preConfirm
+
   if (params.showLoaderOnConfirm && !params.preConfirm) {
     warn('showLoaderOnConfirm is set to true, but preConfirm is not defined.\n' + 'showLoaderOnConfirm should be used together with preConfirm, see usage example:\n' + 'https://sweetalert2.github.io/#ajax-request');
   }
@@ -67328,6 +67609,7 @@ function setParameters(params) {
  *
  * @param {Array} params
  */
+
 var openPopup = function openPopup(params) {
   var container = getContainer();
   var popup = getPopup();
@@ -67343,10 +67625,11 @@ var openPopup = function openPopup(params) {
   } else {
     removeClass(popup, swalClasses.fade);
   }
-  show(popup);
 
-  // scrolling is 'hidden' until animation is done, after that 'auto'
+  show(popup); // scrolling is 'hidden' until animation is done, after that 'auto'
+
   container.style.overflowY = 'hidden';
+
   if (animationEndEvent && !hasClass(popup, swalClasses.noanimation)) {
     popup.addEventListener(animationEndEvent, function swalCloseEventFinished() {
       popup.removeEventListener(animationEndEvent, swalCloseEventFinished);
@@ -67357,6 +67640,7 @@ var openPopup = function openPopup(params) {
   }
 
   addClass([document.documentElement, document.body, container], swalClasses.shown);
+
   if (params.heightAuto && params.backdrop && !params.toast) {
     addClass([document.documentElement, document.body], swalClasses['height-auto']);
   }
@@ -67364,10 +67648,18 @@ var openPopup = function openPopup(params) {
   if (isModal()) {
     fixScrollbar();
     iOSfix();
+    IEfix();
+    setAriaHidden(); // sweetalert2/issues/1247
+
+    setTimeout(function () {
+      container.scrollTop = 0;
+    });
   }
-  if (!globalState.previousActiveElement) {
+
+  if (!isToast() && !globalState.previousActiveElement) {
     globalState.previousActiveElement = document.activeElement;
   }
+
   if (params.onOpen !== null && typeof params.onOpen === 'function') {
     setTimeout(function () {
       params.onOpen(popup);
@@ -67381,13 +67673,18 @@ function _main(userParams) {
   showWarningsForParams(userParams);
 
   var innerParams = _extends({}, defaultParams, userParams);
+
   setParameters(innerParams);
   Object.freeze(innerParams);
-  privateProps.innerParams.set(this, innerParams);
+  privateProps.innerParams.set(this, innerParams); // clear the previous timer
 
-  // clear the previous timer
-  clearTimeout(globalState.timeout);
+  if (globalState.timeout) {
+    globalState.timeout.stop();
+    delete globalState.timeout;
+  } // clear the restore focus timeout
 
+
+  clearTimeout(globalState.restoreFocusTimeout);
   var domCache = {
     popup: getPopup(),
     container: getContainer(),
@@ -67396,65 +67693,78 @@ function _main(userParams) {
     confirmButton: getConfirmButton(),
     cancelButton: getCancelButton(),
     closeButton: getCloseButton(),
-    validationError: getValidationError(),
+    validationMessage: getValidationMessage(),
     progressSteps: getProgressSteps()
   };
   privateProps.domCache.set(this, domCache);
-
   var constructor = this.constructor;
-
   return new Promise(function (resolve, reject) {
     // functions to handle all resolving/rejecting/settling
     var succeedWith = function succeedWith(value) {
       constructor.closePopup(innerParams.onClose, innerParams.onAfterClose); // TODO: make closePopup an *instance* method
+
       if (innerParams.useRejections) {
         resolve(value);
       } else {
-        resolve({ value: value });
+        resolve({
+          value: value
+        });
       }
     };
+
     var dismissWith = function dismissWith(dismiss) {
       constructor.closePopup(innerParams.onClose, innerParams.onAfterClose);
+
       if (innerParams.useRejections) {
         reject(dismiss);
       } else {
-        resolve({ dismiss: dismiss });
+        resolve({
+          dismiss: dismiss
+        });
       }
     };
+
     var errorWith = function errorWith(error$$1) {
       constructor.closePopup(innerParams.onClose, innerParams.onAfterClose);
       reject(error$$1);
-    };
+    }; // Close on timer
 
-    // Close on timer
+
     if (innerParams.timer) {
-      globalState.timeout = setTimeout(function () {
-        return dismissWith('timer');
+      globalState.timeout = new Timer(function () {
+        dismissWith('timer');
+        delete globalState.timeout;
       }, innerParams.timer);
-    }
+    } // Get the value of the popup input
 
-    // Get the value of the popup input
+
     var getInputValue = function getInputValue() {
       var input = _this.getInput();
+
       if (!input) {
         return null;
       }
+
       switch (innerParams.input) {
         case 'checkbox':
           return input.checked ? 1 : 0;
+
         case 'radio':
           return input.checked ? input.value : null;
+
         case 'file':
           return input.files.length ? input.files[0] : null;
+
         default:
           return innerParams.inputAutoTrim ? input.value.trim() : input.value;
       }
-    };
+    }; // input autofocus
 
-    // input autofocus
+
     if (innerParams.input) {
       setTimeout(function () {
         var input = _this.getInput();
+
         if (input) {
           focusInput(input);
         }
@@ -67467,22 +67777,25 @@ function _main(userParams) {
       }
 
       if (innerParams.preConfirm) {
-        _this.resetValidationError();
+        _this.resetValidationMessage();
+
         var preConfirmPromise = Promise.resolve().then(function () {
           return innerParams.preConfirm(value, innerParams.extraParams);
         });
+
         if (innerParams.expectRejections) {
           preConfirmPromise.then(function (preConfirmValue) {
             return succeedWith(preConfirmValue || value);
-          }, function (validationError) {
+          }, function (validationMessage) {
             _this.hideLoading();
-            if (validationError) {
-              _this.showValidationError(validationError);
+
+            if (validationMessage) {
+              _this.showValidationMessage(validationMessage);
             }
           });
         } else {
           preConfirmPromise.then(function (preConfirmValue) {
-            if (isVisible(domCache.validationError) || preConfirmValue === false) {
+            if (isVisible(domCache.validationMessage) || preConfirmValue === false) {
               _this.hideLoading();
             } else {
               succeedWith(preConfirmValue || value);
@@ -67494,15 +67807,13 @@ function _main(userParams) {
       } else {
         succeedWith(value);
       }
-    };
+    }; // Mouse interactions
 
-    // Mouse interactions
-    var onButtonEvent = function onButtonEvent(event) {
-      var e = event || window.event;
-      var target = e.target || e.srcElement;
+
+    var onButtonEvent = function onButtonEvent(e) {
+      var target = e.target;
       var confirmButton = domCache.confirmButton,
           cancelButton = domCache.cancelButton;
-
       var targetedConfirm = confirmButton && (confirmButton === target || confirmButton.contains(target));
       var targetedCancel = cancelButton && (cancelButton === target || cancelButton.contains(target));
 
@@ -67511,32 +67822,41 @@ function _main(userParams) {
           // Clicked 'confirm'
           if (targetedConfirm && constructor.isVisible()) {
             _this.disableButtons();
+
             if (innerParams.input) {
               var inputValue = getInputValue();
 
               if (innerParams.inputValidator) {
                 _this.disableInput();
+
                 var validationPromise = Promise.resolve().then(function () {
                   return innerParams.inputValidator(inputValue, innerParams.extraParams);
                 });
+
                 if (innerParams.expectRejections) {
                   validationPromise.then(function () {
                     _this.enableButtons();
+
                     _this.enableInput();
+
                     confirm(inputValue);
-                  }, function (validationError) {
+                  }, function (validationMessage) {
                     _this.enableButtons();
+
                     _this.enableInput();
-                    if (validationError) {
-                      _this.showValidationError(validationError);
+
+                    if (validationMessage) {
+                      _this.showValidationMessage(validationMessage);
                     }
                   });
                 } else {
-                  validationPromise.then(function (validationError) {
+                  validationPromise.then(function (validationMessage) {
                     _this.enableButtons();
+
                     _this.enableInput();
-                    if (validationError) {
-                      _this.showValidationError(validationError);
+
+                    if (validationMessage) {
+                      _this.showValidationMessage(validationMessage);
                     } else {
                       confirm(inputValue);
                     }
@@ -67544,66 +67864,72 @@ function _main(userParams) {
                     return errorWith(error$$1);
                   });
                 }
+              } else if (!_this.getInput().checkValidity()) {
+                _this.enableButtons();
+
+                _this.showValidationMessage(innerParams.validationMessage);
               } else {
                 confirm(inputValue);
               }
             } else {
               confirm(true);
-            }
+            } // Clicked 'cancel'
 
-            // Clicked 'cancel'
           } else if (targetedCancel && constructor.isVisible()) {
             _this.disableButtons();
+
             dismissWith(constructor.DismissReason.cancel);
           }
+
           break;
+
         default:
       }
     };
 
     var buttons = domCache.popup.querySelectorAll('button');
+
     for (var i = 0; i < buttons.length; i++) {
       buttons[i].onclick = onButtonEvent;
       buttons[i].onmouseover = onButtonEvent;
       buttons[i].onmouseout = onButtonEvent;
       buttons[i].onmousedown = onButtonEvent;
-    }
+    } // Closing popup by close button
 
-    // Closing popup by close button
+
     domCache.closeButton.onclick = function () {
       dismissWith(constructor.DismissReason.close);
     };
 
     if (innerParams.toast) {
       // Closing popup by internal click
-      domCache.popup.onclick = function (e) {
+      domCache.popup.onclick = function () {
         if (innerParams.showConfirmButton || innerParams.showCancelButton || innerParams.showCloseButton || innerParams.input) {
           return;
         }
-        constructor.closePopup(innerParams.onClose, innerParams.onAfterClose);
+
         dismissWith(constructor.DismissReason.close);
       };
     } else {
-      var ignoreOutsideClick = false;
-
-      // Ignore click events that had mousedown on the popup but mouseup on the container
+      var ignoreOutsideClick = false; // Ignore click events that had mousedown on the popup but mouseup on the container
       // This can happen when the user drags a slider
+
       domCache.popup.onmousedown = function () {
         domCache.container.onmouseup = function (e) {
-          domCache.container.onmouseup = undefined;
-          // We only check if the mouseup target is the container because usually it doesn't
+          domCache.container.onmouseup = undefined; // We only check if the mouseup target is the container because usually it doesn't
           // have any other direct children aside of the popup
+
           if (e.target === domCache.container) {
             ignoreOutsideClick = true;
           }
         };
-      };
+      }; // Ignore click events that had mousedown on the container but mouseup on the popup
 
-      // Ignore click events that had mousedown on the container but mouseup on the popup
+
       domCache.container.onmousedown = function () {
         domCache.popup.onmouseup = function (e) {
-          domCache.popup.onmouseup = undefined;
-          // We also need to check if the mouseup target is a child of the popup
+          domCache.popup.onmouseup = undefined; // We also need to check if the mouseup target is a child of the popup
+
           if (e.target === domCache.popup || domCache.popup.contains(e.target)) {
             ignoreOutsideClick = true;
           }
@@ -67615,50 +67941,48 @@ function _main(userParams) {
           ignoreOutsideClick = false;
           return;
         }
+
         if (e.target !== domCache.container) {
           return;
         }
+
         if (callIfFunction(innerParams.allowOutsideClick)) {
           dismissWith(constructor.DismissReason.backdrop);
         }
       };
-    }
+    } // Reverse buttons (Confirm on the right side)
 
-    // Reverse buttons (Confirm on the right side)
+
     if (innerParams.reverseButtons) {
       domCache.confirmButton.parentNode.insertBefore(domCache.cancelButton, domCache.confirmButton);
     } else {
       domCache.confirmButton.parentNode.insertBefore(domCache.confirmButton, domCache.cancelButton);
-    }
+    } // Focus handling
 
-    // Focus handling
+
     var setFocus = function setFocus(index, increment) {
-      var focusableElements = getFocusableElements(innerParams.focusCancel);
-      // search for visible elements and select the next possible match
+      var focusableElements = getFocusableElements(innerParams.focusCancel); // search for visible elements and select the next possible match
+
       for (var _i = 0; _i < focusableElements.length; _i++) {
-        index = index + increment;
+        index = index + increment; // rollover to first item
 
-        // rollover to first item
         if (index === focusableElements.length) {
-          index = 0;
-
-          // go to last item
+          index = 0; // go to last item
         } else if (index === -1) {
           index = focusableElements.length - 1;
         }
 
-        // determine if element is visible
-        var el = focusableElements[index];
-        if (isVisible(el)) {
-          return el.focus();
-        }
-      }
-      // no visible focusable elements, focus the popup
+        return focusableElements[index].focus();
+      } // no visible focusable elements, focus the popup
+
+
       domCache.popup.focus();
     };
 
     var keydownHandler = function keydownHandler(e, innerParams) {
-      e.stopPropagation();
+      if (innerParams.stopKeydownPropagation) {
+        e.stopPropagation();
+      }
 
       var arrowKeys = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Left', 'Right', 'Up', 'Down' // IE11
       ];
@@ -67671,14 +67995,13 @@ function _main(userParams) {
 
           constructor.clickConfirm();
           e.preventDefault();
-        }
+        } // TAB
 
-        // TAB
       } else if (e.key === 'Tab') {
-        var targetElement = e.target || e.srcElement;
-
+        var targetElement = e.target;
         var focusableElements = getFocusableElements(innerParams.focusCancel);
-        var btnIndex = -1; // Find the button - note, this is a nodelist, not an array.
+        var btnIndex = -1;
+
         for (var _i2 = 0; _i2 < focusableElements.length; _i2++) {
           if (targetElement === focusableElements[_i2]) {
             btnIndex = _i2;
@@ -67693,27 +68016,27 @@ function _main(userParams) {
           // Cycle to the prev button
           setFocus(btnIndex, -1);
         }
-        e.stopPropagation();
-        e.preventDefault();
 
-        // ARROWS - switch focus between buttons
+        e.stopPropagation();
+        e.preventDefault(); // ARROWS - switch focus between buttons
       } else if (arrowKeys.indexOf(e.key) !== -1) {
         // focus Cancel button if Confirm button is currently focused
         if (document.activeElement === domCache.confirmButton && isVisible(domCache.cancelButton)) {
-          domCache.cancelButton.focus();
-          // and vice versa
+          domCache.cancelButton.focus(); // and vice versa
         } else if (document.activeElement === domCache.cancelButton && isVisible(domCache.confirmButton)) {
           domCache.confirmButton.focus();
-        }
+        } // ESC
 
-        // ESC
       } else if ((e.key === 'Escape' || e.key === 'Esc') && callIfFunction(innerParams.allowEscapeKey) === true) {
+        e.preventDefault();
         dismissWith(constructor.DismissReason.esc);
       }
     };
 
     if (globalState.keydownHandlerAdded) {
-      window.removeEventListener('keydown', globalState.keydownHandler, { capture: true });
+      globalState.keydownTarget.removeEventListener('keydown', globalState.keydownHandler, {
+        capture: globalState.keydownListenerCapture
+      });
       globalState.keydownHandlerAdded = false;
     }
 
@@ -67721,43 +68044,68 @@ function _main(userParams) {
       globalState.keydownHandler = function (e) {
         return keydownHandler(e, innerParams);
       };
-      window.addEventListener('keydown', globalState.keydownHandler, { capture: true });
+
+      globalState.keydownTarget = innerParams.keydownListenerCapture ? window : domCache.popup;
+      globalState.keydownListenerCapture = innerParams.keydownListenerCapture;
+      globalState.keydownTarget.addEventListener('keydown', globalState.keydownHandler, {
+        capture: globalState.keydownListenerCapture
+      });
       globalState.keydownHandlerAdded = true;
     }
 
     _this.enableButtons();
+
     _this.hideLoading();
-    _this.resetValidationError();
 
-    if (innerParams.input) {
-      addClass(document.body, swalClasses['has-input']);
-    }
+    _this.resetValidationMessage();
 
-    // inputs
+    if (innerParams.toast && (innerParams.input || innerParams.footer || innerParams.showCloseButton)) {
+      addClass(document.body, swalClasses['toast-column']);
+    } else {
+      removeClass(document.body, swalClasses['toast-column']);
+    } // inputs
+
+
     var inputTypes = ['input', 'file', 'range', 'select', 'radio', 'checkbox', 'textarea'];
-    var input = void 0;
+
+    var setInputPlaceholder = function setInputPlaceholder(input) {
+      if (!input.placeholder || innerParams.inputPlaceholder) {
+        input.placeholder = innerParams.inputPlaceholder;
+      }
+    };
+
+    var input;
+
     for (var _i3 = 0; _i3 < inputTypes.length; _i3++) {
       var inputClass = swalClasses[inputTypes[_i3]];
       var inputContainer = getChildByClass(domCache.content, inputClass);
-      input = _this.getInput(inputTypes[_i3]);
+      input = _this.getInput(inputTypes[_i3]); // set attributes
 
-      // set attributes
       if (input) {
         for (var j in input.attributes) {
           if (input.attributes.hasOwnProperty(j)) {
             var attrName = input.attributes[j].name;
+
             if (attrName !== 'type' && attrName !== 'value') {
               input.removeAttribute(attrName);
             }
           }
         }
+
         for (var attr in innerParams.inputAttributes) {
+          // Do not set a placeholder for <input type="range">
+          // it'll crash Edge, #1298
+          if (inputTypes[_i3] === 'range' && attr === 'placeholder') {
+            continue;
+          }
+
           input.setAttribute(attr, innerParams.inputAttributes[attr]);
         }
-      }
+      } // set class
 
-      // set class
+
       inputContainer.className = inputClass;
+
       if (innerParams.inputClass) {
         addClass(inputContainer, innerParams.inputClass);
       }
@@ -67765,7 +68113,8 @@ function _main(userParams) {
       hide(inputContainer);
     }
 
-    var populateInputOptions = void 0;
+    var populateInputOptions;
+
     switch (innerParams.input) {
       case 'text':
       case 'email':
@@ -67773,110 +68122,146 @@ function _main(userParams) {
       case 'number':
       case 'tel':
       case 'url':
-        input = getChildByClass(domCache.content, swalClasses.input);
-        input.value = innerParams.inputValue;
-        input.placeholder = innerParams.inputPlaceholder;
-        input.type = innerParams.input;
-        show(input);
-        break;
-      case 'file':
-        input = getChildByClass(domCache.content, swalClasses.file);
-        input.placeholder = innerParams.inputPlaceholder;
-        input.type = innerParams.input;
-        show(input);
-        break;
-      case 'range':
-        var range = getChildByClass(domCache.content, swalClasses.range);
-        var rangeInput = range.querySelector('input');
-        var rangeOutput = range.querySelector('output');
-        rangeInput.value = innerParams.inputValue;
-        rangeInput.type = innerParams.input;
-        rangeOutput.value = innerParams.inputValue;
-        show(range);
-        break;
-      case 'select':
-        var select = getChildByClass(domCache.content, swalClasses.select);
-        select.innerHTML = '';
-        if (innerParams.inputPlaceholder) {
-          var placeholder = document.createElement('option');
-          placeholder.innerHTML = innerParams.inputPlaceholder;
-          placeholder.value = '';
-          placeholder.disabled = true;
-          placeholder.selected = true;
-          select.appendChild(placeholder);
-        }
-        populateInputOptions = function populateInputOptions(inputOptions) {
-          inputOptions.forEach(function (_ref) {
-            var _ref2 = slicedToArray(_ref, 2),
-                optionValue = _ref2[0],
-                optionLabel = _ref2[1];
+        {
+          input = getChildByClass(domCache.content, swalClasses.input);
 
-            var option = document.createElement('option');
-            option.value = optionValue;
-            option.innerHTML = optionLabel;
-            if (innerParams.inputValue.toString() === optionValue.toString()) {
-              option.selected = true;
-            }
-            select.appendChild(option);
-          });
-          show(select);
-          select.focus();
-        };
-        break;
-      case 'radio':
-        var radio = getChildByClass(domCache.content, swalClasses.radio);
-        radio.innerHTML = '';
-        populateInputOptions = function populateInputOptions(inputOptions) {
-          inputOptions.forEach(function (_ref3) {
-            var _ref4 = slicedToArray(_ref3, 2),
-                radioValue = _ref4[0],
-                radioLabel = _ref4[1];
-
-            var radioInput = document.createElement('input');
-            var radioLabelElement = document.createElement('label');
-            radioInput.type = 'radio';
-            radioInput.name = swalClasses.radio;
-            radioInput.value = radioValue;
-            if (innerParams.inputValue.toString() === radioValue.toString()) {
-              radioInput.checked = true;
-            }
-            radioLabelElement.innerHTML = radioLabel;
-            radioLabelElement.insertBefore(radioInput, radioLabelElement.firstChild);
-            radio.appendChild(radioLabelElement);
-          });
-          show(radio);
-          var radios = radio.querySelectorAll('input');
-          if (radios.length) {
-            radios[0].focus();
+          if (typeof innerParams.inputValue === 'string' || typeof innerParams.inputValue === 'number') {
+            input.value = innerParams.inputValue;
+          } else {
+            warn("Unexpected type of inputValue! Expected \"string\" or \"number\", got \"".concat(_typeof(innerParams.inputValue), "\""));
           }
-        };
-        break;
-      case 'checkbox':
-        var checkbox = getChildByClass(domCache.content, swalClasses.checkbox);
-        var checkboxInput = _this.getInput('checkbox');
-        checkboxInput.type = 'checkbox';
-        checkboxInput.value = 1;
-        checkboxInput.id = swalClasses.checkbox;
-        checkboxInput.checked = Boolean(innerParams.inputValue);
-        var label = checkbox.getElementsByTagName('span');
-        if (label.length) {
-          checkbox.removeChild(label[0]);
+
+          setInputPlaceholder(input);
+          input.type = innerParams.input;
+          show(input);
+          break;
         }
-        label = document.createElement('span');
-        label.innerHTML = innerParams.inputPlaceholder;
-        checkbox.appendChild(label);
-        show(checkbox);
-        break;
+
+      case 'file':
+        {
+          input = getChildByClass(domCache.content, swalClasses.file);
+          setInputPlaceholder(input);
+          input.type = innerParams.input;
+          show(input);
+          break;
+        }
+
+      case 'range':
+        {
+          var range = getChildByClass(domCache.content, swalClasses.range);
+          var rangeInput = range.querySelector('input');
+          var rangeOutput = range.querySelector('output');
+          rangeInput.value = innerParams.inputValue;
+          rangeInput.type = innerParams.input;
+          rangeOutput.value = innerParams.inputValue;
+          show(range);
+          break;
+        }
+
+      case 'select':
+        {
+          var select = getChildByClass(domCache.content, swalClasses.select);
+          select.innerHTML = '';
+
+          if (innerParams.inputPlaceholder) {
+            var placeholder = document.createElement('option');
+            placeholder.innerHTML = innerParams.inputPlaceholder;
+            placeholder.value = '';
+            placeholder.disabled = true;
+            placeholder.selected = true;
+            select.appendChild(placeholder);
+          }
+
+          populateInputOptions = function populateInputOptions(inputOptions) {
+            inputOptions.forEach(function (inputOption) {
+              var optionValue = inputOption[0];
+              var optionLabel = inputOption[1];
+              var option = document.createElement('option');
+              option.value = optionValue;
+              option.innerHTML = optionLabel;
+
+              if (innerParams.inputValue.toString() === optionValue.toString()) {
+                option.selected = true;
+              }
+
+              select.appendChild(option);
+            });
+            show(select);
+            select.focus();
+          };
+
+          break;
+        }
+
+      case 'radio':
+        {
+          var radio = getChildByClass(domCache.content, swalClasses.radio);
+          radio.innerHTML = '';
+
+          populateInputOptions = function populateInputOptions(inputOptions) {
+            inputOptions.forEach(function (inputOption) {
+              var radioValue = inputOption[0];
+              var radioLabel = inputOption[1];
+              var radioInput = document.createElement('input');
+              var radioLabelElement = document.createElement('label');
+              radioInput.type = 'radio';
+              radioInput.name = swalClasses.radio;
+              radioInput.value = radioValue;
+
+              if (innerParams.inputValue.toString() === radioValue.toString()) {
+                radioInput.checked = true;
+              }
+
+              var label = document.createElement('span');
+              label.innerHTML = radioLabel;
+              label.className = swalClasses.label;
+              radioLabelElement.appendChild(radioInput);
+              radioLabelElement.appendChild(label);
+              radio.appendChild(radioLabelElement);
+            });
+            show(radio);
+            var radios = radio.querySelectorAll('input');
+
+            if (radios.length) {
+              radios[0].focus();
+            }
+          };
+
+          break;
+        }
+
+      case 'checkbox':
+        {
+          var checkbox = getChildByClass(domCache.content, swalClasses.checkbox);
+
+          var checkboxInput = _this.getInput('checkbox');
+
+          checkboxInput.type = 'checkbox';
+          checkboxInput.value = 1;
+          checkboxInput.id = swalClasses.checkbox;
+          checkboxInput.checked = Boolean(innerParams.inputValue);
+          var label = checkbox.querySelector('span');
+          label.innerHTML = innerParams.inputPlaceholder;
+          show(checkbox);
+          break;
+        }
+
       case 'textarea':
-        var textarea = getChildByClass(domCache.content, swalClasses.textarea);
-        textarea.value = innerParams.inputValue;
-        textarea.placeholder = innerParams.inputPlaceholder;
-        show(textarea);
-        break;
+        {
+          var textarea = getChildByClass(domCache.content, swalClasses.textarea);
+          textarea.value = innerParams.inputValue;
+          setInputPlaceholder(textarea);
+          show(textarea);
+          break;
+        }
+
       case null:
-        break;
+        {
+          break;
+        }
+
       default:
-        error('Unexpected type of input! Expected "text", "email", "password", "number", "tel", "select", "radio", "checkbox", "textarea", "file" or "url", got "' + innerParams.input + '"');
+        error("Unexpected type of input! Expected \"text\", \"email\", \"password\", \"number\", \"tel\", \"select\", \"radio\", \"checkbox\", \"textarea\", \"file\" or \"url\", got \"".concat(innerParams.input, "\""));
         break;
     }
 
@@ -67884,16 +68269,18 @@ function _main(userParams) {
       var processInputOptions = function processInputOptions(inputOptions) {
         return populateInputOptions(formatInputOptions(inputOptions));
       };
+
       if (isThenable(innerParams.inputOptions)) {
         constructor.showLoading();
         innerParams.inputOptions.then(function (inputOptions) {
           _this.hideLoading();
+
           processInputOptions(inputOptions);
         });
       } else if (_typeof(innerParams.inputOptions) === 'object') {
         processInputOptions(innerParams.inputOptions);
       } else {
-        error('Unexpected type of inputOptions! Expected object, Map or Promise, got ' + _typeof(innerParams.inputOptions));
+        error("Unexpected type of inputOptions! Expected object, Map or Promise, got ".concat(_typeof(innerParams.inputOptions)));
       }
     } else if (['text', 'email', 'number', 'tel', 'textarea'].indexOf(innerParams.input) !== -1 && isThenable(innerParams.inputValue)) {
       constructor.showLoading();
@@ -67901,11 +68288,15 @@ function _main(userParams) {
       innerParams.inputValue.then(function (inputValue) {
         input.value = innerParams.input === 'number' ? parseFloat(inputValue) || 0 : inputValue + '';
         show(input);
+        input.focus();
+
         _this.hideLoading();
       }).catch(function (err) {
         error('Error in inputValue promise: ' + err);
         input.value = '';
         show(input);
+        input.focus();
+
         _this.hideLoading();
       });
     }
@@ -67914,7 +68305,7 @@ function _main(userParams) {
 
     if (!innerParams.toast) {
       if (!callIfFunction(innerParams.allowEnterKey)) {
-        if (document.activeElement) {
+        if (document.activeElement && typeof document.activeElement.blur === 'function') {
           document.activeElement.blur();
         }
       } else if (innerParams.focusCancel && isVisible(domCache.cancelButton)) {
@@ -67924,9 +68315,9 @@ function _main(userParams) {
       } else {
         setFocus(-1, 1);
       }
-    }
+    } // fix scroll
 
-    // fix scroll
+
     domCache.container.scrollTop = 0;
   });
 }
@@ -67943,38 +68334,45 @@ var instanceMethods = Object.freeze({
 	disableConfirmButton: disableConfirmButton,
 	enableInput: enableInput,
 	disableInput: disableInput,
-	showValidationError: showValidationError,
+	showValidationMessage: showValidationMessage,
+	resetValidationMessage: resetValidationMessage,
 	resetValidationError: resetValidationError,
+	showValidationError: showValidationError,
+	getProgressSteps: getProgressSteps$1,
+	setProgressSteps: setProgressSteps,
+	showProgressSteps: showProgressSteps,
+	hideProgressSteps: hideProgressSteps,
 	_main: _main
 });
 
-var currentInstance = void 0;
+var currentInstance; // SweetAlert constructor
 
-// SweetAlert constructor
 function SweetAlert() {
   // Prevent run in Node env
+
+  /* istanbul ignore if */
   if (typeof window === 'undefined') {
     return;
-  }
+  } // Check for the existence of Promise
 
-  // Check for the existence of Promise
+  /* istanbul ignore if */
+
+
   if (typeof Promise === 'undefined') {
     error('This package requires a Promise library, please include a shim to enable it in this browser (See: https://github.com/sweetalert2/sweetalert2/wiki/Migration-from-SweetAlert-to-SweetAlert2#1-ie-support)');
   }
 
-  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
     args[_key] = arguments[_key];
   }
 
-  if (typeof args[0] === 'undefined') {
-    error('SweetAlert2 expects at least 1 attribute!');
+  if (args.length === 0) {
+    error('At least 1 argument is expected!');
     return false;
   }
 
   currentInstance = this;
-
   var outerParams = Object.freeze(this.constructor.argsToParams(args));
-
   Object.defineProperties(this, {
     params: {
       value: outerParams,
@@ -67984,30 +68382,33 @@ function SweetAlert() {
   });
 
   var promise = this._main(this.params);
-  privateProps.promise.set(this, promise);
-}
 
-// `catch` cannot be the name of a module export, so we define our thenable methods here instead
+  privateProps.promise.set(this, promise);
+} // `catch` cannot be the name of a module export, so we define our thenable methods here instead
+
+
 SweetAlert.prototype.then = function (onFulfilled, onRejected) {
   var promise = privateProps.promise.get(this);
   return promise.then(onFulfilled, onRejected);
 };
+
 SweetAlert.prototype.catch = function (onRejected) {
   var promise = privateProps.promise.get(this);
   return promise.catch(onRejected);
 };
+
 SweetAlert.prototype.finally = function (onFinally) {
   var promise = privateProps.promise.get(this);
   return promise.finally(onFinally);
-};
+}; // Assign instance methods from src/instanceMethods/*.js to prototype
 
-// Assign instance methods from src/instanceMethods/*.js to prototype
-_extends(SweetAlert.prototype, instanceMethods);
 
-// Assign static methods from src/staticMethods/*.js to constructor
-_extends(SweetAlert, staticMethods);
+_extends(SweetAlert.prototype, instanceMethods); // Assign static methods from src/staticMethods/*.js to constructor
 
-// Proxy to instance methods to constructor, for now, for backwards compatibility
+
+_extends(SweetAlert, staticMethods); // Proxy to instance methods to constructor, for now, for backwards compatibility
+
+
 Object.keys(instanceMethods).forEach(function (key) {
   SweetAlert[key] = function () {
     if (currentInstance) {
@@ -68017,12 +68418,10 @@ Object.keys(instanceMethods).forEach(function (key) {
     }
   };
 });
-
 SweetAlert.DismissReason = DismissReason;
+/* istanbul ignore next */
 
 SweetAlert.noop = function () {};
-
-SweetAlert.version = version;
 
 var Swal = withNoNewKeyword(withGlobalDefaults(SweetAlert));
 Swal.default = Swal;
@@ -68030,1143 +68429,9 @@ Swal.default = Swal;
 return Swal;
 
 })));
-if (typeof window !== 'undefined' && window.Sweetalert2){  window.swal = window.sweetAlert = window.Swal = window.SweetAlert = window.Sweetalert2}
+if (typeof window !== 'undefined' && window.Sweetalert2){  window.Sweetalert2.version = '7.29.1';  window.swal = window.sweetAlert = window.Swal = window.SweetAlert = window.Sweetalert2}
 
-"undefined"!=typeof document&&function(e,t){var n=e.createElement("style");if(e.getElementsByTagName("head")[0].appendChild(n),n.styleSheet)n.styleSheet.disabled||(n.styleSheet.cssText=t);else try{n.innerHTML=t}catch(e){n.innerText=t}}(document,"@-webkit-keyframes swal2-show {\n" +
-"  0% {\n" +
-"    -webkit-transform: scale(0.7);\n" +
-"            transform: scale(0.7); }\n" +
-"  45% {\n" +
-"    -webkit-transform: scale(1.05);\n" +
-"            transform: scale(1.05); }\n" +
-"  80% {\n" +
-"    -webkit-transform: scale(0.95);\n" +
-"            transform: scale(0.95); }\n" +
-"  100% {\n" +
-"    -webkit-transform: scale(1);\n" +
-"            transform: scale(1); } }\n" +
-"\n" +
-"@keyframes swal2-show {\n" +
-"  0% {\n" +
-"    -webkit-transform: scale(0.7);\n" +
-"            transform: scale(0.7); }\n" +
-"  45% {\n" +
-"    -webkit-transform: scale(1.05);\n" +
-"            transform: scale(1.05); }\n" +
-"  80% {\n" +
-"    -webkit-transform: scale(0.95);\n" +
-"            transform: scale(0.95); }\n" +
-"  100% {\n" +
-"    -webkit-transform: scale(1);\n" +
-"            transform: scale(1); } }\n" +
-"\n" +
-"@-webkit-keyframes swal2-hide {\n" +
-"  0% {\n" +
-"    -webkit-transform: scale(1);\n" +
-"            transform: scale(1);\n" +
-"    opacity: 1; }\n" +
-"  100% {\n" +
-"    -webkit-transform: scale(0.5);\n" +
-"            transform: scale(0.5);\n" +
-"    opacity: 0; } }\n" +
-"\n" +
-"@keyframes swal2-hide {\n" +
-"  0% {\n" +
-"    -webkit-transform: scale(1);\n" +
-"            transform: scale(1);\n" +
-"    opacity: 1; }\n" +
-"  100% {\n" +
-"    -webkit-transform: scale(0.5);\n" +
-"            transform: scale(0.5);\n" +
-"    opacity: 0; } }\n" +
-"\n" +
-"@-webkit-keyframes swal2-animate-success-line-tip {\n" +
-"  0% {\n" +
-"    top: 1.1875em;\n" +
-"    left: .0625em;\n" +
-"    width: 0; }\n" +
-"  54% {\n" +
-"    top: 1.0625em;\n" +
-"    left: .125em;\n" +
-"    width: 0; }\n" +
-"  70% {\n" +
-"    top: 2.1875em;\n" +
-"    left: -.375em;\n" +
-"    width: 3.125em; }\n" +
-"  84% {\n" +
-"    top: 3em;\n" +
-"    left: 1.3125em;\n" +
-"    width: 1.0625em; }\n" +
-"  100% {\n" +
-"    top: 2.8125em;\n" +
-"    left: .875em;\n" +
-"    width: 1.5625em; } }\n" +
-"\n" +
-"@keyframes swal2-animate-success-line-tip {\n" +
-"  0% {\n" +
-"    top: 1.1875em;\n" +
-"    left: .0625em;\n" +
-"    width: 0; }\n" +
-"  54% {\n" +
-"    top: 1.0625em;\n" +
-"    left: .125em;\n" +
-"    width: 0; }\n" +
-"  70% {\n" +
-"    top: 2.1875em;\n" +
-"    left: -.375em;\n" +
-"    width: 3.125em; }\n" +
-"  84% {\n" +
-"    top: 3em;\n" +
-"    left: 1.3125em;\n" +
-"    width: 1.0625em; }\n" +
-"  100% {\n" +
-"    top: 2.8125em;\n" +
-"    left: .875em;\n" +
-"    width: 1.5625em; } }\n" +
-"\n" +
-"@-webkit-keyframes swal2-animate-success-line-long {\n" +
-"  0% {\n" +
-"    top: 3.375em;\n" +
-"    right: 2.875em;\n" +
-"    width: 0; }\n" +
-"  65% {\n" +
-"    top: 3.375em;\n" +
-"    right: 2.875em;\n" +
-"    width: 0; }\n" +
-"  84% {\n" +
-"    top: 2.1875em;\n" +
-"    right: 0;\n" +
-"    width: 3.4375em; }\n" +
-"  100% {\n" +
-"    top: 2.375em;\n" +
-"    right: .5em;\n" +
-"    width: 2.9375em; } }\n" +
-"\n" +
-"@keyframes swal2-animate-success-line-long {\n" +
-"  0% {\n" +
-"    top: 3.375em;\n" +
-"    right: 2.875em;\n" +
-"    width: 0; }\n" +
-"  65% {\n" +
-"    top: 3.375em;\n" +
-"    right: 2.875em;\n" +
-"    width: 0; }\n" +
-"  84% {\n" +
-"    top: 2.1875em;\n" +
-"    right: 0;\n" +
-"    width: 3.4375em; }\n" +
-"  100% {\n" +
-"    top: 2.375em;\n" +
-"    right: .5em;\n" +
-"    width: 2.9375em; } }\n" +
-"\n" +
-"@-webkit-keyframes swal2-rotate-success-circular-line {\n" +
-"  0% {\n" +
-"    -webkit-transform: rotate(-45deg);\n" +
-"            transform: rotate(-45deg); }\n" +
-"  5% {\n" +
-"    -webkit-transform: rotate(-45deg);\n" +
-"            transform: rotate(-45deg); }\n" +
-"  12% {\n" +
-"    -webkit-transform: rotate(-405deg);\n" +
-"            transform: rotate(-405deg); }\n" +
-"  100% {\n" +
-"    -webkit-transform: rotate(-405deg);\n" +
-"            transform: rotate(-405deg); } }\n" +
-"\n" +
-"@keyframes swal2-rotate-success-circular-line {\n" +
-"  0% {\n" +
-"    -webkit-transform: rotate(-45deg);\n" +
-"            transform: rotate(-45deg); }\n" +
-"  5% {\n" +
-"    -webkit-transform: rotate(-45deg);\n" +
-"            transform: rotate(-45deg); }\n" +
-"  12% {\n" +
-"    -webkit-transform: rotate(-405deg);\n" +
-"            transform: rotate(-405deg); }\n" +
-"  100% {\n" +
-"    -webkit-transform: rotate(-405deg);\n" +
-"            transform: rotate(-405deg); } }\n" +
-"\n" +
-"@-webkit-keyframes swal2-animate-error-x-mark {\n" +
-"  0% {\n" +
-"    margin-top: 1.625em;\n" +
-"    -webkit-transform: scale(0.4);\n" +
-"            transform: scale(0.4);\n" +
-"    opacity: 0; }\n" +
-"  50% {\n" +
-"    margin-top: 1.625em;\n" +
-"    -webkit-transform: scale(0.4);\n" +
-"            transform: scale(0.4);\n" +
-"    opacity: 0; }\n" +
-"  80% {\n" +
-"    margin-top: -.375em;\n" +
-"    -webkit-transform: scale(1.15);\n" +
-"            transform: scale(1.15); }\n" +
-"  100% {\n" +
-"    margin-top: 0;\n" +
-"    -webkit-transform: scale(1);\n" +
-"            transform: scale(1);\n" +
-"    opacity: 1; } }\n" +
-"\n" +
-"@keyframes swal2-animate-error-x-mark {\n" +
-"  0% {\n" +
-"    margin-top: 1.625em;\n" +
-"    -webkit-transform: scale(0.4);\n" +
-"            transform: scale(0.4);\n" +
-"    opacity: 0; }\n" +
-"  50% {\n" +
-"    margin-top: 1.625em;\n" +
-"    -webkit-transform: scale(0.4);\n" +
-"            transform: scale(0.4);\n" +
-"    opacity: 0; }\n" +
-"  80% {\n" +
-"    margin-top: -.375em;\n" +
-"    -webkit-transform: scale(1.15);\n" +
-"            transform: scale(1.15); }\n" +
-"  100% {\n" +
-"    margin-top: 0;\n" +
-"    -webkit-transform: scale(1);\n" +
-"            transform: scale(1);\n" +
-"    opacity: 1; } }\n" +
-"\n" +
-"@-webkit-keyframes swal2-animate-error-icon {\n" +
-"  0% {\n" +
-"    -webkit-transform: rotateX(100deg);\n" +
-"            transform: rotateX(100deg);\n" +
-"    opacity: 0; }\n" +
-"  100% {\n" +
-"    -webkit-transform: rotateX(0deg);\n" +
-"            transform: rotateX(0deg);\n" +
-"    opacity: 1; } }\n" +
-"\n" +
-"@keyframes swal2-animate-error-icon {\n" +
-"  0% {\n" +
-"    -webkit-transform: rotateX(100deg);\n" +
-"            transform: rotateX(100deg);\n" +
-"    opacity: 0; }\n" +
-"  100% {\n" +
-"    -webkit-transform: rotateX(0deg);\n" +
-"            transform: rotateX(0deg);\n" +
-"    opacity: 1; } }\n" +
-"\n" +
-"body.swal2-toast-shown.swal2-has-input > .swal2-container > .swal2-toast {\n" +
-"  flex-direction: column;\n" +
-"  align-items: stretch; }\n" +
-"  body.swal2-toast-shown.swal2-has-input > .swal2-container > .swal2-toast .swal2-actions {\n" +
-"    flex: 1;\n" +
-"    align-self: stretch;\n" +
-"    justify-content: flex-end;\n" +
-"    height: 2.2em; }\n" +
-"  body.swal2-toast-shown.swal2-has-input > .swal2-container > .swal2-toast .swal2-loading {\n" +
-"    justify-content: center; }\n" +
-"  body.swal2-toast-shown.swal2-has-input > .swal2-container > .swal2-toast .swal2-input {\n" +
-"    height: 2em;\n" +
-"    margin: .3125em auto;\n" +
-"    font-size: 1em; }\n" +
-"  body.swal2-toast-shown.swal2-has-input > .swal2-container > .swal2-toast .swal2-validationerror {\n" +
-"    font-size: 1em; }\n" +
-"\n" +
-"body.swal2-toast-shown > .swal2-container {\n" +
-"  position: fixed;\n" +
-"  background-color: transparent; }\n" +
-"  body.swal2-toast-shown > .swal2-container.swal2-shown {\n" +
-"    background-color: transparent; }\n" +
-"  body.swal2-toast-shown > .swal2-container.swal2-top {\n" +
-"    top: 0;\n" +
-"    right: auto;\n" +
-"    bottom: auto;\n" +
-"    left: 50%;\n" +
-"    -webkit-transform: translateX(-50%);\n" +
-"            transform: translateX(-50%); }\n" +
-"  body.swal2-toast-shown > .swal2-container.swal2-top-end, body.swal2-toast-shown > .swal2-container.swal2-top-right {\n" +
-"    top: 0;\n" +
-"    right: 0;\n" +
-"    bottom: auto;\n" +
-"    left: auto; }\n" +
-"  body.swal2-toast-shown > .swal2-container.swal2-top-start, body.swal2-toast-shown > .swal2-container.swal2-top-left {\n" +
-"    top: 0;\n" +
-"    right: auto;\n" +
-"    bottom: auto;\n" +
-"    left: 0; }\n" +
-"  body.swal2-toast-shown > .swal2-container.swal2-center-start, body.swal2-toast-shown > .swal2-container.swal2-center-left {\n" +
-"    top: 50%;\n" +
-"    right: auto;\n" +
-"    bottom: auto;\n" +
-"    left: 0;\n" +
-"    -webkit-transform: translateY(-50%);\n" +
-"            transform: translateY(-50%); }\n" +
-"  body.swal2-toast-shown > .swal2-container.swal2-center {\n" +
-"    top: 50%;\n" +
-"    right: auto;\n" +
-"    bottom: auto;\n" +
-"    left: 50%;\n" +
-"    -webkit-transform: translate(-50%, -50%);\n" +
-"            transform: translate(-50%, -50%); }\n" +
-"  body.swal2-toast-shown > .swal2-container.swal2-center-end, body.swal2-toast-shown > .swal2-container.swal2-center-right {\n" +
-"    top: 50%;\n" +
-"    right: 0;\n" +
-"    bottom: auto;\n" +
-"    left: auto;\n" +
-"    -webkit-transform: translateY(-50%);\n" +
-"            transform: translateY(-50%); }\n" +
-"  body.swal2-toast-shown > .swal2-container.swal2-bottom-start, body.swal2-toast-shown > .swal2-container.swal2-bottom-left {\n" +
-"    top: auto;\n" +
-"    right: auto;\n" +
-"    bottom: 0;\n" +
-"    left: 0; }\n" +
-"  body.swal2-toast-shown > .swal2-container.swal2-bottom {\n" +
-"    top: auto;\n" +
-"    right: auto;\n" +
-"    bottom: 0;\n" +
-"    left: 50%;\n" +
-"    -webkit-transform: translateX(-50%);\n" +
-"            transform: translateX(-50%); }\n" +
-"  body.swal2-toast-shown > .swal2-container.swal2-bottom-end, body.swal2-toast-shown > .swal2-container.swal2-bottom-right {\n" +
-"    top: auto;\n" +
-"    right: 0;\n" +
-"    bottom: 0;\n" +
-"    left: auto; }\n" +
-"\n" +
-".swal2-popup.swal2-toast {\n" +
-"  flex-direction: row;\n" +
-"  align-items: center;\n" +
-"  width: auto;\n" +
-"  padding: 0.625em;\n" +
-"  box-shadow: 0 0 0.625em #d9d9d9;\n" +
-"  overflow-y: hidden; }\n" +
-"  .swal2-popup.swal2-toast .swal2-header {\n" +
-"    flex-direction: row; }\n" +
-"  .swal2-popup.swal2-toast .swal2-title {\n" +
-"    justify-content: flex-start;\n" +
-"    margin: 0 .6em;\n" +
-"    font-size: 1em; }\n" +
-"  .swal2-popup.swal2-toast .swal2-close {\n" +
-"    position: initial; }\n" +
-"  .swal2-popup.swal2-toast .swal2-content {\n" +
-"    justify-content: flex-start;\n" +
-"    font-size: 1em; }\n" +
-"  .swal2-popup.swal2-toast .swal2-icon {\n" +
-"    width: 2em;\n" +
-"    min-width: 2em;\n" +
-"    height: 2em;\n" +
-"    margin: 0; }\n" +
-"    .swal2-popup.swal2-toast .swal2-icon-text {\n" +
-"      font-size: 2em;\n" +
-"      font-weight: bold;\n" +
-"      line-height: 1em; }\n" +
-"    .swal2-popup.swal2-toast .swal2-icon.swal2-success .swal2-success-ring {\n" +
-"      width: 2em;\n" +
-"      height: 2em; }\n" +
-"    .swal2-popup.swal2-toast .swal2-icon.swal2-error [class^='swal2-x-mark-line'] {\n" +
-"      top: .875em;\n" +
-"      width: 1.375em; }\n" +
-"      .swal2-popup.swal2-toast .swal2-icon.swal2-error [class^='swal2-x-mark-line'][class$='left'] {\n" +
-"        left: .3125em; }\n" +
-"      .swal2-popup.swal2-toast .swal2-icon.swal2-error [class^='swal2-x-mark-line'][class$='right'] {\n" +
-"        right: .3125em; }\n" +
-"  .swal2-popup.swal2-toast .swal2-actions {\n" +
-"    height: auto;\n" +
-"    margin: 0 .3125em; }\n" +
-"  .swal2-popup.swal2-toast .swal2-styled {\n" +
-"    margin: 0 .3125em;\n" +
-"    padding: .3125em .625em;\n" +
-"    font-size: 1em; }\n" +
-"    .swal2-popup.swal2-toast .swal2-styled:focus {\n" +
-"      box-shadow: 0 0 0 0.0625em #fff, 0 0 0 0.125em rgba(50, 100, 150, 0.4); }\n" +
-"  .swal2-popup.swal2-toast .swal2-success {\n" +
-"    border-color: #a5dc86; }\n" +
-"    .swal2-popup.swal2-toast .swal2-success [class^='swal2-success-circular-line'] {\n" +
-"      position: absolute;\n" +
-"      width: 2em;\n" +
-"      height: 2.8125em;\n" +
-"      -webkit-transform: rotate(45deg);\n" +
-"              transform: rotate(45deg);\n" +
-"      border-radius: 50%; }\n" +
-"      .swal2-popup.swal2-toast .swal2-success [class^='swal2-success-circular-line'][class$='left'] {\n" +
-"        top: -.25em;\n" +
-"        left: -.9375em;\n" +
-"        -webkit-transform: rotate(-45deg);\n" +
-"                transform: rotate(-45deg);\n" +
-"        -webkit-transform-origin: 2em 2em;\n" +
-"                transform-origin: 2em 2em;\n" +
-"        border-radius: 4em 0 0 4em; }\n" +
-"      .swal2-popup.swal2-toast .swal2-success [class^='swal2-success-circular-line'][class$='right'] {\n" +
-"        top: -.25em;\n" +
-"        left: .9375em;\n" +
-"        -webkit-transform-origin: 0 2em;\n" +
-"                transform-origin: 0 2em;\n" +
-"        border-radius: 0 4em 4em 0; }\n" +
-"    .swal2-popup.swal2-toast .swal2-success .swal2-success-ring {\n" +
-"      width: 2em;\n" +
-"      height: 2em; }\n" +
-"    .swal2-popup.swal2-toast .swal2-success .swal2-success-fix {\n" +
-"      top: 0;\n" +
-"      left: .4375em;\n" +
-"      width: .4375em;\n" +
-"      height: 2.6875em; }\n" +
-"    .swal2-popup.swal2-toast .swal2-success [class^='swal2-success-line'] {\n" +
-"      height: .3125em; }\n" +
-"      .swal2-popup.swal2-toast .swal2-success [class^='swal2-success-line'][class$='tip'] {\n" +
-"        top: 1.125em;\n" +
-"        left: .1875em;\n" +
-"        width: .75em; }\n" +
-"      .swal2-popup.swal2-toast .swal2-success [class^='swal2-success-line'][class$='long'] {\n" +
-"        top: .9375em;\n" +
-"        right: .1875em;\n" +
-"        width: 1.375em; }\n" +
-"  .swal2-popup.swal2-toast.swal2-show {\n" +
-"    -webkit-animation: showSweetToast .5s;\n" +
-"            animation: showSweetToast .5s; }\n" +
-"  .swal2-popup.swal2-toast.swal2-hide {\n" +
-"    -webkit-animation: hideSweetToast .2s forwards;\n" +
-"            animation: hideSweetToast .2s forwards; }\n" +
-"  .swal2-popup.swal2-toast .swal2-animate-success-icon .swal2-success-line-tip {\n" +
-"    -webkit-animation: animate-toast-success-tip .75s;\n" +
-"            animation: animate-toast-success-tip .75s; }\n" +
-"  .swal2-popup.swal2-toast .swal2-animate-success-icon .swal2-success-line-long {\n" +
-"    -webkit-animation: animate-toast-success-long .75s;\n" +
-"            animation: animate-toast-success-long .75s; }\n" +
-"\n" +
-"@-webkit-keyframes showSweetToast {\n" +
-"  0% {\n" +
-"    -webkit-transform: translateY(-0.625em) rotateZ(2deg);\n" +
-"            transform: translateY(-0.625em) rotateZ(2deg);\n" +
-"    opacity: 0; }\n" +
-"  33% {\n" +
-"    -webkit-transform: translateY(0) rotateZ(-2deg);\n" +
-"            transform: translateY(0) rotateZ(-2deg);\n" +
-"    opacity: .5; }\n" +
-"  66% {\n" +
-"    -webkit-transform: translateY(0.3125em) rotateZ(2deg);\n" +
-"            transform: translateY(0.3125em) rotateZ(2deg);\n" +
-"    opacity: .7; }\n" +
-"  100% {\n" +
-"    -webkit-transform: translateY(0) rotateZ(0);\n" +
-"            transform: translateY(0) rotateZ(0);\n" +
-"    opacity: 1; } }\n" +
-"\n" +
-"@keyframes showSweetToast {\n" +
-"  0% {\n" +
-"    -webkit-transform: translateY(-0.625em) rotateZ(2deg);\n" +
-"            transform: translateY(-0.625em) rotateZ(2deg);\n" +
-"    opacity: 0; }\n" +
-"  33% {\n" +
-"    -webkit-transform: translateY(0) rotateZ(-2deg);\n" +
-"            transform: translateY(0) rotateZ(-2deg);\n" +
-"    opacity: .5; }\n" +
-"  66% {\n" +
-"    -webkit-transform: translateY(0.3125em) rotateZ(2deg);\n" +
-"            transform: translateY(0.3125em) rotateZ(2deg);\n" +
-"    opacity: .7; }\n" +
-"  100% {\n" +
-"    -webkit-transform: translateY(0) rotateZ(0);\n" +
-"            transform: translateY(0) rotateZ(0);\n" +
-"    opacity: 1; } }\n" +
-"\n" +
-"@-webkit-keyframes hideSweetToast {\n" +
-"  0% {\n" +
-"    opacity: 1; }\n" +
-"  33% {\n" +
-"    opacity: .5; }\n" +
-"  100% {\n" +
-"    -webkit-transform: rotateZ(1deg);\n" +
-"            transform: rotateZ(1deg);\n" +
-"    opacity: 0; } }\n" +
-"\n" +
-"@keyframes hideSweetToast {\n" +
-"  0% {\n" +
-"    opacity: 1; }\n" +
-"  33% {\n" +
-"    opacity: .5; }\n" +
-"  100% {\n" +
-"    -webkit-transform: rotateZ(1deg);\n" +
-"            transform: rotateZ(1deg);\n" +
-"    opacity: 0; } }\n" +
-"\n" +
-"@-webkit-keyframes animate-toast-success-tip {\n" +
-"  0% {\n" +
-"    top: .5625em;\n" +
-"    left: .0625em;\n" +
-"    width: 0; }\n" +
-"  54% {\n" +
-"    top: .125em;\n" +
-"    left: .125em;\n" +
-"    width: 0; }\n" +
-"  70% {\n" +
-"    top: .625em;\n" +
-"    left: -.25em;\n" +
-"    width: 1.625em; }\n" +
-"  84% {\n" +
-"    top: 1.0625em;\n" +
-"    left: .75em;\n" +
-"    width: .5em; }\n" +
-"  100% {\n" +
-"    top: 1.125em;\n" +
-"    left: .1875em;\n" +
-"    width: .75em; } }\n" +
-"\n" +
-"@keyframes animate-toast-success-tip {\n" +
-"  0% {\n" +
-"    top: .5625em;\n" +
-"    left: .0625em;\n" +
-"    width: 0; }\n" +
-"  54% {\n" +
-"    top: .125em;\n" +
-"    left: .125em;\n" +
-"    width: 0; }\n" +
-"  70% {\n" +
-"    top: .625em;\n" +
-"    left: -.25em;\n" +
-"    width: 1.625em; }\n" +
-"  84% {\n" +
-"    top: 1.0625em;\n" +
-"    left: .75em;\n" +
-"    width: .5em; }\n" +
-"  100% {\n" +
-"    top: 1.125em;\n" +
-"    left: .1875em;\n" +
-"    width: .75em; } }\n" +
-"\n" +
-"@-webkit-keyframes animate-toast-success-long {\n" +
-"  0% {\n" +
-"    top: 1.625em;\n" +
-"    right: 1.375em;\n" +
-"    width: 0; }\n" +
-"  65% {\n" +
-"    top: 1.25em;\n" +
-"    right: .9375em;\n" +
-"    width: 0; }\n" +
-"  84% {\n" +
-"    top: .9375em;\n" +
-"    right: 0;\n" +
-"    width: 1.125em; }\n" +
-"  100% {\n" +
-"    top: .9375em;\n" +
-"    right: .1875em;\n" +
-"    width: 1.375em; } }\n" +
-"\n" +
-"@keyframes animate-toast-success-long {\n" +
-"  0% {\n" +
-"    top: 1.625em;\n" +
-"    right: 1.375em;\n" +
-"    width: 0; }\n" +
-"  65% {\n" +
-"    top: 1.25em;\n" +
-"    right: .9375em;\n" +
-"    width: 0; }\n" +
-"  84% {\n" +
-"    top: .9375em;\n" +
-"    right: 0;\n" +
-"    width: 1.125em; }\n" +
-"  100% {\n" +
-"    top: .9375em;\n" +
-"    right: .1875em;\n" +
-"    width: 1.375em; } }\n" +
-"\n" +
-"body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {\n" +
-"  overflow-y: hidden; }\n" +
-"\n" +
-"body.swal2-height-auto {\n" +
-"  height: auto !important; }\n" +
-"\n" +
-"body.swal2-no-backdrop .swal2-shown {\n" +
-"  top: auto;\n" +
-"  right: auto;\n" +
-"  bottom: auto;\n" +
-"  left: auto;\n" +
-"  background-color: transparent; }\n" +
-"  body.swal2-no-backdrop .swal2-shown > .swal2-modal {\n" +
-"    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); }\n" +
-"  body.swal2-no-backdrop .swal2-shown.swal2-top {\n" +
-"    top: 0;\n" +
-"    left: 50%;\n" +
-"    -webkit-transform: translateX(-50%);\n" +
-"            transform: translateX(-50%); }\n" +
-"  body.swal2-no-backdrop .swal2-shown.swal2-top-start, body.swal2-no-backdrop .swal2-shown.swal2-top-left {\n" +
-"    top: 0;\n" +
-"    left: 0; }\n" +
-"  body.swal2-no-backdrop .swal2-shown.swal2-top-end, body.swal2-no-backdrop .swal2-shown.swal2-top-right {\n" +
-"    top: 0;\n" +
-"    right: 0; }\n" +
-"  body.swal2-no-backdrop .swal2-shown.swal2-center {\n" +
-"    top: 50%;\n" +
-"    left: 50%;\n" +
-"    -webkit-transform: translate(-50%, -50%);\n" +
-"            transform: translate(-50%, -50%); }\n" +
-"  body.swal2-no-backdrop .swal2-shown.swal2-center-start, body.swal2-no-backdrop .swal2-shown.swal2-center-left {\n" +
-"    top: 50%;\n" +
-"    left: 0;\n" +
-"    -webkit-transform: translateY(-50%);\n" +
-"            transform: translateY(-50%); }\n" +
-"  body.swal2-no-backdrop .swal2-shown.swal2-center-end, body.swal2-no-backdrop .swal2-shown.swal2-center-right {\n" +
-"    top: 50%;\n" +
-"    right: 0;\n" +
-"    -webkit-transform: translateY(-50%);\n" +
-"            transform: translateY(-50%); }\n" +
-"  body.swal2-no-backdrop .swal2-shown.swal2-bottom {\n" +
-"    bottom: 0;\n" +
-"    left: 50%;\n" +
-"    -webkit-transform: translateX(-50%);\n" +
-"            transform: translateX(-50%); }\n" +
-"  body.swal2-no-backdrop .swal2-shown.swal2-bottom-start, body.swal2-no-backdrop .swal2-shown.swal2-bottom-left {\n" +
-"    bottom: 0;\n" +
-"    left: 0; }\n" +
-"  body.swal2-no-backdrop .swal2-shown.swal2-bottom-end, body.swal2-no-backdrop .swal2-shown.swal2-bottom-right {\n" +
-"    right: 0;\n" +
-"    bottom: 0; }\n" +
-"\n" +
-".swal2-container {\n" +
-"  display: flex;\n" +
-"  position: fixed;\n" +
-"  top: 0;\n" +
-"  right: 0;\n" +
-"  bottom: 0;\n" +
-"  left: 0;\n" +
-"  flex-direction: row;\n" +
-"  align-items: center;\n" +
-"  justify-content: center;\n" +
-"  padding: 10px;\n" +
-"  background-color: transparent;\n" +
-"  z-index: 1060;\n" +
-"  overflow-x: hidden;\n" +
-"  -webkit-overflow-scrolling: touch; }\n" +
-"  .swal2-container.swal2-top {\n" +
-"    align-items: flex-start; }\n" +
-"  .swal2-container.swal2-top-start, .swal2-container.swal2-top-left {\n" +
-"    align-items: flex-start;\n" +
-"    justify-content: flex-start; }\n" +
-"  .swal2-container.swal2-top-end, .swal2-container.swal2-top-right {\n" +
-"    align-items: flex-start;\n" +
-"    justify-content: flex-end; }\n" +
-"  .swal2-container.swal2-center {\n" +
-"    align-items: center; }\n" +
-"  .swal2-container.swal2-center-start, .swal2-container.swal2-center-left {\n" +
-"    align-items: center;\n" +
-"    justify-content: flex-start; }\n" +
-"  .swal2-container.swal2-center-end, .swal2-container.swal2-center-right {\n" +
-"    align-items: center;\n" +
-"    justify-content: flex-end; }\n" +
-"  .swal2-container.swal2-bottom {\n" +
-"    align-items: flex-end; }\n" +
-"  .swal2-container.swal2-bottom-start, .swal2-container.swal2-bottom-left {\n" +
-"    align-items: flex-end;\n" +
-"    justify-content: flex-start; }\n" +
-"  .swal2-container.swal2-bottom-end, .swal2-container.swal2-bottom-right {\n" +
-"    align-items: flex-end;\n" +
-"    justify-content: flex-end; }\n" +
-"  .swal2-container.swal2-grow-fullscreen > .swal2-modal {\n" +
-"    display: flex !important;\n" +
-"    flex: 1;\n" +
-"    align-self: stretch;\n" +
-"    justify-content: center; }\n" +
-"  .swal2-container.swal2-grow-row > .swal2-modal {\n" +
-"    display: flex !important;\n" +
-"    flex: 1;\n" +
-"    align-content: center;\n" +
-"    justify-content: center; }\n" +
-"  .swal2-container.swal2-grow-column {\n" +
-"    flex: 1;\n" +
-"    flex-direction: column; }\n" +
-"    .swal2-container.swal2-grow-column.swal2-top, .swal2-container.swal2-grow-column.swal2-center, .swal2-container.swal2-grow-column.swal2-bottom {\n" +
-"      align-items: center; }\n" +
-"    .swal2-container.swal2-grow-column.swal2-top-start, .swal2-container.swal2-grow-column.swal2-center-start, .swal2-container.swal2-grow-column.swal2-bottom-start, .swal2-container.swal2-grow-column.swal2-top-left, .swal2-container.swal2-grow-column.swal2-center-left, .swal2-container.swal2-grow-column.swal2-bottom-left {\n" +
-"      align-items: flex-start; }\n" +
-"    .swal2-container.swal2-grow-column.swal2-top-end, .swal2-container.swal2-grow-column.swal2-center-end, .swal2-container.swal2-grow-column.swal2-bottom-end, .swal2-container.swal2-grow-column.swal2-top-right, .swal2-container.swal2-grow-column.swal2-center-right, .swal2-container.swal2-grow-column.swal2-bottom-right {\n" +
-"      align-items: flex-end; }\n" +
-"    .swal2-container.swal2-grow-column > .swal2-modal {\n" +
-"      display: flex !important;\n" +
-"      flex: 1;\n" +
-"      align-content: center;\n" +
-"      justify-content: center; }\n" +
-"  .swal2-container:not(.swal2-top):not(.swal2-top-start):not(.swal2-top-end):not(.swal2-top-left):not(.swal2-top-right):not(.swal2-center-start):not(.swal2-center-end):not(.swal2-center-left):not(.swal2-center-right):not(.swal2-bottom):not(.swal2-bottom-start):not(.swal2-bottom-end):not(.swal2-bottom-left):not(.swal2-bottom-right) > .swal2-modal {\n" +
-"    margin: auto; }\n" +
-"  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {\n" +
-"    .swal2-container .swal2-modal {\n" +
-"      margin: 0 !important; } }\n" +
-"  .swal2-container.swal2-fade {\n" +
-"    transition: background-color .1s; }\n" +
-"  .swal2-container.swal2-shown {\n" +
-"    background-color: rgba(0, 0, 0, 0.4); }\n" +
-"\n" +
-".swal2-popup {\n" +
-"  display: none;\n" +
-"  position: relative;\n" +
-"  flex-direction: column;\n" +
-"  justify-content: center;\n" +
-"  width: 32em;\n" +
-"  max-width: 100%;\n" +
-"  padding: 1.25em;\n" +
-"  border-radius: 0.3125em;\n" +
-"  background: #fff;\n" +
-"  font-family: inherit;\n" +
-"  font-size: 1rem;\n" +
-"  box-sizing: border-box; }\n" +
-"  .swal2-popup:focus {\n" +
-"    outline: none; }\n" +
-"  .swal2-popup.swal2-loading {\n" +
-"    overflow-y: hidden; }\n" +
-"  .swal2-popup .swal2-header {\n" +
-"    display: flex;\n" +
-"    flex-direction: column;\n" +
-"    align-items: center; }\n" +
-"  .swal2-popup .swal2-title {\n" +
-"    display: block;\n" +
-"    position: relative;\n" +
-"    max-width: 100%;\n" +
-"    margin: 0 0 0.4em;\n" +
-"    padding: 0;\n" +
-"    color: #595959;\n" +
-"    font-size: 1.875em;\n" +
-"    font-weight: 600;\n" +
-"    text-align: center;\n" +
-"    text-transform: none;\n" +
-"    word-wrap: break-word; }\n" +
-"  .swal2-popup .swal2-actions {\n" +
-"    align-items: center;\n" +
-"    justify-content: center;\n" +
-"    margin: 1.25em auto 0; }\n" +
-"    .swal2-popup .swal2-actions:not(.swal2-loading) .swal2-styled[disabled] {\n" +
-"      opacity: .4; }\n" +
-"    .swal2-popup .swal2-actions:not(.swal2-loading) .swal2-styled:hover {\n" +
-"      background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)); }\n" +
-"    .swal2-popup .swal2-actions:not(.swal2-loading) .swal2-styled:active {\n" +
-"      background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)); }\n" +
-"    .swal2-popup .swal2-actions.swal2-loading .swal2-styled.swal2-confirm {\n" +
-"      width: 2.5em;\n" +
-"      height: 2.5em;\n" +
-"      margin: .46875em;\n" +
-"      padding: 0;\n" +
-"      border: .25em solid transparent;\n" +
-"      border-radius: 100%;\n" +
-"      border-color: transparent;\n" +
-"      background-color: transparent !important;\n" +
-"      color: transparent;\n" +
-"      cursor: default;\n" +
-"      box-sizing: border-box;\n" +
-"      -webkit-animation: swal2-rotate-loading 1.5s linear 0s infinite normal;\n" +
-"              animation: swal2-rotate-loading 1.5s linear 0s infinite normal;\n" +
-"      -webkit-user-select: none;\n" +
-"         -moz-user-select: none;\n" +
-"          -ms-user-select: none;\n" +
-"              user-select: none; }\n" +
-"    .swal2-popup .swal2-actions.swal2-loading .swal2-styled.swal2-cancel {\n" +
-"      margin-right: 30px;\n" +
-"      margin-left: 30px; }\n" +
-"    .swal2-popup .swal2-actions.swal2-loading :not(.swal2-styled).swal2-confirm::after {\n" +
-"      display: inline-block;\n" +
-"      width: 15px;\n" +
-"      height: 15px;\n" +
-"      margin-left: 5px;\n" +
-"      border: 3px solid #999999;\n" +
-"      border-radius: 50%;\n" +
-"      border-right-color: transparent;\n" +
-"      box-shadow: 1px 1px 1px #fff;\n" +
-"      content: '';\n" +
-"      -webkit-animation: swal2-rotate-loading 1.5s linear 0s infinite normal;\n" +
-"              animation: swal2-rotate-loading 1.5s linear 0s infinite normal; }\n" +
-"  .swal2-popup .swal2-styled {\n" +
-"    margin: 0 .3125em;\n" +
-"    padding: .625em 2em;\n" +
-"    font-weight: 500;\n" +
-"    box-shadow: none; }\n" +
-"    .swal2-popup .swal2-styled:not([disabled]) {\n" +
-"      cursor: pointer; }\n" +
-"    .swal2-popup .swal2-styled.swal2-confirm {\n" +
-"      border: 0;\n" +
-"      border-radius: 0.25em;\n" +
-"      background: initial;\n" +
-"      background-color: #3085d6;\n" +
-"      color: #fff;\n" +
-"      font-size: 1.0625em; }\n" +
-"    .swal2-popup .swal2-styled.swal2-cancel {\n" +
-"      border: 0;\n" +
-"      border-radius: 0.25em;\n" +
-"      background: initial;\n" +
-"      background-color: #aaa;\n" +
-"      color: #fff;\n" +
-"      font-size: 1.0625em; }\n" +
-"    .swal2-popup .swal2-styled:focus {\n" +
-"      outline: none;\n" +
-"      box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgba(50, 100, 150, 0.4); }\n" +
-"    .swal2-popup .swal2-styled::-moz-focus-inner {\n" +
-"      border: 0; }\n" +
-"  .swal2-popup .swal2-footer {\n" +
-"    justify-content: center;\n" +
-"    margin: 1.25em 0 0;\n" +
-"    padding-top: 1em;\n" +
-"    border-top: 1px solid #eee;\n" +
-"    color: #545454;\n" +
-"    font-size: 1em; }\n" +
-"  .swal2-popup .swal2-image {\n" +
-"    max-width: 100%;\n" +
-"    margin: 1.25em auto; }\n" +
-"  .swal2-popup .swal2-close {\n" +
-"    position: absolute;\n" +
-"    top: 0;\n" +
-"    right: 0;\n" +
-"    justify-content: center;\n" +
-"    width: 1.2em;\n" +
-"    height: 1.2em;\n" +
-"    padding: 0;\n" +
-"    transition: color 0.1s ease-out;\n" +
-"    border: none;\n" +
-"    border-radius: 0;\n" +
-"    background: transparent;\n" +
-"    color: #cccccc;\n" +
-"    font-family: serif;\n" +
-"    font-size: 2.5em;\n" +
-"    line-height: 1.2;\n" +
-"    cursor: pointer;\n" +
-"    overflow: hidden; }\n" +
-"    .swal2-popup .swal2-close:hover {\n" +
-"      -webkit-transform: none;\n" +
-"              transform: none;\n" +
-"      color: #f27474; }\n" +
-"  .swal2-popup > .swal2-input,\n" +
-"  .swal2-popup > .swal2-file,\n" +
-"  .swal2-popup > .swal2-textarea,\n" +
-"  .swal2-popup > .swal2-select,\n" +
-"  .swal2-popup > .swal2-radio,\n" +
-"  .swal2-popup > .swal2-checkbox {\n" +
-"    display: none; }\n" +
-"  .swal2-popup .swal2-content {\n" +
-"    justify-content: center;\n" +
-"    margin: 0;\n" +
-"    padding: 0;\n" +
-"    color: #545454;\n" +
-"    font-size: 1.125em;\n" +
-"    font-weight: 300;\n" +
-"    line-height: normal;\n" +
-"    word-wrap: break-word; }\n" +
-"  .swal2-popup #swal2-content {\n" +
-"    text-align: center; }\n" +
-"  .swal2-popup .swal2-input,\n" +
-"  .swal2-popup .swal2-file,\n" +
-"  .swal2-popup .swal2-textarea,\n" +
-"  .swal2-popup .swal2-select,\n" +
-"  .swal2-popup .swal2-radio,\n" +
-"  .swal2-popup .swal2-checkbox {\n" +
-"    margin: 1em auto; }\n" +
-"  .swal2-popup .swal2-input,\n" +
-"  .swal2-popup .swal2-file,\n" +
-"  .swal2-popup .swal2-textarea {\n" +
-"    width: 100%;\n" +
-"    transition: border-color .3s, box-shadow .3s;\n" +
-"    border: 1px solid #d9d9d9;\n" +
-"    border-radius: 0.1875em;\n" +
-"    font-size: 1.125em;\n" +
-"    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06);\n" +
-"    box-sizing: border-box; }\n" +
-"    .swal2-popup .swal2-input.swal2-inputerror,\n" +
-"    .swal2-popup .swal2-file.swal2-inputerror,\n" +
-"    .swal2-popup .swal2-textarea.swal2-inputerror {\n" +
-"      border-color: #f27474 !important;\n" +
-"      box-shadow: 0 0 2px #f27474 !important; }\n" +
-"    .swal2-popup .swal2-input:focus,\n" +
-"    .swal2-popup .swal2-file:focus,\n" +
-"    .swal2-popup .swal2-textarea:focus {\n" +
-"      border: 1px solid #b4dbed;\n" +
-"      outline: none;\n" +
-"      box-shadow: 0 0 3px #c4e6f5; }\n" +
-"    .swal2-popup .swal2-input::-webkit-input-placeholder,\n" +
-"    .swal2-popup .swal2-file::-webkit-input-placeholder,\n" +
-"    .swal2-popup .swal2-textarea::-webkit-input-placeholder {\n" +
-"      color: #cccccc; }\n" +
-"    .swal2-popup .swal2-input:-ms-input-placeholder,\n" +
-"    .swal2-popup .swal2-file:-ms-input-placeholder,\n" +
-"    .swal2-popup .swal2-textarea:-ms-input-placeholder {\n" +
-"      color: #cccccc; }\n" +
-"    .swal2-popup .swal2-input::-ms-input-placeholder,\n" +
-"    .swal2-popup .swal2-file::-ms-input-placeholder,\n" +
-"    .swal2-popup .swal2-textarea::-ms-input-placeholder {\n" +
-"      color: #cccccc; }\n" +
-"    .swal2-popup .swal2-input::placeholder,\n" +
-"    .swal2-popup .swal2-file::placeholder,\n" +
-"    .swal2-popup .swal2-textarea::placeholder {\n" +
-"      color: #cccccc; }\n" +
-"  .swal2-popup .swal2-range input {\n" +
-"    width: 80%; }\n" +
-"  .swal2-popup .swal2-range output {\n" +
-"    width: 20%;\n" +
-"    font-weight: 600;\n" +
-"    text-align: center; }\n" +
-"  .swal2-popup .swal2-range input,\n" +
-"  .swal2-popup .swal2-range output {\n" +
-"    height: 2.625em;\n" +
-"    margin: 1em auto;\n" +
-"    padding: 0;\n" +
-"    font-size: 1.125em;\n" +
-"    line-height: 2.625em; }\n" +
-"  .swal2-popup .swal2-input {\n" +
-"    height: 2.625em;\n" +
-"    padding: 0.75em; }\n" +
-"    .swal2-popup .swal2-input[type='number'] {\n" +
-"      max-width: 10em; }\n" +
-"  .swal2-popup .swal2-file {\n" +
-"    font-size: 1.125em; }\n" +
-"  .swal2-popup .swal2-textarea {\n" +
-"    height: 6.75em;\n" +
-"    padding: 0.75em; }\n" +
-"  .swal2-popup .swal2-select {\n" +
-"    min-width: 50%;\n" +
-"    max-width: 100%;\n" +
-"    padding: .375em .625em;\n" +
-"    color: #545454;\n" +
-"    font-size: 1.125em; }\n" +
-"  .swal2-popup .swal2-radio,\n" +
-"  .swal2-popup .swal2-checkbox {\n" +
-"    align-items: center;\n" +
-"    justify-content: center; }\n" +
-"    .swal2-popup .swal2-radio label,\n" +
-"    .swal2-popup .swal2-checkbox label {\n" +
-"      margin: 0 .6em;\n" +
-"      font-size: 1.125em; }\n" +
-"    .swal2-popup .swal2-radio input,\n" +
-"    .swal2-popup .swal2-checkbox input {\n" +
-"      margin: 0 .4em; }\n" +
-"  .swal2-popup .swal2-validationerror {\n" +
-"    display: none;\n" +
-"    align-items: center;\n" +
-"    justify-content: center;\n" +
-"    padding: 0.625em;\n" +
-"    background: #f0f0f0;\n" +
-"    color: #666666;\n" +
-"    font-size: 1em;\n" +
-"    font-weight: 300;\n" +
-"    overflow: hidden; }\n" +
-"    .swal2-popup .swal2-validationerror::before {\n" +
-"      display: inline-block;\n" +
-"      width: 1.5em;\n" +
-"      min-width: 1.5em;\n" +
-"      height: 1.5em;\n" +
-"      margin: 0 .625em;\n" +
-"      border-radius: 50%;\n" +
-"      background-color: #f27474;\n" +
-"      color: #fff;\n" +
-"      font-weight: 600;\n" +
-"      line-height: 1.5em;\n" +
-"      text-align: center;\n" +
-"      content: '!';\n" +
-"      zoom: normal; }\n" +
-"\n" +
-"@supports (-ms-accelerator: true) {\n" +
-"  .swal2-range input {\n" +
-"    width: 100% !important; }\n" +
-"  .swal2-range output {\n" +
-"    display: none; } }\n" +
-"\n" +
-"@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {\n" +
-"  .swal2-range input {\n" +
-"    width: 100% !important; }\n" +
-"  .swal2-range output {\n" +
-"    display: none; } }\n" +
-"\n" +
-"@-moz-document url-prefix() {\n" +
-"  .swal2-close:focus {\n" +
-"    outline: 2px solid rgba(50, 100, 150, 0.4); } }\n" +
-"\n" +
-".swal2-icon {\n" +
-"  position: relative;\n" +
-"  justify-content: center;\n" +
-"  width: 5em;\n" +
-"  height: 5em;\n" +
-"  margin: 1.25em auto 1.875em;\n" +
-"  border: .25em solid transparent;\n" +
-"  border-radius: 50%;\n" +
-"  line-height: 5em;\n" +
-"  cursor: default;\n" +
-"  box-sizing: content-box;\n" +
-"  -webkit-user-select: none;\n" +
-"     -moz-user-select: none;\n" +
-"      -ms-user-select: none;\n" +
-"          user-select: none;\n" +
-"  zoom: normal; }\n" +
-"  .swal2-icon-text {\n" +
-"    font-size: 3.75em; }\n" +
-"  .swal2-icon.swal2-error {\n" +
-"    border-color: #f27474; }\n" +
-"    .swal2-icon.swal2-error .swal2-x-mark {\n" +
-"      position: relative;\n" +
-"      flex-grow: 1; }\n" +
-"    .swal2-icon.swal2-error [class^='swal2-x-mark-line'] {\n" +
-"      display: block;\n" +
-"      position: absolute;\n" +
-"      top: 2.3125em;\n" +
-"      width: 2.9375em;\n" +
-"      height: .3125em;\n" +
-"      border-radius: .125em;\n" +
-"      background-color: #f27474; }\n" +
-"      .swal2-icon.swal2-error [class^='swal2-x-mark-line'][class$='left'] {\n" +
-"        left: 1.0625em;\n" +
-"        -webkit-transform: rotate(45deg);\n" +
-"                transform: rotate(45deg); }\n" +
-"      .swal2-icon.swal2-error [class^='swal2-x-mark-line'][class$='right'] {\n" +
-"        right: 1em;\n" +
-"        -webkit-transform: rotate(-45deg);\n" +
-"                transform: rotate(-45deg); }\n" +
-"  .swal2-icon.swal2-warning {\n" +
-"    border-color: #facea8;\n" +
-"    color: #f8bb86; }\n" +
-"  .swal2-icon.swal2-info {\n" +
-"    border-color: #9de0f6;\n" +
-"    color: #3fc3ee; }\n" +
-"  .swal2-icon.swal2-question {\n" +
-"    border-color: #c9dae1;\n" +
-"    color: #87adbd; }\n" +
-"  .swal2-icon.swal2-success {\n" +
-"    border-color: #a5dc86; }\n" +
-"    .swal2-icon.swal2-success [class^='swal2-success-circular-line'] {\n" +
-"      position: absolute;\n" +
-"      width: 3.75em;\n" +
-"      height: 7.5em;\n" +
-"      -webkit-transform: rotate(45deg);\n" +
-"              transform: rotate(45deg);\n" +
-"      border-radius: 50%; }\n" +
-"      .swal2-icon.swal2-success [class^='swal2-success-circular-line'][class$='left'] {\n" +
-"        top: -.4375em;\n" +
-"        left: -2.0635em;\n" +
-"        -webkit-transform: rotate(-45deg);\n" +
-"                transform: rotate(-45deg);\n" +
-"        -webkit-transform-origin: 3.75em 3.75em;\n" +
-"                transform-origin: 3.75em 3.75em;\n" +
-"        border-radius: 7.5em 0 0 7.5em; }\n" +
-"      .swal2-icon.swal2-success [class^='swal2-success-circular-line'][class$='right'] {\n" +
-"        top: -.6875em;\n" +
-"        left: 1.875em;\n" +
-"        -webkit-transform: rotate(-45deg);\n" +
-"                transform: rotate(-45deg);\n" +
-"        -webkit-transform-origin: 0 3.75em;\n" +
-"                transform-origin: 0 3.75em;\n" +
-"        border-radius: 0 7.5em 7.5em 0; }\n" +
-"    .swal2-icon.swal2-success .swal2-success-ring {\n" +
-"      position: absolute;\n" +
-"      top: -.25em;\n" +
-"      left: -.25em;\n" +
-"      width: 100%;\n" +
-"      height: 100%;\n" +
-"      border: 0.25em solid rgba(165, 220, 134, 0.3);\n" +
-"      border-radius: 50%;\n" +
-"      z-index: 2;\n" +
-"      box-sizing: content-box; }\n" +
-"    .swal2-icon.swal2-success .swal2-success-fix {\n" +
-"      position: absolute;\n" +
-"      top: .5em;\n" +
-"      left: 1.625em;\n" +
-"      width: .4375em;\n" +
-"      height: 5.625em;\n" +
-"      -webkit-transform: rotate(-45deg);\n" +
-"              transform: rotate(-45deg);\n" +
-"      z-index: 1; }\n" +
-"    .swal2-icon.swal2-success [class^='swal2-success-line'] {\n" +
-"      display: block;\n" +
-"      position: absolute;\n" +
-"      height: .3125em;\n" +
-"      border-radius: .125em;\n" +
-"      background-color: #a5dc86;\n" +
-"      z-index: 2; }\n" +
-"      .swal2-icon.swal2-success [class^='swal2-success-line'][class$='tip'] {\n" +
-"        top: 2.875em;\n" +
-"        left: .875em;\n" +
-"        width: 1.5625em;\n" +
-"        -webkit-transform: rotate(45deg);\n" +
-"                transform: rotate(45deg); }\n" +
-"      .swal2-icon.swal2-success [class^='swal2-success-line'][class$='long'] {\n" +
-"        top: 2.375em;\n" +
-"        right: .5em;\n" +
-"        width: 2.9375em;\n" +
-"        -webkit-transform: rotate(-45deg);\n" +
-"                transform: rotate(-45deg); }\n" +
-"\n" +
-".swal2-progresssteps {\n" +
-"  align-items: center;\n" +
-"  margin: 0 0 1.25em;\n" +
-"  padding: 0;\n" +
-"  font-weight: 600; }\n" +
-"  .swal2-progresssteps li {\n" +
-"    display: inline-block;\n" +
-"    position: relative; }\n" +
-"  .swal2-progresssteps .swal2-progresscircle {\n" +
-"    width: 2em;\n" +
-"    height: 2em;\n" +
-"    border-radius: 2em;\n" +
-"    background: #3085d6;\n" +
-"    color: #fff;\n" +
-"    line-height: 2em;\n" +
-"    text-align: center;\n" +
-"    z-index: 20; }\n" +
-"    .swal2-progresssteps .swal2-progresscircle:first-child {\n" +
-"      margin-left: 0; }\n" +
-"    .swal2-progresssteps .swal2-progresscircle:last-child {\n" +
-"      margin-right: 0; }\n" +
-"    .swal2-progresssteps .swal2-progresscircle.swal2-activeprogressstep {\n" +
-"      background: #3085d6; }\n" +
-"      .swal2-progresssteps .swal2-progresscircle.swal2-activeprogressstep ~ .swal2-progresscircle {\n" +
-"        background: #add8e6; }\n" +
-"      .swal2-progresssteps .swal2-progresscircle.swal2-activeprogressstep ~ .swal2-progressline {\n" +
-"        background: #add8e6; }\n" +
-"  .swal2-progresssteps .swal2-progressline {\n" +
-"    width: 2.5em;\n" +
-"    height: .4em;\n" +
-"    margin: 0 -1px;\n" +
-"    background: #3085d6;\n" +
-"    z-index: 10; }\n" +
-"\n" +
-"[class^='swal2'] {\n" +
-"  -webkit-tap-highlight-color: transparent; }\n" +
-"\n" +
-".swal2-show {\n" +
-"  -webkit-animation: swal2-show 0.3s;\n" +
-"          animation: swal2-show 0.3s; }\n" +
-"  .swal2-show.swal2-noanimation {\n" +
-"    -webkit-animation: none;\n" +
-"            animation: none; }\n" +
-"\n" +
-".swal2-hide {\n" +
-"  -webkit-animation: swal2-hide 0.15s forwards;\n" +
-"          animation: swal2-hide 0.15s forwards; }\n" +
-"  .swal2-hide.swal2-noanimation {\n" +
-"    -webkit-animation: none;\n" +
-"            animation: none; }\n" +
-"\n" +
-"[dir='rtl'] .swal2-close {\n" +
-"  right: auto;\n" +
-"  left: 0; }\n" +
-"\n" +
-".swal2-animate-success-icon .swal2-success-line-tip {\n" +
-"  -webkit-animation: swal2-animate-success-line-tip 0.75s;\n" +
-"          animation: swal2-animate-success-line-tip 0.75s; }\n" +
-"\n" +
-".swal2-animate-success-icon .swal2-success-line-long {\n" +
-"  -webkit-animation: swal2-animate-success-line-long 0.75s;\n" +
-"          animation: swal2-animate-success-line-long 0.75s; }\n" +
-"\n" +
-".swal2-animate-success-icon .swal2-success-circular-line-right {\n" +
-"  -webkit-animation: swal2-rotate-success-circular-line 4.25s ease-in;\n" +
-"          animation: swal2-rotate-success-circular-line 4.25s ease-in; }\n" +
-"\n" +
-".swal2-animate-error-icon {\n" +
-"  -webkit-animation: swal2-animate-error-icon 0.5s;\n" +
-"          animation: swal2-animate-error-icon 0.5s; }\n" +
-"  .swal2-animate-error-icon .swal2-x-mark {\n" +
-"    -webkit-animation: swal2-animate-error-x-mark 0.5s;\n" +
-"            animation: swal2-animate-error-x-mark 0.5s; }\n" +
-"\n" +
-"@-webkit-keyframes swal2-rotate-loading {\n" +
-"  0% {\n" +
-"    -webkit-transform: rotate(0deg);\n" +
-"            transform: rotate(0deg); }\n" +
-"  100% {\n" +
-"    -webkit-transform: rotate(360deg);\n" +
-"            transform: rotate(360deg); } }\n" +
-"\n" +
-"@keyframes swal2-rotate-loading {\n" +
-"  0% {\n" +
-"    -webkit-transform: rotate(0deg);\n" +
-"            transform: rotate(0deg); }\n" +
-"  100% {\n" +
-"    -webkit-transform: rotate(360deg);\n" +
-"            transform: rotate(360deg); } }");
+"undefined"!=typeof document&&function(e,t){var n=e.createElement("style");if(e.getElementsByTagName("head")[0].appendChild(n),n.styleSheet)n.styleSheet.disabled||(n.styleSheet.cssText=t);else try{n.innerHTML=t}catch(e){n.innerText=t}}(document,"@-webkit-keyframes swal2-show{0%{-webkit-transform:scale(.7);transform:scale(.7)}45%{-webkit-transform:scale(1.05);transform:scale(1.05)}80%{-webkit-transform:scale(.95);transform:scale(.95)}100%{-webkit-transform:scale(1);transform:scale(1)}}@keyframes swal2-show{0%{-webkit-transform:scale(.7);transform:scale(.7)}45%{-webkit-transform:scale(1.05);transform:scale(1.05)}80%{-webkit-transform:scale(.95);transform:scale(.95)}100%{-webkit-transform:scale(1);transform:scale(1)}}@-webkit-keyframes swal2-hide{0%{-webkit-transform:scale(1);transform:scale(1);opacity:1}100%{-webkit-transform:scale(.5);transform:scale(.5);opacity:0}}@keyframes swal2-hide{0%{-webkit-transform:scale(1);transform:scale(1);opacity:1}100%{-webkit-transform:scale(.5);transform:scale(.5);opacity:0}}@-webkit-keyframes swal2-animate-success-line-tip{0%{top:1.1875em;left:.0625em;width:0}54%{top:1.0625em;left:.125em;width:0}70%{top:2.1875em;left:-.375em;width:3.125em}84%{top:3em;left:1.3125em;width:1.0625em}100%{top:2.8125em;left:.875em;width:1.5625em}}@keyframes swal2-animate-success-line-tip{0%{top:1.1875em;left:.0625em;width:0}54%{top:1.0625em;left:.125em;width:0}70%{top:2.1875em;left:-.375em;width:3.125em}84%{top:3em;left:1.3125em;width:1.0625em}100%{top:2.8125em;left:.875em;width:1.5625em}}@-webkit-keyframes swal2-animate-success-line-long{0%{top:3.375em;right:2.875em;width:0}65%{top:3.375em;right:2.875em;width:0}84%{top:2.1875em;right:0;width:3.4375em}100%{top:2.375em;right:.5em;width:2.9375em}}@keyframes swal2-animate-success-line-long{0%{top:3.375em;right:2.875em;width:0}65%{top:3.375em;right:2.875em;width:0}84%{top:2.1875em;right:0;width:3.4375em}100%{top:2.375em;right:.5em;width:2.9375em}}@-webkit-keyframes swal2-rotate-success-circular-line{0%{-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}5%{-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}12%{-webkit-transform:rotate(-405deg);transform:rotate(-405deg)}100%{-webkit-transform:rotate(-405deg);transform:rotate(-405deg)}}@keyframes swal2-rotate-success-circular-line{0%{-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}5%{-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}12%{-webkit-transform:rotate(-405deg);transform:rotate(-405deg)}100%{-webkit-transform:rotate(-405deg);transform:rotate(-405deg)}}@-webkit-keyframes swal2-animate-error-x-mark{0%{margin-top:1.625em;-webkit-transform:scale(.4);transform:scale(.4);opacity:0}50%{margin-top:1.625em;-webkit-transform:scale(.4);transform:scale(.4);opacity:0}80%{margin-top:-.375em;-webkit-transform:scale(1.15);transform:scale(1.15)}100%{margin-top:0;-webkit-transform:scale(1);transform:scale(1);opacity:1}}@keyframes swal2-animate-error-x-mark{0%{margin-top:1.625em;-webkit-transform:scale(.4);transform:scale(.4);opacity:0}50%{margin-top:1.625em;-webkit-transform:scale(.4);transform:scale(.4);opacity:0}80%{margin-top:-.375em;-webkit-transform:scale(1.15);transform:scale(1.15)}100%{margin-top:0;-webkit-transform:scale(1);transform:scale(1);opacity:1}}@-webkit-keyframes swal2-animate-error-icon{0%{-webkit-transform:rotateX(100deg);transform:rotateX(100deg);opacity:0}100%{-webkit-transform:rotateX(0);transform:rotateX(0);opacity:1}}@keyframes swal2-animate-error-icon{0%{-webkit-transform:rotateX(100deg);transform:rotateX(100deg);opacity:0}100%{-webkit-transform:rotateX(0);transform:rotateX(0);opacity:1}}body.swal2-toast-shown .swal2-container{position:fixed;background-color:transparent}body.swal2-toast-shown .swal2-container.swal2-shown{background-color:transparent}body.swal2-toast-shown .swal2-container.swal2-top{top:0;right:auto;bottom:auto;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-top-end,body.swal2-toast-shown .swal2-container.swal2-top-right{top:0;right:0;bottom:auto;left:auto}body.swal2-toast-shown .swal2-container.swal2-top-left,body.swal2-toast-shown .swal2-container.swal2-top-start{top:0;right:auto;bottom:auto;left:0}body.swal2-toast-shown .swal2-container.swal2-center-left,body.swal2-toast-shown .swal2-container.swal2-center-start{top:50%;right:auto;bottom:auto;left:0;-webkit-transform:translateY(-50%);transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-center{top:50%;right:auto;bottom:auto;left:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}body.swal2-toast-shown .swal2-container.swal2-center-end,body.swal2-toast-shown .swal2-container.swal2-center-right{top:50%;right:0;bottom:auto;left:auto;-webkit-transform:translateY(-50%);transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-left,body.swal2-toast-shown .swal2-container.swal2-bottom-start{top:auto;right:auto;bottom:0;left:0}body.swal2-toast-shown .swal2-container.swal2-bottom{top:auto;right:auto;bottom:0;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-end,body.swal2-toast-shown .swal2-container.swal2-bottom-right{top:auto;right:0;bottom:0;left:auto}body.swal2-toast-column .swal2-toast{flex-direction:column;align-items:stretch}body.swal2-toast-column .swal2-toast .swal2-actions{flex:1;align-self:stretch;height:2.2em;margin-top:.3125em}body.swal2-toast-column .swal2-toast .swal2-loading{justify-content:center}body.swal2-toast-column .swal2-toast .swal2-input{height:2em;margin:.3125em auto;font-size:1em}body.swal2-toast-column .swal2-toast .swal2-validation-message{font-size:1em}.swal2-popup.swal2-toast{flex-direction:row;align-items:center;width:auto;padding:.625em;box-shadow:0 0 .625em #d9d9d9;overflow-y:hidden}.swal2-popup.swal2-toast .swal2-header{flex-direction:row}.swal2-popup.swal2-toast .swal2-title{flex-grow:1;justify-content:flex-start;margin:0 .6em;font-size:1em}.swal2-popup.swal2-toast .swal2-footer{margin:.5em 0 0;padding:.5em 0 0;font-size:.8em}.swal2-popup.swal2-toast .swal2-close{position:initial;width:.8em;height:.8em;line-height:.8}.swal2-popup.swal2-toast .swal2-content{justify-content:flex-start;font-size:1em}.swal2-popup.swal2-toast .swal2-icon{width:2em;min-width:2em;height:2em;margin:0}.swal2-popup.swal2-toast .swal2-icon-text{font-size:2em;font-weight:700;line-height:1em}.swal2-popup.swal2-toast .swal2-icon.swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-popup.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line]{top:.875em;width:1.375em}.swal2-popup.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=left]{left:.3125em}.swal2-popup.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=right]{right:.3125em}.swal2-popup.swal2-toast .swal2-actions{height:auto;margin:0 .3125em}.swal2-popup.swal2-toast .swal2-styled{margin:0 .3125em;padding:.3125em .625em;font-size:1em}.swal2-popup.swal2-toast .swal2-styled:focus{box-shadow:0 0 0 .0625em #fff,0 0 0 .125em rgba(50,100,150,.4)}.swal2-popup.swal2-toast .swal2-success{border-color:#a5dc86}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-circular-line]{position:absolute;width:2em;height:2.8125em;-webkit-transform:rotate(45deg);transform:rotate(45deg);border-radius:50%}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=left]{top:-.25em;left:-.9375em;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-transform-origin:2em 2em;transform-origin:2em 2em;border-radius:4em 0 0 4em}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=right]{top:-.25em;left:.9375em;-webkit-transform-origin:0 2em;transform-origin:0 2em;border-radius:0 4em 4em 0}.swal2-popup.swal2-toast .swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-popup.swal2-toast .swal2-success .swal2-success-fix{top:0;left:.4375em;width:.4375em;height:2.6875em}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-line]{height:.3125em}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-line][class$=tip]{top:1.125em;left:.1875em;width:.75em}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-line][class$=long]{top:.9375em;right:.1875em;width:1.375em}.swal2-popup.swal2-toast.swal2-show{-webkit-animation:showSweetToast .5s;animation:showSweetToast .5s}.swal2-popup.swal2-toast.swal2-hide{-webkit-animation:hideSweetToast .2s forwards;animation:hideSweetToast .2s forwards}.swal2-popup.swal2-toast .swal2-animate-success-icon .swal2-success-line-tip{-webkit-animation:animate-toast-success-tip .75s;animation:animate-toast-success-tip .75s}.swal2-popup.swal2-toast .swal2-animate-success-icon .swal2-success-line-long{-webkit-animation:animate-toast-success-long .75s;animation:animate-toast-success-long .75s}@-webkit-keyframes showSweetToast{0%{-webkit-transform:translateY(-.625em) rotateZ(2deg);transform:translateY(-.625em) rotateZ(2deg);opacity:0}33%{-webkit-transform:translateY(0) rotateZ(-2deg);transform:translateY(0) rotateZ(-2deg);opacity:.5}66%{-webkit-transform:translateY(.3125em) rotateZ(2deg);transform:translateY(.3125em) rotateZ(2deg);opacity:.7}100%{-webkit-transform:translateY(0) rotateZ(0);transform:translateY(0) rotateZ(0);opacity:1}}@keyframes showSweetToast{0%{-webkit-transform:translateY(-.625em) rotateZ(2deg);transform:translateY(-.625em) rotateZ(2deg);opacity:0}33%{-webkit-transform:translateY(0) rotateZ(-2deg);transform:translateY(0) rotateZ(-2deg);opacity:.5}66%{-webkit-transform:translateY(.3125em) rotateZ(2deg);transform:translateY(.3125em) rotateZ(2deg);opacity:.7}100%{-webkit-transform:translateY(0) rotateZ(0);transform:translateY(0) rotateZ(0);opacity:1}}@-webkit-keyframes hideSweetToast{0%{opacity:1}33%{opacity:.5}100%{-webkit-transform:rotateZ(1deg);transform:rotateZ(1deg);opacity:0}}@keyframes hideSweetToast{0%{opacity:1}33%{opacity:.5}100%{-webkit-transform:rotateZ(1deg);transform:rotateZ(1deg);opacity:0}}@-webkit-keyframes animate-toast-success-tip{0%{top:.5625em;left:.0625em;width:0}54%{top:.125em;left:.125em;width:0}70%{top:.625em;left:-.25em;width:1.625em}84%{top:1.0625em;left:.75em;width:.5em}100%{top:1.125em;left:.1875em;width:.75em}}@keyframes animate-toast-success-tip{0%{top:.5625em;left:.0625em;width:0}54%{top:.125em;left:.125em;width:0}70%{top:.625em;left:-.25em;width:1.625em}84%{top:1.0625em;left:.75em;width:.5em}100%{top:1.125em;left:.1875em;width:.75em}}@-webkit-keyframes animate-toast-success-long{0%{top:1.625em;right:1.375em;width:0}65%{top:1.25em;right:.9375em;width:0}84%{top:.9375em;right:0;width:1.125em}100%{top:.9375em;right:.1875em;width:1.375em}}@keyframes animate-toast-success-long{0%{top:1.625em;right:1.375em;width:0}65%{top:1.25em;right:.9375em;width:0}84%{top:.9375em;right:0;width:1.125em}100%{top:.9375em;right:.1875em;width:1.375em}}body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown){overflow:hidden}body.swal2-height-auto{height:auto!important}body.swal2-no-backdrop .swal2-shown{top:auto;right:auto;bottom:auto;left:auto;background-color:transparent}body.swal2-no-backdrop .swal2-shown>.swal2-modal{box-shadow:0 0 10px rgba(0,0,0,.4)}body.swal2-no-backdrop .swal2-shown.swal2-top{top:0;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}body.swal2-no-backdrop .swal2-shown.swal2-top-left,body.swal2-no-backdrop .swal2-shown.swal2-top-start{top:0;left:0}body.swal2-no-backdrop .swal2-shown.swal2-top-end,body.swal2-no-backdrop .swal2-shown.swal2-top-right{top:0;right:0}body.swal2-no-backdrop .swal2-shown.swal2-center{top:50%;left:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}body.swal2-no-backdrop .swal2-shown.swal2-center-left,body.swal2-no-backdrop .swal2-shown.swal2-center-start{top:50%;left:0;-webkit-transform:translateY(-50%);transform:translateY(-50%)}body.swal2-no-backdrop .swal2-shown.swal2-center-end,body.swal2-no-backdrop .swal2-shown.swal2-center-right{top:50%;right:0;-webkit-transform:translateY(-50%);transform:translateY(-50%)}body.swal2-no-backdrop .swal2-shown.swal2-bottom{bottom:0;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}body.swal2-no-backdrop .swal2-shown.swal2-bottom-left,body.swal2-no-backdrop .swal2-shown.swal2-bottom-start{bottom:0;left:0}body.swal2-no-backdrop .swal2-shown.swal2-bottom-end,body.swal2-no-backdrop .swal2-shown.swal2-bottom-right{right:0;bottom:0}.swal2-container{display:flex;position:fixed;top:0;right:0;bottom:0;left:0;flex-direction:row;align-items:center;justify-content:center;padding:10px;background-color:transparent;z-index:1060;overflow-x:hidden;-webkit-overflow-scrolling:touch}.swal2-container.swal2-top{align-items:flex-start}.swal2-container.swal2-top-left,.swal2-container.swal2-top-start{align-items:flex-start;justify-content:flex-start}.swal2-container.swal2-top-end,.swal2-container.swal2-top-right{align-items:flex-start;justify-content:flex-end}.swal2-container.swal2-center{align-items:center}.swal2-container.swal2-center-left,.swal2-container.swal2-center-start{align-items:center;justify-content:flex-start}.swal2-container.swal2-center-end,.swal2-container.swal2-center-right{align-items:center;justify-content:flex-end}.swal2-container.swal2-bottom{align-items:flex-end}.swal2-container.swal2-bottom-left,.swal2-container.swal2-bottom-start{align-items:flex-end;justify-content:flex-start}.swal2-container.swal2-bottom-end,.swal2-container.swal2-bottom-right{align-items:flex-end;justify-content:flex-end}.swal2-container.swal2-grow-fullscreen>.swal2-modal{display:flex!important;flex:1;align-self:stretch;justify-content:center}.swal2-container.swal2-grow-row>.swal2-modal{display:flex!important;flex:1;align-content:center;justify-content:center}.swal2-container.swal2-grow-column{flex:1;flex-direction:column}.swal2-container.swal2-grow-column.swal2-bottom,.swal2-container.swal2-grow-column.swal2-center,.swal2-container.swal2-grow-column.swal2-top{align-items:center}.swal2-container.swal2-grow-column.swal2-bottom-left,.swal2-container.swal2-grow-column.swal2-bottom-start,.swal2-container.swal2-grow-column.swal2-center-left,.swal2-container.swal2-grow-column.swal2-center-start,.swal2-container.swal2-grow-column.swal2-top-left,.swal2-container.swal2-grow-column.swal2-top-start{align-items:flex-start}.swal2-container.swal2-grow-column.swal2-bottom-end,.swal2-container.swal2-grow-column.swal2-bottom-right,.swal2-container.swal2-grow-column.swal2-center-end,.swal2-container.swal2-grow-column.swal2-center-right,.swal2-container.swal2-grow-column.swal2-top-end,.swal2-container.swal2-grow-column.swal2-top-right{align-items:flex-end}.swal2-container.swal2-grow-column>.swal2-modal{display:flex!important;flex:1;align-content:center;justify-content:center}.swal2-container:not(.swal2-top):not(.swal2-top-start):not(.swal2-top-end):not(.swal2-top-left):not(.swal2-top-right):not(.swal2-center-start):not(.swal2-center-end):not(.swal2-center-left):not(.swal2-center-right):not(.swal2-bottom):not(.swal2-bottom-start):not(.swal2-bottom-end):not(.swal2-bottom-left):not(.swal2-bottom-right):not(.swal2-grow-fullscreen)>.swal2-modal{margin:auto}@media all and (-ms-high-contrast:none),(-ms-high-contrast:active){.swal2-container .swal2-modal{margin:0!important}}.swal2-container.swal2-fade{transition:background-color .1s}.swal2-container.swal2-shown{background-color:rgba(0,0,0,.4)}.swal2-popup{display:none;position:relative;flex-direction:column;justify-content:center;width:32em;max-width:100%;padding:1.25em;border-radius:.3125em;background:#fff;font-family:inherit;font-size:1rem;box-sizing:border-box}.swal2-popup:focus{outline:0}.swal2-popup.swal2-loading{overflow-y:hidden}.swal2-popup .swal2-header{display:flex;flex-direction:column;align-items:center}.swal2-popup .swal2-title{display:block;position:relative;max-width:100%;margin:0 0 .4em;padding:0;color:#595959;font-size:1.875em;font-weight:600;text-align:center;text-transform:none;word-wrap:break-word}.swal2-popup .swal2-actions{flex-wrap:wrap;align-items:center;justify-content:center;margin:1.25em auto 0;z-index:1}.swal2-popup .swal2-actions:not(.swal2-loading) .swal2-styled[disabled]{opacity:.4}.swal2-popup .swal2-actions:not(.swal2-loading) .swal2-styled:hover{background-image:linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.1))}.swal2-popup .swal2-actions:not(.swal2-loading) .swal2-styled:active{background-image:linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2))}.swal2-popup .swal2-actions.swal2-loading .swal2-styled.swal2-confirm{width:2.5em;height:2.5em;margin:.46875em;padding:0;border:.25em solid transparent;border-radius:100%;border-color:transparent;background-color:transparent!important;color:transparent;cursor:default;box-sizing:border-box;-webkit-animation:swal2-rotate-loading 1.5s linear 0s infinite normal;animation:swal2-rotate-loading 1.5s linear 0s infinite normal;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.swal2-popup .swal2-actions.swal2-loading .swal2-styled.swal2-cancel{margin-right:30px;margin-left:30px}.swal2-popup .swal2-actions.swal2-loading :not(.swal2-styled).swal2-confirm::after{display:inline-block;width:15px;height:15px;margin-left:5px;border:3px solid #999;border-radius:50%;border-right-color:transparent;box-shadow:1px 1px 1px #fff;content:'';-webkit-animation:swal2-rotate-loading 1.5s linear 0s infinite normal;animation:swal2-rotate-loading 1.5s linear 0s infinite normal}.swal2-popup .swal2-styled{margin:.3125em;padding:.625em 2em;font-weight:500;box-shadow:none}.swal2-popup .swal2-styled:not([disabled]){cursor:pointer}.swal2-popup .swal2-styled.swal2-confirm{border:0;border-radius:.25em;background:initial;background-color:#3085d6;color:#fff;font-size:1.0625em}.swal2-popup .swal2-styled.swal2-cancel{border:0;border-radius:.25em;background:initial;background-color:#aaa;color:#fff;font-size:1.0625em}.swal2-popup .swal2-styled:focus{outline:0;box-shadow:0 0 0 2px #fff,0 0 0 4px rgba(50,100,150,.4)}.swal2-popup .swal2-styled::-moz-focus-inner{border:0}.swal2-popup .swal2-footer{justify-content:center;margin:1.25em 0 0;padding:1em 0 0;border-top:1px solid #eee;color:#545454;font-size:1em}.swal2-popup .swal2-image{max-width:100%;margin:1.25em auto}.swal2-popup .swal2-close{position:absolute;top:0;right:0;justify-content:center;width:1.2em;height:1.2em;padding:0;transition:color .1s ease-out;border:none;border-radius:0;background:0 0;color:#ccc;font-family:serif;font-size:2.5em;line-height:1.2;cursor:pointer;overflow:hidden}.swal2-popup .swal2-close:hover{-webkit-transform:none;transform:none;color:#f27474}.swal2-popup>.swal2-checkbox,.swal2-popup>.swal2-file,.swal2-popup>.swal2-input,.swal2-popup>.swal2-radio,.swal2-popup>.swal2-select,.swal2-popup>.swal2-textarea{display:none}.swal2-popup .swal2-content{justify-content:center;margin:0;padding:0;color:#545454;font-size:1.125em;font-weight:300;line-height:normal;z-index:1;word-wrap:break-word}.swal2-popup #swal2-content{text-align:center}.swal2-popup .swal2-checkbox,.swal2-popup .swal2-file,.swal2-popup .swal2-input,.swal2-popup .swal2-radio,.swal2-popup .swal2-select,.swal2-popup .swal2-textarea{margin:1em auto}.swal2-popup .swal2-file,.swal2-popup .swal2-input,.swal2-popup .swal2-textarea{width:100%;transition:border-color .3s,box-shadow .3s;border:1px solid #d9d9d9;border-radius:.1875em;font-size:1.125em;box-shadow:inset 0 1px 1px rgba(0,0,0,.06);box-sizing:border-box}.swal2-popup .swal2-file.swal2-inputerror,.swal2-popup .swal2-input.swal2-inputerror,.swal2-popup .swal2-textarea.swal2-inputerror{border-color:#f27474!important;box-shadow:0 0 2px #f27474!important}.swal2-popup .swal2-file:focus,.swal2-popup .swal2-input:focus,.swal2-popup .swal2-textarea:focus{border:1px solid #b4dbed;outline:0;box-shadow:0 0 3px #c4e6f5}.swal2-popup .swal2-file::-webkit-input-placeholder,.swal2-popup .swal2-input::-webkit-input-placeholder,.swal2-popup .swal2-textarea::-webkit-input-placeholder{color:#ccc}.swal2-popup .swal2-file:-ms-input-placeholder,.swal2-popup .swal2-input:-ms-input-placeholder,.swal2-popup .swal2-textarea:-ms-input-placeholder{color:#ccc}.swal2-popup .swal2-file::-ms-input-placeholder,.swal2-popup .swal2-input::-ms-input-placeholder,.swal2-popup .swal2-textarea::-ms-input-placeholder{color:#ccc}.swal2-popup .swal2-file::placeholder,.swal2-popup .swal2-input::placeholder,.swal2-popup .swal2-textarea::placeholder{color:#ccc}.swal2-popup .swal2-range input{width:80%}.swal2-popup .swal2-range output{width:20%;font-weight:600;text-align:center}.swal2-popup .swal2-range input,.swal2-popup .swal2-range output{height:2.625em;margin:1em auto;padding:0;font-size:1.125em;line-height:2.625em}.swal2-popup .swal2-input{height:2.625em;padding:0 .75em}.swal2-popup .swal2-input[type=number]{max-width:10em}.swal2-popup .swal2-file{font-size:1.125em}.swal2-popup .swal2-textarea{height:6.75em;padding:.75em}.swal2-popup .swal2-select{min-width:50%;max-width:100%;padding:.375em .625em;color:#545454;font-size:1.125em}.swal2-popup .swal2-checkbox,.swal2-popup .swal2-radio{align-items:center;justify-content:center}.swal2-popup .swal2-checkbox label,.swal2-popup .swal2-radio label{margin:0 .6em;font-size:1.125em}.swal2-popup .swal2-checkbox input,.swal2-popup .swal2-radio input{margin:0 .4em}.swal2-popup .swal2-validation-message{display:none;align-items:center;justify-content:center;padding:.625em;background:#f0f0f0;color:#666;font-size:1em;font-weight:300;overflow:hidden}.swal2-popup .swal2-validation-message::before{display:inline-block;width:1.5em;min-width:1.5em;height:1.5em;margin:0 .625em;border-radius:50%;background-color:#f27474;color:#fff;font-weight:600;line-height:1.5em;text-align:center;content:'!';zoom:normal}@supports (-ms-accelerator:true){.swal2-range input{width:100%!important}.swal2-range output{display:none}}@media all and (-ms-high-contrast:none),(-ms-high-contrast:active){.swal2-range input{width:100%!important}.swal2-range output{display:none}}@-moz-document url-prefix(){.swal2-close:focus{outline:2px solid rgba(50,100,150,.4)}}.swal2-icon{position:relative;justify-content:center;width:5em;height:5em;margin:1.25em auto 1.875em;border:.25em solid transparent;border-radius:50%;line-height:5em;cursor:default;box-sizing:content-box;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;zoom:normal}.swal2-icon-text{font-size:3.75em}.swal2-icon.swal2-error{border-color:#f27474}.swal2-icon.swal2-error .swal2-x-mark{position:relative;flex-grow:1}.swal2-icon.swal2-error [class^=swal2-x-mark-line]{display:block;position:absolute;top:2.3125em;width:2.9375em;height:.3125em;border-radius:.125em;background-color:#f27474}.swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=left]{left:1.0625em;-webkit-transform:rotate(45deg);transform:rotate(45deg)}.swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=right]{right:1em;-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}.swal2-icon.swal2-warning{border-color:#facea8;color:#f8bb86}.swal2-icon.swal2-info{border-color:#9de0f6;color:#3fc3ee}.swal2-icon.swal2-question{border-color:#c9dae1;color:#87adbd}.swal2-icon.swal2-success{border-color:#a5dc86}.swal2-icon.swal2-success [class^=swal2-success-circular-line]{position:absolute;width:3.75em;height:7.5em;-webkit-transform:rotate(45deg);transform:rotate(45deg);border-radius:50%}.swal2-icon.swal2-success [class^=swal2-success-circular-line][class$=left]{top:-.4375em;left:-2.0635em;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-transform-origin:3.75em 3.75em;transform-origin:3.75em 3.75em;border-radius:7.5em 0 0 7.5em}.swal2-icon.swal2-success [class^=swal2-success-circular-line][class$=right]{top:-.6875em;left:1.875em;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-transform-origin:0 3.75em;transform-origin:0 3.75em;border-radius:0 7.5em 7.5em 0}.swal2-icon.swal2-success .swal2-success-ring{position:absolute;top:-.25em;left:-.25em;width:100%;height:100%;border:.25em solid rgba(165,220,134,.3);border-radius:50%;z-index:2;box-sizing:content-box}.swal2-icon.swal2-success .swal2-success-fix{position:absolute;top:.5em;left:1.625em;width:.4375em;height:5.625em;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);z-index:1}.swal2-icon.swal2-success [class^=swal2-success-line]{display:block;position:absolute;height:.3125em;border-radius:.125em;background-color:#a5dc86;z-index:2}.swal2-icon.swal2-success [class^=swal2-success-line][class$=tip]{top:2.875em;left:.875em;width:1.5625em;-webkit-transform:rotate(45deg);transform:rotate(45deg)}.swal2-icon.swal2-success [class^=swal2-success-line][class$=long]{top:2.375em;right:.5em;width:2.9375em;-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}.swal2-progresssteps{align-items:center;margin:0 0 1.25em;padding:0;font-weight:600}.swal2-progresssteps li{display:inline-block;position:relative}.swal2-progresssteps .swal2-progresscircle{width:2em;height:2em;border-radius:2em;background:#3085d6;color:#fff;line-height:2em;text-align:center;z-index:20}.swal2-progresssteps .swal2-progresscircle:first-child{margin-left:0}.swal2-progresssteps .swal2-progresscircle:last-child{margin-right:0}.swal2-progresssteps .swal2-progresscircle.swal2-activeprogressstep{background:#3085d6}.swal2-progresssteps .swal2-progresscircle.swal2-activeprogressstep~.swal2-progresscircle{background:#add8e6}.swal2-progresssteps .swal2-progresscircle.swal2-activeprogressstep~.swal2-progressline{background:#add8e6}.swal2-progresssteps .swal2-progressline{width:2.5em;height:.4em;margin:0 -1px;background:#3085d6;z-index:10}[class^=swal2]{-webkit-tap-highlight-color:transparent}.swal2-show{-webkit-animation:swal2-show .3s;animation:swal2-show .3s}.swal2-show.swal2-noanimation{-webkit-animation:none;animation:none}.swal2-hide{-webkit-animation:swal2-hide .15s forwards;animation:swal2-hide .15s forwards}.swal2-hide.swal2-noanimation{-webkit-animation:none;animation:none}.swal2-rtl .swal2-close{right:auto;left:0}.swal2-animate-success-icon .swal2-success-line-tip{-webkit-animation:swal2-animate-success-line-tip .75s;animation:swal2-animate-success-line-tip .75s}.swal2-animate-success-icon .swal2-success-line-long{-webkit-animation:swal2-animate-success-line-long .75s;animation:swal2-animate-success-line-long .75s}.swal2-animate-success-icon .swal2-success-circular-line-right{-webkit-animation:swal2-rotate-success-circular-line 4.25s ease-in;animation:swal2-rotate-success-circular-line 4.25s ease-in}.swal2-animate-error-icon{-webkit-animation:swal2-animate-error-icon .5s;animation:swal2-animate-error-icon .5s}.swal2-animate-error-icon .swal2-x-mark{-webkit-animation:swal2-animate-error-x-mark .5s;animation:swal2-animate-error-x-mark .5s}@-webkit-keyframes swal2-rotate-loading{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes swal2-rotate-loading{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@media print{body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown){overflow-y:scroll!important}body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown)>[aria-hidden=true]{display:none}body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) .swal2-container{position:initial!important}}");
 
 /***/ }),
 /* 167 */
@@ -69174,53 +68439,33 @@ if (typeof window !== 'undefined' && window.Sweetalert2){  window.swal = window.
 
 "use strict";
 /* unused harmony export install */
-/* unused harmony export use */
 /* unused harmony export directive */
 /* unused harmony export mixin */
 /* unused harmony export mapFields */
 /* unused harmony export Validator */
 /* unused harmony export ErrorBag */
 /* unused harmony export Rules */
-/* unused harmony export ErrorComponent */
 /* unused harmony export version */
+/* unused harmony export ValidationProvider */
+/* unused harmony export ValidationObserver */
+/* unused harmony export withValidation */
 /**
-  * vee-validate v2.1.0-beta.1
+  * vee-validate v2.1.3
   * (c) 2018 Abdelrahman Awad
   * @license MIT
   */
 // 
 
-var supportsPassive = true;
-
-var detectPassiveSupport = function () {
-  try {
-    var opts = Object.defineProperty({}, 'passive', {
-      get: function get () {
-        supportsPassive = true;
-      }
-    });
-    window.addEventListener('testPassive', null, opts);
-    window.removeEventListener('testPassive', null, opts);
-  } catch (e) {
-    supportsPassive = false;
-  }
-  return supportsPassive;
-};
-
-var addEventListener = function (el, eventName, cb) {
-  el.addEventListener(eventName, cb, supportsPassive ? { passive: true } : false);
-};
-
 var isTextInput = function (el) {
-  return ['text', 'password', 'search', 'email', 'tel', 'url', 'textarea'].indexOf(el.type) !== -1;
+  return includes(['text', 'password', 'search', 'email', 'tel', 'url', 'textarea', 'number'], el.type);
 };
 
 var isCheckboxOrRadioInput = function (el) {
-  return ['radio', 'checkbox'].indexOf(el.type) !== -1;
+  return includes(['radio', 'checkbox'], el.type);
 };
 
 var isDateInput = function (el) {
-  return ['date', 'week', 'month', 'datetime-local', 'time'].indexOf(el.type) !== -1;
+  return includes(['date', 'week', 'month', 'datetime-local', 'time'], el.type);
 };
 
 /**
@@ -69229,10 +68474,15 @@ var isDateInput = function (el) {
 var getDataAttribute = function (el, name) { return el.getAttribute(("data-vv-" + name)); };
 
 /**
- * Checks if the value is either null or undefined.
+ * Checks if the values are either null or undefined.
  */
-var isNullOrUndefined = function (value) {
-  return value === null || value === undefined;
+var isNullOrUndefined = function () {
+  var values = [], len = arguments.length;
+  while ( len-- ) values[ len ] = arguments[ len ];
+
+  return values.every(function (value) {
+    return value === null || value === undefined;
+  });
 };
 
 /**
@@ -69359,7 +68609,7 @@ var parseRule = function (rule) {
   var params = [];
   var name = rule.split(':')[0];
 
-  if (~rule.indexOf(':')) {
+  if (includes(rule, ':')) {
     params = rule.split(':').slice(1).join(':').split(',');
   }
 
@@ -69369,9 +68619,8 @@ var parseRule = function (rule) {
 /**
  * Debounces a function.
  */
-var debounce = function (fn, wait, immediate, token) {
+var debounce = function (fn, wait, token) {
   if ( wait === void 0 ) wait = 0;
-  if ( immediate === void 0 ) immediate = false;
   if ( token === void 0 ) token = { cancelled: false };
 
   if (wait === 0) {
@@ -69387,14 +68636,13 @@ var debounce = function (fn, wait, immediate, token) {
     var later = function () {
       timeout = null;
 
-      if (!immediate && !token.cancelled) { fn.apply(void 0, args); }
+      // check if the fn call was cancelled.
+      if (!token.cancelled) { fn.apply(void 0, args); }
     };
-    /* istanbul ignore next */
-    var callNow = immediate && !timeout;
+
     clearTimeout(timeout);
     timeout = setTimeout(later, wait);
-    /* istanbul ignore next */
-    if (callNow) { fn.apply(void 0, args); }
+    if (!timeout) { fn.apply(void 0, args); }
   };
 };
 
@@ -69403,15 +68651,15 @@ var debounce = function (fn, wait, immediate, token) {
  */
 var appendRule = function (rule, rules) {
   if (!rules) {
-    return rule;
+    return normalizeRules(rule);
   }
 
   if (!rule) {
-    return rules;
+    return normalizeRules(rules);
   }
 
   if (typeof rules === 'string') {
-    return (rules + "|" + rule);
+    rules = normalizeRules(rules);
   }
 
   return assign({}, rules, normalizeRules(rule));
@@ -69434,6 +68682,8 @@ var normalizeRules = function (rules) {
       if (rules[curr] === true) {
         params = [];
       } else if (Array.isArray(rules[curr])) {
+        params = rules[curr];
+      } else if (isObject(rules[curr])) {
         params = rules[curr];
       } else {
         params = [rules[curr]];
@@ -69554,10 +68804,12 @@ var toArray = function (arrayLike) {
 
   var array = [];
   var length = arrayLike.length;
+  /* istanbul ignore next */
   for (var i = 0; i < length; i++) {
     array.push(arrayLike[i]);
   }
 
+  /* istanbul ignore next */
   return array;
 };
 
@@ -69637,10 +68889,6 @@ var isBuiltInComponent = function (vnode) {
   return /^(keep-alive|transition|transition-group)$/.test(tag);
 };
 
-var makeEventsArray = function (events) {
-  return (typeof events === 'string' && events.length) ? events.split('|') : [];
-};
-
 var makeDelayObject = function (events, delay, delayConfig) {
   if (typeof delay === 'number') {
     return events.reduce(function (prev, e) {
@@ -69713,7 +68961,7 @@ var fillRulesFromElement = function (el, rules) {
     }
 
     if (el.pattern) {
-      rules = appendRule(("regex:" + (el.pattern)), rules);
+      rules = appendRule({ regex: el.pattern }, rules);
     }
 
     // 524288 is the max on some browsers and test environments.
@@ -69725,17 +68973,15 @@ var fillRulesFromElement = function (el, rules) {
       rules = appendRule(("min:" + (el.minLength)), rules);
     }
 
-    return rules;
-  }
+    if (el.type === 'number') {
+      rules = appendRule('decimal', rules);
+      if (el.min !== '') {
+        rules = appendRule(("min_value:" + (el.min)), rules);
+      }
 
-  if (el.type === 'number') {
-    rules = appendRule('decimal', rules);
-    if (el.min !== '') {
-      rules = appendRule(("min_value:" + (el.min)), rules);
-    }
-
-    if (el.max !== '') {
-      rules = appendRule(("max_value:" + (el.max)), rules);
+      if (el.max !== '') {
+        rules = appendRule(("max_value:" + (el.max)), rules);
+      }
     }
 
     return rules;
@@ -69768,360 +69014,54 @@ var fillRulesFromElement = function (el, rules) {
   return rules;
 };
 
-// 
-
-var ErrorBag = function ErrorBag () {
-  this.items = [];
-};
-
-ErrorBag.prototype[typeof Symbol === 'function' ? Symbol.iterator : '@@iterator'] = function () {
-    var this$1 = this;
-
-  var index = 0;
-  return {
-    next: function () {
-      return { value: this$1.items[index++], done: index > this$1.items.length };
-    }
-  };
-};
-
-/**
- * Adds an error to the internal array.
- */
-ErrorBag.prototype.add = function add (error) {
-    var ref;
-
-  // handle old signature.
-  if (arguments.length > 1) {
-    if (true) {
-      warn('This usage of "errors.add()" is deprecated, please consult the docs for the new signature.');
-    }
-
-    error = {
-      field: arguments[0],
-      msg: arguments[1],
-      rule: arguments[2],
-      scope: !isNullOrUndefined(arguments[3]) ? arguments[3] : null,
-      regenerate: null
-    };
+var values = function (obj) {
+  if (isCallable(Object.values)) {
+    return Object.values(obj);
   }
 
-  (ref = this.items).push.apply(
-    ref, this._normalizeError(error)
-  );
+  // fallback to keys()
+  /* istanbul ignore next */
+  return Object.keys(obj).map(function (k) { return obj[k]; });
 };
 
-/**
- * Normalizes passed errors to an error array.
- */
-ErrorBag.prototype._normalizeError = function _normalizeError (error) {
-  if (Array.isArray(error)) {
-    return error.map(function (e) {
-      e.scope = !isNullOrUndefined(e.scope) ? e.scope : null;
-
-      return e;
-    });
+var parseSelector = function (selector) {
+  var rule = null;
+  if (includes(selector, ':')) {
+    rule = selector.split(':').pop();
+    selector = selector.replace((":" + rule), '');
   }
 
-  error.scope = !isNullOrUndefined(error.scope) ? error.scope : null;
-
-  return [error];
-};
-
-/**
- * Regenrates error messages if they have a generator function.
- */
-ErrorBag.prototype.regenerate = function regenerate () {
-  this.items.forEach(function (i) {
-    i.msg = isCallable(i.regenerate) ? i.regenerate() : i.msg;
-  });
-};
-
-/**
- * Updates a field error with the new field scope.
- */
-ErrorBag.prototype.update = function update (id, error) {
-  var item = find(this.items, function (i) { return i.id === id; });
-  if (!item) {
-    return;
-  }
-
-  var idx = this.items.indexOf(item);
-  this.items.splice(idx, 1);
-  item.scope = error.scope;
-  this.items.push(item);
-};
-
-/**
- * Gets all error messages from the internal array.
- */
-ErrorBag.prototype.all = function all (scope) {
-  if (isNullOrUndefined(scope)) {
-    return this.items.map(function (e) { return e.msg; });
-  }
-
-  return this.items.filter(function (e) { return e.scope === scope; }).map(function (e) { return e.msg; });
-};
-
-/**
- * Checks if there are any errors in the internal array.
- */
-ErrorBag.prototype.any = function any (scope) {
-  if (isNullOrUndefined(scope)) {
-    return !!this.items.length;
-  }
-
-  return !!this.items.filter(function (e) { return e.scope === scope; }).length;
-};
-
-/**
- * Removes all items from the internal array.
- */
-ErrorBag.prototype.clear = function clear (scope) {
-    var this$1 = this;
-
-  if (isNullOrUndefined(scope)) {
-    scope = null;
-  }
-
-  for (var i = 0; i < this.items.length; ++i) {
-    if (this$1.items[i].scope === scope) {
-      this$1.items.splice(i, 1);
-      --i;
-    }
-  }
-};
-
-/**
- * Collects errors into groups or for a specific field.
- */
-ErrorBag.prototype.collect = function collect (field, scope, map) {
-    if ( map === void 0 ) map = true;
-
-  if (isNullOrUndefined(field)) {
-    var collection = {};
-    this.items.forEach(function (e) {
-      if (! collection[e.field]) {
-        collection[e.field] = [];
-      }
-
-      collection[e.field].push(map ? e.msg : e);
-    });
-
-    return collection;
-  }
-
-  var selector = isNullOrUndefined(scope) ? String(field) : (scope + "." + field);
-  var ref = this._makeCandidateFilters(selector);
-    var isPrimary = ref.isPrimary;
-    var isAlt = ref.isAlt;
-
-  var collected = this.items.reduce(function (prev, curr) {
-    if (isPrimary(curr)) {
-      prev.primary.push(map ? curr.msg : curr);
-    }
-
-    if (isAlt(curr)) {
-      prev.alt.push(map ? curr.msg : curr);
-    }
-
-    return prev;
-  }, { primary: [], alt: [] });
-
-  return collected.primary.length ? collected.primary : collected.alt;
-};
-
-/**
- * Gets the internal array length.
- */
-ErrorBag.prototype.count = function count () {
-  return this.items.length;
-};
-
-/**
- * Finds and fetches the first error message for the specified field id.
- */
-ErrorBag.prototype.firstById = function firstById (id) {
-  var error = find(this.items, function (i) { return i.id === id; });
-
-  return error ? error.msg : undefined;
-};
-
-/**
- * Gets the first error message for a specific field.
- */
-ErrorBag.prototype.first = function first (field, scope) {
-    if ( scope === void 0 ) scope = null;
-
-  var selector = isNullOrUndefined(scope) ? field : (scope + "." + field);
-  var match = this._match(selector);
-
-  return match && match.msg;
-};
-
-/**
- * Returns the first error rule for the specified field
- */
-ErrorBag.prototype.firstRule = function firstRule (field, scope) {
-  var errors = this.collect(field, scope, false);
-
-  return (errors.length && errors[0].rule) || undefined;
-};
-
-/**
- * Checks if the internal array has at least one error for the specified field.
- */
-ErrorBag.prototype.has = function has (field, scope) {
-    if ( scope === void 0 ) scope = null;
-
-  return !!this.first(field, scope);
-};
-
-/**
- * Gets the first error message for a specific field and a rule.
- */
-ErrorBag.prototype.firstByRule = function firstByRule (name, rule, scope) {
-    if ( scope === void 0 ) scope = null;
-
-  var error = this.collect(name, scope, false).filter(function (e) { return e.rule === rule; })[0];
-
-  return (error && error.msg) || undefined;
-};
-
-/**
- * Gets the first error message for a specific field that not match the rule.
- */
-ErrorBag.prototype.firstNot = function firstNot (name, rule, scope) {
-    if ( rule === void 0 ) rule = 'required';
-    if ( scope === void 0 ) scope = null;
-
-  var error = this.collect(name, scope, false).filter(function (e) { return e.rule !== rule; })[0];
-
-  return (error && error.msg) || undefined;
-};
-
-/**
- * Removes errors by matching against the id or ids.
- */
-ErrorBag.prototype.removeById = function removeById (id) {
-    var this$1 = this;
-
-  if (Array.isArray(id)) {
-    // filter out the non-matching fields.
-    this.items = this.items.filter(function (i) { return id.indexOf(i.id) === -1; });
-    return;
-  }
-
-  for (var i = 0; i < this.items.length; ++i) {
-    if (this$1.items[i].id === id) {
-      this$1.items.splice(i, 1);
-      --i;
-    }
-  }
-};
-
-/**
- * Removes all error messages associated with a specific field.
- */
-ErrorBag.prototype.remove = function remove (field, scope) {
-    var this$1 = this;
-
-  if (isNullOrUndefined(field)) {
-    return;
-  }
-
-  var selector = isNullOrUndefined(scope) ? String(field) : (scope + "." + field);
-  var ref = this._makeCandidateFilters(selector);
-    var isPrimary = ref.isPrimary;
-
-  for (var i = 0; i < this.items.length; ++i) {
-    if (isPrimary(this$1.items[i])) {
-      this$1.items.splice(i, 1);
-      --i;
-    }
-  }
-};
-
-ErrorBag.prototype._makeCandidateFilters = function _makeCandidateFilters (selector) {
-  var matchesRule = function () { return true; };
-  var matchesScope = function () { return true; };
-  var matchesName = function () { return true; };
-
-  var ref = selector.match(/((?:[\w-])+\.)?((?:[\w-.])+)(:\w+)?/);
-    var scope = ref[1];
-    var name = ref[2];
-    var rule = ref[3];
-  if (rule) {
-    rule = rule.replace(':', '');
-    matchesRule = function (item) { return item.rule === rule; };
-  }
-
-  // match by id, can be combined with rule selection.
-  if (selector.startsWith('#')) {
+  if (selector[0] === '#') {
     return {
-      isPrimary: function (item) { return matchesRule(item) && (function (item) { return selector.slice(1).startsWith(item.id); }); },
-      isAlt: function () { return false; }
+      id: selector.slice(1),
+      rule: rule,
+      name: null,
+      scope: null
     };
   }
 
-  if (isNullOrUndefined(scope)) {
-    // if no scope specified, make sure the found error has no scope.
-    matchesScope = function (item) { return isNullOrUndefined(item.scope); };
-  } else {
-    scope = scope.replace('.', '');
-    matchesScope = function (item) { return item.scope === scope; };
+  var scope = null;
+  var name = selector;
+  if (includes(selector, '.')) {
+    var parts = selector.split('.');
+    scope = parts[0];
+    name = parts.slice(1).join('.');
   }
-
-  if (!(isNullOrUndefined(name))) {
-    matchesName = function (item) { return item.field === name; };
-  }
-
-  // matches the first candidate.
-  var isPrimary = function (item) {
-    return matchesName(item) && matchesRule(item) && matchesScope(item);
-  };
-
-  // matches a second candidate, which is a field with a name containing the '.' character.
-  var isAlt = function (item) {
-    return matchesRule(item) && item.field === (scope + "." + name);
-  };
 
   return {
-    isPrimary: isPrimary,
-    isAlt: isAlt
+    id: null,
+    scope: scope,
+    name: name,
+    rule: rule
   };
 };
 
-ErrorBag.prototype._match = function _match (selector) {
-  if (isNullOrUndefined(selector)) {
-    return undefined;
-  }
+var includes = function (collection, item) {
+  return collection.indexOf(item) !== -1;
+};
 
-  var ref = this._makeCandidateFilters(selector);
-    var isPrimary = ref.isPrimary;
-    var isAlt = ref.isAlt;
-
-  return this.items.reduce(function (prev, item, idx, arr) {
-    var isLast = idx === arr.length - 1;
-    if (prev.primary) {
-      return isLast ? prev.primary : prev;
-    }
-
-    if (isPrimary(item)) {
-      prev.primary = item;
-    }
-
-    if (isAlt(item)) {
-      prev.alt = item;
-    }
-
-    // keep going.
-    if (!isLast) {
-      return prev;
-    }
-
-    return prev.primary || prev.alt;
-  }, {});
+var isEmptyArray = function (arr) {
+  return Array.isArray(arr) && arr.length === 0;
 };
 
 // 
@@ -70255,148 +69195,8 @@ Dictionary.prototype.setAttribute = function setAttribute (locale, key, attribut
 
 Object.defineProperties( Dictionary.prototype, prototypeAccessors );
 
-// 
-
-var normalizeValue = function (value) {
-  if (isObject(value)) {
-    return Object.keys(value).reduce(function (prev, key) {
-      prev[key] = normalizeValue(value[key]);
-
-      return prev;
-    }, {});
-  }
-
-  if (isCallable(value)) {
-    return value('{0}', ['{1}', '{2}', '{3}']);
-  }
-
-  return value;
-};
-
-var normalizeFormat = function (locale) {
-  // normalize messages
-  var messages = normalizeValue(locale.messages);
-  var custom = normalizeValue(locale.custom);
-
-  return {
-    messages: messages,
-    custom: custom,
-    attributes: locale.attributes,
-    dateFormat: locale.dateFormat
-  };
-};
-
-var I18nDictionary = function I18nDictionary (i18n, rootKey) {
-  this.i18n = i18n;
-  this.rootKey = rootKey;
-};
-
-var prototypeAccessors$1 = { locale: { configurable: true } };
-
-prototypeAccessors$1.locale.get = function () {
-  return this.i18n.locale;
-};
-
-prototypeAccessors$1.locale.set = function (value) {
-  warn('Cannot set locale from the validator when using vue-i18n, use i18n.locale setter instead');
-};
-
-I18nDictionary.prototype.getDateFormat = function getDateFormat (locale) {
-  return this.i18n.getDateTimeFormat(locale || this.locale);
-};
-
-I18nDictionary.prototype.setDateFormat = function setDateFormat (locale, value) {
-  this.i18n.setDateTimeFormat(locale || this.locale, value);
-};
-
-I18nDictionary.prototype.getMessage = function getMessage (locale, key, data) {
-  var path = (this.rootKey) + ".messages." + key;
-  if (!this.i18n.te(path)) {
-    return this.i18n.t(((this.rootKey) + ".messages._default"), locale, data);
-  }
-
-  return this.i18n.t(path, locale, data);
-};
-
-I18nDictionary.prototype.getAttribute = function getAttribute (locale, key, fallback) {
-    if ( fallback === void 0 ) fallback = '';
-
-  var path = (this.rootKey) + ".attributes." + key;
-  if (!this.i18n.te(path)) {
-    return fallback;
-  }
-
-  return this.i18n.t(path, locale);
-};
-
-I18nDictionary.prototype.getFieldMessage = function getFieldMessage (locale, field, key, data) {
-  var path = (this.rootKey) + ".custom." + field + "." + key;
-  if (this.i18n.te(path)) {
-    return this.i18n.t(path);
-  }
-
-  return this.getMessage(locale, key, data);
-};
-
-I18nDictionary.prototype.merge = function merge$1 (dictionary) {
-    var this$1 = this;
-
-  Object.keys(dictionary).forEach(function (localeKey) {
-      var obj;
-
-    // i18n doesn't deep merge
-    // first clone the existing locale (avoid mutations to locale)
-    var clone = merge({}, getPath((localeKey + "." + (this$1.rootKey)), this$1.i18n.messages, {}));
-    // Merge cloned locale with new one
-    var locale = merge(clone, normalizeFormat(dictionary[localeKey]));
-    this$1.i18n.mergeLocaleMessage(localeKey, ( obj = {}, obj[this$1.rootKey] = locale, obj ));
-    if (locale.dateFormat) {
-      this$1.i18n.setDateTimeFormat(localeKey, locale.dateFormat);
-    }
-  });
-};
-
-I18nDictionary.prototype.setMessage = function setMessage (locale, key, value) {
-    var obj, obj$1;
-
-  this.merge(( obj$1 = {}, obj$1[locale] = {
-      messages: ( obj = {}, obj[key] = value, obj )
-    }, obj$1 ));
-};
-
-I18nDictionary.prototype.setAttribute = function setAttribute (locale, key, value) {
-    var obj, obj$1;
-
-  this.merge(( obj$1 = {}, obj$1[locale] = {
-      attributes: ( obj = {}, obj[key] = value, obj )
-    }, obj$1 ));
-};
-
-Object.defineProperties( I18nDictionary.prototype, prototypeAccessors$1 );
-
-// 
-
-var defaultConfig = {
-  locale: 'en',
-  delay: 0,
-  errorBagName: 'errors',
-  dictionary: null,
-  strict: true,
-  fieldsBagName: 'fields',
-  classes: false,
-  classNames: null,
-  events: 'input|blur',
-  inject: true,
-  fastExit: true,
-  aria: true,
-  validity: false,
-  i18n: null,
-  i18nRootKey: 'validation'
-};
-
-var currentConfig = assign({}, defaultConfig);
-var dependencies = {
-  dictionary: new Dictionary({
+var drivers = {
+  default: new Dictionary({
     en: {
       messages: {},
       attributes: {},
@@ -70405,82 +69205,618 @@ var dependencies = {
   })
 };
 
-var Config = function Config () {};
+var currentDriver = 'default';
 
-var staticAccessors = { default: { configurable: true },current: { configurable: true } };
+var DictionaryResolver = function DictionaryResolver () {};
 
-staticAccessors.default.get = function () {
-  return defaultConfig;
+DictionaryResolver._checkDriverName = function _checkDriverName (driver) {
+  if (!driver) {
+    throw createError('you must provide a name to the dictionary driver');
+  }
 };
 
-staticAccessors.current.get = function () {
-  return currentConfig;
+DictionaryResolver.setDriver = function setDriver (driver, implementation) {
+    if ( implementation === void 0 ) implementation = null;
+
+  this._checkDriverName(driver);
+  if (implementation) {
+    drivers[driver] = implementation;
+  }
+
+  currentDriver = driver;
 };
 
-Config.dependency = function dependency (key) {
-  return dependencies[key];
+DictionaryResolver.getDriver = function getDriver () {
+  return drivers[currentDriver];
+};
+
+// 
+
+var ErrorBag = function ErrorBag (errorBag, id) {
+  if ( errorBag === void 0 ) errorBag = null;
+  if ( id === void 0 ) id = null;
+
+  this.vmId = id || null;
+  // make this bag a mirror of the provided one, sharing the same items reference.
+  if (errorBag && errorBag instanceof ErrorBag) {
+    this.items = errorBag.items;
+  } else {
+    this.items = [];
+  }
+};
+
+ErrorBag.prototype[typeof Symbol === 'function' ? Symbol.iterator : '@@iterator'] = function () {
+    var this$1 = this;
+
+  var index = 0;
+  return {
+    next: function () {
+      return { value: this$1.items[index++], done: index > this$1.items.length };
+    }
+  };
 };
 
 /**
- * Merges the config with a new one.
+ * Adds an error to the internal array.
  */
-Config.merge = function merge$$1 (config) {
-  currentConfig = assign({}, currentConfig, config);
-  if (currentConfig.i18n) {
-    Config.register('dictionary', new I18nDictionary(currentConfig.i18n, currentConfig.i18nRootKey));
+ErrorBag.prototype.add = function add (error) {
+    var ref;
+
+  (ref = this.items).push.apply(
+    ref, this._normalizeError(error)
+  );
+};
+
+/**
+ * Normalizes passed errors to an error array.
+ */
+ErrorBag.prototype._normalizeError = function _normalizeError (error) {
+    var this$1 = this;
+
+  if (Array.isArray(error)) {
+    return error.map(function (e) {
+      e.scope = !isNullOrUndefined(e.scope) ? e.scope : null;
+      e.vmId = !isNullOrUndefined(e.vmId) ? e.vmId : (this$1.vmId || null);
+
+      return e;
+    });
+  }
+
+  error.scope = !isNullOrUndefined(error.scope) ? error.scope : null;
+  error.vmId = !isNullOrUndefined(error.vmId) ? error.vmId : (this.vmId || null);
+
+  return [error];
+};
+
+/**
+ * Regenrates error messages if they have a generator function.
+ */
+ErrorBag.prototype.regenerate = function regenerate () {
+  this.items.forEach(function (i) {
+    i.msg = isCallable(i.regenerate) ? i.regenerate() : i.msg;
+  });
+};
+
+/**
+ * Updates a field error with the new field scope.
+ */
+ErrorBag.prototype.update = function update (id, error) {
+  var item = find(this.items, function (i) { return i.id === id; });
+  if (!item) {
+    return;
+  }
+
+  var idx = this.items.indexOf(item);
+  this.items.splice(idx, 1);
+  item.scope = error.scope;
+  this.items.push(item);
+};
+
+/**
+ * Gets all error messages from the internal array.
+ */
+ErrorBag.prototype.all = function all (scope) {
+    var this$1 = this;
+
+  var filterFn = function (item) {
+    var matchesScope = true;
+    var matchesVM = true;
+    if (!isNullOrUndefined(scope)) {
+      matchesScope = item.scope === scope;
+    }
+
+    if (!isNullOrUndefined(this$1.vmId)) {
+      matchesVM = item.vmId === this$1.vmId;
+    }
+
+    return matchesVM && matchesScope;
+  };
+
+  return this.items.filter(filterFn).map(function (e) { return e.msg; });
+};
+
+/**
+ * Checks if there are any errors in the internal array.
+ */
+ErrorBag.prototype.any = function any (scope) {
+    var this$1 = this;
+
+  var filterFn = function (item) {
+    var matchesScope = true;
+    var matchesVM = true;
+    if (!isNullOrUndefined(scope)) {
+      matchesScope = item.scope === scope;
+    }
+
+    if (!isNullOrUndefined(this$1.vmId)) {
+      matchesVM = item.vmId === this$1.vmId;
+    }
+
+    return matchesVM && matchesScope;
+  };
+
+  return !!this.items.filter(filterFn).length;
+};
+
+/**
+ * Removes all items from the internal array.
+ */
+ErrorBag.prototype.clear = function clear (scope) {
+    var this$1 = this;
+
+  var matchesVM = isNullOrUndefined(this.vmId) ? function () { return true; } : function (i) { return i.vmId === this$1.vmId; };
+  if (isNullOrUndefined(scope)) {
+    scope = null;
+  }
+
+  for (var i = 0; i < this.items.length; ++i) {
+    if (matchesVM(this.items[i]) && this.items[i].scope === scope) {
+      this.items.splice(i, 1);
+      --i;
+    }
   }
 };
 
 /**
- * Registers a dependency.
+ * Collects errors into groups or for a specific field.
  */
-Config.register = function register (key, value) {
-  dependencies[key] = value;
+ErrorBag.prototype.collect = function collect (field, scope, map) {
+    var this$1 = this;
+    if ( map === void 0 ) map = true;
+
+  var isSingleField = !isNullOrUndefined(field) && !field.includes('*');
+  var groupErrors = function (items) {
+    var errors = items.reduce(function (collection, error) {
+      if (!isNullOrUndefined(this$1.vmId) && error.vmId !== this$1.vmId) {
+        return collection;
+      }
+
+      if (!collection[error.field]) {
+        collection[error.field] = [];
+      }
+
+      collection[error.field].push(map ? error.msg : error);
+
+      return collection;
+    }, {});
+
+    // reduce the collection to be a single array.
+    if (isSingleField) {
+      return values(errors)[0] || [];
+    }
+
+    return errors;
+  };
+
+  if (isNullOrUndefined(field)) {
+    return groupErrors(this.items);
+  }
+
+  var selector = isNullOrUndefined(scope) ? String(field) : (scope + "." + field);
+  var ref = this._makeCandidateFilters(selector);
+    var isPrimary = ref.isPrimary;
+    var isAlt = ref.isAlt;
+
+  var collected = this.items.reduce(function (prev, curr) {
+    if (isPrimary(curr)) {
+      prev.primary.push(curr);
+    }
+
+    if (isAlt(curr)) {
+      prev.alt.push(curr);
+    }
+
+    return prev;
+  }, { primary: [], alt: [] });
+
+  collected = collected.primary.length ? collected.primary : collected.alt;
+
+  return groupErrors(collected);
 };
 
 /**
- * Resolves the working config from a Vue instance.
+ * Gets the internal array length.
  */
-Config.resolve = function resolve (context) {
-  var selfConfig = getPath('$options.$_veeValidate', context, {});
+ErrorBag.prototype.count = function count () {
+    var this$1 = this;
 
-  return assign({}, Config.current, selfConfig);
+  if (this.vmId) {
+    return this.items.filter(function (e) { return e.vmId === this$1.vmId; }).length;
+  }
+
+  return this.items.length;
 };
 
-Object.defineProperties( Config, staticAccessors );
+/**
+ * Finds and fetches the first error message for the specified field id.
+ */
+ErrorBag.prototype.firstById = function firstById (id) {
+  var error = find(this.items, function (i) { return i.id === id; });
+
+  return error ? error.msg : undefined;
+};
+
+/**
+ * Gets the first error message for a specific field.
+ */
+ErrorBag.prototype.first = function first (field, scope) {
+    if ( scope === void 0 ) scope = null;
+
+  var selector = isNullOrUndefined(scope) ? field : (scope + "." + field);
+  var match = this._match(selector);
+
+  return match && match.msg;
+};
+
+/**
+ * Returns the first error rule for the specified field
+ */
+ErrorBag.prototype.firstRule = function firstRule (field, scope) {
+  var errors = this.collect(field, scope, false);
+
+  return (errors.length && errors[0].rule) || undefined;
+};
+
+/**
+ * Checks if the internal array has at least one error for the specified field.
+ */
+ErrorBag.prototype.has = function has (field, scope) {
+    if ( scope === void 0 ) scope = null;
+
+  return !!this.first(field, scope);
+};
+
+/**
+ * Gets the first error message for a specific field and a rule.
+ */
+ErrorBag.prototype.firstByRule = function firstByRule (name, rule, scope) {
+    if ( scope === void 0 ) scope = null;
+
+  var error = this.collect(name, scope, false).filter(function (e) { return e.rule === rule; })[0];
+
+  return (error && error.msg) || undefined;
+};
+
+/**
+ * Gets the first error message for a specific field that not match the rule.
+ */
+ErrorBag.prototype.firstNot = function firstNot (name, rule, scope) {
+    if ( rule === void 0 ) rule = 'required';
+    if ( scope === void 0 ) scope = null;
+
+  var error = this.collect(name, scope, false).filter(function (e) { return e.rule !== rule; })[0];
+
+  return (error && error.msg) || undefined;
+};
+
+/**
+ * Removes errors by matching against the id or ids.
+ */
+ErrorBag.prototype.removeById = function removeById (id) {
+  var condition = function (item) { return item.id === id; };
+  if (Array.isArray(id)) {
+    condition = function (item) { return id.indexOf(item.id) !== -1; };
+  }
+
+  for (var i = 0; i < this.items.length; ++i) {
+    if (condition(this.items[i])) {
+      this.items.splice(i, 1);
+      --i;
+    }
+  }
+};
+
+/**
+ * Removes all error messages associated with a specific field.
+ */
+ErrorBag.prototype.remove = function remove (field, scope, vmId) {
+  if (isNullOrUndefined(field)) {
+    return;
+  }
+
+  var selector = isNullOrUndefined(scope) ? String(field) : (scope + "." + field);
+  var ref = this._makeCandidateFilters(selector);
+    var isPrimary = ref.isPrimary;
+  var shouldRemove = function (item) {
+    if (isNullOrUndefined(vmId)) { return isPrimary(item); }
+
+    return isPrimary(item) && item.vmId === vmId;
+  };
+
+  for (var i = 0; i < this.items.length; ++i) {
+    if (shouldRemove(this.items[i])) {
+      this.items.splice(i, 1);
+      --i;
+    }
+  }
+};
+
+ErrorBag.prototype._makeCandidateFilters = function _makeCandidateFilters (selector) {
+    var this$1 = this;
+
+  var matchesRule = function () { return true; };
+  var matchesScope = function () { return true; };
+  var matchesName = function () { return true; };
+  var matchesVM = function () { return true; };
+
+  var ref = parseSelector(selector);
+    var id = ref.id;
+    var rule = ref.rule;
+    var scope = ref.scope;
+    var name = ref.name;
+
+  if (rule) {
+    matchesRule = function (item) { return item.rule === rule; };
+  }
+
+  // match by id, can be combined with rule selection.
+  if (id) {
+    return {
+      isPrimary: function (item) { return matchesRule(item) && (function (item) { return id === item.id; }); },
+      isAlt: function () { return false; }
+    };
+  }
+
+  if (isNullOrUndefined(scope)) {
+    // if no scope specified, make sure the found error has no scope.
+    matchesScope = function (item) { return isNullOrUndefined(item.scope); };
+  } else {
+    matchesScope = function (item) { return item.scope === scope; };
+  }
+
+  if (!isNullOrUndefined(name) && name !== '*') {
+    matchesName = function (item) { return item.field === name; };
+  }
+
+  if (!isNullOrUndefined(this.vmId)) {
+    matchesVM = function (item) { return item.vmId === this$1.vmId; };
+  }
+
+  // matches the first candidate.
+  var isPrimary = function (item) {
+    return matchesVM(item) && matchesName(item) && matchesRule(item) && matchesScope(item);
+  };
+
+  // matches a second candidate, which is a field with a name containing the '.' character.
+  var isAlt = function (item) {
+    return matchesVM(item) && matchesRule(item) && item.field === (scope + "." + name);
+  };
+
+  return {
+    isPrimary: isPrimary,
+    isAlt: isAlt
+  };
+};
+
+ErrorBag.prototype._match = function _match (selector) {
+  if (isNullOrUndefined(selector)) {
+    return undefined;
+  }
+
+  var ref = this._makeCandidateFilters(selector);
+    var isPrimary = ref.isPrimary;
+    var isAlt = ref.isAlt;
+
+  return this.items.reduce(function (prev, item, idx, arr) {
+    var isLast = idx === arr.length - 1;
+    if (prev.primary) {
+      return isLast ? prev.primary : prev;
+    }
+
+    if (isPrimary(item)) {
+      prev.primary = item;
+    }
+
+    if (isAlt(item)) {
+      prev.alt = item;
+    }
+
+    // keep going.
+    if (!isLast) {
+      return prev;
+    }
+
+    return prev.primary || prev.alt;
+  }, {});
+};
+
+// VNode Utils
+
+// Gets the model object on the vnode.
+function findModel (vnode) {
+  if (!vnode.data) {
+    return null;
+  }
+
+  // Component Model
+  if (vnode.data.model) {
+    return vnode.data.model;
+  }
+
+  return !!(vnode.data.directives) && find(vnode.data.directives, function (d) { return d.name === 'model'; });
+}
+
+function extractVNodes (vnode) {
+  if (findModel(vnode)) {
+    return [vnode];
+  }
+
+  var children = Array.isArray(vnode) ? vnode : vnode.children;
+  if (!Array.isArray(children)) {
+    return [];
+  }
+
+  return children.reduce(function (nodes, node) {
+    var candidates = extractVNodes(node);
+    if (candidates.length) {
+      nodes.push.apply(nodes, candidates);
+    }
+
+    return nodes;
+  }, []);
+}
+
+// Resolves v-model config if exists.
+function findModelConfig (vnode) {
+  if (!vnode.componentOptions) { return null; }
+
+  return vnode.componentOptions.Ctor.options.model;
+}
+// Adds a listener to vnode listener object.
+function mergeVNodeListeners (obj, eventName, handler) {
+  // Has a single listener.
+  if (isCallable(obj[eventName])) {
+    var prevHandler = obj[eventName];
+    obj[eventName] = [prevHandler];
+  }
+
+  // has other listeners.
+  if (Array.isArray(obj[eventName])) {
+    obj[eventName].push(handler);
+    return;
+  }
+
+  // no listener at all.
+  if (isNullOrUndefined(obj[eventName])) {
+    obj[eventName] = [handler];
+  }
+}
+
+// Adds a listener to a native HTML vnode.
+function addNativeNodeListener (node, eventName, handler) {
+  if (isNullOrUndefined(node.data.on)) {
+    node.data.on = {};
+  }
+
+  mergeVNodeListeners(node.data.on, eventName, handler);
+}
+
+// Adds a listener to a Vue component vnode.
+function addComponentNodeListener (node, eventName, handler) {
+  /* istanbul ignore next */
+  if (!node.componentOptions.listeners) {
+    node.componentOptions.listeners = {};
+  }
+
+  mergeVNodeListeners(node.componentOptions.listeners, eventName, handler);
+}
+function addVNodeListener (vnode, eventName, handler) {
+  if (vnode.componentOptions) {
+    addComponentNodeListener(vnode, eventName, handler);
+  }
+
+  addNativeNodeListener(vnode, eventName, handler);
+}
+// Determines if `change` should be used over `input` for listeners.
+function getInputEventName (vnode, model) {
+  // Is a component.
+  if (vnode.componentOptions) {
+    var ref = findModelConfig(vnode) || { event: 'input' };
+    var event = ref.event;
+
+    return event;
+  }
+
+  // Lazy Models typically use change event
+  if (model && model.modifiers && model.modifiers.lazy) {
+    return 'change';
+  }
+
+  // is a textual-type input.
+  if (vnode.data.attrs && isTextInput({ type: vnode.data.attrs.type || 'text' })) {
+    return 'input';
+  }
+
+  return 'change';
+}
+
+function normalizeSlots (slots, ctx) {
+  return Object.keys(slots).reduce(function (arr, key) {
+    slots[key].forEach(function (vnode) {
+      if (!vnode.context) {
+        slots[key].context = ctx;
+        if (!vnode.data) {
+          vnode.data = {};
+        }
+        vnode.data.slot = key;
+      }
+    });
+
+    return arr.concat(slots[key]);
+  }, []);
+}
+
+function createRenderless (h, vnode) {
+  // a single-root slot yay!
+  if (!Array.isArray(vnode)) {
+    return vnode;
+  }
+
+  if (vnode.length === 1) {
+    return vnode[0];
+  }
+
+  if (true) {
+    warn('Your slot should have one root element. Rendering a span as the root.');
+  }
+
+  // Renders a multi-root node, should throw a Vue error.
+  return vnode;
+}
 
 /**
  * Generates the options required to construct a field.
  */
-var Generator = function Generator () {};
+var Resolver = function Resolver () {};
 
-Generator.generate = function generate (el, binding, vnode) {
-  var model = Generator.resolveModel(binding, vnode);
-  var options = Config.resolve(vnode.context);
+Resolver.generate = function generate (el, binding, vnode) {
+  var model = Resolver.resolveModel(binding, vnode);
+  var options = pluginInstance.resolveConfig(vnode.context);
 
   return {
-    name: Generator.resolveName(el, vnode),
+    name: Resolver.resolveName(el, vnode),
     el: el,
     listen: !binding.modifiers.disable,
-    scope: Generator.resolveScope(el, binding, vnode),
-    vm: Generator.makeVM(vnode.context),
+    bails: binding.modifiers.bails ? true : (binding.modifiers.continues === true ? false : undefined),
+    scope: Resolver.resolveScope(el, binding, vnode),
+    vm: Resolver.makeVM(vnode.context),
     expression: binding.value,
     component: vnode.componentInstance,
     classes: options.classes,
     classNames: options.classNames,
-    getter: Generator.resolveGetter(el, vnode, model),
-    events: Generator.resolveEvents(el, vnode) || options.events,
+    getter: Resolver.resolveGetter(el, vnode, model),
+    events: Resolver.resolveEvents(el, vnode) || options.events,
     model: model,
-    delay: Generator.resolveDelay(el, vnode, options),
-    rules: Generator.resolveRules(el, binding, vnode),
-    initial: !!binding.modifiers.initial,
+    delay: Resolver.resolveDelay(el, vnode, options),
+    rules: Resolver.resolveRules(el, binding, vnode),
+    immediate: !!binding.modifiers.initial || !!binding.modifiers.immediate,
     validity: options.validity,
     aria: options.aria,
-    initialValue: Generator.resolveInitialValue(vnode)
+    initialValue: Resolver.resolveInitialValue(vnode)
   };
 };
 
-Generator.getCtorConfig = function getCtorConfig (vnode) {
+Resolver.getCtorConfig = function getCtorConfig (vnode) {
   if (!vnode.componentInstance) { return null; }
 
   var config = getPath('componentInstance.$options.$_veeValidate', vnode);
@@ -70491,13 +69827,13 @@ Generator.getCtorConfig = function getCtorConfig (vnode) {
 /**
  * Resolves the rules defined on an element.
  */
-Generator.resolveRules = function resolveRules (el, binding, vnode) {
+Resolver.resolveRules = function resolveRules (el, binding, vnode) {
   var rules = '';
   if (!binding.value && (!binding || !binding.expression)) {
     rules = getDataAttribute(el, 'rules');
   }
 
-  if (binding.value && ~['string', 'object'].indexOf(typeof binding.value.rules)) {
+  if (binding.value && includes(['string', 'object'], typeof binding.value.rules)) {
     rules = binding.value.rules;
   } else if (binding.value) {
     rules = binding.value;
@@ -70513,7 +69849,7 @@ Generator.resolveRules = function resolveRules (el, binding, vnode) {
 /**
  * @param {*} vnode
  */
-Generator.resolveInitialValue = function resolveInitialValue (vnode) {
+Resolver.resolveInitialValue = function resolveInitialValue (vnode) {
   var model = vnode.data.model || find(vnode.data.directives, function (d) { return d.name === 'model'; });
 
   return model && model.value;
@@ -70523,7 +69859,7 @@ Generator.resolveInitialValue = function resolveInitialValue (vnode) {
  * Creates a non-circular partial VM instance from a Vue instance.
  * @param {*} vm
  */
-Generator.makeVM = function makeVM (vm) {
+Resolver.makeVM = function makeVM (vm) {
   return {
     get $el () {
       return vm.$el;
@@ -70546,7 +69882,7 @@ Generator.makeVM = function makeVM (vm) {
  * @param {*} vnode
  * @param {Object} options
  */
-Generator.resolveDelay = function resolveDelay (el, vnode, options) {
+Resolver.resolveDelay = function resolveDelay (el, vnode, options) {
   var delay = getDataAttribute(el, 'delay');
   var globalDelay = (options && 'delay' in options) ? options.delay : 0;
 
@@ -70570,16 +69906,35 @@ Generator.resolveDelay = function resolveDelay (el, vnode, options) {
  * @param {*} el
  * @param {*} vnode
  */
-Generator.resolveEvents = function resolveEvents (el, vnode) {
+Resolver.resolveEvents = function resolveEvents (el, vnode) {
+  // resolve it from the root element.
   var events = getDataAttribute(el, 'validate-on');
 
+  // resolve from data-vv-validate-on if its a vue component.
   if (!events && vnode.componentInstance && vnode.componentInstance.$attrs) {
     events = vnode.componentInstance.$attrs['data-vv-validate-on'];
   }
 
+  // resolve it from $_veeValidate options.
   if (!events && vnode.componentInstance) {
-    var config = Generator.getCtorConfig(vnode);
+    var config = Resolver.getCtorConfig(vnode);
     events = config && config.events;
+  }
+
+  if (!events && pluginInstance.config.events) {
+    events = pluginInstance.config.events;
+  }
+
+  // resolve the model event if its configured for custom components.
+  if (events && vnode.componentInstance && includes(events, 'input')) {
+    var ref = vnode.componentInstance.$options.model || { event: 'input' };
+      var event = ref.event;
+    // if the prop was configured but not the model.
+    if (!event) {
+      return events;
+    }
+
+    events = events.replace('input', event);
   }
 
   return events;
@@ -70590,7 +69945,7 @@ Generator.resolveEvents = function resolveEvents (el, vnode) {
  * @param {*} el
  * @param {*} binding
  */
-Generator.resolveScope = function resolveScope (el, binding, vnode) {
+Resolver.resolveScope = function resolveScope (el, binding, vnode) {
     if ( vnode === void 0 ) vnode = {};
 
   var scope = null;
@@ -70607,12 +69962,12 @@ Generator.resolveScope = function resolveScope (el, binding, vnode) {
  *
  * @return {Object}
  */
-Generator.resolveModel = function resolveModel (binding, vnode) {
+Resolver.resolveModel = function resolveModel (binding, vnode) {
   if (binding.arg) {
     return { expression: binding.arg };
   }
 
-  var model = vnode.data.model || find(vnode.data.directives, function (d) { return d.name === 'model'; });
+  var model = findModel(vnode);
   if (!model) {
     return null;
   }
@@ -70620,6 +69975,7 @@ Generator.resolveModel = function resolveModel (binding, vnode) {
   // https://github.com/vuejs/vue/blob/dev/src/core/util/lang.js#L26
   var watchable = !/[^\w.$]/.test(model.expression) && hasPath(model.expression, vnode.context);
   var lazy = !!(model.modifiers && model.modifiers.lazy);
+
   if (!watchable) {
     return { expression: null, lazy: lazy };
   }
@@ -70631,7 +69987,7 @@ Generator.resolveModel = function resolveModel (binding, vnode) {
  * Resolves the field name to trigger validations.
  * @return {String} The field name.
  */
-Generator.resolveName = function resolveName (el, vnode) {
+Resolver.resolveName = function resolveName (el, vnode) {
   var name = getDataAttribute(el, 'name');
 
   if (!name && !vnode.componentInstance) {
@@ -70643,7 +69999,7 @@ Generator.resolveName = function resolveName (el, vnode) {
   }
 
   if (!name && vnode.componentInstance) {
-    var config = Generator.getCtorConfig(vnode);
+    var config = Resolver.getCtorConfig(vnode);
     if (config && isCallable(config.name)) {
       var boundGetter = config.name.bind(vnode.componentInstance);
 
@@ -70659,7 +70015,7 @@ Generator.resolveName = function resolveName (el, vnode) {
 /**
  * Returns a value getter input type.
  */
-Generator.resolveGetter = function resolveGetter (el, vnode, model) {
+Resolver.resolveGetter = function resolveGetter (el, vnode, model) {
   if (model && model.expression) {
     return function () {
       return getPath(model.expression, vnode.context);
@@ -70674,7 +70030,7 @@ Generator.resolveGetter = function resolveGetter (el, vnode, model) {
       };
     }
 
-    var config = Generator.getCtorConfig(vnode);
+    var config = Resolver.getCtorConfig(vnode);
     if (config && isCallable(config.value)) {
       var boundGetter = config.value.bind(vnode.componentInstance);
 
@@ -70683,8 +70039,11 @@ Generator.resolveGetter = function resolveGetter (el, vnode, model) {
       };
     }
 
+    var ref = vnode.componentInstance.$options.model || { prop: 'value' };
+      var prop = ref.prop;
+
     return function () {
-      return vnode.componentInstance.value;
+      return vnode.componentInstance[prop];
     };
   }
 
@@ -70715,11 +70074,96 @@ Generator.resolveGetter = function resolveGetter (el, vnode, model) {
   }
 };
 
+var RULES = {};
+
+var RuleContainer = function RuleContainer () {};
+
+var staticAccessors = { rules: { configurable: true } };
+
+RuleContainer.add = function add (name, ref) {
+    var validate = ref.validate;
+    var options = ref.options;
+    var paramNames = ref.paramNames;
+
+  RULES[name] = {
+    validate: validate,
+    options: options,
+    paramNames: paramNames
+  };
+};
+
+staticAccessors.rules.get = function () {
+  return RULES;
+};
+
+RuleContainer.has = function has (name) {
+  return !!RULES[name];
+};
+
+RuleContainer.isImmediate = function isImmediate (name) {
+  return !!(RULES[name] && RULES[name].options.immediate);
+};
+
+RuleContainer.isTargetRule = function isTargetRule (name) {
+  return !!(RULES[name] && RULES[name].options.hasTarget);
+};
+
+RuleContainer.remove = function remove (ruleName) {
+  delete RULES[ruleName];
+};
+
+RuleContainer.getParamNames = function getParamNames (ruleName) {
+  return RULES[ruleName] && RULES[ruleName].paramNames;
+};
+
+RuleContainer.getOptions = function getOptions (ruleName) {
+  return RULES[ruleName] && RULES[ruleName].options;
+};
+
+RuleContainer.getValidatorMethod = function getValidatorMethod (ruleName) {
+  return RULES[ruleName] ? RULES[ruleName].validate : null;
+};
+
+Object.defineProperties( RuleContainer, staticAccessors );
+
+// 
+
+var isEvent = function (evt) {
+  return (typeof Event !== 'undefined' && isCallable(Event) && evt instanceof Event) || (evt && evt.srcElement);
+};
+
+var normalizeEvents = function (evts) {
+  if (!evts) { return []; }
+
+  return (typeof evts === 'string' ? evts.split('|') : evts);
+};
+
+var supportsPassive = true;
+
+var detectPassiveSupport = function () {
+  try {
+    var opts = Object.defineProperty({}, 'passive', {
+      get: function get () {
+        supportsPassive = true;
+      }
+    });
+    window.addEventListener('testPassive', null, opts);
+    window.removeEventListener('testPassive', null, opts);
+  } catch (e) {
+    supportsPassive = false;
+  }
+  return supportsPassive;
+};
+
+var addEventListener = function (el, eventName, cb) {
+  el.addEventListener(eventName, cb, supportsPassive ? { passive: true } : false);
+};
+
 // 
 
 var DEFAULT_OPTIONS = {
   targetOf: null,
-  initial: false,
+  immediate: false,
   scope: null,
   listen: true,
   name: null,
@@ -70747,6 +70191,7 @@ var Field = function Field (options) {
   this.el = options.el;
   this.updated = false;
   this.dependencies = [];
+  this.vmId = options.vmId;
   this.watchers = [];
   this.events = [];
   this.delay = 0;
@@ -70759,17 +70204,17 @@ var Field = function Field (options) {
   this.aria = options.aria;
   this.flags = createFlags();
   this.vm = options.vm;
-  this.component = options.component;
-  this.ctorConfig = this.component ? getPath('$options.$_veeValidate', this.component) : undefined;
+  this.componentInstance = options.component;
+  this.ctorConfig = this.componentInstance ? getPath('$options.$_veeValidate', this.componentInstance) : undefined;
   this.update(options);
   // set initial value.
   this.initialValue = this.value;
   this.updated = false;
 };
 
-var prototypeAccessors$2 = { validator: { configurable: true },isRequired: { configurable: true },isDisabled: { configurable: true },alias: { configurable: true },value: { configurable: true },rejectsFalse: { configurable: true } };
+var prototypeAccessors$1 = { validator: { configurable: true },isRequired: { configurable: true },isDisabled: { configurable: true },alias: { configurable: true },value: { configurable: true },bails: { configurable: true },rejectsFalse: { configurable: true } };
 
-prototypeAccessors$2.validator.get = function () {
+prototypeAccessors$1.validator.get = function () {
   if (!this.vm || !this.vm.$validator) {
     return { validate: function () {} };
   }
@@ -70777,29 +70222,33 @@ prototypeAccessors$2.validator.get = function () {
   return this.vm.$validator;
 };
 
-prototypeAccessors$2.isRequired.get = function () {
+prototypeAccessors$1.isRequired.get = function () {
   return !!this.rules.required;
 };
 
-prototypeAccessors$2.isDisabled.get = function () {
-  return !!(this.component && this.component.disabled) || !!(this.el && this.el.disabled);
+prototypeAccessors$1.isDisabled.get = function () {
+  return !!(this.componentInstance && this.componentInstance.disabled) || !!(this.el && this.el.disabled);
 };
 
 /**
  * Gets the display name (user-friendly name).
  */
-prototypeAccessors$2.alias.get = function () {
+prototypeAccessors$1.alias.get = function () {
   if (this._alias) {
     return this._alias;
   }
 
   var alias = null;
-  if (this.el) {
+  if (this.ctorConfig && this.ctorConfig.alias) {
+    alias = isCallable(this.ctorConfig.alias) ? this.ctorConfig.alias.call(this.componentInstance) : this.ctorConfig.alias;
+  }
+
+  if (!alias && this.el) {
     alias = getDataAttribute(this.el, 'as');
   }
 
-  if (!alias && this.component) {
-    return this.component.$attrs && this.component.$attrs['data-vv-as'];
+  if (!alias && this.componentInstance) {
+    return this.componentInstance.$attrs && this.componentInstance.$attrs['data-vv-as'];
   }
 
   return alias;
@@ -70809,7 +70258,7 @@ prototypeAccessors$2.alias.get = function () {
  * Gets the input value.
  */
 
-prototypeAccessors$2.value.get = function () {
+prototypeAccessors$1.value.get = function () {
   if (!isCallable(this.getter)) {
     return undefined;
   }
@@ -70817,12 +70266,16 @@ prototypeAccessors$2.value.get = function () {
   return this.getter();
 };
 
+prototypeAccessors$1.bails.get = function () {
+  return this._bails;
+};
+
 /**
  * If the field rejects false as a valid value for the required rule.
  */
 
-prototypeAccessors$2.rejectsFalse.get = function () {
-  if (this.component && this.ctorConfig) {
+prototypeAccessors$1.rejectsFalse.get = function () {
+  if (this.componentInstance && this.ctorConfig) {
     return !!this.ctorConfig.rejectsFalse;
   }
 
@@ -70837,12 +70290,19 @@ prototypeAccessors$2.rejectsFalse.get = function () {
  * Determines if the instance matches the options provided.
  */
 Field.prototype.matches = function matches (options) {
+    var this$1 = this;
+
   if (!options) {
     return true;
   }
 
   if (options.id) {
     return this.id === options.id;
+  }
+
+  var matchesComponentId = isNullOrUndefined(options.vmId) ? function () { return true; } : function (id) { return id === this$1.vmId; };
+  if (!matchesComponentId(options.vmId)) {
+    return false;
   }
 
   if (options.name === undefined && options.scope === undefined) {
@@ -70870,11 +70330,22 @@ Field.prototype._cacheId = function _cacheId (options) {
 };
 
 /**
+ * Keeps a reference of the most current validation run.
+ */
+Field.prototype.waitFor = function waitFor (pendingPromise) {
+  this._waitingFor = pendingPromise;
+};
+
+Field.prototype.isWaitingFor = function isWaitingFor (promise) {
+  return this._waitingFor === promise;
+};
+
+/**
  * Updates the field with changed data.
  */
 Field.prototype.update = function update (options) {
   this.targetOf = options.targetOf || null;
-  this.initial = options.initial || this.initial || false;
+  this.immediate = options.immediate || this.immediate || false;
 
   // update errors scope if the field scope was changed.
   if (!isNullOrUndefined(options.scope) && options.scope !== this.scope && isCallable(this.validator.update)) {
@@ -70884,13 +70355,14 @@ Field.prototype.update = function update (options) {
     : !isNullOrUndefined(this.scope) ? this.scope : null;
   this.name = (!isNullOrUndefined(options.name) ? String(options.name) : options.name) || this.name || null;
   this.rules = options.rules !== undefined ? normalizeRules(options.rules) : this.rules;
+  this._bails = options.bails !== undefined ? options.bails : this._bails;
   this.model = options.model || this.model;
   this.listen = options.listen !== undefined ? options.listen : this.listen;
-  this.classes = (options.classes || this.classes || false) && !this.component;
+  this.classes = (options.classes || this.classes || false) && !this.componentInstance;
   this.classNames = isObject(options.classNames) ? merge(this.classNames, options.classNames) : this.classNames;
   this.getter = isCallable(options.getter) ? options.getter : this.getter;
   this._alias = options.alias || this._alias;
-  this.events = (options.events) ? makeEventsArray(options.events) : this.events;
+  this.events = (options.events) ? normalizeEvents(options.events) : this.events;
   this.delay = makeDelayObject(this.events, options.delay || this.delay, this._delay);
   this.updateDependencies();
   this.addActionListeners();
@@ -70936,6 +70408,7 @@ Field.prototype.reset = function reset () {
     this$1.flags[flag] = defaults[flag];
   });
 
+  this.addValueListeners();
   this.addActionListeners();
   this.updateClasses();
   this.updateAriaAttrs();
@@ -70990,7 +70463,7 @@ Field.prototype.updateDependencies = function updateDependencies () {
 
   // we get the selectors for each field.
   var fields = Object.keys(this.rules).reduce(function (prev, r) {
-    if (Validator.isTargetRule(r)) {
+    if (RuleContainer.isTargetRule(r)) {
       prev.push({ selector: this$1.rules[r][0], name: r });
     }
 
@@ -71017,7 +70490,7 @@ Field.prototype.updateDependencies = function updateDependencies () {
       delay: this$1.delay,
       scope: this$1.scope,
       events: this$1.events.join('|'),
-      initial: this$1.initial,
+      immediate: this$1.immediate,
       targetOf: this$1.id
     };
 
@@ -71025,10 +70498,10 @@ Field.prototype.updateDependencies = function updateDependencies () {
     if (isCallable(el.$watch)) {
       options.component = el;
       options.el = el.$el;
-      options.getter = Generator.resolveGetter(el.$el, el.$vnode);
+      options.getter = Resolver.resolveGetter(el.$el, el.$vnode);
     } else {
       options.el = el;
-      options.getter = Generator.resolveGetter(el, {});
+      options.getter = Resolver.resolveGetter(el, {});
     }
 
     this$1.dependencies.push({ name: name, field: new Field(options) });
@@ -71118,19 +70591,19 @@ Field.prototype.addActionListeners = function addActionListeners () {
     this$1.unwatch(/^class_input$/);
   };
 
-  if (this.component && isCallable(this.component.$once)) {
-    this.component.$once('input', onInput);
-    this.component.$once('blur', onBlur);
+  if (this.componentInstance && isCallable(this.componentInstance.$once)) {
+    this.componentInstance.$once('input', onInput);
+    this.componentInstance.$once('blur', onBlur);
     this.watchers.push({
       tag: 'class_input',
       unwatch: function () {
-        this$1.component.$off('input', onInput);
+        this$1.componentInstance.$off('input', onInput);
       }
     });
     this.watchers.push({
       tag: 'class_blur',
       unwatch: function () {
-        this$1.component.$off('blur', onBlur);
+        this$1.componentInstance.$off('blur', onBlur);
       }
     });
     return;
@@ -71167,6 +70640,53 @@ Field.prototype.checkValueChanged = function checkValueChanged () {
 };
 
 /**
+ * Determines the suitable primary event to listen for.
+ */
+Field.prototype._determineInputEvent = function _determineInputEvent () {
+  // if its a custom component, use the customized model event or the input event.
+  if (this.componentInstance) {
+    return (this.componentInstance.$options.model && this.componentInstance.$options.model.event) || 'input';
+  }
+
+  if (this.model && this.model.lazy) {
+    return 'change';
+  }
+
+  if (isTextInput(this.el)) {
+    return 'input';
+  }
+
+  return 'change';
+};
+
+/**
+ * Determines the list of events to listen to.
+ */
+Field.prototype._determineEventList = function _determineEventList (defaultInputEvent) {
+    var this$1 = this;
+
+  // if no event is configured, or it is a component or a text input then respect the user choice.
+  if (!this.events.length || this.componentInstance || isTextInput(this.el)) {
+    return [].concat( this.events ).map(function (evt) {
+      if (evt === 'input' && this$1.model && this$1.model.lazy) {
+        return 'change';
+      }
+
+      return evt;
+    });
+  }
+
+  // force suitable event for non-text type fields.
+  return this.events.map(function (e) {
+    if (e === 'input') {
+      return defaultInputEvent;
+    }
+
+    return e;
+  });
+};
+
+/**
  * Adds the listeners required for validation.
  */
 Field.prototype.addValueListeners = function addValueListeners () {
@@ -71183,7 +70703,7 @@ Field.prototype.addValueListeners = function addValueListeners () {
       while ( len-- ) args[ len ] = arguments[ len ];
 
     // if its a DOM event, resolve the value, otherwise use the first parameter as the value.
-    if (args.length === 0 || (isCallable(Event) && args[0] instanceof Event) || (args[0] && args[0].srcElement)) {
+    if (args.length === 0 || isEvent(args[0])) {
       args[0] = this$1.value;
     }
 
@@ -71191,30 +70711,43 @@ Field.prototype.addValueListeners = function addValueListeners () {
     this$1.validator.validate(("#" + (this$1.id)), args[0]);
   };
 
-  var inputEvent = this.component || isTextInput(this.el) ? 'input' : 'change';
-  inputEvent = this.model && this.model.lazy ? 'change' : inputEvent;
-  // force change event for non-text type fields, otherwise use the configured.
-  // if no event is configured then respect the user choice.
-  var events = !this.events.length || this.component || isTextInput(this.el) ? this.events : ['change'];
+  var inputEvent = this._determineInputEvent();
+  var events = this._determineEventList(inputEvent);
 
-  // if there is a watchable model and an on input validation is requested.
-  if (this.model && this.model.expression && events.indexOf(inputEvent) !== -1) {
-    var debouncedFn = debounce(fn, this.delay[inputEvent], false, token);
-    var unwatch = this.vm.$watch(this.model.expression, function () {
-        var args = [], len = arguments.length;
-        while ( len-- ) args[ len ] = arguments[ len ];
+  // if there is a model and an on input validation is requested.
+  if (this.model && includes(events, inputEvent)) {
+    var ctx = null;
+    var expression = this.model.expression;
+    // if its watchable from the context vm.
+    if (this.model.expression) {
+      ctx = this.vm;
+      expression = this.model.expression;
+    }
 
-      this$1.flags.pending = true;
-      this$1._cancellationToken = token;
-      debouncedFn.apply(void 0, args);
-    });
-    this.watchers.push({
-      tag: 'input_model',
-      unwatch: unwatch
-    });
+    // watch it from the custom component vm instead.
+    if (!expression && this.componentInstance && this.componentInstance.$options.model) {
+      ctx = this.componentInstance;
+      expression = this.componentInstance.$options.model.prop || 'value';
+    }
 
-    // filter out input event as it is already handled by the watcher API.
-    events = events.filter(function (e) { return e !== inputEvent; });
+    if (ctx && expression) {
+      var debouncedFn = debounce(fn, this.delay[inputEvent], token);
+      var unwatch = ctx.$watch(expression, function () {
+          var args = [], len = arguments.length;
+          while ( len-- ) args[ len ] = arguments[ len ];
+
+        this$1.flags.pending = true;
+        this$1._cancellationToken = token;
+        debouncedFn.apply(void 0, args);
+      });
+      this.watchers.push({
+        tag: 'input_model',
+        unwatch: unwatch
+      });
+
+      // filter out input event as it is already handled by the watcher API.
+      events = events.filter(function (e) { return e !== inputEvent; });
+    }
   }
 
   // Add events.
@@ -71237,13 +70770,13 @@ Field.prototype.addValueListeners = function addValueListeners () {
 Field.prototype._addComponentEventListener = function _addComponentEventListener (evt, validate) {
     var this$1 = this;
 
-  if (!this.component) { return; }
+  if (!this.componentInstance) { return; }
 
-  this.component.$on(evt, validate);
+  this.componentInstance.$on(evt, validate);
   this.watchers.push({
     tag: 'input_vue',
     unwatch: function () {
-      this$1.component.$off(evt, validate);
+      this$1.componentInstance.$off(evt, validate);
     }
   });
 };
@@ -71251,7 +70784,7 @@ Field.prototype._addComponentEventListener = function _addComponentEventListener
 Field.prototype._addHTMLEventListener = function _addHTMLEventListener (evt, validate) {
     var this$1 = this;
 
-  if (!this.el || this.component) { return; }
+  if (!this.el || this.componentInstance) { return; }
 
   // listen for the current element.
   var addListener = function (el) {
@@ -71315,20 +70848,27 @@ Field.prototype.updateCustomValidity = function updateCustomValidity () {
  * Removes all listeners.
  */
 Field.prototype.destroy = function destroy () {
+  // ignore the result of any ongoing validation.
+  if (this._cancellationToken) {
+    this._cancellationToken.cancelled = true;
+  }
+
   this.unwatch();
   this.dependencies.forEach(function (d) { return d.field.destroy(); });
   this.dependencies = [];
 };
 
-Object.defineProperties( Field.prototype, prototypeAccessors$2 );
+Object.defineProperties( Field.prototype, prototypeAccessors$1 );
 
 // 
 
-var FieldBag = function FieldBag () {
-  this.items = [];
+var FieldBag = function FieldBag (items) {
+  if ( items === void 0 ) items = [];
+
+  this.items = items || [];
 };
 
-var prototypeAccessors$3 = { length: { configurable: true } };
+var prototypeAccessors$2 = { length: { configurable: true } };
 
 FieldBag.prototype[typeof Symbol === 'function' ? Symbol.iterator : '@@iterator'] = function () {
     var this$1 = this;
@@ -71345,7 +70885,7 @@ FieldBag.prototype[typeof Symbol === 'function' ? Symbol.iterator : '@@iterator'
  * Gets the current items length.
  */
 
-prototypeAccessors$3.length.get = function () {
+prototypeAccessors$2.length.get = function () {
   return this.items.length;
 };
 
@@ -71413,61 +70953,355 @@ FieldBag.prototype.push = function push (item) {
   this.items.push(item);
 };
 
-Object.defineProperties( FieldBag.prototype, prototypeAccessors$3 );
+Object.defineProperties( FieldBag.prototype, prototypeAccessors$2 );
+
+var ScopedValidator = function ScopedValidator (base, vm) {
+  this.id = vm._uid;
+  this._base = base;
+  this._paused = false;
+
+  // create a mirror bag with limited component scope.
+  this.errors = new ErrorBag(base.errors, this.id);
+};
+
+var prototypeAccessors$3 = { flags: { configurable: true },rules: { configurable: true },fields: { configurable: true },dictionary: { configurable: true },locale: { configurable: true } };
+
+prototypeAccessors$3.flags.get = function () {
+    var this$1 = this;
+
+  return this._base.fields.items.filter(function (f) { return f.vmId === this$1.id; }).reduce(function (acc, field) {
+    if (field.scope) {
+      if (!acc[("$" + (field.scope))]) {
+        acc[("$" + (field.scope))] = {};
+      }
+
+      acc[("$" + (field.scope))][field.name] = field.flags;
+    }
+
+    acc[field.name] = field.flags;
+
+    return acc;
+  }, {});
+};
+
+prototypeAccessors$3.rules.get = function () {
+  return this._base.rules;
+};
+
+prototypeAccessors$3.fields.get = function () {
+  return new FieldBag(this._base.fields.filter({ vmId: this.id }));
+};
+
+prototypeAccessors$3.dictionary.get = function () {
+  return this._base.dictionary;
+};
+
+prototypeAccessors$3.locale.get = function () {
+  return this._base.locale;
+};
+
+prototypeAccessors$3.locale.set = function (val) {
+  this._base.locale = val;
+};
+
+ScopedValidator.prototype.localize = function localize () {
+    var ref;
+
+    var args = [], len = arguments.length;
+    while ( len-- ) args[ len ] = arguments[ len ];
+  return (ref = this._base).localize.apply(ref, args);
+};
+
+ScopedValidator.prototype.update = function update () {
+    var ref;
+
+    var args = [], len = arguments.length;
+    while ( len-- ) args[ len ] = arguments[ len ];
+  return (ref = this._base).update.apply(ref, args);
+};
+
+ScopedValidator.prototype.attach = function attach (opts) {
+  var attachOpts = assign({}, opts, { vmId: this.id });
+
+  return this._base.attach(attachOpts);
+};
+
+ScopedValidator.prototype.pause = function pause () {
+  this._paused = true;
+};
+
+ScopedValidator.prototype.resume = function resume () {
+  this._paused = false;
+};
+
+ScopedValidator.prototype.remove = function remove (ruleName) {
+  return this._base.remove(ruleName);
+};
+
+ScopedValidator.prototype.detach = function detach () {
+    var ref;
+
+    var args = [], len = arguments.length;
+    while ( len-- ) args[ len ] = arguments[ len ];
+  return (ref = this._base).detach.apply(ref, args.concat( [this.id] ));
+};
+
+ScopedValidator.prototype.extend = function extend () {
+    var ref;
+
+    var args = [], len = arguments.length;
+    while ( len-- ) args[ len ] = arguments[ len ];
+  return (ref = this._base).extend.apply(ref, args);
+};
+
+ScopedValidator.prototype.validate = function validate (descriptor, value, opts) {
+    if ( opts === void 0 ) opts = {};
+
+  if (this._paused) { return Promise.resolve(true); }
+
+  return this._base.validate(descriptor, value, assign({}, { vmId: this.id }, opts || {}));
+};
+
+ScopedValidator.prototype.validateAll = function validateAll (values$$1, opts) {
+    if ( opts === void 0 ) opts = {};
+
+  if (this._paused) { return Promise.resolve(true); }
+
+  return this._base.validateAll(values$$1, assign({}, { vmId: this.id }, opts || {}));
+};
+
+ScopedValidator.prototype.validateScopes = function validateScopes (opts) {
+    if ( opts === void 0 ) opts = {};
+
+  if (this._paused) { return Promise.resolve(true); }
+
+  return this._base.validateScopes(assign({}, { vmId: this.id }, opts || {}));
+};
+
+ScopedValidator.prototype.destroy = function destroy () {
+  delete this.id;
+  delete this._base;
+};
+
+ScopedValidator.prototype.reset = function reset (matcher) {
+  return this._base.reset(Object.assign({}, matcher || {}, { vmId: this.id }));
+};
+
+ScopedValidator.prototype.flag = function flag () {
+    var ref;
+
+    var args = [], len = arguments.length;
+    while ( len-- ) args[ len ] = arguments[ len ];
+  return (ref = this._base).flag.apply(ref, args.concat( [this.id] ));
+};
+
+Object.defineProperties( ScopedValidator.prototype, prototypeAccessors$3 );
 
 // 
 
-var RULES = {};
-var STRICT_MODE = true;
-var TARGET_RULES = ['confirmed', 'after', 'before'];
+/**
+ * Checks if a parent validator instance was requested.
+ */
+var requestsValidator = function (injections) {
+  if (isObject(injections) && injections.$validator) {
+    return true;
+  }
 
-var Validator = function Validator (validations, options) {
-  var this$1 = this;
-  if ( options === void 0 ) options = { fastExit: true };
+  return false;
+};
 
-  this.strict = STRICT_MODE;
-  this.errors = new ErrorBag();
-  this.fields = new FieldBag();
-  this.flags = {};
-  this._createFields(validations);
-  this.paused = false;
-  this.fastExit = options.fastExit || false;
-  this.ownerId = options.vm && options.vm._uid;
-  this._localeListener = function () {
-    this$1.errors.regenerate();
-  };
+var mixin = {
+  provide: function provide () {
+    if (this.$validator && !isBuiltInComponent(this.$vnode)) {
+      return {
+        $validator: this.$validator
+      };
+    }
 
-  if (this._vm) {
-    this._vm.$on('localeChanged', this._localeListener);
+    return {};
+  },
+  beforeCreate: function beforeCreate () {
+    // if built in do nothing.
+    if (isBuiltInComponent(this.$vnode) || this.$options.$__veeInject === false) {
+      return;
+    }
+
+    // if its a root instance set the config if it exists.
+    if (!this.$parent) {
+      pluginInstance.configure(this.$options.$_veeValidate || {});
+    }
+
+    var options = pluginInstance.resolveConfig(this);
+
+    // if its a root instance, inject anyways, or if it requested a new instance.
+    if (!this.$parent || (this.$options.$_veeValidate && /new/.test(this.$options.$_veeValidate.validator))) {
+      this.$validator = new ScopedValidator(pluginInstance._validator, this);
+    }
+
+    var requested = requestsValidator(this.$options.inject);
+
+    // if automatic injection is enabled and no instance was requested.
+    if (! this.$validator && options.inject && !requested) {
+      this.$validator = new ScopedValidator(pluginInstance._validator, this);
+    }
+
+    // don't inject errors or fieldBag as no validator was resolved.
+    if (! requested && ! this.$validator) {
+      return;
+    }
+
+    // There is a validator but it isn't injected, mark as reactive.
+    if (!requested && this.$validator) {
+      var Vue = this.$options._base; // the vue constructor.
+      Vue.util.defineReactive(this.$validator, 'errors', this.$validator.errors);
+    }
+
+    if (! this.$options.computed) {
+      this.$options.computed = {};
+    }
+
+    this.$options.computed[options.errorBagName || 'errors'] = function errorBagGetter () {
+      return this.$validator.errors;
+    };
+    this.$options.computed[options.fieldsBagName || 'fields'] = function fieldBagGetter () {
+      return this.$validator.fields.items.reduce(function (acc, field) {
+        if (field.scope) {
+          if (!acc[("$" + (field.scope))]) {
+            acc[("$" + (field.scope))] = {};
+          }
+
+          acc[("$" + (field.scope))][field.name] = field.flags;
+
+          return acc;
+        }
+
+        acc[field.name] = field.flags;
+
+        return acc;
+      }, {});
+    };
+  },
+  beforeDestroy: function beforeDestroy () {
+    if (this.$validator && this._uid === this.$validator.id) {
+      this.$validator.errors.clear(); // remove errors generated by this component.
+    }
   }
 };
 
-var prototypeAccessors$4 = { dictionary: { configurable: true },_vm: { configurable: true },locale: { configurable: true },rules: { configurable: true } };
-var staticAccessors$1 = { dictionary: { configurable: true },locale: { configurable: true },rules: { configurable: true } };
+// 
 
 /**
- * Getter for the dictionary.
+ * Finds the requested field by id from the context object.
  */
+function findField (el, context) {
+  if (!context || !context.$validator) {
+    return null;
+  }
+
+  return context.$validator.fields.find({ id: el._veeValidateId });
+}
+var directive = {
+  bind: function bind (el, binding, vnode) {
+    var validator = vnode.context.$validator;
+    if (!validator) {
+      if (true) {
+        warn("No validator instance is present on vm, did you forget to inject '$validator'?");
+      }
+
+      return;
+    }
+
+    var fieldOptions = Resolver.generate(el, binding, vnode);
+    validator.attach(fieldOptions);
+  },
+  inserted: function inserted (el, binding, vnode) {
+    var field = findField(el, vnode.context);
+    var scope = Resolver.resolveScope(el, binding, vnode);
+
+    // skip if scope hasn't changed.
+    if (!field || scope === field.scope) { return; }
+
+    // only update scope.
+    field.update({ scope: scope });
+
+    // allows the field to re-evaluated once more in the update hook.
+    field.updated = false;
+  },
+  update: function update (el, binding, vnode) {
+    var field = findField(el, vnode.context);
+
+    // make sure we don't do unneccasary work if no important change was done.
+    if (!field || (field.updated && isEqual(binding.value, binding.oldValue))) { return; }
+    var scope = Resolver.resolveScope(el, binding, vnode);
+    var rules = Resolver.resolveRules(el, binding, vnode);
+
+    field.update({
+      scope: scope,
+      rules: rules
+    });
+  },
+  unbind: function unbind (el, binding, ref) {
+    var context = ref.context;
+
+    var field = findField(el, context);
+    if (!field) { return; }
+
+    context.$validator.detach(field);
+  }
+};
+
+// 
+
+var Validator = function Validator (validations, options) {
+  if ( options === void 0 ) options = { fastExit: true };
+
+  this.errors = new ErrorBag();
+  this.fields = new FieldBag();
+  this._createFields(validations);
+  this.paused = false;
+  this.fastExit = !isNullOrUndefined(options && options.fastExit) ? options.fastExit : true;
+};
+
+var prototypeAccessors$4 = { rules: { configurable: true },dictionary: { configurable: true },flags: { configurable: true },locale: { configurable: true } };
+var staticAccessors$1 = { rules: { configurable: true },dictionary: { configurable: true },locale: { configurable: true } };
+
+staticAccessors$1.rules.get = function () {
+  return RuleContainer.rules;
+};
+
+prototypeAccessors$4.rules.get = function () {
+  return RuleContainer.rules;
+};
+
 prototypeAccessors$4.dictionary.get = function () {
-  return Config.dependency('dictionary');
+  return VeeValidate$1.i18nDriver;
 };
 
-prototypeAccessors$4._vm.get = function () {
-  return Config.dependency('vm');
-};
-
-/**
- * Static Getter for the dictionary.
- */
 staticAccessors$1.dictionary.get = function () {
-  return Config.dependency('dictionary');
+  return VeeValidate$1.i18nDriver;
+};
+
+prototypeAccessors$4.flags.get = function () {
+  return this.fields.items.reduce(function (acc, field) {
+      var obj;
+
+    if (field.scope) {
+      acc[("$" + (field.scope))] = ( obj = {}, obj[field.name] = field.flags, obj );
+
+      return acc;
+    }
+
+    acc[field.name] = field.flags;
+
+    return acc;
+  }, {});
 };
 
 /**
  * Getter for the current locale.
  */
 prototypeAccessors$4.locale.get = function () {
-  return this.dictionary.locale;
+  return Validator.locale;
 };
 
 /**
@@ -71477,36 +71311,19 @@ prototypeAccessors$4.locale.set = function (value) {
   Validator.locale = value;
 };
 
-/**
-* Static getter for the validator locale.
-*/
 staticAccessors$1.locale.get = function () {
-  return Validator.dictionary.locale;
+  return VeeValidate$1.i18nDriver.locale;
 };
 
 /**
- * Static setter for the validator locale.
+ * Setter for the validator locale.
  */
 staticAccessors$1.locale.set = function (value) {
-  var hasChanged = value !== Validator.dictionary.locale;
-  Validator.dictionary.locale = value;
-  if (hasChanged && Config.dependency('vm')) {
-    Config.dependency('vm').$emit('localeChanged');
+  var hasChanged = value !== VeeValidate$1.i18nDriver.locale;
+  VeeValidate$1.i18nDriver.locale = value;
+  if (hasChanged && VeeValidate$1.instance && VeeValidate$1.instance._vm) {
+    VeeValidate$1.instance._vm.$emit('localeChanged');
   }
-};
-
-/**
- * Getter for the rules object.
- */
-prototypeAccessors$4.rules.get = function () {
-  return RULES;
-};
-
-/**
- * Static Getter for the rules object.
- */
-staticAccessors$1.rules.get = function () {
-  return RULES;
 };
 
 /**
@@ -71523,39 +71340,25 @@ Validator.extend = function extend (name, validator, options) {
     if ( options === void 0 ) options = {};
 
   Validator._guardExtend(name, validator);
-  Validator._merge(name, validator);
-  if (options && options.hasTarget) {
-    TARGET_RULES.push(name);
-  }
+  Validator._merge(name, {
+    validator: validator,
+    paramNames: options && options.paramNames,
+    options: assign({}, { hasTarget: false, immediate: true }, options || {})
+  });
 };
 
 /**
  * Removes a rule from the list of validators.
  */
 Validator.remove = function remove (name) {
-  delete RULES[name];
-  var idx = TARGET_RULES.indexOf(name);
-  if (idx === -1) { return; }
-
-  TARGET_RULES.splice(idx, 1);
+  RuleContainer.remove(name);
 };
 
 /**
  * Checks if the given rule name is a rule that targets other fields.
  */
 Validator.isTargetRule = function isTargetRule (name) {
-  return TARGET_RULES.indexOf(name) !== -1;
-};
-
-/**
- * Sets the operating mode for all newly created validators.
- * strictMode = true: Values without a rule are invalid and cause failure.
- * strictMode = false: Values without a rule are valid and are skipped.
- */
-Validator.setStrictMode = function setStrictMode (strictMode) {
-    if ( strictMode === void 0 ) strictMode = true;
-
-  STRICT_MODE = strictMode;
+  return RuleContainer.isTargetRule(name);
 };
 
 /**
@@ -71572,7 +71375,7 @@ Validator.localize = function localize (lang, dictionary) {
     var obj;
 
   if (isObject(lang)) {
-    Validator.dictionary.merge(lang);
+    VeeValidate$1.i18nDriver.merge(lang);
     return;
   }
 
@@ -71580,7 +71383,7 @@ Validator.localize = function localize (lang, dictionary) {
   if (dictionary) {
     var locale = lang || dictionary.name;
     dictionary = assign({}, dictionary);
-    Validator.dictionary.merge(( obj = {}, obj[locale] = dictionary, obj ));
+    VeeValidate$1.i18nDriver.merge(( obj = {}, obj[locale] = dictionary, obj ));
   }
 
   if (lang) {
@@ -71592,48 +71395,35 @@ Validator.localize = function localize (lang, dictionary) {
 /**
  * Registers a field to be validated.
  */
-Validator.prototype.attach = function attach (field) {
-  // deprecate: handle old signature.
-  /* istanbul ignore next */
-  if (arguments.length > 1) {
-    if (true) {
-      warn('This signature of the attach method has been deprecated, please consult the docs.');
-    }
-
-    field = assign({}, {
-      name: arguments[0],
-      rules: arguments[1]
-    }, arguments[2] || { vm: { $validator: this } });
-  }
+Validator.prototype.attach = function attach (fieldOpts) {
+    var this$1 = this;
 
   // fixes initial value detection with v-model and select elements.
-  var value = field.initialValue;
-  if (!(field instanceof Field)) {
-    field = new Field(field);
-  }
-
+  var value = fieldOpts.initialValue;
+  var field = new Field(fieldOpts);
   this.fields.push(field);
 
   // validate the field initially
-  if (field.initial) {
-    this.validate(("#" + (field.id)), value || field.value);
+  if (field.immediate) {
+    VeeValidate$1.instance._vm.$nextTick(function () { return this$1.validate(("#" + (field.id)), value || field.value, { vmId: fieldOpts.vmId }); });
   } else {
-    this._validate(field, value || field.value, true).then(function (result) {
+    this._validate(field, value || field.value, { initial: true }).then(function (result) {
       field.flags.valid = result.valid;
       field.flags.invalid = !result.valid;
     });
   }
 
-  this._addFlag(field, field.scope);
   return field;
 };
 
 /**
  * Sets the flags on a field.
  */
-Validator.prototype.flag = function flag (name, flags) {
-  var field = this._resolveField(name);
-  if (! field || !flags) {
+Validator.prototype.flag = function flag (name, flags, uid) {
+    if ( uid === void 0 ) uid = null;
+
+  var field = this._resolveField(name, undefined, uid);
+  if (!field || !flags) {
     return;
   }
 
@@ -71643,21 +71433,13 @@ Validator.prototype.flag = function flag (name, flags) {
 /**
  * Removes a field from the validator.
  */
-Validator.prototype.detach = function detach (name, scope) {
-  var field = name instanceof Field ? name : this._resolveField(name, scope);
+Validator.prototype.detach = function detach (name, scope, uid) {
+  var field = isCallable(name.destroy) ? name : this._resolveField(name, scope, uid);
   if (!field) { return; }
 
   field.destroy();
-  this.errors.remove(field.name, field.scope, field.id);
+  this.errors.remove(field.name, field.scope, field.vmId);
   this.fields.remove(field);
-  var flags = this.flags;
-  if (!isNullOrUndefined(field.scope) && flags[("$" + (field.scope))]) {
-    delete flags[("$" + (field.scope))][field.name];
-  } else if (isNullOrUndefined(field.scope)) {
-    delete flags[field.name];
-  }
-
-  this.flags = assign({}, flags);
 };
 
 /**
@@ -71673,12 +71455,13 @@ Validator.prototype.reset = function reset (matcher) {
     var this$1 = this;
 
   // two ticks
-  return this._vm.$nextTick().then(function () {
-    return this$1._vm.$nextTick();
+  return VeeValidate$1.instance._vm.$nextTick().then(function () {
+    return VeeValidate$1.instance._vm.$nextTick();
   }).then(function () {
     this$1.fields.filter(matcher).forEach(function (field) {
+      field.waitFor(null);
       field.reset(); // reset field flags.
-      this$1.errors.remove(field.name, field.scope, field.id);
+      this$1.errors.remove(field.name, field.scope);
     });
   });
 };
@@ -71694,13 +71477,6 @@ Validator.prototype.update = function update (id, ref) {
 
   // remove old scope.
   this.errors.update(id, { scope: scope });
-  if (!isNullOrUndefined(field.scope) && this.flags[("$" + (field.scope))]) {
-    delete this.flags[("$" + (field.scope))][field.name];
-  } else if (isNullOrUndefined(field.scope)) {
-    delete this.flags[field.name];
-  }
-
-  this._addFlag(field, scope);
 };
 
 /**
@@ -71713,42 +71489,48 @@ Validator.prototype.remove = function remove (name) {
 /**
  * Validates a value against a registered field validations.
  */
-Validator.prototype.validate = function validate (name, value, scope, silent) {
+Validator.prototype.validate = function validate (fieldDescriptor, value, ref) {
     var this$1 = this;
-    if ( scope === void 0 ) scope = null;
-    if ( silent === void 0 ) silent = false;
+    if ( ref === void 0 ) ref = {};
+    var silent = ref.silent;
+    var vmId = ref.vmId;
 
   if (this.paused) { return Promise.resolve(true); }
 
   // overload to validate all.
-  if (arguments.length === 0) {
-    return this.validateScopes();
+  if (isNullOrUndefined(fieldDescriptor)) {
+    return this.validateScopes({ silent: silent, vmId: vmId });
   }
 
   // overload to validate scope-less fields.
-  if (arguments.length === 1 && arguments[0] === '*') {
-    return this.validateAll();
+  if (fieldDescriptor === '*') {
+    return this.validateAll(undefined, { silent: silent, vmId: vmId });
   }
 
-  // overload to validate a scope.
-  if (arguments.length === 1 && typeof arguments[0] === 'string' && /^(.+)\.\*$/.test(arguments[0])) {
-    var matched = arguments[0].match(/^(.+)\.\*$/)[1];
+  // if scope validation was requested.
+  if (/^(.+)\.\*$/.test(fieldDescriptor)) {
+    var matched = fieldDescriptor.match(/^(.+)\.\*$/)[1];
     return this.validateAll(matched);
   }
 
-  var field = this._resolveField(name, scope);
+  var field = this._resolveField(fieldDescriptor);
   if (!field) {
-    return this._handleFieldNotFound(name, scope);
+    return this._handleFieldNotFound(name);
   }
 
   if (!silent) { field.flags.pending = true; }
-  if (arguments.length === 1) {
+  if (value === undefined) {
     value = field.value;
   }
 
-  return this._validate(field, value).then(function (result) {
-    if (!silent) {
-      this$1._handleValidationResults([result]);
+  var validationPromise = this._validate(field, value);
+  field.waitFor(validationPromise);
+
+  return validationPromise.then(function (result) {
+    if (!silent && field.isWaitingFor(validationPromise)) {
+      // allow next validation to mutate the state.
+      field.waitFor(null);
+      this$1._handleValidationResults([result], vmId);
     }
 
     return result.valid;
@@ -71776,36 +71558,37 @@ Validator.prototype.resume = function resume () {
 /**
  * Validates each value against the corresponding field validations.
  */
-Validator.prototype.validateAll = function validateAll (values, scope, silent) {
+Validator.prototype.validateAll = function validateAll (values$$1, ref) {
     var this$1 = this;
-    if ( scope === void 0 ) scope = null;
-    if ( silent === void 0 ) silent = false;
+    if ( ref === void 0 ) ref = {};
+    var silent = ref.silent;
+    var vmId = ref.vmId;
 
   if (this.paused) { return Promise.resolve(true); }
 
   var matcher = null;
   var providedValues = false;
 
-  if (typeof values === 'string') {
-    matcher = { scope: values };
-  } else if (isObject(values)) {
-    matcher = Object.keys(values).map(function (key) {
-      return { name: key, scope: scope };
+  if (typeof values$$1 === 'string') {
+    matcher = { scope: values$$1, vmId: vmId };
+  } else if (isObject(values$$1)) {
+    matcher = Object.keys(values$$1).map(function (key) {
+      return { name: key, vmId: vmId, scope: null };
     });
     providedValues = true;
-  } else if (Array.isArray(values)) {
-    matcher = values.map(function (key) {
-      return { name: key, scope: scope };
+  } else if (Array.isArray(values$$1)) {
+    matcher = values$$1.map(function (key) {
+      return { name: key, vmId: vmId };
     });
   } else {
-    matcher = { scope: scope };
+    matcher = { scope: null, vmId: vmId };
   }
 
   return Promise.all(
-    this.fields.filter(matcher).map(function (field) { return this$1._validate(field, providedValues ? values[field.name] : field.value); })
+    this.fields.filter(matcher).map(function (field) { return this$1._validate(field, providedValues ? values$$1[field.name] : field.value); })
   ).then(function (results) {
     if (!silent) {
-      this$1._handleValidationResults(results);
+      this$1._handleValidationResults(results, vmId);
     }
 
     return results.every(function (t) { return t.valid; });
@@ -71815,17 +71598,19 @@ Validator.prototype.validateAll = function validateAll (values, scope, silent) {
 /**
  * Validates all scopes.
  */
-Validator.prototype.validateScopes = function validateScopes (silent) {
+Validator.prototype.validateScopes = function validateScopes (ref) {
     var this$1 = this;
-    if ( silent === void 0 ) silent = false;
+    if ( ref === void 0 ) ref = {};
+    var silent = ref.silent;
+    var vmId = ref.vmId;
 
   if (this.paused) { return Promise.resolve(true); }
 
   return Promise.all(
-    this.fields.map(function (field) { return this$1._validate(field, field.value); })
+    this.fields.filter({ vmId: vmId }).map(function (field) { return this$1._validate(field, field.value); })
   ).then(function (results) {
     if (!silent) {
-      this$1._handleValidationResults(results);
+      this$1._handleValidationResults(results, vmId);
     }
 
     return results.every(function (t) { return t.valid; });
@@ -71833,10 +71618,39 @@ Validator.prototype.validateScopes = function validateScopes (silent) {
 };
 
 /**
+ * Validates a value against the rules.
+ */
+Validator.prototype.verify = function verify (value, rules, options) {
+    if ( options === void 0 ) options = {};
+
+  var field = {
+    name: (options && options.name) || '{field}',
+    rules: normalizeRules(rules),
+    bails: getPath('bails', options, true)
+  };
+
+  field.isRequired = field.rules.required;
+  var targetRules = Object.keys(field.rules).filter(Validator.isTargetRule);
+  if (targetRules.length && options && isObject(options.values)) {
+    // patch the field params with the targets' values.
+    targetRules.forEach(function (rule) {
+      var ref = field.rules[rule];
+        var first = ref[0];
+        var rest = ref.slice(1);
+      field.rules[rule] = [options.values[first] ].concat( rest);
+    });
+  }
+
+  return this._validate(field, value).then(function (result) {
+    return { valid: result.valid, errors: result.errors.map(function (e) { return e.msg; }) };
+  });
+};
+
+/**
  * Perform cleanup.
  */
 Validator.prototype.destroy = function destroy () {
-  this._vm.$off('localeChanged', this._localeListener);
+  VeeValidate$1.instance._vm.$off('localeChanged');
 };
 
 /**
@@ -71862,14 +71676,7 @@ Validator.prototype._getDateFormat = function _getDateFormat (validations) {
     format = validations.date_format[0];
   }
 
-  return format || this.dictionary.getDateFormat(this.locale);
-};
-
-/**
- * Checks if the passed rule is a date rule.
- */
-Validator.prototype._isADateRule = function _isADateRule (rule) {
-  return !! ~['after', 'before', 'date_between', 'date_format'].indexOf(rule);
+  return format || VeeValidate$1.i18nDriver.getDateFormat(this.locale);
 };
 
 /**
@@ -71882,7 +71689,29 @@ Validator.prototype._formatErrorMessage = function _formatErrorMessage (field, r
   var name = this._getFieldDisplayName(field);
   var params = this._getLocalizedParams(rule, targetName);
 
-  return this.dictionary.getFieldMessage(this.locale, field.name, rule.name, [name, params, data]);
+  return VeeValidate$1.i18nDriver.getFieldMessage(this.locale, field.name, rule.name, [name, params, data]);
+};
+
+/**
+ * We need to convert any object param to an array format since the locales do not handle params as objects yet.
+ */
+Validator.prototype._convertParamObjectToArray = function _convertParamObjectToArray (obj, ruleName) {
+  if (Array.isArray(obj)) {
+    return obj;
+  }
+
+  var paramNames = RuleContainer.getParamNames(ruleName);
+  if (!paramNames || !isObject(obj)) {
+    return obj;
+  }
+
+  return paramNames.reduce(function (prev, paramName) {
+    if (paramName in obj) {
+      prev.push(obj[paramName]);
+    }
+
+    return prev;
+  }, []);
 };
 
 /**
@@ -71891,35 +71720,50 @@ Validator.prototype._formatErrorMessage = function _formatErrorMessage (field, r
 Validator.prototype._getLocalizedParams = function _getLocalizedParams (rule, targetName) {
     if ( targetName === void 0 ) targetName = null;
 
-  if (~TARGET_RULES.indexOf(rule.name) && rule.params && rule.params[0]) {
-    var localizedName = targetName || this.dictionary.getAttribute(this.locale, rule.params[0], rule.params[0]);
-    return [localizedName].concat(rule.params.slice(1));
+  var params = this._convertParamObjectToArray(rule.params, rule.name);
+  if (rule.options.hasTarget && params && params[0]) {
+    var localizedName = targetName || VeeValidate$1.i18nDriver.getAttribute(this.locale, params[0], params[0]);
+    return [localizedName].concat(params.slice(1));
   }
 
-  return rule.params;
+  return params;
 };
 
 /**
  * Resolves an appropriate display name, first checking 'data-as' or the registered 'prettyName'
  */
 Validator.prototype._getFieldDisplayName = function _getFieldDisplayName (field) {
-  return field.alias || this.dictionary.getAttribute(this.locale, field.name, field.name);
+  return field.alias || VeeValidate$1.i18nDriver.getAttribute(this.locale, field.name, field.name);
 };
 
 /**
- * Adds a field flags to the flags collection.
+ * Converts an array of params to an object with named properties.
+ * Only works if the rule is configured with a paramNames array.
+ * Returns the same params if it cannot convert it.
  */
-Validator.prototype._addFlag = function _addFlag (field, scope) {
-    var obj, obj$1, obj$2;
-
-    if ( scope === void 0 ) scope = null;
-  if (isNullOrUndefined(scope)) {
-    this.flags = assign({}, this.flags, ( obj = {}, obj[("" + (field.name))] = field.flags, obj ));
-    return;
+Validator.prototype._convertParamArrayToObj = function _convertParamArrayToObj (params, ruleName) {
+  var paramNames = RuleContainer.getParamNames(ruleName);
+  if (!paramNames) {
+    return params;
   }
 
-  var scopeObj = assign({}, this.flags[("$" + scope)] || {}, ( obj$1 = {}, obj$1[("" + (field.name))] = field.flags, obj$1 ));
-  this.flags = assign({}, this.flags, ( obj$2 = {}, obj$2[("$" + scope)] = scopeObj, obj$2 ));
+  if (isObject(params)) {
+    // check if the object is either a config object or a single parameter that is an object.
+    var hasKeys = paramNames.some(function (name) { return Object.keys(params).indexOf(name) !== -1; });
+    // if it has some of the keys, return it as is.
+    if (hasKeys) {
+      return params;
+    }
+    // otherwise wrap the object in an array.
+    params = [params];
+  }
+
+  // Reduce the paramsNames to a param object.
+  return params.reduce(function (prev, value, idx) {
+    prev[paramNames[idx]] = value;
+
+    return prev;
+  }, {});
 };
 
 /**
@@ -71928,15 +71772,19 @@ Validator.prototype._addFlag = function _addFlag (field, scope) {
 Validator.prototype._test = function _test (field, value, rule) {
     var this$1 = this;
 
-  var validator = RULES[rule.name];
-  var params = Array.isArray(rule.params) ? toArray(rule.params) : [];
+  var validator = RuleContainer.getValidatorMethod(rule.name);
+  var params = Array.isArray(rule.params) ? toArray(rule.params) : rule.params;
+  if (!params) {
+    params = [];
+  }
+
   var targetName = null;
   if (!validator || typeof validator !== 'function') {
     return Promise.reject(createError(("No such validator '" + (rule.name) + "' exists.")));
   }
 
   // has field dependencies.
-  if (TARGET_RULES.indexOf(rule.name) !== -1) {
+  if (rule.options.hasTarget && field.dependencies) {
     var target = find(field.dependencies, function (d) { return d.name === rule.name; });
     if (target) {
       targetName = target.field.alias;
@@ -71947,25 +71795,25 @@ Validator.prototype._test = function _test (field, value, rule) {
     params = params.length ? params : [true];
   }
 
-  if (this._isADateRule(rule.name)) {
+  if (rule.options.isDate) {
     var dateFormat = this._getDateFormat(field.rules);
     if (rule.name !== 'date_format') {
       params.push(dateFormat);
     }
   }
 
-  var result = validator(value, params);
+  var result = validator(value, this._convertParamArrayToObj(params, rule.name));
 
   // If it is a promise.
   if (isCallable(result.then)) {
-    return result.then(function (values) {
+    return result.then(function (values$$1) {
       var allValid = true;
       var data = {};
-      if (Array.isArray(values)) {
-        allValid = values.every(function (t) { return (isObject(t) ? t.valid : t); });
+      if (Array.isArray(values$$1)) {
+        allValid = values$$1.every(function (t) { return (isObject(t) ? t.valid : t); });
       } else { // Is a single object/boolean.
-        allValid = isObject(values) ? values.valid : values;
-        data = values.data;
+        allValid = isObject(values$$1) ? values$$1.valid : values$$1;
+        data = values$$1.data;
       }
 
       return {
@@ -71988,16 +71836,21 @@ Validator.prototype._test = function _test (field, value, rule) {
 /**
  * Merges a validator object into the RULES and Messages.
  */
-Validator._merge = function _merge (name, validator) {
-  if (isCallable(validator)) {
-    RULES[name] = validator;
-    return;
+Validator._merge = function _merge (name, ref) {
+    var validator = ref.validator;
+    var options = ref.options;
+    var paramNames = ref.paramNames;
+
+  var validate = isCallable(validator) ? validator : validator.validate;
+  if (validator.getMessage) {
+    VeeValidate$1.i18nDriver.setMessage(Validator.locale, name, validator.getMessage);
   }
 
-  RULES[name] = validator.validate;
-  if (validator.getMessage) {
-    Validator.dictionary.setMessage(this.locale, name, validator.getMessage);
-  }
+  RuleContainer.add(name, {
+    validate: validate,
+    options: options,
+    paramNames: paramNames
+  });
 };
 
 /**
@@ -72023,6 +71876,7 @@ Validator.prototype._createFieldError = function _createFieldError (field, rule,
 
   return {
     id: field.id,
+    vmId: field.vmId,
     field: field.name,
     msg: this._formatErrorMessage(field, rule, data, targetName),
     rule: rule.name,
@@ -72036,34 +71890,32 @@ Validator.prototype._createFieldError = function _createFieldError (field, rule,
 /**
  * Tries different strategies to find a field.
  */
-Validator.prototype._resolveField = function _resolveField (name, scope) {
-  if (!isNullOrUndefined(scope)) {
-    return this.fields.find({ name: name, scope: scope });
-  }
-
+Validator.prototype._resolveField = function _resolveField (name, scope, uid) {
   if (name[0] === '#') {
     return this.fields.find({ id: name.slice(1) });
   }
 
-  if (name.indexOf('.') > -1) {
+  if (!isNullOrUndefined(scope)) {
+    return this.fields.find({ name: name, scope: scope, vmId: uid });
+  }
+
+  if (includes(name, '.')) {
     var ref = name.split('.');
       var fieldScope = ref[0];
       var fieldName = ref.slice(1);
-    var field = this.fields.find({ name: fieldName.join('.'), scope: fieldScope });
+    var field = this.fields.find({ name: fieldName.join('.'), scope: fieldScope, vmId: uid });
     if (field) {
       return field;
     }
   }
 
-  return this.fields.find({ name: name, scope: null });
+  return this.fields.find({ name: name, scope: null, vmId: uid });
 };
 
 /**
- * Handles when a field is not found depending on the strict flag.
+ * Handles when a field is not found.
  */
 Validator.prototype._handleFieldNotFound = function _handleFieldNotFound (name, scope) {
-  if (!this.strict) { return Promise.resolve(true); }
-
   var fullName = isNullOrUndefined(scope) ? name : ("" + (!isNullOrUndefined(scope) ? scope + '.' : '') + name);
 
   return Promise.reject(createError(
@@ -72071,14 +71923,17 @@ Validator.prototype._handleFieldNotFound = function _handleFieldNotFound (name, 
   ));
 };
 
-Validator.prototype._handleValidationResults = function _handleValidationResults (results) {
+/**
+ * Handles validation results.
+ */
+Validator.prototype._handleValidationResults = function _handleValidationResults (results, vmId) {
     var this$1 = this;
 
   var matchers = results.map(function (result) { return ({ id: result.id }); });
   this.errors.removeById(matchers.map(function (m) { return m.id; }));
   // remove by name and scope to remove any custom errors added.
   results.forEach(function (result) {
-    this$1.errors.remove(result.field, result.scope);
+    this$1.errors.remove(result.field, result.scope, vmId);
   });
   var allErrors = results.reduce(function (prev, curr) {
     prev.push.apply(prev, curr.errors);
@@ -72099,14 +71954,39 @@ Validator.prototype._handleValidationResults = function _handleValidationResults
   });
 };
 
+Validator.prototype._shouldSkip = function _shouldSkip (field, value) {
+  // field is configured to run through the pipeline regardless
+  if (field.bails === false) {
+    return false;
+  }
+
+  // disabled fields are skipped
+  if (field.isDisabled) {
+    return true;
+  }
+
+  // skip if the field is not required and has an empty value.
+  return !field.isRequired && (isNullOrUndefined(value) || value === '' || isEmptyArray(value));
+};
+
+Validator.prototype._shouldBail = function _shouldBail (field) {
+  // if the field was configured explicitly.
+  if (field.bails !== undefined) {
+    return field.bails;
+  }
+
+  return this.fastExit;
+};
+
 /**
  * Starts the validation process.
  */
-Validator.prototype._validate = function _validate (field, value) {
+Validator.prototype._validate = function _validate (field, value, ref) {
     var this$1 = this;
+    if ( ref === void 0 ) ref = {};
+    var initial = ref.initial;
 
-  // if field is disabled and is not required.
-  if (field.isDisabled || (!field.isRequired && (isNullOrUndefined(value) || value === ''))) {
+  if (this._shouldSkip(field, value)) {
     return Promise.resolve({ valid: true, id: field.id, field: field.name, scope: field.scope, errors: [] });
   }
 
@@ -72114,11 +71994,16 @@ Validator.prototype._validate = function _validate (field, value) {
   var errors = [];
   var isExitEarly = false;
   // use of '.some()' is to break iteration in middle by returning true
-  Object.keys(field.rules).some(function (rule) {
-    var result = this$1._test(field, value, { name: rule, params: field.rules[rule] });
+  Object.keys(field.rules).filter(function (rule) {
+    if (!initial || !RuleContainer.has(rule)) { return true; }
+
+    return RuleContainer.isImmediate(rule);
+  }).some(function (rule) {
+    var ruleOptions = RuleContainer.getOptions(rule);
+    var result = this$1._test(field, value, { name: rule, params: field.rules[rule], options: ruleOptions });
     if (isCallable(result.then)) {
       promises.push(result);
-    } else if (this$1.fastExit && !result.valid) {
+    } else if (!result.valid && this$1._shouldBail(field)) {
       errors.push.apply(errors, result.errors);
       isExitEarly = true;
     } else {
@@ -72153,158 +72038,806 @@ Object.defineProperties( Validator, staticAccessors$1 );
 
 // 
 
-/**
- * Checks if a parent validator instance was requested.
- */
-var requestsValidator = function (injections) {
-  if (isObject(injections) && injections.$validator) {
-    return true;
+var normalize = function (fields) {
+  if (Array.isArray(fields)) {
+    return fields.reduce(function (prev, curr) {
+      if (includes(curr, '.')) {
+        prev[curr.split('.')[1]] = curr;
+      } else {
+        prev[curr] = curr;
+      }
+
+      return prev;
+    }, {});
   }
 
-  return false;
+  return fields;
+};
+
+// Combines two flags using either AND or OR depending on the flag type.
+var combine = function (lhs, rhs) {
+  var mapper = {
+    pristine: function (lhs, rhs) { return lhs && rhs; },
+    dirty: function (lhs, rhs) { return lhs || rhs; },
+    touched: function (lhs, rhs) { return lhs || rhs; },
+    untouched: function (lhs, rhs) { return lhs && rhs; },
+    valid: function (lhs, rhs) { return lhs && rhs; },
+    invalid: function (lhs, rhs) { return lhs || rhs; },
+    pending: function (lhs, rhs) { return lhs || rhs; },
+    required: function (lhs, rhs) { return lhs || rhs; },
+    validated: function (lhs, rhs) { return lhs && rhs; }
+  };
+
+  return Object.keys(mapper).reduce(function (flags, flag) {
+    flags[flag] = mapper[flag](lhs[flag], rhs[flag]);
+
+    return flags;
+  }, {});
+};
+
+var mapScope = function (scope, deep) {
+  if ( deep === void 0 ) deep = true;
+
+  return Object.keys(scope).reduce(function (flags, field) {
+    if (!flags) {
+      flags = assign({}, scope[field]);
+      return flags;
+    }
+
+    // scope.
+    var isScope = field.indexOf('$') === 0;
+    if (deep && isScope) {
+      return combine(mapScope(scope[field]), flags);
+    } else if (!deep && isScope) {
+      return flags;
+    }
+
+    flags = combine(flags, scope[field]);
+
+    return flags;
+  }, null);
 };
 
 /**
- * Creates a validator instance.
+ * Maps fields to computed functions.
  */
-var createValidator = function (vm, options) { return new Validator(null, { vm: vm, fastExit: options.fastExit }); };
+var mapFields = function (fields) {
+  if (!fields) {
+    return function () {
+      return mapScope(this.$validator.flags);
+    };
+  }
 
-var mixin = {
-  provide: function provide () {
-    if (this.$validator && !isBuiltInComponent(this.$vnode)) {
-      return {
-        $validator: this.$validator
-      };
+  var normalized = normalize(fields);
+  return Object.keys(normalized).reduce(function (prev, curr) {
+    var field = normalized[curr];
+    prev[curr] = function mappedField () {
+      // if field exists
+      if (this.$validator.flags[field]) {
+        return this.$validator.flags[field];
+      }
+
+      // scopeless fields were selected.
+      if (normalized[curr] === '*') {
+        return mapScope(this.$validator.flags, false);
+      }
+
+      // if it has a scope defined
+      var index = field.indexOf('.');
+      if (index <= 0) {
+        return {};
+      }
+
+      var ref = field.split('.');
+      var scope = ref[0];
+      var name = ref.slice(1);
+
+      scope = this.$validator.flags[("$" + scope)];
+      name = name.join('.');
+
+      // an entire scope was selected: scope.*
+      if (name === '*' && scope) {
+        return mapScope(scope);
+      }
+
+      if (scope && scope[name]) {
+        return scope[name];
+      }
+
+      return {};
+    };
+
+    return prev;
+  }, {});
+};
+
+var $validator = null;
+
+function createValidationCtx (ctx) {
+  return {
+    errors: ctx.messages,
+    flags: ctx.flags,
+    classes: ctx.classes,
+    valid: ctx.isValid,
+    aria: {
+      'aria-invalid': ctx.flags.invalid ? 'true' : 'false',
+      'aria-required': ctx.isRequired ? 'true' : 'false'
+    }
+  };
+}
+
+function onRenderUpdate (model) {
+  var this$1 = this;
+
+  var validateNow = this.value !== model.value || this._needsValidation;
+  var shouldRevalidate = this.flags.validated;
+  if (!this.initialized) {
+    this.initialValue = model.value;
+  }
+
+  if (validateNow) {
+    var silentHandler = function (ref) {
+      var valid = ref.valid;
+
+      // initially assign the valid/invalid flags.
+      this$1.setFlags({
+        valid: valid,
+        invalid: !valid
+      });
+    };
+
+    this.value = model.value;
+    this.validate().then(this.immediate || shouldRevalidate ? this.applyResult : silentHandler);
+  }
+
+  this._needsValidation = false;
+}
+
+// Creates the common handlers for a validatable context.
+function createCommonHandlers (ctx) {
+  var onInput = function (e) {
+    ctx.syncValue(e); // track and keep the value updated.
+    ctx.setFlags({ dirty: true, pristine: false });
+  };
+
+  // Blur event listener.
+  var onBlur = function () {
+    ctx.setFlags({ touched: true, untouched: false });
+  };
+
+  var onValidate = debounce(
+    function () {
+      var pendingPromise = ctx.validate();
+      // avoids race conditions between successive validations.
+      ctx._waiting = pendingPromise;
+      pendingPromise.then(function (result) {
+        if (pendingPromise === ctx._waiting) {
+          ctx.applyResult(result);
+          ctx._waiting = null;
+        }
+      });
+    },
+    ctx.debounce
+  );
+
+  return { onInput: onInput, onBlur: onBlur, onValidate: onValidate };
+}
+
+// Adds all plugin listeners to the vnode.
+function addListeners (node) {
+  var model = findModel(node);
+  // cache the input eventName.
+  this._inputEventName = this._inputEventName || getInputEventName(node, model);
+
+  onRenderUpdate.call(this, model);
+
+  var ref = createCommonHandlers(this);
+  var onInput = ref.onInput;
+  var onBlur = ref.onBlur;
+  var onValidate = ref.onValidate;
+  addVNodeListener(node, this._inputEventName, onInput);
+  addVNodeListener(node, 'blur', onBlur);
+
+  // add the validation listeners.
+  this.normalizedEvents.forEach(function (evt) {
+    addVNodeListener(node, evt, onValidate);
+  });
+
+  this.initialized = true;
+}
+
+function createValuesLookup (ctx) {
+  var providers = ctx.$_veeObserver.refs;
+
+  return ctx.fieldDeps.reduce(function (acc, depName) {
+    if (!providers[depName]) {
+      return acc;
     }
 
-    return {};
+    acc[depName] = providers[depName].value;
+    var watcherName = "$__" + depName;
+    if (!isCallable(ctx[watcherName])) {
+      ctx[watcherName] = providers[depName].$watch('value', function () {
+        ctx.validate(ctx.value).then(ctx.applyResult);
+        ctx[watcherName]();
+      });
+    }
+
+    return acc;
+  }, {});
+}
+
+function updateRenderingContextRefs (ctx) {
+  var id = ctx.id;
+  var vid = ctx.vid;
+
+  // Nothing has changed.
+  if (id === vid && ctx.$_veeObserver.refs[id]) {
+    return;
+  }
+
+  // vid was changed.
+  if (id !== vid && ctx.$_veeObserver.refs[id] === ctx) {
+    ctx.$_veeObserver.$unsubscribe(ctx);
+  }
+
+  ctx.$_veeObserver.$subscribe(ctx);
+  ctx.id = vid;
+}
+
+function createObserver () {
+  return {
+    refs: {},
+    $subscribe: function $subscribe (ctx) {
+      this.refs[ctx.vid] = ctx;
+    },
+    $unsubscribe: function $unsubscribe (ctx) {
+      delete this.refs[ctx.vid];
+    }
+  };
+}
+
+var id$1 = 0;
+
+var ValidationProvider = {
+  $__veeInject: false,
+  inject: {
+    $_veeObserver: {
+      from: '$_veeObserver',
+      default: function default$1 () {
+        if (!this.$vnode.context.$_veeObserver) {
+          this.$vnode.context.$_veeObserver = createObserver();
+        }
+
+        return this.$vnode.context.$_veeObserver;
+      }
+    }
   },
-  beforeCreate: function beforeCreate () {
-    // if built in do nothing.
-    if (isBuiltInComponent(this.$vnode)) {
-      return;
+  props: {
+    vid: {
+      type: [String, Number],
+      default: function () {
+        id$1++;
+        return id$1;
+      }
+    },
+    name: {
+      type: String,
+      default: null
+    },
+    events: {
+      type: [Array, String],
+      default: function () { return ['input']; }
+    },
+    rules: {
+      type: [Object, String],
+      default: null
+    },
+    immediate: {
+      type: Boolean,
+      default: false
+    },
+    bails: {
+      type: Boolean,
+      default: function () { return VeeValidate$1.config.fastExit; }
+    },
+    debounce: {
+      type: Number,
+      default: function () { return VeeValidate$1.config.delay || 0; }
+    }
+  },
+  watch: {
+    rules: {
+      deep: true,
+      handler: function handler () {
+        this._needsValidation = true;
+      }
+    }
+  },
+  data: function () { return ({
+    messages: [],
+    value: undefined,
+    initialized: false,
+    initialValue: undefined,
+    flags: createFlags(),
+    id: null
+  }); },
+  methods: {
+    setFlags: function setFlags (flags) {
+      var this$1 = this;
+
+      Object.keys(flags).forEach(function (flag) {
+        this$1.flags[flag] = flags[flag];
+      });
+    },
+    syncValue: function syncValue (e) {
+      var value = isEvent(e) ? e.target.value : e;
+
+      this.value = value;
+    },
+    reset: function reset () {
+      this.messages = [];
+      this._waiting = null;
+      this.initialValue = this.value;
+      var flags = createFlags();
+      flags.changed = false;
+      this.setFlags(flags);
+    },
+    validate: function validate () {
+      var this$1 = this;
+
+      this.setFlags({ pending: true });
+
+      return $validator.verify(this.value, this.rules, {
+        name: this.name,
+        values: createValuesLookup(this),
+        bails: this.bails
+      }).then(function (result) {
+        this$1.setFlags({ pending: false });
+
+        return result;
+      });
+    },
+    applyResult: function applyResult (ref) {
+      var errors = ref.errors;
+
+      this.messages = errors;
+      this.setFlags({
+        valid: !errors.length,
+        changed: this.value !== this.initialValue,
+        invalid: !!errors.length,
+        validated: true
+      });
+    },
+    registerField: function registerField () {
+      if (!$validator) {
+        /* istanbul ignore next */
+        if (true) {
+          if (!VeeValidate$1.instance) {
+            warn('You must install vee-validate first before using this component.');
+          }
+        }
+
+        $validator = VeeValidate$1.instance._validator;
+      }
+
+      updateRenderingContextRefs(this);
+    }
+  },
+  computed: {
+    isValid: function isValid () {
+      return this.flags.valid;
+    },
+    fieldDeps: function fieldDeps () {
+      var rules = normalizeRules(this.rules);
+
+      return Object.keys(rules).filter(RuleContainer.isTargetRule).map(function (rule) {
+        return rules[rule][0];
+      });
+    },
+    normalizedEvents: function normalizedEvents () {
+      var this$1 = this;
+
+      return normalizeEvents(this.events).map(function (e) {
+        if (e === 'input') {
+          return this$1._inputEventName;
+        }
+
+        return e;
+      });
+    },
+    isRequired: function isRequired () {
+      var rules = normalizeRules(this.rules);
+
+      return !!rules.required;
+    },
+    classes: function classes () {
+      var this$1 = this;
+
+      var names = VeeValidate$1.config.classNames;
+      return Object.keys(this.flags).reduce(function (classes, flag) {
+        var className = (names && names[flag]) || flag;
+        if (className) {
+          classes[className] = this$1.flags[flag];
+        }
+
+        return classes;
+      }, {});
+    }
+  },
+  render: function render (h) {
+    var this$1 = this;
+
+    this.registerField();
+    var ctx = createValidationCtx(this);
+
+    // Gracefully handle non-existent scoped slots.
+    var slot = this.$scopedSlots.default;
+    if (!isCallable(slot)) {
+      if (true) {
+        warn('ValidationProvider expects a scoped slot. Did you forget to add "slot-scope" to your slot?');
+      }
+
+      return createRenderless(h, this.$slots.default);
     }
 
-    // if its a root instance set the config if it exists.
-    if (!this.$parent) {
-      Config.merge(this.$options.$_veeValidate || {});
-    }
+    var nodes = slot(ctx);
+    // Handle single-root slot.
+    extractVNodes(nodes).forEach(function (input) {
+      addListeners.call(this$1, input);
+    });
 
-    var options = Config.resolve(this);
-    var Vue = this.$options._base; // the vue constructor.
-
-    // if its a root instance, inject anyways, or if it requested a new instance.
-    if (!this.$parent || (this.$options.$_veeValidate && /new/.test(this.$options.$_veeValidate.validator))) {
-      this.$validator = createValidator(this, options);
-    }
-
-    var requested = requestsValidator(this.$options.inject);
-
-    // if automatic injection is enabled and no instance was requested.
-    if (! this.$validator && options.inject && !requested) {
-      this.$validator = createValidator(this, options);
-    }
-
-    // don't inject errors or fieldBag as no validator was resolved.
-    if (! requested && ! this.$validator) {
-      return;
-    }
-
-    // There is a validator but it isn't injected, mark as reactive.
-    if (! requested && this.$validator) {
-      Vue.util.defineReactive(this.$validator, 'errors', this.$validator.errors);
-      Vue.util.defineReactive(this.$validator, 'flags', this.$validator.flags);
-    }
-
-    if (! this.$options.computed) {
-      this.$options.computed = {};
-    }
-
-    this.$options.computed[options.errorBagName || 'errors'] = function errorBagGetter () {
-      return this.$validator.errors;
-    };
-    this.$options.computed[options.fieldsBagName || 'fields'] = function fieldBagGetter () {
-      return this.$validator.flags;
-    };
+    return createRenderless(h, nodes);
   },
   beforeDestroy: function beforeDestroy () {
-    if (isBuiltInComponent(this.$vnode)) { return; }
-
-    // mark the validator paused to prevent delayed validation.
-    if (this.$validator && this.$validator.ownerId === this._uid) {
-      this.$validator.pause();
-      this.$validator.destroy();
-    }
+    // cleanup reference.
+    this.$_veeObserver.$unsubscribe(this);
   }
 };
+
+var flagMergingStrategy = {
+  pristine: 'every',
+  dirty: 'some',
+  touched: 'some',
+  untouched: 'every',
+  valid: 'every',
+  invalid: 'some',
+  pending: 'some',
+  validated: 'every'
+};
+
+function mergeFlags (lhs, rhs, strategy) {
+  var stratName = flagMergingStrategy[strategy];
+
+  return [lhs, rhs][stratName](function (f) { return f; });
+}
+
+var ValidationObserver = {
+  name: 'ValidationObserver',
+  provide: function provide () {
+    return {
+      $_veeObserver: this
+    };
+  },
+  data: function () { return ({
+    refs: {}
+  }); },
+  methods: {
+    $subscribe: function $subscribe (provider) {
+      var obj;
+
+      this.refs = Object.assign({}, this.refs, ( obj = {}, obj[provider.vid] = provider, obj ));
+    },
+    $unsubscribe: function $unsubscribe (ref) {
+      var vid = ref.vid;
+
+      delete this.refs[vid];
+      this.refs = Object.assign({}, this.refs);
+    },
+    validate: function validate () {
+      return Promise.all(values(this.refs).map(function (ref) {
+        return ref.validate().then(function (result) {
+          ref.applyResult(result);
+
+          return result;
+        });
+      })).then(function (results) { return results.every(function (r) { return r.valid; }); });
+    },
+    reset: function reset () {
+      return values(this.refs).forEach(function (ref) {
+        ref.reset();
+      });
+    }
+  },
+  computed: {
+    ctx: function ctx () {
+      return values(this.refs).reduce(function (acc, provider) {
+        Object.keys(flagMergingStrategy).forEach(function (flag) {
+          if (!(flag in acc)) {
+            acc[flag] = provider.flags[flag];
+            return;
+          }
+
+          acc[flag] = mergeFlags(acc[flag], provider.flags[flag], flag);
+        });
+
+        acc.errors[provider.vid] = provider.messages;
+
+        return acc;
+      }, { errors: {} });
+    }
+  },
+  render: function render (h) {
+    var slots = this.$scopedSlots.default;
+    if (!isCallable(slots)) {
+      if (true) {
+        warn('ValidationObserver expects a scoped slot. Did you forget to add "slot-scope" to your slot?');
+      }
+
+      return createRenderless(h, this.$slots.default);
+    }
+
+    return createRenderless(h, slots(this.ctx));
+  }
+};
+
+function withValidation (component, ctxToProps) {
+  if ( ctxToProps === void 0 ) ctxToProps = null;
+
+  var options = isCallable(component) ? component.options : component;
+  options.$__veeInject = false;
+  var hoc = {
+    name: ((options.name || 'AnonymousHoc') + "WithValidation"),
+    props: assign({}, ValidationProvider.props),
+    data: ValidationProvider.data,
+    computed: assign({}, ValidationProvider.computed),
+    methods: assign({}, ValidationProvider.methods),
+    $__veeInject: false,
+    beforeDestroy: ValidationProvider.beforeDestroy,
+    inject: ValidationProvider.inject
+  };
+
+  // Default ctx converts ctx props to component props.
+  if (!ctxToProps) {
+    ctxToProps = function (ctx) { return ctx; };
+  }
+
+  var eventName = (options.model && options.model.event) || 'input';
+
+  hoc.render = function (h) {
+    var obj;
+
+    this.registerField();
+    var vctx = createValidationCtx(this);
+    var listeners = assign({}, this.$listeners);
+
+    var model = findModel(this.$vnode);
+    this._inputEventName = this._inputEventName || getInputEventName(this.$vnode, model);
+    onRenderUpdate.call(this, model);
+
+    var ref = createCommonHandlers(this);
+    var onInput = ref.onInput;
+    var onBlur = ref.onBlur;
+    var onValidate = ref.onValidate;
+
+    mergeVNodeListeners(listeners, eventName, onInput);
+    mergeVNodeListeners(listeners, 'blur', onBlur);
+    this.normalizedEvents.forEach(function (evt, idx) {
+      mergeVNodeListeners(listeners, evt, onValidate);
+    });
+
+    // Props are any attrs not associated with ValidationProvider Plus the model prop.
+    // WARNING: Accidental prop overwrite will probably happen.
+    var ref$1 = findModelConfig(this.$vnode) || { prop: 'value' };
+    var prop = ref$1.prop;
+    var props = assign({}, this.$attrs, ( obj = {}, obj[prop] = model.value, obj ), ctxToProps(vctx));
+
+    return h(options, {
+      attrs: this.$attrs,
+      props: props,
+      on: listeners
+    }, normalizeSlots(this.$slots, this.$vnode.context));
+  };
+
+  return hoc;
+}
 
 // 
 
-/**
- * Finds the requested field by id from the context object.
- */
-function findField (el, context) {
-  if (!context || !context.$validator) {
-    return null;
+var normalizeValue = function (value) {
+  if (isObject(value)) {
+    return Object.keys(value).reduce(function (prev, key) {
+      prev[key] = normalizeValue(value[key]);
+
+      return prev;
+    }, {});
   }
 
-  return context.$validator.fields.find({ id: el._veeValidateId });
-}
-var directive = {
-  bind: function bind (el, binding, vnode) {
-    var validator = vnode.context.$validator;
-    if (!validator) {
-      if (true) {
-        warn("No validator instance is present on vm, did you forget to inject '$validator'?");
-      }
+  if (isCallable(value)) {
+    return value('{0}', ['{1}', '{2}', '{3}']);
+  }
 
-      return;
+  return value;
+};
+
+var normalizeFormat = function (locale) {
+  // normalize messages
+  var dictionary = {};
+  if (locale.messages) {
+    dictionary.messages = normalizeValue(locale.messages);
+  }
+
+  if (locale.custom) {
+    dictionary.custom = normalizeValue(locale.custom);
+  }
+
+  if (locale.attributes) {
+    dictionary.attributes = locale.attributes;
+  }
+
+  if (!isNullOrUndefined(locale.dateFormat)) {
+    dictionary.dateFormat = locale.dateFormat;
+  }
+
+  return dictionary;
+};
+
+var I18nDictionary = function I18nDictionary (i18n, rootKey) {
+  this.i18n = i18n;
+  this.rootKey = rootKey;
+};
+
+var prototypeAccessors$5 = { locale: { configurable: true } };
+
+prototypeAccessors$5.locale.get = function () {
+  return this.i18n.locale;
+};
+
+prototypeAccessors$5.locale.set = function (value) {
+  warn('Cannot set locale from the validator when using vue-i18n, use i18n.locale setter instead');
+};
+
+I18nDictionary.prototype.getDateFormat = function getDateFormat (locale) {
+  return this.i18n.getDateTimeFormat(locale || this.locale);
+};
+
+I18nDictionary.prototype.setDateFormat = function setDateFormat (locale, value) {
+  this.i18n.setDateTimeFormat(locale || this.locale, value);
+};
+
+I18nDictionary.prototype.getMessage = function getMessage (_, key, data) {
+  var path = (this.rootKey) + ".messages." + key;
+  var result = this.i18n.t(path, data);
+  if (result !== path) {
+    return result;
+  }
+
+  return this.i18n.t(((this.rootKey) + ".messages._default"), data);
+};
+
+I18nDictionary.prototype.getAttribute = function getAttribute (_, key, fallback) {
+    if ( fallback === void 0 ) fallback = '';
+
+  var path = (this.rootKey) + ".attributes." + key;
+  var result = this.i18n.t(path);
+  if (result !== path) {
+    return result;
+  }
+
+  return fallback;
+};
+
+I18nDictionary.prototype.getFieldMessage = function getFieldMessage (_, field, key, data) {
+  var path = (this.rootKey) + ".custom." + field + "." + key;
+  var result = this.i18n.t(path, data);
+  if (result !== path) {
+    return result;
+  }
+
+  return this.getMessage(_, key, data);
+};
+
+I18nDictionary.prototype.merge = function merge$1 (dictionary) {
+    var this$1 = this;
+
+  Object.keys(dictionary).forEach(function (localeKey) {
+      var obj;
+
+    // i18n doesn't deep merge
+    // first clone the existing locale (avoid mutations to locale)
+    var clone = merge({}, getPath((localeKey + "." + (this$1.rootKey)), this$1.i18n.messages, {}));
+    // Merge cloned locale with new one
+    var locale = merge(clone, normalizeFormat(dictionary[localeKey]));
+    this$1.i18n.mergeLocaleMessage(localeKey, ( obj = {}, obj[this$1.rootKey] = locale, obj ));
+    if (locale.dateFormat) {
+      this$1.i18n.setDateTimeFormat(localeKey, locale.dateFormat);
     }
+  });
+};
 
-    var fieldOptions = Generator.generate(el, binding, vnode);
-    validator.attach(fieldOptions);
-  },
-  inserted: function inserted (el, binding, vnode) {
-    var field = findField(el, vnode.context);
-    var scope = Generator.resolveScope(el, binding, vnode);
+I18nDictionary.prototype.setMessage = function setMessage (locale, key, value) {
+    var obj, obj$1;
 
-    // skip if scope hasn't changed.
-    if (!field || scope === field.scope) { return; }
+  this.merge(( obj$1 = {}, obj$1[locale] = {
+      messages: ( obj = {}, obj[key] = value, obj )
+    }, obj$1 ));
+};
 
-    // only update scope.
-    field.update({ scope: scope });
+I18nDictionary.prototype.setAttribute = function setAttribute (locale, key, value) {
+    var obj, obj$1;
 
-    // allows the field to re-evaluated once more in the update hook.
-    field.updated = false;
-  },
-  update: function update (el, binding, vnode) {
-    var field = findField(el, vnode.context);
+  this.merge(( obj$1 = {}, obj$1[locale] = {
+      attributes: ( obj = {}, obj[key] = value, obj )
+    }, obj$1 ));
+};
 
-    // make sure we don't do unneccasary work if no important change was done.
-    if (!field || (field.updated && isEqual(binding.value, binding.oldValue))) { return; }
-    var scope = Generator.resolveScope(el, binding, vnode);
-    var rules = Generator.resolveRules(el, binding, vnode);
+Object.defineProperties( I18nDictionary.prototype, prototypeAccessors$5 );
 
-    field.update({
-      scope: scope,
-      rules: rules
-    });
-  },
-  unbind: function unbind (el, binding, ref) {
-    var context = ref.context;
+// 
 
-    var field = findField(el, context);
-    if (!field) { return; }
-
-    context.$validator.detach(field);
-  }
+var defaultConfig = {
+  locale: 'en',
+  delay: 0,
+  errorBagName: 'errors',
+  dictionary: null,
+  fieldsBagName: 'fields',
+  classes: false,
+  classNames: null,
+  events: 'input',
+  inject: true,
+  fastExit: true,
+  aria: true,
+  validity: false,
+  i18n: null,
+  i18nRootKey: 'validation'
 };
 
 var Vue;
+var pendingPlugins;
+var currentConfig = assign({}, defaultConfig);
+var pluginInstance;
 
-function install (_Vue, options) {
-  if ( options === void 0 ) options = {};
+var VeeValidate$1 = function VeeValidate (config, _Vue) {
+  this.configure(config);
+  pluginInstance = this;
+  if (_Vue) {
+    Vue = _Vue;
+  }
+  this._validator = new Validator(null, { fastExit: config && config.fastExit });
+  this._initVM(this.config);
+  this._initI18n(this.config);
+};
 
+var prototypeAccessors$6 = { i18nDriver: { configurable: true },config: { configurable: true } };
+var staticAccessors$2 = { instance: { configurable: true },i18nDriver: { configurable: true },config: { configurable: true } };
+
+VeeValidate$1.setI18nDriver = function setI18nDriver (driver, instance) {
+  DictionaryResolver.setDriver(driver, instance);
+};
+
+VeeValidate$1.configure = function configure (cfg) {
+  currentConfig = assign({}, currentConfig, cfg);
+};
+
+VeeValidate$1.use = function use (plugin, options) {
+    if ( options === void 0 ) options = {};
+
+  if (!isCallable(plugin)) {
+    return warn('The plugin must be a callable function');
+  }
+
+  // Don't install plugins until vee-validate is installed.
+  if (!pluginInstance) {
+    if (!pendingPlugins) {
+      pendingPlugins = [];
+    }
+    pendingPlugins.push({ plugin: plugin, options: options });
+    return;
+  }
+
+  plugin({ Validator: Validator, ErrorBag: ErrorBag, Rules: Validator.rules }, options);
+};
+VeeValidate$1.install = function install (_Vue, opts) {
   if (Vue && _Vue === Vue) {
     if (true) {
       warn('already installed, Vue.use(VeeValidate) should only be called once.');
@@ -72312,36 +72845,105 @@ function install (_Vue, options) {
     return;
   }
 
-  detectPassiveSupport();
   Vue = _Vue;
-  var localVue = new Vue();
-  Config.register('vm', localVue);
-  Config.merge(options);
+  pluginInstance = new VeeValidate$1(opts);
 
-  var ref = Config.current;
-  var dictionary = ref.dictionary;
-  var i18n = ref.i18n;
-
-  if (dictionary) {
-    Validator.localize(dictionary); // merge the dictionary.
-  }
-
-  // try to watch locale changes.
-  if (i18n && i18n._vm && isCallable(i18n._vm.$watch)) {
-    i18n._vm.$watch('locale', function () {
-      localVue.$emit('localeChanged');
-    });
-  }
-
-  if (!i18n && options.locale) {
-    Validator.localize(options.locale); // set the locale
-  }
-
-  Validator.setStrictMode(Config.current.strict);
+  detectPassiveSupport();
 
   Vue.mixin(mixin);
   Vue.directive('validate', directive);
-}
+  if (pendingPlugins) {
+    pendingPlugins.forEach(function (ref) {
+        var plugin = ref.plugin;
+        var options = ref.options;
+
+      VeeValidate$1.use(plugin, options);
+    });
+    pendingPlugins = null;
+  }
+};
+
+staticAccessors$2.instance.get = function () {
+  return pluginInstance;
+};
+
+prototypeAccessors$6.i18nDriver.get = function () {
+  return DictionaryResolver.getDriver();
+};
+
+staticAccessors$2.i18nDriver.get = function () {
+  return DictionaryResolver.getDriver();
+};
+
+prototypeAccessors$6.config.get = function () {
+  return currentConfig;
+};
+
+staticAccessors$2.config.get = function () {
+  return currentConfig;
+};
+
+VeeValidate$1.prototype._initVM = function _initVM (config) {
+    var this$1 = this;
+
+  this._vm = new Vue({
+    data: function () { return ({
+      errors: this$1._validator.errors,
+      fields: this$1._validator.fields
+    }); }
+  });
+};
+
+VeeValidate$1.prototype._initI18n = function _initI18n (config) {
+    var this$1 = this;
+
+  var dictionary = config.dictionary;
+    var i18n = config.i18n;
+    var i18nRootKey = config.i18nRootKey;
+    var locale = config.locale;
+  var onLocaleChanged = function () {
+    this$1._validator.errors.regenerate();
+  };
+
+  // i18 is being used for localization.
+  if (i18n) {
+    VeeValidate$1.setI18nDriver('i18n', new I18nDictionary(i18n, i18nRootKey));
+    i18n._vm.$watch('locale', onLocaleChanged);
+  } else if (typeof window !== 'undefined') {
+    this._vm.$on('localeChanged', onLocaleChanged);
+  }
+
+  if (dictionary) {
+    this.i18nDriver.merge(dictionary);
+  }
+
+  if (locale && !i18n) {
+    this._validator.localize(locale);
+  }
+};
+
+VeeValidate$1.prototype.configure = function configure (cfg) {
+  VeeValidate$1.configure(cfg);
+};
+
+VeeValidate$1.prototype.resolveConfig = function resolveConfig (ctx) {
+  var selfConfig = getPath('$options.$_veeValidate', ctx, {});
+
+  return assign({}, this.config, selfConfig);
+};
+
+Object.defineProperties( VeeValidate$1.prototype, prototypeAccessors$6 );
+Object.defineProperties( VeeValidate$1, staticAccessors$2 );
+
+VeeValidate$1.version = '2.1.3';
+VeeValidate$1.mixin = mixin;
+VeeValidate$1.directive = directive;
+VeeValidate$1.Validator = Validator;
+VeeValidate$1.ErrorBag = ErrorBag;
+VeeValidate$1.mapFields = mapFields;
+VeeValidate$1.ValidationProvider = ValidationProvider;
+VeeValidate$1.ValidationObserver = ValidationObserver;
+VeeValidate$1.withValidation = withValidation;
 
 /**
  * Formates file size.
@@ -72373,10 +72975,10 @@ var messages = {
 
     return ("The " + field + " must be after " + (inclusion ? 'or equal to ' : '') + target + ".");
 },
+  alpha: function (field) { return ("The " + field + " field may only contain alphabetic characters."); },
   alpha_dash: function (field) { return ("The " + field + " field may contain alpha-numeric characters as well as dashes and underscores."); },
   alpha_num: function (field) { return ("The " + field + " field may only contain alpha-numeric characters."); },
   alpha_spaces: function (field) { return ("The " + field + " field may only contain alphabetic characters as well as spaces."); },
-  alpha: function (field) { return ("The " + field + " field may only contain alphabetic characters."); },
   before: function (field, ref) {
     var target = ref[0];
     var inclusion = ref[1];
@@ -72420,6 +73022,7 @@ var messages = {
     return ("The " + field + " field must be " + width + " pixels by " + height + " pixels.");
 },
   email: function (field) { return ("The " + field + " field must be a valid email."); },
+  excluded: function (field) { return ("The " + field + " field must be a valid value."); },
   ext: function (field) { return ("The " + field + " field must be a valid file."); },
   image: function (field) { return ("The " + field + " field must be an image."); },
   included: function (field) { return ("The " + field + " field must be a valid value."); },
@@ -72456,7 +73059,6 @@ var messages = {
 
     return ("The " + field + " field must be " + min + " or more.");
 },
-  excluded: function (field) { return ("The " + field + " field must be a valid value."); },
   numeric: function (field) { return ("The " + field + " field may only contain numeric characters."); },
   regex: function (field) { return ("The " + field + " field format is invalid."); },
   required: function (field) { return ("The " + field + " field is required."); },
@@ -72477,18 +73079,6 @@ var locale = {
 if (isDefinedGlobally()) {
   // eslint-disable-next-line
   VeeValidate.Validator.localize(( obj = {}, obj[locale.name] = locale, obj ));
-}
-
-// 
-
-function use (plugin, options) {
-  if ( options === void 0 ) options = {};
-
-  if (!isCallable(plugin)) {
-    return warn('The plugin must be a callable function');
-  }
-
-  plugin({ Validator: Validator, ErrorBag: ErrorBag, Rules: Validator.rules }, options);
 }
 
 var MILLISECONDS_IN_HOUR = 3600000;
@@ -75129,25 +75719,41 @@ function parseDate$1 (date, format$$1) {
   return parsed;
 }
 
-function after (value, ref) {
-  var otherValue = ref[0];
-  var inclusion = ref[1];
-  var format$$1 = ref[2];
+var afterValidator = function (value, ref) {
+  if ( ref === void 0 ) ref = {};
+  var targetValue = ref.targetValue;
+  var inclusion = ref.inclusion; if ( inclusion === void 0 ) inclusion = false;
+  var format$$1 = ref.format;
 
   if (typeof format$$1 === 'undefined') {
     format$$1 = inclusion;
     inclusion = false;
   }
+
   value = parseDate$1(value, format$$1);
-  otherValue = parseDate$1(otherValue, format$$1);
+  targetValue = parseDate$1(targetValue, format$$1);
 
   // if either is not valid.
-  if (!value || !otherValue) {
+  if (!value || !targetValue) {
     return false;
   }
 
-  return isAfter(value, otherValue) || (inclusion && isEqual$1(value, otherValue));
-}
+  return isAfter(value, targetValue) || (inclusion && isEqual$1(value, targetValue));
+};
+
+var options = {
+  hasTarget: true,
+  isDate: true
+};
+
+// required to convert from a list of array values to an object.
+var paramNames = ['targetValue', 'inclusion', 'format'];
+
+var after = {
+  validate: afterValidator,
+  options: options,
+  paramNames: paramNames
+};
 
 /**
  * Some Alpha Regex helpers.
@@ -75235,8 +75841,8 @@ var alphaDash = {
 };
 
 var validate = function (value, ref) {
-  if ( ref === void 0 ) ref = [];
-  var locale = ref[0]; if ( locale === void 0 ) locale = null;
+  if ( ref === void 0 ) ref = {};
+  var locale = ref.locale;
 
   if (Array.isArray(value)) {
     return value.every(function (val) { return validate(val, [locale]); });
@@ -75250,9 +75856,16 @@ var validate = function (value, ref) {
   return (alpha[locale] || alpha.en).test(value);
 };
 
+var paramNames$1 = ['locale'];
+
+var alpha$1 = {
+  validate: validate,
+  paramNames: paramNames$1
+};
+
 var validate$1 = function (value, ref) {
-  if ( ref === void 0 ) ref = [];
-  var locale = ref[0]; if ( locale === void 0 ) locale = null;
+  if ( ref === void 0 ) ref = {};
+  var locale = ref.locale;
 
   if (Array.isArray(value)) {
     return value.every(function (val) { return validate$1(val, [locale]); });
@@ -75266,9 +75879,16 @@ var validate$1 = function (value, ref) {
   return (alphaDash[locale] || alphaDash.en).test(value);
 };
 
+var paramNames$2 = ['locale'];
+
+var alpha_dash = {
+  validate: validate$1,
+  paramNames: paramNames$2
+};
+
 var validate$2 = function (value, ref) {
-  if ( ref === void 0 ) ref = [];
-  var locale = ref[0]; if ( locale === void 0 ) locale = null;
+  if ( ref === void 0 ) ref = {};
+  var locale = ref.locale;
 
   if (Array.isArray(value)) {
     return value.every(function (val) { return validate$2(val, [locale]); });
@@ -75282,9 +75902,16 @@ var validate$2 = function (value, ref) {
   return (alphanumeric[locale] || alphanumeric.en).test(value);
 };
 
+var paramNames$3 = ['locale'];
+
+var alpha_num = {
+  validate: validate$2,
+  paramNames: paramNames$3
+};
+
 var validate$3 = function (value, ref) {
-  if ( ref === void 0 ) ref = [];
-  var locale = ref[0]; if ( locale === void 0 ) locale = null;
+  if ( ref === void 0 ) ref = {};
+  var locale = ref.locale;
 
   if (Array.isArray(value)) {
     return value.every(function (val) { return validate$3(val, [locale]); });
@@ -75298,41 +75925,86 @@ var validate$3 = function (value, ref) {
   return (alphaSpaces[locale] || alphaSpaces.en).test(value);
 };
 
-function before (value, ref) {
-  var otherValue = ref[0];
-  var inclusion = ref[1];
-  var format$$1 = ref[2];
+var paramNames$4 = ['locale'];
+
+var alpha_spaces = {
+  validate: validate$3,
+  paramNames: paramNames$4
+};
+
+var validate$4 = function (value, ref) {
+  if ( ref === void 0 ) ref = {};
+  var targetValue = ref.targetValue;
+  var inclusion = ref.inclusion; if ( inclusion === void 0 ) inclusion = false;
+  var format$$1 = ref.format;
 
   if (typeof format$$1 === 'undefined') {
     format$$1 = inclusion;
     inclusion = false;
   }
+
   value = parseDate$1(value, format$$1);
-  otherValue = parseDate$1(otherValue, format$$1);
+  targetValue = parseDate$1(targetValue, format$$1);
 
   // if either is not valid.
-  if (!value || !otherValue) {
+  if (!value || !targetValue) {
     return false;
   }
 
-  return isBefore(value, otherValue) || (inclusion && isEqual$1(value, otherValue));
-}
+  return isBefore(value, targetValue) || (inclusion && isEqual$1(value, targetValue));
+};
 
-var validate$4 = function (value, ref) {
-  var min = ref[0];
-  var max = ref[1];
+var options$1 = {
+  hasTarget: true,
+  isDate: true
+};
+
+var paramNames$5 = ['targetValue', 'inclusion', 'format'];
+
+var before = {
+  validate: validate$4,
+  options: options$1,
+  paramNames: paramNames$5
+};
+
+var validate$5 = function (value, ref) {
+  if ( ref === void 0 ) ref = {};
+  var min = ref.min;
+  var max = ref.max;
 
   if (Array.isArray(value)) {
-    return value.every(function (val) { return validate$4(val, [min, max]); });
+    return value.every(function (val) { return validate$5(val, { min: min, max: max }); });
   }
 
   return Number(min) <= value && Number(max) >= value;
 };
 
-function confirmed (value, other) { return String(value) === String(other); }
+var paramNames$6 = ['min', 'max'];
+
+var between = {
+  validate: validate$5,
+  paramNames: paramNames$6
+};
+
+var validate$6 = function (value, ref) {
+  var targetValue = ref.targetValue;
+
+  return String(value) === String(targetValue);
+};
+var options$2 = {
+  hasTarget: true
+};
+
+var paramNames$7 = ['targetValue'];
+
+var confirmed = {
+  validate: validate$6,
+  options: options$2,
+  paramNames: paramNames$7
+};
 
 function unwrapExports (x) {
-	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x.default : x;
 }
 
 function createCommonjsModule(fn, module) {
@@ -75344,12 +76016,26 @@ var assertString_1 = createCommonjsModule(function (module, exports) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 exports.default = assertString;
 function assertString(input) {
   var isString = typeof input === 'string' || input instanceof String;
 
   if (!isString) {
-    throw new TypeError('This library (validator.js) validates strings only');
+    var invalidType = void 0;
+    if (input === null) {
+      invalidType = 'null';
+    } else {
+      invalidType = typeof input === 'undefined' ? 'undefined' : _typeof(input);
+      if (invalidType === 'object' && input.constructor && input.constructor.hasOwnProperty('name')) {
+        invalidType = input.constructor.name;
+      } else {
+        invalidType = 'a ' + invalidType;
+      }
+    }
+    throw new TypeError('Expected string but received ' + invalidType + '.');
   }
 }
 module.exports = exports['default'];
@@ -75406,20 +76092,22 @@ module.exports = exports['default'];
 
 var isCreditCard = unwrapExports(isCreditCard_1);
 
-function credit_card (value) { return isCreditCard(String(value)); }
+var validate$7 = function (value) { return isCreditCard(String(value)); };
 
-function date_between (value, params) {
-  var assign, assign$1;
+var credit_card = {
+  validate: validate$7
+};
 
-  var min$$1;
-  var max$$1;
-  var format$$1;
-  var inclusivity = '()';
+var validate$8 = function (value, ref) {
+  if ( ref === void 0 ) ref = {};
+  var min$$1 = ref.min;
+  var max$$1 = ref.max;
+  var inclusivity = ref.inclusivity; if ( inclusivity === void 0 ) inclusivity = '()';
+  var format$$1 = ref.format;
 
-  if (params.length > 3) {
-    (assign = params, min$$1 = assign[0], max$$1 = assign[1], inclusivity = assign[2], format$$1 = assign[3]);
-  } else {
-    (assign$1 = params, min$$1 = assign$1[0], max$$1 = assign$1[1], format$$1 = assign$1[2]);
+  if (typeof format$$1 === 'undefined') {
+    format$$1 = inclusivity;
+    inclusivity = '()';
   }
 
   var minDate = parseDate$1(String(min$$1), format$$1);
@@ -75443,26 +76131,50 @@ function date_between (value, params) {
   }
 
   return isEqual$1(dateVal, maxDate) || isEqual$1(dateVal, minDate) ||
-        (isBefore(dateVal, maxDate) && isAfter(dateVal, minDate));
-}
+    (isBefore(dateVal, maxDate) && isAfter(dateVal, minDate));
+};
 
-function date_format (value, ref) {
-  var format = ref[0];
+var options$3 = {
+  isDate: true
+};
+
+var paramNames$8 = ['min', 'max', 'inclusivity', 'format'];
+
+var date_between = {
+  validate: validate$8,
+  options: options$3,
+  paramNames: paramNames$8
+};
+
+var validate$9 = function (value, ref) {
+  var format = ref.format;
 
   return !!parseDate$1(value, format);
-}
+};
 
-var validate$5 = function (value, ref) {
-  if ( ref === void 0 ) ref = [];
-  var decimals = ref[0]; if ( decimals === void 0 ) decimals = '*';
-  var separator = ref[1]; if ( separator === void 0 ) separator = '.';
+var options$4 = {
+  isDate: true
+};
+
+var paramNames$9 = ['format'];
+
+var date_format = {
+  validate: validate$9,
+  options: options$4,
+  paramNames: paramNames$9
+};
+
+var validate$a = function (value, ref) {
+  if ( ref === void 0 ) ref = {};
+  var decimals = ref.decimals; if ( decimals === void 0 ) decimals = '*';
+  var separator = ref.separator; if ( separator === void 0 ) separator = '.';
 
   if (Array.isArray(value)) {
-    return value.every(function (val) { return validate$5(val, [decimals, separator]); });
+    return value.every(function (val) { return validate$a(val, { decimals: decimals, separator: separator }); });
   }
 
   if (value === null || value === undefined || value === '') {
-    return true;
+    return false;
   }
 
   // if is 0.
@@ -75471,7 +76183,7 @@ var validate$5 = function (value, ref) {
   }
 
   var regexPart = decimals === '*' ? '+' : ("{1," + decimals + "}");
-  var regex = new RegExp(("^-?\\d*(\\" + separator + "\\d" + regexPart + ")?$"));
+  var regex = new RegExp(("^[-+]?\\d*(\\" + separator + "\\d" + regexPart + ")?$"));
 
   if (! regex.test(value)) {
     return false;
@@ -75483,15 +76195,26 @@ var validate$5 = function (value, ref) {
     return parsedValue === parsedValue;
 };
 
-var validate$6 = function (value, ref) {
+var paramNames$a = ['decimals', 'separator'];
+
+var decimal = {
+  validate: validate$a,
+  paramNames: paramNames$a
+};
+
+var validate$b = function (value, ref) {
   var length = ref[0];
 
   if (Array.isArray(value)) {
-    return value.every(function (val) { return validate$6(val, [length]); });
+    return value.every(function (val) { return validate$b(val, [length]); });
   }
   var strVal = String(value);
 
   return /^[0-9]*$/.test(strVal) && strVal.length === Number(length);
+};
+
+var digits = {
+  validate: validate$b
 };
 
 var validateImage = function (file, width, height) {
@@ -75507,7 +76230,7 @@ var validateImage = function (file, width, height) {
   });
 };
 
-function dimensions (files, ref) {
+var validate$c = function (files, ref) {
   var width = ref[0];
   var height = ref[1];
 
@@ -75522,7 +76245,11 @@ function dimensions (files, ref) {
   }
 
   return Promise.all(list.map(function (file) { return validateImage(file, width, height); }));
-}
+};
+
+var dimensions = {
+  validate: validate$c
+};
 
 var merge_1 = createCommonjsModule(function (module, exports) {
 
@@ -75653,157 +76380,6 @@ module.exports = exports['default'];
 
 unwrapExports(isFQDN_1);
 
-var isEmail_1 = createCommonjsModule(function (module, exports) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = isEmail;
-
-
-
-var _assertString2 = _interopRequireDefault(assertString_1);
-
-
-
-var _merge2 = _interopRequireDefault(merge_1);
-
-
-
-var _isByteLength2 = _interopRequireDefault(isByteLength_1);
-
-
-
-var _isFQDN2 = _interopRequireDefault(isFQDN_1);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var default_email_options = {
-  allow_display_name: false,
-  require_display_name: false,
-  allow_utf8_local_part: true,
-  require_tld: true
-};
-
-/* eslint-disable max-len */
-/* eslint-disable no-control-regex */
-var displayName = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\,\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF\s]*<(.+)>$/i;
-var emailUserPart = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~]+$/i;
-var quotedEmailUser = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f]))*$/i;
-var emailUserUtf8Part = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+$/i;
-var quotedEmailUserUtf8 = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*$/i;
-/* eslint-enable max-len */
-/* eslint-enable no-control-regex */
-
-function isEmail(str, options) {
-  (0, _assertString2.default)(str);
-  options = (0, _merge2.default)(options, default_email_options);
-
-  if (options.require_display_name || options.allow_display_name) {
-    var display_email = str.match(displayName);
-    if (display_email) {
-      str = display_email[1];
-    } else if (options.require_display_name) {
-      return false;
-    }
-  }
-
-  var parts = str.split('@');
-  var domain = parts.pop();
-  var user = parts.join('@');
-
-  var lower_domain = domain.toLowerCase();
-
-  if (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com') {
-    /*
-      Previously we removed dots for gmail addresses before validating.
-      This was removed because it allows `multiple..dots@gmail.com`
-      to be reported as valid, but it is not.
-      Gmail only normalizes single dots, removing them from here is pointless,
-      should be done in normalizeEmail
-    */
-    user = user.toLowerCase();
-  }
-
-  if (!(0, _isByteLength2.default)(user, { max: 64 }) || !(0, _isByteLength2.default)(domain, { max: 254 })) {
-    return false;
-  }
-
-  if (!(0, _isFQDN2.default)(domain, { require_tld: options.require_tld })) {
-    return false;
-  }
-
-  if (user[0] === '"') {
-    user = user.slice(1, user.length - 1);
-    return options.allow_utf8_local_part ? quotedEmailUserUtf8.test(user) : quotedEmailUser.test(user);
-  }
-
-  var pattern = options.allow_utf8_local_part ? emailUserUtf8Part : emailUserPart;
-
-  var user_parts = user.split('.');
-  for (var i = 0; i < user_parts.length; i++) {
-    if (!pattern.test(user_parts[i])) {
-      return false;
-    }
-  }
-
-  return true;
-}
-module.exports = exports['default'];
-});
-
-var isEmail = unwrapExports(isEmail_1);
-
-var validate$7 = function (value, ref) {
-  if ( ref === void 0 ) ref = [];
-  var multiple = ref[0]; if ( multiple === void 0 ) multiple = false;
-
-  if (multiple) {
-    value = value.split(',').map(function (emailStr) { return emailStr.trim(); });
-  }
-
-  if (Array.isArray(value)) {
-    return value.every(function (val) { return isEmail(String(val)); });
-  }
-
-  return isEmail(String(value));
-};
-
-var validate$8 = function (value, options) {
-  if (Array.isArray(value)) {
-    return value.every(function (val) { return validate$8(val, options); });
-  }
-
-  return toArray(options).some(function (item) {
-    // eslint-disable-next-line
-    return item == value;
-  });
-};
-
-function excluded () {
-  var args = [], len = arguments.length;
-  while ( len-- ) args[ len ] = arguments[ len ];
-
-  return !validate$8.apply(void 0, args);
-}
-
-function ext (files, extensions) {
-  var regex = new RegExp((".(" + (extensions.join('|')) + ")$"), 'i');
-
-  return files.every(function (file) { return regex.test(file.name); });
-}
-
-function image (files) { return files.every(function (file) { return /\.(jpg|svg|jpeg|png|bmp|gif)$/i.test(file.name); }
-); }
-
-function integer (value) {
-  if (Array.isArray(value)) {
-    return value.every(function (val) { return /^-?[0-9]+$/.test(String(val)); });
-  }
-
-  return /^-?[0-9]+$/.test(String(value));
-}
-
 var isIP_1 = createCommonjsModule(function (module, exports) {
 
 Object.defineProperty(exports, "__esModule", {
@@ -75886,9 +76462,216 @@ module.exports = exports['default'];
 
 var isIP = unwrapExports(isIP_1);
 
-function ip (value, ref) {
-  if ( ref === void 0 ) ref = [];
-  var version = ref[0]; if ( version === void 0 ) version = 4;
+var isEmail_1 = createCommonjsModule(function (module, exports) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = isEmail;
+
+
+
+var _assertString2 = _interopRequireDefault(assertString_1);
+
+
+
+var _merge2 = _interopRequireDefault(merge_1);
+
+
+
+var _isByteLength2 = _interopRequireDefault(isByteLength_1);
+
+
+
+var _isFQDN2 = _interopRequireDefault(isFQDN_1);
+
+
+
+var _isIP2 = _interopRequireDefault(isIP_1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var default_email_options = {
+  allow_display_name: false,
+  require_display_name: false,
+  allow_utf8_local_part: true,
+  require_tld: true
+};
+
+/* eslint-disable max-len */
+/* eslint-disable no-control-regex */
+var displayName = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\,\.\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF\s]*<(.+)>$/i;
+var emailUserPart = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~]+$/i;
+var gmailUserPart = /^[a-z\d]+$/;
+var quotedEmailUser = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f]))*$/i;
+var emailUserUtf8Part = /^[a-z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+$/i;
+var quotedEmailUserUtf8 = /^([\s\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|(\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*$/i;
+/* eslint-enable max-len */
+/* eslint-enable no-control-regex */
+
+function isEmail(str, options) {
+  (0, _assertString2.default)(str);
+  options = (0, _merge2.default)(options, default_email_options);
+
+  if (options.require_display_name || options.allow_display_name) {
+    var display_email = str.match(displayName);
+    if (display_email) {
+      str = display_email[1];
+    } else if (options.require_display_name) {
+      return false;
+    }
+  }
+
+  var parts = str.split('@');
+  var domain = parts.pop();
+  var user = parts.join('@');
+
+  var lower_domain = domain.toLowerCase();
+
+  if (options.domain_specific_validation && (lower_domain === 'gmail.com' || lower_domain === 'googlemail.com')) {
+    /*
+      Previously we removed dots for gmail addresses before validating.
+      This was removed because it allows `multiple..dots@gmail.com`
+      to be reported as valid, but it is not.
+      Gmail only normalizes single dots, removing them from here is pointless,
+      should be done in normalizeEmail
+    */
+    user = user.toLowerCase();
+
+    // Removing sub-address from username before gmail validation
+    var username = user.split('+')[0];
+
+    // Dots are not included in gmail length restriction
+    if (!(0, _isByteLength2.default)(username.replace('.', ''), { min: 6, max: 30 })) {
+      return false;
+    }
+
+    var _user_parts = username.split('.');
+    for (var i = 0; i < _user_parts.length; i++) {
+      if (!gmailUserPart.test(_user_parts[i])) {
+        return false;
+      }
+    }
+  }
+
+  if (!(0, _isByteLength2.default)(user, { max: 64 }) || !(0, _isByteLength2.default)(domain, { max: 254 })) {
+    return false;
+  }
+
+  if (!(0, _isFQDN2.default)(domain, { require_tld: options.require_tld })) {
+    if (!options.allow_ip_domain) {
+      return false;
+    }
+
+    if (!(0, _isIP2.default)(domain)) {
+      if (!domain.startsWith('[') || !domain.endsWith(']')) {
+        return false;
+      }
+
+      var noBracketdomain = domain.substr(1, domain.length - 2);
+
+      if (noBracketdomain.length === 0 || !(0, _isIP2.default)(noBracketdomain)) {
+        return false;
+      }
+    }
+  }
+
+  if (user[0] === '"') {
+    user = user.slice(1, user.length - 1);
+    return options.allow_utf8_local_part ? quotedEmailUserUtf8.test(user) : quotedEmailUser.test(user);
+  }
+
+  var pattern = options.allow_utf8_local_part ? emailUserUtf8Part : emailUserPart;
+
+  var user_parts = user.split('.');
+  for (var _i = 0; _i < user_parts.length; _i++) {
+    if (!pattern.test(user_parts[_i])) {
+      return false;
+    }
+  }
+
+  return true;
+}
+module.exports = exports['default'];
+});
+
+var isEmail = unwrapExports(isEmail_1);
+
+var validate$d = function (value, options) {
+  if ( options === void 0 ) options = {};
+
+  if (options.multiple) {
+    value = value.split(',').map(function (emailStr) { return emailStr.trim(); });
+  }
+
+  if (Array.isArray(value)) {
+    return value.every(function (val) { return isEmail(String(val), options); });
+  }
+
+  return isEmail(String(value), options);
+};
+
+var email = {
+  validate: validate$d
+};
+
+var validate$e = function (value, options) {
+  if (Array.isArray(value)) {
+    return value.every(function (val) { return validate$e(val, options); });
+  }
+
+  return toArray(options).some(function (item) {
+    // eslint-disable-next-line
+    return item == value;
+  });
+};
+
+var included = {
+  validate: validate$e
+};
+
+var validate$f = function () {
+  var args = [], len = arguments.length;
+  while ( len-- ) args[ len ] = arguments[ len ];
+
+  return !validate$e.apply(void 0, args);
+};
+
+var excluded = {
+  validate: validate$f
+};
+
+var validate$g = function (files, extensions) {
+  var regex = new RegExp((".(" + (extensions.join('|')) + ")$"), 'i');
+
+  return files.every(function (file) { return regex.test(file.name); });
+};
+
+var ext = {
+  validate: validate$g
+};
+
+var validate$h = function (files) { return files.every(function (file) { return /\.(jpg|svg|jpeg|png|bmp|gif)$/i.test(file.name); }); };
+
+var image = {
+  validate: validate$h
+};
+
+var validate$i = function (value) {
+  if (Array.isArray(value)) {
+    return value.every(function (val) { return /^-?[0-9]+$/.test(String(val)); });
+  }
+
+  return /^-?[0-9]+$/.test(String(value));
+};
+
+var integer = {
+  validate: validate$i
+};
+
+var validate$j = function (value, ref) {
+  if ( ref === void 0 ) ref = {};
+  var version = ref.version; if ( version === void 0 ) version = 4;
 
   if (isNullOrUndefined(value)) {
     value = '';
@@ -75899,21 +76682,36 @@ function ip (value, ref) {
   }
 
   return isIP(value, version);
-}
+};
 
-function is (value, ref) {
+var paramNames$b = ['version'];
+
+var ip = {
+  validate: validate$j,
+  paramNames: paramNames$b
+};
+
+var validate$k = function (value, ref) {
   if ( ref === void 0 ) ref = [];
   var other = ref[0];
 
   return value === other;
-}
+};
 
-function is_not (value, ref) {
+var is = {
+  validate: validate$k
+};
+
+var validate$l = function (value, ref) {
   if ( ref === void 0 ) ref = [];
   var other = ref[0];
 
   return value !== other;
-}
+};
+
+var is_not = {
+  validate: validate$l
+};
 
 /**
  * @param {Array|String} value
@@ -75931,7 +76729,7 @@ var compare = function (value, length, max) {
   return value.length >= length && value.length <= max;
 };
 
-function length (value, ref) {
+var validate$m = function (value, ref) {
   var length = ref[0];
   var max = ref[1]; if ( max === void 0 ) max = undefined;
 
@@ -75949,78 +76747,133 @@ function length (value, ref) {
   }
 
   return compare(value, length, max);
-}
+};
 
-function max$1 (value, ref) {
+var length = {
+  validate: validate$m
+};
+
+var validate$n = function (value, ref) {
   var length = ref[0];
 
   if (value === undefined || value === null) {
     return length >= 0;
   }
 
-  return String(value).length <= length;
-}
+  if (Array.isArray(value)) {
+    return value.every(function (val) { return validate$n(val, [length]); });
+  }
 
-function max_value (value, ref) {
+  return String(value).length <= length;
+};
+
+var max$1 = {
+  validate: validate$n
+};
+
+var validate$o = function (value, ref) {
   var max = ref[0];
 
-  if (Array.isArray(value) || value === null || value === undefined || value === '') {
+  if (value === null || value === undefined || value === '') {
     return false;
   }
 
-  return Number(value) <= max;
-}
+  if (Array.isArray(value)) {
+    return value.length > 0 && value.every(function (val) { return validate$o(val, [max]); });
+  }
 
-function mimes (files, mimes) {
+  return Number(value) <= max;
+};
+
+var max_value = {
+  validate: validate$o
+};
+
+var validate$p = function (files, mimes) {
   var regex = new RegExp(((mimes.join('|').replace('*', '.+')) + "$"), 'i');
 
   return files.every(function (file) { return regex.test(file.type); });
-}
+};
 
-function min$1 (value, ref) {
+var mimes = {
+  validate: validate$p
+};
+
+var validate$q = function (value, ref) {
   var length = ref[0];
 
   if (value === undefined || value === null) {
     return false;
   }
-  return String(value).length >= length;
-}
 
-function min_value (value, ref) {
+  if (Array.isArray(value)) {
+    return value.every(function (val) { return validate$q(val, [length]); });
+  }
+
+  return String(value).length >= length;
+};
+
+var min$1 = {
+  validate: validate$q
+};
+
+var validate$r = function (value, ref) {
   var min = ref[0];
 
-  if (Array.isArray(value) || value === null || value === undefined || value === '') {
+  if (value === null || value === undefined || value === '') {
     return false;
   }
 
-  return Number(value) >= min;
-}
+  if (Array.isArray(value)) {
+    return value.length > 0 && value.every(function (val) { return validate$r(val, [min]); });
+  }
 
-function numeric (value) {
+  return Number(value) >= min;
+};
+
+var min_value = {
+  validate: validate$r
+};
+
+var validate$s = function (value) {
   if (Array.isArray(value)) {
     return value.every(function (val) { return /^[0-9]+$/.test(String(val)); });
   }
 
   return /^[0-9]+$/.test(String(value));
-}
+};
 
-function regex (value, ref) {
-  var regex = ref[0];
-  var flags = ref.slice(1);
+var numeric = {
+  validate: validate$s
+};
 
-  if (regex instanceof RegExp) {
-    return regex.test(value);
+var validate$t = function (value, ref) {
+  var expression = ref.expression;
+
+  if (typeof expression === 'string') {
+    expression = new RegExp(expression);
   }
 
-  return new RegExp(regex, flags).test(String(value));
-}
+  if (Array.isArray(value)) {
+    return value.every(function (val) { return validate$t(val, { expression: expression }); });
+  }
 
-function required (value, ref) {
+  return expression.test(String(value));
+};
+
+var paramNames$c = ['expression'];
+
+var regex = {
+  validate: validate$t,
+  paramNames: paramNames$c
+};
+
+var validate$u = function (value, ref) {
   if ( ref === void 0 ) ref = [];
   var invalidateFalse = ref[0]; if ( invalidateFalse === void 0 ) invalidateFalse = false;
 
-  if (Array.isArray(value)) {
-    return !! value.length;
+  if (isEmptyArray(value)) {
+    return false;
   }
 
   // incase a field considers `false` as an empty value like checkboxes.
@@ -76032,10 +76885,14 @@ function required (value, ref) {
     return false;
   }
 
-  return !! String(value).trim().length;
-}
+  return !!String(value).trim().length;
+};
 
-function size (files, ref) {
+var required = {
+  validate: validate$u
+};
+
+var validate$v = function (files, ref) {
   var size = ref[0];
 
   if (isNaN(size)) {
@@ -76050,7 +76907,11 @@ function size (files, ref) {
   }
 
   return true;
-}
+};
+
+var size = {
+  validate: validate$v
+};
 
 var isURL_1 = createCommonjsModule(function (module, exports) {
 
@@ -76130,13 +76991,16 @@ function isURL(url, options) {
 
   split = url.split('://');
   if (split.length > 1) {
-    protocol = split.shift();
+    protocol = split.shift().toLowerCase();
     if (options.require_valid_protocol && options.protocols.indexOf(protocol) === -1) {
       return false;
     }
   } else if (options.require_protocol) {
     return false;
-  } else if (options.allow_protocol_relative_urls && url.substr(0, 2) === '//') {
+  } else if (url.substr(0, 2) === '//') {
+    if (!options.allow_protocol_relative_urls) {
+      return false;
+    }
     split[0] = url.substr(2);
   }
   url = split.join('://');
@@ -76203,11 +77067,9 @@ module.exports = exports['default'];
 
 var isURL = unwrapExports(isURL_1);
 
-function url (value, ref) {
-  if ( ref === void 0 ) ref = [];
-  var requireProtocol = ref[0]; if ( requireProtocol === void 0 ) requireProtocol = false;
+var validate$w = function (value, options) {
+  if ( options === void 0 ) options = {};
 
-  var options = { require_protocol: !!requireProtocol, allow_underscores: true };
   if (isNullOrUndefined(value)) {
     value = '';
   }
@@ -76217,29 +77079,33 @@ function url (value, ref) {
   }
 
   return isURL(value, options);
-}
+};
+
+var url = {
+  validate: validate$w
+};
 
 /* eslint-disable camelcase */
 
 var Rules = /*#__PURE__*/Object.freeze({
   after: after,
-  alpha_dash: validate$1,
-  alpha_num: validate$2,
-  alpha_spaces: validate$3,
-  alpha: validate,
+  alpha_dash: alpha_dash,
+  alpha_num: alpha_num,
+  alpha_spaces: alpha_spaces,
+  alpha: alpha$1,
   before: before,
-  between: validate$4,
+  between: between,
   confirmed: confirmed,
   credit_card: credit_card,
   date_between: date_between,
   date_format: date_format,
-  decimal: validate$5,
-  digits: validate$6,
+  decimal: decimal,
+  digits: digits,
   dimensions: dimensions,
-  email: validate$7,
+  email: email,
   ext: ext,
   image: image,
-  included: validate$8,
+  included: included,
   integer: integer,
   length: length,
   ip: ip,
@@ -76258,172 +77124,18 @@ var Rules = /*#__PURE__*/Object.freeze({
   url: url
 });
 
-// 
+var version = '2.1.3';
 
-var normalize = function (fields) {
-  if (Array.isArray(fields)) {
-    return fields.reduce(function (prev, curr) {
-      if (~curr.indexOf('.')) {
-        prev[curr.split('.')[1]] = curr;
-      } else {
-        prev[curr] = curr;
-      }
+Object.keys(Rules).forEach(function (rule) {
+  Validator.extend(rule, Rules[rule].validate, assign({}, Rules[rule].options, { paramNames: Rules[rule].paramNames }));
+});
 
-      return prev;
-    }, {});
-  }
+// Merge the english messages.
+Validator.localize({ en: locale });
 
-  return fields;
-};
+var install = VeeValidate$1.install;
 
-// Combines two flags using either AND or OR depending on the flag type.
-var combine = function (lhs, rhs) {
-  var mapper = {
-    pristine: function (lhs, rhs) { return lhs && rhs; },
-    dirty: function (lhs, rhs) { return lhs || rhs; },
-    touched: function (lhs, rhs) { return lhs || rhs; },
-    untouched: function (lhs, rhs) { return lhs && rhs; },
-    valid: function (lhs, rhs) { return lhs && rhs; },
-    invalid: function (lhs, rhs) { return lhs || rhs; },
-    pending: function (lhs, rhs) { return lhs || rhs; },
-    required: function (lhs, rhs) { return lhs || rhs; },
-    validated: function (lhs, rhs) { return lhs && rhs; }
-  };
-
-  return Object.keys(mapper).reduce(function (flags, flag) {
-    flags[flag] = mapper[flag](lhs[flag], rhs[flag]);
-
-    return flags;
-  }, {});
-};
-
-var mapScope = function (scope, deep) {
-  if ( deep === void 0 ) deep = true;
-
-  return Object.keys(scope).reduce(function (flags, field) {
-    if (!flags) {
-      flags = assign({}, scope[field]);
-      return flags;
-    }
-
-    // scope.
-    var isScope = field.indexOf('$') === 0;
-    if (deep && isScope) {
-      return combine(mapScope(scope[field]), flags);
-    } else if (!deep && isScope) {
-      return flags;
-    }
-
-    flags = combine(flags, scope[field]);
-
-    return flags;
-  }, null);
-};
-
-/**
- * Maps fields to computed functions.
- */
-var mapFields = function (fields) {
-  if (!fields) {
-    return function () {
-      return mapScope(this.$validator.flags);
-    };
-  }
-
-  var normalized = normalize(fields);
-  return Object.keys(normalized).reduce(function (prev, curr) {
-    var field = normalized[curr];
-    prev[curr] = function mappedField () {
-      // if field exists
-      if (this.$validator.flags[field]) {
-        return this.$validator.flags[field];
-      }
-
-      // scopeless fields were selected.
-      if (normalized[curr] === '*') {
-        return mapScope(this.$validator.flags, false);
-      }
-
-      // if it has a scope defined
-      var index = field.indexOf('.');
-      if (index <= 0) {
-        return {};
-      }
-
-      var ref = field.split('.');
-      var scope = ref[0];
-      var name = ref.slice(1);
-
-      scope = this.$validator.flags[("$" + scope)];
-      name = name.join('.');
-
-      // an entire scope was selected: scope.*
-      if (name === '*' && scope) {
-        return mapScope(scope);
-      }
-
-      if (scope && scope[name]) {
-        return scope[name];
-      }
-
-      return {};
-    };
-
-    return prev;
-  }, {});
-};
-
-var ErrorComponent = {
-  name: 'vv-error',
-  inject: ['$validator'],
-  functional: true,
-  props: {
-    for: {
-      type: String,
-      required: true
-    },
-    tag: {
-      type: String,
-      default: 'span'
-    }
-  },
-  render: function render (createElement, ref) {
-    var props = ref.props;
-    var injections = ref.injections;
-
-    return createElement(props.tag, injections.$validator.errors.first(props.for));
-  }
-};
-
-var version = '2.1.0-beta.1';
-
-var rulesPlugin = function (ref) {
-  var Validator$$1 = ref.Validator;
-
-  Object.keys(Rules).forEach(function (rule) {
-    Validator$$1.extend(rule, Rules[rule]);
-  });
-
-  // Merge the english messages.
-  Validator$$1.localize('en', locale);
-};
-
-use(rulesPlugin);
-
-var index_esm = {
-  install: install,
-  use: use,
-  directive: directive,
-  mixin: mixin,
-  mapFields: mapFields,
-  Validator: Validator,
-  ErrorBag: ErrorBag,
-  ErrorComponent: ErrorComponent,
-  Rules: Rules,
-  version: version
-};
-
-/* harmony default export */ __webpack_exports__["a"] = (index_esm);
+/* harmony default export */ __webpack_exports__["a"] = (VeeValidate$1);
 
 
 
@@ -76434,583 +77146,15 @@ var index_esm = {
 "use strict";
 /* unused harmony export VueAutosuggest */
 /* unused harmony export DefaultSection */
-var DefaultSection = {
-  name: "default-section",
-  props: {
-    section: { type: Object, required: true },
-    currentIndex: { type: Number, required: false, default: Infinity },
-    updateCurrentIndex: { type: Function, required: true },
-    searchInput: { type: String, required: false, default: "" },
-    renderSuggestion: { type: Function, required: true },
-    normalizeItemFunction: { type: Function, required: true }
-  },
-  computed: {
-    list: function() {
-      var ref = this.section;
-      var limit = ref.limit;
-      var data = ref.data;
-      if (data.length < limit) {
-        limit = data.length;
-      }
-      return data.slice(0, limit);
-    },
-    className: function() {
-      return ("autosuggest__results_title autosuggest__results_title_" + (this.section.name));
-    }
-  },
-  methods: {
-    getItemIndex: function getItemIndex(i) {
-      return this.section.start_index + i;
-    },
-    getItemByIndex: function getItemByIndex(i) {
-      return this.section.data[i];
-    },
-    getLabelByIndex: function getLabelByIndex(i) {
-      return this.section.data[i];
-    },
-    onMouseEnter: function onMouseEnter(event) {
-      this.updateCurrentIndex(event.currentTarget.getAttribute("data-suggestion-index"));
-    },
-    onMouseLeave: function onMouseLeave() {
-      this.updateCurrentIndex(null);
-    }
-  },
-  // eslint-disable-next-line no-unused-vars
-  render: function render(h) {
-    var this$1 = this;
-
-    var sectionTitle = this.section.label ? (
-      h( 'li', { class: this.className }, this.section.label)
-    ) : (
-      ""
-    );
-    return h(
-      "ul",
-      {
-        attrs: { role: "listbox", "aria-labelledby": "autosuggest" }
-      },
-      [
-        sectionTitle,
-        this.list.map(function (val, key) {
-          var item = this$1.normalizeItemFunction(this$1.section.name, this$1.section.type, this$1.getLabelByIndex(key), val);
-          return h(
-            "li",
-            {
-              attrs: {
-                role: "option",
-                "data-suggestion-index": this$1.getItemIndex(key),
-                "data-section-name": this$1.section.name,
-                id: "autosuggest__results_item-" + this$1.getItemIndex(key)
-              },
-              key: this$1.getItemIndex(key),
-              class: {
-                "autosuggest__results_item-highlighted":
-                  this$1.getItemIndex(key) == this$1.currentIndex,
-                autosuggest__results_item: true
-              },
-              on: {
-                mouseenter: this$1.onMouseEnter,
-                mouseleave: this$1.onMouseLeave
-              }
-            },
-            [this$1.renderSuggestion(item)]
-          );
-        })
-      ]
-    );
-  }
-};
-
-/** DOM Utilities */
-function hasClass(el, className) {
-  return !!el.className.match(new RegExp("(\\s|^)" + className + "(\\s|$)"));
-}
-
-function addClass(el, className) {
-  if (!hasClass(el, className)) { el.className += " " + className; }
-}
-
-function removeClass(el, className) {
-  if (el.classList) {
-    el.classList.remove(className);
-  }
-}
-
-var VueAutosuggest = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":_vm.component_attr_id_autosuggest}},[_c('input',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.searchInput),expression:"searchInput"}],staticClass:"form-control",class:[_vm.isOpen ? 'autosuggest__input-open' : '', _vm.inputProps['class']],attrs:{"type":"text","autocomplete":_vm.inputProps.autocomplete,"role":"combobox","aria-autocomplete":"list","aria-owns":"autosuggest__results","aria-activedescendant":_vm.isOpen && _vm.currentIndex !== null ? ("autosuggest__results_item-" + (_vm.currentIndex)) : '',"aria-haspopup":_vm.isOpen ? 'true' : 'false',"aria-expanded":_vm.isOpen ? 'true' : 'false'},domProps:{"value":(_vm.searchInput)},on:{"keydown":_vm.handleKeyStroke,"input":function($event){if($event.target.composing){ return; }_vm.searchInput=$event.target.value;}}},'input',_vm.inputProps,false),_vm.listeners)),_vm._v(" "),_c('div',{class:_vm.component_attr_class_autosuggest__results_container},[(_vm.getSize() > 0 && !_vm.loading)?_c('div',{class:_vm.component_attr_class_autosuggest__results,attrs:{"aria-labelledby":_vm.component_attr_id_autosuggest}},_vm._l((this.computedSections),function(cs,key){return _c(cs.type,{key:_vm.getSectionRef(key),ref:_vm.getSectionRef(key),refInFor:true,tag:"component",attrs:{"normalizeItemFunction":_vm.normalizeItem,"renderSuggestion":_vm.renderSuggestion,"section":cs,"updateCurrentIndex":_vm.updateCurrentIndex,"searchInput":_vm.searchInput}})})):_vm._e()])])},staticRenderFns: [],
-  name: "autosuggest",
-  components: {
-    DefaultSection: DefaultSection
-  },
-  props: {
-    inputProps: {
-      type: Object,
-      required: true,
-      default: function() {
-        return {
-          id: {
-            type: String,
-            default: "autosuggest__input"
-          },
-          onInputChange: {
-            type: Function,
-            required: true
-          },
-          initialValue: {
-            type: String,
-            required: false
-          },
-          onClick: {
-            type: Function,
-            required: false
-          }
-        };
-      }
-    },
-    limit: {
-      type: Number,
-      required: false,
-      default: Infinity
-    },
-    suggestions: {
-      type: Array,
-      required: true,
-      default: []
-    },
-    renderSuggestion: {
-      type: Function,
-      required: false,
-      default: function (suggestion) {
-        return suggestion.item;
-      }
-    },
-    getSuggestionValue: {
-      type: Function,
-      required: false,
-      default: function (suggestion) {
-        var item = suggestion.item;
-        if (typeof item === "object" && item.hasOwnProperty("name")) {
-          return item.name;
-        } else {
-          return item;
-        }
-      }
-    },
-    shouldRenderSuggestions: {
-      type: Function,
-      required: false,
-      default: function () {
-        return true;
-      }
-    },
-    sectionConfigs: {
-      type: Object,
-      required: false,
-      default: function () {
-        return {
-          default: {
-            onSelected: null
-          }
-        };
-      }
-    },
-    onSelected: {
-      type: Function,
-      required: false,
-      default: null
-    }
-  },
-  data: function () { return ({
-    component_attr_id_autosuggest: "autosuggest",
-    component_attr_class_autosuggest__results_container: "autosuggest__results-container",
-    component_attr_class_autosuggest__results: "autosuggest__results",
-    searchInput: "",
-    searchInputOriginal: null,
-    currentIndex: null,
-    currentItem: null,
-    loading: false /** Helps with making sure the dropdown doesn't stay open after certain actions */,
-    didSelectFromOptions: false,
-    computedSections: [],
-    computedSize: 0,
-    internal_inputProps: {}, // Nest default prop values don't work currently in Vue
-    defaultInputProps: {
-      name: "q", // TODO: 2.0 Deprecate default name value
-      initialValue: "",
-      autocomplete: "off"
-    },
-    defaultSectionConfig: {
-      name: "default",
-      type: "default-section"
-    }
-  }); },
-  computed: {
-    listeners: function listeners() {
-      var this$1 = this;
-
-      return Object.assign({}, this.$listeners,
-        {focus: function (e) {
-          this$1.$listeners.focus && this$1.$listeners.focus(e);
-          if (this$1.inputProps.onFocus) {
-            this$1.onFocus(e);
-          }
-        },
-        blur: function (e) {
-          this$1.$listeners.blur && this$1.$listeners.blur(e);
-          if (this$1.inputProps.onBlur) {
-            this$1.onBlur(e);
-          }
-        },
-        click: function () {
-          this$1.loading = false;
-          this$1.$listeners.click && this$1.$listeners.click(this$1.currentItem);
-
-          if(this$1.inputProps.onClick){
-            this$1.onClick(this$1.currentItem);
-          }
-          this$1.$nextTick(function () {
-            this$1.ensureItemVisible(this$1.currentItem, this$1.currentIndex);
-          });
-        }});
-    },
-    isOpen: function isOpen() {
-      return this.getSize() > 0 && this.shouldRenderSuggestions() && !this.loading;
-    }
-  },
-  methods: {
-    _onSelected: function _onSelected() {
-      if (
-        this.currentItem &&
-        this.sectionConfigs[this.currentItem.name] &&
-        this.sectionConfigs[this.currentItem.name].onSelected
-      ) {
-        this.sectionConfigs[this.currentItem.name].onSelected(
-          this.currentItem,
-          this.searchInputOriginal
-        );
-      } else if (this.sectionConfigs["default"].onSelected) {
-        this.sectionConfigs["default"].onSelected(null, this.searchInputOriginal);
-      } else {
-        this.onSelected && this.onSelected(this.currentItem);
-      }
-    },
-    getSectionRef: function getSectionRef(i) {
-      return "computed_section_" + i;
-    },
-    getSize: function getSize() {
-      return this.computedSize;
-    },
-    getItemByIndex: function getItemByIndex(index) {
-      var this$1 = this;
-
-      var obj = false;
-      if (index === null) { return obj; }
-      for (var i = 0; i < this.computedSections.length; i++) {
-        if (
-          index >= this$1.computedSections[i].start_index &&
-          index <= this$1.computedSections[i].end_index
-        ) {
-          var trueIndex = index - this$1.computedSections[i].start_index;
-          var childSection = this$1.$refs["computed_section_" + i][0];
-          if (childSection) {
-            obj = this$1.normalizeItem(
-              this$1.computedSections[i].name,
-              this$1.computedSections[i].type,
-              childSection.getLabelByIndex(trueIndex),
-              childSection.getItemByIndex(trueIndex)
-            );
-            break;
-          }
-        }
-      }
-
-      return obj;
-    },
-    handleKeyStroke: function handleKeyStroke(e) {
-      var this$1 = this;
-
-      var keyCode = e.keyCode;
-
-      var ignoredKeyCodes = [
-        16, // Shift
-        9,  // Tab
-        18, // alt/option
-        91, // OS Key
-        93  // Right OS Key
-      ];
-
-      if (ignoredKeyCodes.indexOf(keyCode) > -1) {
-        return;
-      }
-
-      this.loading = false;
-      this.didSelectFromOptions = false;
-      switch (keyCode) {
-        case 40: // ArrowDown
-        case 38: // ArrowUp
-          e.preventDefault();
-          if (this.isOpen) {
-            if (keyCode === 38 && this.currentIndex === null) {
-              break;
-            }
-            // Determine direction of arrow up/down and determine new currentIndex
-            var direction = keyCode === 40 ? 1 : -1;
-            var newIndex = parseInt(this.currentIndex) + direction;
-
-            this.setCurrentIndex(newIndex, this.getSize(), direction);
-            this.didSelectFromOptions = true;
-            if (this.getSize() > 0 && this.currentIndex >= 0) {
-              this.setChangeItem(this.getItemByIndex(this.currentIndex));
-              this.didSelectFromOptions = true;
-            } else if (this.currentIndex == -1) {
-              this.currentIndex = null;
-              this.searchInput = this.searchInputOriginal;
-              e.preventDefault();
-            }
-          }
-          break;
-        case 13: // Enter
-          e.preventDefault();
-          if (keyCode === 229) {
-            // https://github.com/moroshko/react-autosuggest/pull/388
-            break;
-          }
-          this.$nextTick(function () {
-            if (this$1.getSize() > 0 && this$1.currentIndex >= 0) {
-              this$1.setChangeItem(this$1.getItemByIndex(this$1.currentIndex), true);
-              this$1.didSelectFromOptions = true;
-            }
-            this$1.loading = true;
-            this$1.$nextTick(function () {
-              this$1._onSelected(this$1.didSelectFromOptions);
-            });
-          });
-          break;
-        case 27: // Escape
-          if (this.isOpen) {
-            /* For 'search' input type, make sure the browser doesn't clear the input when Escape is pressed. */
-            this.loading = true;
-            this.currentIndex = null;
-            this.searchInput = this.searchInputOriginal;
-            e.preventDefault();
-          }
-          break;
-      }
-    },
-    setChangeItem: function setChangeItem(item, overrideOriginalInput) {
-      if ( overrideOriginalInput === void 0 ) overrideOriginalInput = false;
-
-      if (this.currentIndex === null) {
-        this.currentItem = null;
-      } else if (item) {
-        this.searchInput = this.getSuggestionValue(item);
-        this.currentItem = item;
-        if (overrideOriginalInput) {
-          this.searchInputOriginal = this.getSuggestionValue(item);
-        }
-        this.ensureItemVisible(item, this.currentIndex);
-      }
-    },
-    normalizeItem: function normalizeItem(name, type, label, item) {
-      return {
-        name: name,
-        type: type,
-        label: label,
-        item: item
-      };
-    },
-    ensureItemVisible: function ensureItemVisible(item, index) {
-      var resultsScrollElement = document.querySelector(
-        ("." + (this.component_attr_class_autosuggest__results))
-      );
-
-      if (!item || (!index && index !== 0) || !resultsScrollElement) {
-        return;
-      }
-
-      var itemElement = document.querySelector(("#autosuggest__results_item-" + index));
-      if (!itemElement) {
-        return;
-      }
-
-      var resultsScrollWindowHeight = resultsScrollElement.clientHeight;
-      var resultsScrollScrollTop = resultsScrollElement.scrollTop;
-
-      var itemHeight = itemElement.clientHeight;
-      var currentItemScrollOffset = itemElement.offsetTop;
-
-      if (
-        itemHeight + currentItemScrollOffset >=
-        resultsScrollScrollTop + resultsScrollWindowHeight
-      ) {
-        /** Current item goes below visible scroll window */
-        resultsScrollElement.scrollTo(
-          0,
-          itemHeight + currentItemScrollOffset - resultsScrollWindowHeight
-        );
-      } else if (currentItemScrollOffset < resultsScrollScrollTop && resultsScrollScrollTop > 0) {
-        /** Current item goes above visible scroll window */
-        resultsScrollElement.scrollTo(0, currentItemScrollOffset);
-      }
-    },
-    updateCurrentIndex: function updateCurrentIndex(index) {
-      this.currentIndex = index;
-    },
-    onDocumentMouseUp: function onDocumentMouseUp(e) {
-      var this$1 = this;
-
-      /** Clicks outside of dropdown to exit */
-      if (this.currentIndex === null || !this.isOpen) {
-        this.loading = this.shouldRenderSuggestions();
-        return;
-      }
-
-      /** Do not re-render list on input click  */
-      var isChild = this.$el.contains(e.target);
-      if (isChild && e.target.tagName === 'INPUT') {
-        return;
-      }
-
-      /** Selects an item in the dropdown */
-      this.loading = true;
-      this.didSelectFromOptions = true;
-      this.setChangeItem(this.getItemByIndex(this.currentIndex), true);
-      this.$nextTick(function () {
-        this$1._onSelected(true);
-      });
-    },
-    setCurrentIndex: function setCurrentIndex(newIndex, limit, direction) {
-      if ( limit === void 0 ) limit = -1;
-
-      var adjustedValue = newIndex;
-
-      // if we hit the lower limit then stop iterating the index
-      if (this.currentIndex === null) {
-        adjustedValue = 0;
-      }
-
-      if (this.currentIndex < 0 && direction === 1) {
-        adjustedValue = 0;
-      }
-
-      // if we hit the upper limit then just stop iterating the index
-      if (newIndex >= limit) {
-        adjustedValue = 0;
-      }
-
-      this.currentIndex = adjustedValue;
-
-      var element = document.getElementById(("autosuggest__results_item-" + (this.currentIndex)));
-      var hoverClass = "autosuggest__results_item-highlighted";
-      if (document.querySelector(("." + hoverClass))) {
-        removeClass(document.querySelector(("." + hoverClass)), hoverClass);
-      }
-      if (element) {
-        addClass(element, hoverClass);
-      }
-    },
-    onClick: function onClick(e) {
-      console.warn(
-        'inputProps.onClick is deprecated. Please use native click event listener \n\ne.g. <vue-autosuggest ... @click="clickMethod" /> \n\nhttps://vuejs.org/v2/guide/syntax.html#v-on-Shorthand'
-      );
-      this.internal_inputProps.onClick && this.internal_inputProps.onClick(e);
-    },
-    onBlur: function onBlur(e) {
-      console.warn(
-        'inputProps.onBlur is deprecated. Please use native blur event listener \n\ne.g. <vue-autosuggest ... @blur="blurMethod" /> \n\nhttps://vuejs.org/v2/guide/syntax.html#v-on-Shorthand'
-      );
-      this.internal_inputProps.onBlur && this.internal_inputProps.onBlur(e);
-    },
-    onFocus: function onFocus(e) {
-      console.warn(
-        'inputProps.onFocus is deprecated. Please use native focus event listener \n\ne.g. <vue-autosuggest ... @focus="focusMethod" /> \n\nhttps://vuejs.org/v2/guide/syntax.html#v-on-Shorthand'
-      );
-      this.internal_inputProps.onFocus && this.internal_inputProps.onFocus(e);
-    }
-  },
-  created: function created() {
-    /** Take care of nested input props */
-    this.internal_inputProps = Object.assign({}, this.defaultInputProps, this.inputProps);
-    this.inputProps.autocomplete = this.internal_inputProps.autocomplete;
-    this.inputProps.name = this.internal_inputProps.name; // TODO: 2.0 Deprecate default name value
-
-    this.searchInput = this.internal_inputProps.initialValue; // set default query, e.g. loaded server side.
-  },
-  mounted: function mounted() {
-    document.addEventListener("mouseup", this.onDocumentMouseUp);
-    this.loading = true;
-  },
-  watch: {
-    searchInput: function searchInput(newValue, oldValue) {
-      this.value = newValue;
-      if (!this.didSelectFromOptions) {
-        this.searchInputOriginal = this.value;
-        this.currentIndex = null;
-        this.internal_inputProps.onInputChange(newValue, oldValue);
-      }
-    },
-    suggestions: {
-      immediate: true,
-      handler: function handler() {
-        var this$1 = this;
-
-        this.computedSections = [];
-        this.computedSize = 0;
-
-        this.suggestions.forEach(function (section) {
-          if (!section.data) { return; }
-
-          var name = section.name ? section.name : this$1.defaultSectionConfig.name;
-
-          var ref = this$1.sectionConfigs[name];
-          var type = ref.type;
-          var limit = ref.limit;
-          var label = ref.label;
-
-          /** Set defaults for section configs. */
-          type = type ? type : this$1.defaultSectionConfig.type;
-
-          limit = limit ? limit : Infinity;
-          limit = section.data.length < limit ? section.data.length : limit;
-
-          label = label ? label : section.label;
-
-          var computedSection = {
-            name: name,
-            label: label,
-            type: type,
-            limit: limit,
-            data: section.data,
-            start_index: this$1.computedSize,
-            end_index: this$1.computedSize + limit - 1
-          };
-          this$1.computedSections.push(computedSection);
-          this$1.computedSize += limit;
-        }, this);
-      }
-    }
-  }
-};
-
-var VueAutosuggestPlugin = {
-  install: function install(Vue) {
-    Vue.component("vue-autosuggest-default-section", DefaultSection);
-    Vue.component("vue-autosuggest", VueAutosuggest);
-  }
-};
-
-if (typeof window !== "undefined" && window.Vue) {
-  window.Vue.use(VueAutosuggestPlugin);
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (VueAutosuggestPlugin);
-
+var DefaultSection={name:"default-section",props:{section:{type:Object,required:!0},currentIndex:{type:Number,required:!1,default:1/0},updateCurrentIndex:{type:Function,required:!0},searchInput:{type:[String,Number],required:!1,default:""},renderSuggestion:{type:Function,required:!1},normalizeItemFunction:{type:Function,required:!0}},computed:{list:function(){var e=this.section,t=e.limit,n=e.data;return n.length<t&&(t=n.length),n.slice(0,t)},className:function(){return"autosuggest__results_title autosuggest__results_title_"+this.section.name}},methods:{getItemIndex:function(e){return this.section.start_index+e},getItemByIndex:function(e){return this.section.data[e]},getLabelByIndex:function(e){return this.section.data[e]},onMouseEnter:function(e){this.updateCurrentIndex(e.currentTarget.getAttribute("data-suggestion-index"))},onMouseLeave:function(){this.updateCurrentIndex(null)}},render:function(e){var t=this,n=this.section.label?e("li",{class:this.className},this.section.label):"";return e("ul",{attrs:{role:"listbox","aria-labelledby":"autosuggest"}},[n,this.list.map(function(n,s){var i=t.normalizeItemFunction(t.section.name,t.section.type,t.getLabelByIndex(s),n);return e("li",{attrs:{role:"option","data-suggestion-index":t.getItemIndex(s),"data-section-name":t.section.name,id:"autosuggest__results_item-"+t.getItemIndex(s)},key:t.getItemIndex(s),class:{"autosuggest__results_item-highlighted":t.getItemIndex(s)==t.currentIndex,autosuggest__results_item:!0},on:{mouseenter:t.onMouseEnter,mouseleave:t.onMouseLeave}},[t.renderSuggestion?t.renderSuggestion(i):t.$scopedSlots.default&&t.$scopedSlots.default({key:s,suggestion:i})])})])}};function hasClass(e,t){return!!e.className.match(new RegExp("(\\s|^)"+t+"(\\s|$)"))}function addClass(e,t){hasClass(e,t)||(e.className+=" "+t)}function removeClass(e,t){e.classList&&e.classList.remove(t)}var VueAutosuggest={render:function(){var e=this,t=e.$createElement,n=e._self._c||t;return n("div",{attrs:{id:e.componentAttrIdAutosuggest}},[n("input",e._g(e._b({directives:[{name:"model",rawName:"v-model",value:e.searchInput,expression:"searchInput"}],staticClass:"form-control",class:[e.isOpen?"autosuggest__input-open":"",e.inputProps.class],attrs:{type:"text",autocomplete:e.inputProps.autocomplete,role:"combobox","aria-autocomplete":"list","aria-owns":"autosuggest__results","aria-activedescendant":e.isOpen&&null!==e.currentIndex?"autosuggest__results_item-"+e.currentIndex:"","aria-haspopup":e.isOpen?"true":"false","aria-expanded":e.isOpen?"true":"false"},domProps:{value:e.searchInput},on:{keydown:e.handleKeyStroke,input:function(t){t.target.composing||(e.searchInput=t.target.value)}}},"input",e.inputProps,!1),e.listeners)),e._v(" "),n("div",{class:e.componentAttrClassAutosuggestResultsContainer},[e.getSize()>0&&!e.loading?n("div",{class:e.componentAttrClassAutosuggestResults,attrs:{"aria-labelledby":e.componentAttrIdAutosuggest}},[e._t("header"),e._v(" "),e._l(e.computedSections,function(t,s){return n(t.type,{key:e.getSectionRef(s),ref:e.getSectionRef(s),refInFor:!0,tag:"component",attrs:{"normalize-item-function":e.normalizeItem,"render-suggestion":e.renderSuggestion,section:t,"update-current-index":e.updateCurrentIndex,"search-input":e.searchInput},scopedSlots:e._u([{key:"default",fn:function(t){var n=t.suggestion,s=t._key;return[e._t("default",[e._v(" "+e._s(n.item)+" ")],{suggestion:n,index:s})]}}])})}),e._v(" "),e._t("footer")],2):e._e()])])},staticRenderFns:[],name:"Autosuggest",components:{DefaultSection:DefaultSection},props:{inputProps:{type:Object,required:!0,default:function(){return{id:{type:String,default:"autosuggest__input"},onInputChange:{type:Function,required:!0},initialValue:{type:String,required:!1},onClick:{type:Function,required:!1}}}},limit:{type:Number,required:!1,default:1/0},suggestions:{type:Array,required:!0,default:function(){return[]}},renderSuggestion:{type:Function,required:!1,default:null},getSuggestionValue:{type:Function,required:!1,default:function(e){var t=e.item;return"object"==typeof t&&t.hasOwnProperty("name")?t.name:t}},shouldRenderSuggestions:{type:Function,required:!1,default:function(){return!0}},sectionConfigs:{type:Object,required:!1,default:function(){return{default:{onSelected:null}}}},onSelected:{type:Function,required:!1,default:null},componentAttrIdAutosuggest:{type:String,required:!1,default:"autosuggest"},componentAttrClassAutosuggestResultsContainer:{type:String,required:!1,default:"autosuggest__results-container"},componentAttrClassAutosuggestResults:{type:String,required:!1,default:"autosuggest__results"}},data:function(){return{searchInput:"",searchInputOriginal:null,currentIndex:null,currentItem:null,loading:!1,didSelectFromOptions:!1,computedSections:[],computedSize:0,internal_inputProps:{},defaultInputProps:{name:"q",initialValue:"",autocomplete:"off"},defaultSectionConfig:{name:"default",type:"default-section"},clientXMouseDownInitial:null}},computed:{listeners:function(){var e=this;return Object.assign({},this.$listeners,{focus:function(t){e.$listeners.focus&&e.$listeners.focus(t),e.inputProps.onFocus&&e.onFocus(t)},blur:function(t){e.$listeners.blur&&e.$listeners.blur(t),e.inputProps.onBlur&&e.onBlur(t)},click:function(){e.loading=!1,e.$listeners.click&&e.$listeners.click(e.currentItem),e.inputProps.onClick&&e.onClick(e.currentItem),e.$nextTick(function(){e.ensureItemVisible(e.currentItem,e.currentIndex)})},selected:function(){e.currentItem&&e.sectionConfigs[e.currentItem.name]&&e.sectionConfigs[e.currentItem.name].onSelected?e.sectionConfigs[e.currentItem.name].onSelected(e.currentItem,e.searchInputOriginal):e.sectionConfigs.default.onSelected?e.sectionConfigs.default.onSelected(null,e.searchInputOriginal):e.$listeners.selected?e.$emit("selected",e.currentItem):e.onSelected&&e._onSelected(e.currentItem)}})},isOpen:function(){return this.getSize()>0&&this.shouldRenderSuggestions()&&!this.loading}},watch:{searchInput:function(e,t){this.value=e,this.didSelectFromOptions||(this.searchInputOriginal=this.value,this.currentIndex=null,this.internal_inputProps.onInputChange(e,t))},suggestions:{immediate:!0,handler:function(){var e=this;this.computedSections=[],this.computedSize=0,this.suggestions.forEach(function(t){if(t.data){var n=t.name?t.name:e.defaultSectionConfig.name,s=e.sectionConfigs[n],i=s.type,u=s.limit,o=s.label;u=u||e.limit,i=i||e.defaultSectionConfig.type,u=u||1/0,u=t.data.length<u?t.data.length:u;var r={name:n,label:o=o||t.label,type:i,limit:u,data:t.data,start_index:e.computedSize,end_index:e.computedSize+u-1};e.computedSections.push(r),e.computedSize+=u}},this)}}},created:function(){this.internal_inputProps=Object.assign({},this.defaultInputProps,this.inputProps),this.inputProps.autocomplete=this.internal_inputProps.autocomplete,this.inputProps.name=this.internal_inputProps.name,this.searchInput=this.internal_inputProps.initialValue,this.loading=this.shouldRenderSuggestions()},mounted:function(){document.addEventListener("mouseup",this.onDocumentMouseUp),document.addEventListener("mousedown",this.onDocumentMouseDown)},beforeDestroy:function(){document.removeEventListener("mouseup",this.onDocumentMouseUp),document.removeEventListener("mousedown",this.onDocumentMouseDown)},methods:{getSectionRef:function(e){return"computed_section_"+e},getSize:function(){return this.computedSize},getItemByIndex:function(e){var t=!1;if(null===e)return t;for(var n=0;n<this.computedSections.length;n++)if(e>=this.computedSections[n].start_index&&e<=this.computedSections[n].end_index){var s=e-this.computedSections[n].start_index,i=this.$refs["computed_section_"+n][0];if(i){t=this.normalizeItem(this.computedSections[n].name,this.computedSections[n].type,i.getLabelByIndex(s),i.getItemByIndex(s));break}}return t},handleKeyStroke:function(e){var t=e.keyCode;if(!([16,9,18,91,93].indexOf(t)>-1))switch(this.loading=!1,this.didSelectFromOptions=!1,t){case 40:case 38:if(e.preventDefault(),this.isOpen){if(38===t&&null===this.currentIndex)break;var n=40===t?1:-1,s=parseInt(this.currentIndex)+n;this.setCurrentIndex(s,this.getSize(),n),this.didSelectFromOptions=!0,this.getSize()>0&&this.currentIndex>=0?(this.setChangeItem(this.getItemByIndex(this.currentIndex)),this.didSelectFromOptions=!0):-1==this.currentIndex&&(this.currentIndex=null,this.searchInput=this.searchInputOriginal,e.preventDefault())}break;case 13:if(e.preventDefault(),229===t)break;this.getSize()>0&&this.currentIndex>=0&&(this.setChangeItem(this.getItemByIndex(this.currentIndex),!0),this.didSelectFromOptions=!0),this.loading=!0,this.listeners.selected(this.didSelectFromOptions);break;case 27:this.isOpen&&(this.loading=!0,this.currentIndex=null,this.searchInput=this.searchInputOriginal,e.preventDefault())}},setChangeItem:function(e,t){void 0===t&&(t=!1),null===this.currentIndex?this.currentItem=null:e&&(this.searchInput=this.getSuggestionValue(e),this.currentItem=e,t&&(this.searchInputOriginal=this.getSuggestionValue(e)),this.ensureItemVisible(e,this.currentIndex))},normalizeItem:function(e,t,n,s){return{name:e,type:t,label:n,item:s}},ensureItemVisible:function(e,t){var n=this.$el.querySelector("."+this.componentAttrClassAutosuggestResults);if(e&&(t||0===t)&&n){var s=this.$el.querySelector("#autosuggest__results_item-"+t);if(s){var i=n.clientHeight,u=n.scrollTop,o=s.clientHeight,r=s.offsetTop;o+r>=u+i?n.scrollTo(0,o+r-i):r<u&&u>0&&n.scrollTo(0,r)}}},updateCurrentIndex:function(e){this.currentIndex=e},clickedOnScrollbar:function(e){var t=this.$el.querySelector("."+this.componentAttrClassAutosuggestResults);return t&&t.clientWidth<=e+16||!1},onDocumentMouseDown:function(e){var t=e.target.getBoundingClientRect?e.target.getBoundingClientRect():0;this.clientXMouseDownInitial=e.clientX-t.left},onDocumentMouseUp:function(e){var t=this;this.$el.contains(e.target)&&"INPUT"===e.target.tagName||this.clickedOnScrollbar(this.clientXMouseDownInitial)||(null!==this.currentIndex&&this.isOpen?(this.loading=!0,this.didSelectFromOptions=!0,this.setChangeItem(this.getItemByIndex(this.currentIndex),!0),this.$nextTick(function(){t.listeners.selected(!0)})):this.loading=this.shouldRenderSuggestions())},setCurrentIndex:function(e,t,n){void 0===t&&(t=-1);var s=e;null===this.currentIndex&&(s=0),this.currentIndex<0&&1===n&&(s=0),e>=t&&(s=0),this.currentIndex=s;var i=this.$el.querySelector("#autosuggest__results_item-"+this.currentIndex),u="autosuggest__results_item-highlighted";this.$el.querySelector("."+u)&&removeClass(this.$el.querySelector("."+u),u),i&&addClass(i,u)},_onSelected:function(e){console.warn('onSelected is deprecated. Please use click event listener \n\ne.g. <vue-autosuggest ... @selected="onSelectedMethod" /> \n\nhttps://vuejs.org/v2/guide/syntax.html#v-on-Shorthand'),this.onSelected&&this.onSelected(e)},onClick:function(e){console.warn('inputProps.onClick is deprecated. Please use native click event listener \n\ne.g. <vue-autosuggest ... @click="clickMethod" /> \n\nhttps://vuejs.org/v2/guide/syntax.html#v-on-Shorthand'),this.internal_inputProps.onClick&&this.internal_inputProps.onClick(e)},onBlur:function(e){console.warn('inputProps.onBlur is deprecated. Please use native blur event listener \n\ne.g. <vue-autosuggest ... @blur="blurMethod" /> \n\nhttps://vuejs.org/v2/guide/syntax.html#v-on-Shorthand'),this.internal_inputProps.onBlur&&this.internal_inputProps.onBlur(e)},onFocus:function(e){console.warn('inputProps.onFocus is deprecated. Please use native focus event listener \n\ne.g. <vue-autosuggest ... @focus="focusMethod" /> \n\nhttps://vuejs.org/v2/guide/syntax.html#v-on-Shorthand'),this.internal_inputProps.onFocus&&this.internal_inputProps.onFocus(e)}}},VueAutosuggestPlugin={install:function(e){e.component("vue-autosuggest-default-section",DefaultSection),e.component("vue-autosuggest",VueAutosuggest)}};"undefined"!=typeof window&&window.Vue&&window.Vue.use(VueAutosuggestPlugin);/* harmony default export */ __webpack_exports__["a"] = (VueAutosuggestPlugin);
 
 
 /***/ }),
 /* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
-!function(t,e){ true?module.exports=e():"function"==typeof define&&define.amd?define([],e):"object"==typeof exports?exports.VueSelect=e():t.VueSelect=e()}(this,function(){return function(t){function e(r){if(n[r])return n[r].exports;var o=n[r]={exports:{},id:r,loaded:!1};return t[r].call(o.exports,o,o.exports,e),o.loaded=!0,o.exports}var n={};return e.m=t,e.c=n,e.p="/",e(0)}([function(t,e,n){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}Object.defineProperty(e,"__esModule",{value:!0}),e.mixins=e.VueSelect=void 0;var o=n(83),i=r(o),a=n(42),s=r(a);e.default=i.default,e.VueSelect=i.default,e.mixins=s.default},function(t,e){var n=t.exports="undefined"!=typeof window&&window.Math==Math?window:"undefined"!=typeof self&&self.Math==Math?self:Function("return this")();"number"==typeof __g&&(__g=n)},function(t,e,n){t.exports=!n(9)(function(){return 7!=Object.defineProperty({},"a",{get:function(){return 7}}).a})},function(t,e){var n={}.hasOwnProperty;t.exports=function(t,e){return n.call(t,e)}},function(t,e,n){var r=n(11),o=n(33),i=n(25),a=Object.defineProperty;e.f=n(2)?Object.defineProperty:function(t,e,n){if(r(t),e=i(e,!0),r(n),o)try{return a(t,e,n)}catch(t){}if("get"in n||"set"in n)throw TypeError("Accessors not supported!");return"value"in n&&(t[e]=n.value),t}},function(t,e){var n=t.exports={version:"2.5.2"};"number"==typeof __e&&(__e=n)},function(t,e,n){var r=n(4),o=n(14);t.exports=n(2)?function(t,e,n){return r.f(t,e,o(1,n))}:function(t,e,n){return t[e]=n,t}},function(t,e,n){var r=n(59),o=n(16);t.exports=function(t){return r(o(t))}},function(t,e,n){var r=n(23)("wks"),o=n(15),i=n(1).Symbol,a="function"==typeof i,s=t.exports=function(t){return r[t]||(r[t]=a&&i[t]||(a?i:o)("Symbol."+t))};s.store=r},function(t,e){t.exports=function(t){try{return!!t()}catch(t){return!0}}},function(t,e){t.exports=function(t){return"object"==typeof t?null!==t:"function"==typeof t}},function(t,e,n){var r=n(10);t.exports=function(t){if(!r(t))throw TypeError(t+" is not an object!");return t}},function(t,e,n){var r=n(1),o=n(5),i=n(56),a=n(6),s="prototype",u=function(t,e,n){var l,c,f,p=t&u.F,d=t&u.G,h=t&u.S,b=t&u.P,v=t&u.B,g=t&u.W,y=d?o:o[e]||(o[e]={}),m=y[s],x=d?r:h?r[e]:(r[e]||{})[s];d&&(n=e);for(l in n)c=!p&&x&&void 0!==x[l],c&&l in y||(f=c?x[l]:n[l],y[l]=d&&"function"!=typeof x[l]?n[l]:v&&c?i(f,r):g&&x[l]==f?function(t){var e=function(e,n,r){if(this instanceof t){switch(arguments.length){case 0:return new t;case 1:return new t(e);case 2:return new t(e,n)}return new t(e,n,r)}return t.apply(this,arguments)};return e[s]=t[s],e}(f):b&&"function"==typeof f?i(Function.call,f):f,b&&((y.virtual||(y.virtual={}))[l]=f,t&u.R&&m&&!m[l]&&a(m,l,f)))};u.F=1,u.G=2,u.S=4,u.P=8,u.B=16,u.W=32,u.U=64,u.R=128,t.exports=u},function(t,e,n){var r=n(38),o=n(17);t.exports=Object.keys||function(t){return r(t,o)}},function(t,e){t.exports=function(t,e){return{enumerable:!(1&t),configurable:!(2&t),writable:!(4&t),value:e}}},function(t,e){var n=0,r=Math.random();t.exports=function(t){return"Symbol(".concat(void 0===t?"":t,")_",(++n+r).toString(36))}},function(t,e){t.exports=function(t){if(void 0==t)throw TypeError("Can't call method on  "+t);return t}},function(t,e){t.exports="constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf".split(",")},function(t,e){t.exports={}},function(t,e){t.exports=!0},function(t,e){e.f={}.propertyIsEnumerable},function(t,e,n){var r=n(4).f,o=n(3),i=n(8)("toStringTag");t.exports=function(t,e,n){t&&!o(t=n?t:t.prototype,i)&&r(t,i,{configurable:!0,value:e})}},function(t,e,n){var r=n(23)("keys"),o=n(15);t.exports=function(t){return r[t]||(r[t]=o(t))}},function(t,e,n){var r=n(1),o="__core-js_shared__",i=r[o]||(r[o]={});t.exports=function(t){return i[t]||(i[t]={})}},function(t,e){var n=Math.ceil,r=Math.floor;t.exports=function(t){return isNaN(t=+t)?0:(t>0?r:n)(t)}},function(t,e,n){var r=n(10);t.exports=function(t,e){if(!r(t))return t;var n,o;if(e&&"function"==typeof(n=t.toString)&&!r(o=n.call(t)))return o;if("function"==typeof(n=t.valueOf)&&!r(o=n.call(t)))return o;if(!e&&"function"==typeof(n=t.toString)&&!r(o=n.call(t)))return o;throw TypeError("Can't convert object to primitive value")}},function(t,e,n){var r=n(1),o=n(5),i=n(19),a=n(27),s=n(4).f;t.exports=function(t){var e=o.Symbol||(o.Symbol=i?{}:r.Symbol||{});"_"==t.charAt(0)||t in e||s(e,t,{value:a.f(t)})}},function(t,e,n){e.f=n(8)},function(t,e){"use strict";t.exports={props:{loading:{type:Boolean,default:!1},onSearch:{type:Function,default:function(t,e){}}},data:function(){return{mutableLoading:!1}},watch:{search:function(){this.search.length>0&&(this.onSearch(this.search,this.toggleLoading),this.$emit("search",this.search,this.toggleLoading))},loading:function(t){this.mutableLoading=t}},methods:{toggleLoading:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:null;return null==t?this.mutableLoading=!this.mutableLoading:this.mutableLoading=t}}}},function(t,e){"use strict";t.exports={watch:{typeAheadPointer:function(){this.maybeAdjustScroll()}},methods:{maybeAdjustScroll:function(){var t=this.pixelsToPointerTop(),e=this.pixelsToPointerBottom();return t<=this.viewport().top?this.scrollTo(t):e>=this.viewport().bottom?this.scrollTo(this.viewport().top+this.pointerHeight()):void 0},pixelsToPointerTop:function t(){var t=0;if(this.$refs.dropdownMenu)for(var e=0;e<this.typeAheadPointer;e++)t+=this.$refs.dropdownMenu.children[e].offsetHeight;return t},pixelsToPointerBottom:function(){return this.pixelsToPointerTop()+this.pointerHeight()},pointerHeight:function(){var t=!!this.$refs.dropdownMenu&&this.$refs.dropdownMenu.children[this.typeAheadPointer];return t?t.offsetHeight:0},viewport:function(){return{top:this.$refs.dropdownMenu?this.$refs.dropdownMenu.scrollTop:0,bottom:this.$refs.dropdownMenu?this.$refs.dropdownMenu.offsetHeight+this.$refs.dropdownMenu.scrollTop:0}},scrollTo:function(t){return this.$refs.dropdownMenu?this.$refs.dropdownMenu.scrollTop=t:null}}}},function(t,e){"use strict";t.exports={data:function(){return{typeAheadPointer:-1}},watch:{filteredOptions:function(){this.typeAheadPointer=0}},methods:{typeAheadUp:function(){this.typeAheadPointer>0&&(this.typeAheadPointer--,this.maybeAdjustScroll&&this.maybeAdjustScroll())},typeAheadDown:function(){this.typeAheadPointer<this.filteredOptions.length-1&&(this.typeAheadPointer++,this.maybeAdjustScroll&&this.maybeAdjustScroll())},typeAheadSelect:function(){this.filteredOptions[this.typeAheadPointer]?this.select(this.filteredOptions[this.typeAheadPointer]):this.taggable&&this.search.length&&this.select(this.search),this.clearSearchOnSelect&&(this.search="")}}}},function(t,e){var n={}.toString;t.exports=function(t){return n.call(t).slice(8,-1)}},function(t,e,n){var r=n(10),o=n(1).document,i=r(o)&&r(o.createElement);t.exports=function(t){return i?o.createElement(t):{}}},function(t,e,n){t.exports=!n(2)&&!n(9)(function(){return 7!=Object.defineProperty(n(32)("div"),"a",{get:function(){return 7}}).a})},function(t,e,n){"use strict";var r=n(19),o=n(12),i=n(39),a=n(6),s=n(3),u=n(18),l=n(61),c=n(21),f=n(67),p=n(8)("iterator"),d=!([].keys&&"next"in[].keys()),h="@@iterator",b="keys",v="values",g=function(){return this};t.exports=function(t,e,n,y,m,x,w){l(n,e,y);var S,O,_,j=function(t){if(!d&&t in A)return A[t];switch(t){case b:return function(){return new n(this,t)};case v:return function(){return new n(this,t)}}return function(){return new n(this,t)}},k=e+" Iterator",P=m==v,C=!1,A=t.prototype,M=A[p]||A[h]||m&&A[m],L=M||j(m),T=m?P?j("entries"):L:void 0,E="Array"==e?A.entries||M:M;if(E&&(_=f(E.call(new t)),_!==Object.prototype&&_.next&&(c(_,k,!0),r||s(_,p)||a(_,p,g))),P&&M&&M.name!==v&&(C=!0,L=function(){return M.call(this)}),r&&!w||!d&&!C&&A[p]||a(A,p,L),u[e]=L,u[k]=g,m)if(S={values:P?L:j(v),keys:x?L:j(b),entries:T},w)for(O in S)O in A||i(A,O,S[O]);else o(o.P+o.F*(d||C),e,S);return S}},function(t,e,n){var r=n(11),o=n(64),i=n(17),a=n(22)("IE_PROTO"),s=function(){},u="prototype",l=function(){var t,e=n(32)("iframe"),r=i.length,o="<",a=">";for(e.style.display="none",n(58).appendChild(e),e.src="javascript:",t=e.contentWindow.document,t.open(),t.write(o+"script"+a+"document.F=Object"+o+"/script"+a),t.close(),l=t.F;r--;)delete l[u][i[r]];return l()};t.exports=Object.create||function(t,e){var n;return null!==t?(s[u]=r(t),n=new s,s[u]=null,n[a]=t):n=l(),void 0===e?n:o(n,e)}},function(t,e,n){var r=n(38),o=n(17).concat("length","prototype");e.f=Object.getOwnPropertyNames||function(t){return r(t,o)}},function(t,e){e.f=Object.getOwnPropertySymbols},function(t,e,n){var r=n(3),o=n(7),i=n(55)(!1),a=n(22)("IE_PROTO");t.exports=function(t,e){var n,s=o(t),u=0,l=[];for(n in s)n!=a&&r(s,n)&&l.push(n);for(;e.length>u;)r(s,n=e[u++])&&(~i(l,n)||l.push(n));return l}},function(t,e,n){t.exports=n(6)},function(t,e,n){var r=n(16);t.exports=function(t){return Object(r(t))}},function(t,e,n){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}Object.defineProperty(e,"__esModule",{value:!0});var o=n(44),i=r(o),a=n(47),s=r(a),u=n(48),l=r(u),c=n(29),f=r(c),p=n(30),d=r(p),h=n(28),b=r(h);e.default={mixins:[f.default,d.default,b.default],props:{value:{default:null},options:{type:Array,default:function(){return[]}},disabled:{type:Boolean,default:!1},maxHeight:{type:String,default:"400px"},searchable:{type:Boolean,default:!0},multiple:{type:Boolean,default:!1},placeholder:{type:String,default:""},transition:{type:String,default:"fade"},clearSearchOnSelect:{type:Boolean,default:!0},closeOnSelect:{type:Boolean,default:!0},label:{type:String,default:"label"},getOptionLabel:{type:Function,default:function(t){return"object"===("undefined"==typeof t?"undefined":(0,l.default)(t))&&this.label&&t[this.label]?t[this.label]:t}},onChange:{type:Function,default:function(t){this.$emit("input",t)}},taggable:{type:Boolean,default:!1},tabindex:{type:Number,default:null},pushTags:{type:Boolean,default:!1},filterable:{type:Boolean,default:!0},createOption:{type:Function,default:function(t){return"object"===(0,l.default)(this.mutableOptions[0])&&(t=(0,s.default)({},this.label,t)),this.$emit("option:created",t),t}},resetOnOptionsChange:{type:Boolean,default:!1},noDrop:{type:Boolean,default:!1},inputId:{type:String},dir:{type:String,default:"auto"}},data:function(){return{search:"",open:!1,mutableValue:null,mutableOptions:[]}},watch:{value:function(t){this.mutableValue=t},mutableValue:function(t,e){this.multiple?this.onChange?this.onChange(t):null:this.onChange&&t!==e?this.onChange(t):null},options:function(t){this.mutableOptions=t},mutableOptions:function(){!this.taggable&&this.resetOnOptionsChange&&(this.mutableValue=this.multiple?[]:null)},multiple:function(t){this.mutableValue=t?[]:null}},created:function(){this.mutableValue=this.value,this.mutableOptions=this.options.slice(0),this.mutableLoading=this.loading,this.$on("option:created",this.maybePushTag)},methods:{select:function(t){this.isOptionSelected(t)?this.deselect(t):(this.taggable&&!this.optionExists(t)&&(t=this.createOption(t)),this.multiple&&!this.mutableValue?this.mutableValue=[t]:this.multiple?this.mutableValue.push(t):this.mutableValue=t),this.onAfterSelect(t)},deselect:function(t){var e=this;if(this.multiple){var n=-1;this.mutableValue.forEach(function(r){(r===t||"object"===("undefined"==typeof r?"undefined":(0,l.default)(r))&&r[e.label]===t[e.label])&&(n=r)});var r=this.mutableValue.indexOf(n);this.mutableValue.splice(r,1)}else this.mutableValue=null},clearSelection:function(){this.mutableValue=this.multiple?[]:null},onAfterSelect:function(t){this.closeOnSelect&&(this.open=!this.open,this.$refs.search.blur()),this.clearSearchOnSelect&&(this.search="")},toggleDropdown:function(t){t.target!==this.$refs.openIndicator&&t.target!==this.$refs.search&&t.target!==this.$refs.toggle&&t.target!==this.$el||(this.open?this.$refs.search.blur():this.disabled||(this.open=!0,this.$refs.search.focus()))},isOptionSelected:function(t){var e=this;if(this.multiple&&this.mutableValue){var n=!1;return this.mutableValue.forEach(function(r){"object"===("undefined"==typeof r?"undefined":(0,l.default)(r))&&r[e.label]===t[e.label]?n=!0:"object"===("undefined"==typeof r?"undefined":(0,l.default)(r))&&r[e.label]===t?n=!0:r===t&&(n=!0)}),n}return this.mutableValue===t},onEscape:function(){this.search.length?this.search="":this.$refs.search.blur()},onSearchBlur:function(){this.clearSearchOnBlur&&(this.search=""),this.open=!1,this.$emit("search:blur")},onSearchFocus:function(){this.open=!0,this.$emit("search:focus")},maybeDeleteValue:function(){if(!this.$refs.search.value.length&&this.mutableValue)return this.multiple?this.mutableValue.pop():this.mutableValue=null},optionExists:function(t){var e=this,n=!1;return this.mutableOptions.forEach(function(r){"object"===("undefined"==typeof r?"undefined":(0,l.default)(r))&&r[e.label]===t?n=!0:r===t&&(n=!0)}),n},maybePushTag:function(t){this.pushTags&&this.mutableOptions.push(t)}},computed:{dropdownClasses:function(){return{open:this.dropdownOpen,single:!this.multiple,searching:this.searching,searchable:this.searchable,unsearchable:!this.searchable,loading:this.mutableLoading,rtl:"rtl"===this.dir,disabled:this.disabled}},clearSearchOnBlur:function(){return this.clearSearchOnSelect&&!this.multiple},searching:function(){return!!this.search},dropdownOpen:function(){return!this.noDrop&&(this.open&&!this.mutableLoading)},searchPlaceholder:function(){if(this.isValueEmpty&&this.placeholder)return this.placeholder},filteredOptions:function(){var t=this;if(!this.filterable&&!this.taggable)return this.mutableOptions.slice();var e=this.mutableOptions.filter(function(e){return"object"===("undefined"==typeof e?"undefined":(0,l.default)(e))&&e.hasOwnProperty(t.label)?e[t.label].toLowerCase().indexOf(t.search.toLowerCase())>-1:"object"!==("undefined"==typeof e?"undefined":(0,l.default)(e))||e.hasOwnProperty(t.label)?e.toLowerCase().indexOf(t.search.toLowerCase())>-1:console.warn('[vue-select warn]: Label key "option.'+t.label+'" does not exist in options object.\nhttp://sagalbot.github.io/vue-select/#ex-labels')});return this.taggable&&this.search.length&&!this.optionExists(this.search)&&e.unshift(this.search),e},isValueEmpty:function(){return!this.mutableValue||("object"===(0,l.default)(this.mutableValue)?!(0,i.default)(this.mutableValue).length:!this.mutableValue.length)},valueAsArray:function(){return this.multiple?this.mutableValue:this.mutableValue?[this.mutableValue]:[]},showClearButton:function(){return!this.multiple&&!this.open&&null!=this.mutableValue}}}},function(t,e,n){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}Object.defineProperty(e,"__esModule",{value:!0});var o=n(28),i=r(o),a=n(30),s=r(a),u=n(29),l=r(u);e.default={ajax:i.default,pointer:s.default,pointerScroll:l.default}},function(t,e,n){t.exports={default:n(49),__esModule:!0}},function(t,e,n){t.exports={default:n(50),__esModule:!0}},function(t,e,n){t.exports={default:n(51),__esModule:!0}},function(t,e,n){t.exports={default:n(52),__esModule:!0}},function(t,e,n){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}e.__esModule=!0;var o=n(43),i=r(o);e.default=function(t,e,n){return e in t?(0,i.default)(t,e,{value:n,enumerable:!0,configurable:!0,writable:!0}):t[e]=n,t}},function(t,e,n){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}e.__esModule=!0;var o=n(46),i=r(o),a=n(45),s=r(a),u="function"==typeof s.default&&"symbol"==typeof i.default?function(t){return typeof t}:function(t){return t&&"function"==typeof s.default&&t.constructor===s.default&&t!==s.default.prototype?"symbol":typeof t};e.default="function"==typeof s.default&&"symbol"===u(i.default)?function(t){return"undefined"==typeof t?"undefined":u(t)}:function(t){return t&&"function"==typeof s.default&&t.constructor===s.default&&t!==s.default.prototype?"symbol":"undefined"==typeof t?"undefined":u(t)}},function(t,e,n){n(73);var r=n(5).Object;t.exports=function(t,e,n){return r.defineProperty(t,e,n)}},function(t,e,n){n(74),t.exports=n(5).Object.keys},function(t,e,n){n(77),n(75),n(78),n(79),t.exports=n(5).Symbol},function(t,e,n){n(76),n(80),t.exports=n(27).f("iterator")},function(t,e){t.exports=function(t){if("function"!=typeof t)throw TypeError(t+" is not a function!");return t}},function(t,e){t.exports=function(){}},function(t,e,n){var r=n(7),o=n(71),i=n(70);t.exports=function(t){return function(e,n,a){var s,u=r(e),l=o(u.length),c=i(a,l);if(t&&n!=n){for(;l>c;)if(s=u[c++],s!=s)return!0}else for(;l>c;c++)if((t||c in u)&&u[c]===n)return t||c||0;return!t&&-1}}},function(t,e,n){var r=n(53);t.exports=function(t,e,n){if(r(t),void 0===e)return t;switch(n){case 1:return function(n){return t.call(e,n)};case 2:return function(n,r){return t.call(e,n,r)};case 3:return function(n,r,o){return t.call(e,n,r,o)}}return function(){return t.apply(e,arguments)}}},function(t,e,n){var r=n(13),o=n(37),i=n(20);t.exports=function(t){var e=r(t),n=o.f;if(n)for(var a,s=n(t),u=i.f,l=0;s.length>l;)u.call(t,a=s[l++])&&e.push(a);return e}},function(t,e,n){var r=n(1).document;t.exports=r&&r.documentElement},function(t,e,n){var r=n(31);t.exports=Object("z").propertyIsEnumerable(0)?Object:function(t){return"String"==r(t)?t.split(""):Object(t)}},function(t,e,n){var r=n(31);t.exports=Array.isArray||function(t){return"Array"==r(t)}},function(t,e,n){"use strict";var r=n(35),o=n(14),i=n(21),a={};n(6)(a,n(8)("iterator"),function(){return this}),t.exports=function(t,e,n){t.prototype=r(a,{next:o(1,n)}),i(t,e+" Iterator")}},function(t,e){t.exports=function(t,e){return{value:e,done:!!t}}},function(t,e,n){var r=n(15)("meta"),o=n(10),i=n(3),a=n(4).f,s=0,u=Object.isExtensible||function(){return!0},l=!n(9)(function(){return u(Object.preventExtensions({}))}),c=function(t){a(t,r,{value:{i:"O"+ ++s,w:{}}})},f=function(t,e){if(!o(t))return"symbol"==typeof t?t:("string"==typeof t?"S":"P")+t;if(!i(t,r)){if(!u(t))return"F";if(!e)return"E";c(t)}return t[r].i},p=function(t,e){if(!i(t,r)){if(!u(t))return!0;if(!e)return!1;c(t)}return t[r].w},d=function(t){return l&&h.NEED&&u(t)&&!i(t,r)&&c(t),t},h=t.exports={KEY:r,NEED:!1,fastKey:f,getWeak:p,onFreeze:d}},function(t,e,n){var r=n(4),o=n(11),i=n(13);t.exports=n(2)?Object.defineProperties:function(t,e){o(t);for(var n,a=i(e),s=a.length,u=0;s>u;)r.f(t,n=a[u++],e[n]);return t}},function(t,e,n){var r=n(20),o=n(14),i=n(7),a=n(25),s=n(3),u=n(33),l=Object.getOwnPropertyDescriptor;e.f=n(2)?l:function(t,e){if(t=i(t),e=a(e,!0),u)try{return l(t,e)}catch(t){}if(s(t,e))return o(!r.f.call(t,e),t[e])}},function(t,e,n){var r=n(7),o=n(36).f,i={}.toString,a="object"==typeof window&&window&&Object.getOwnPropertyNames?Object.getOwnPropertyNames(window):[],s=function(t){try{return o(t)}catch(t){return a.slice()}};t.exports.f=function(t){return a&&"[object Window]"==i.call(t)?s(t):o(r(t))}},function(t,e,n){var r=n(3),o=n(40),i=n(22)("IE_PROTO"),a=Object.prototype;t.exports=Object.getPrototypeOf||function(t){return t=o(t),r(t,i)?t[i]:"function"==typeof t.constructor&&t instanceof t.constructor?t.constructor.prototype:t instanceof Object?a:null}},function(t,e,n){var r=n(12),o=n(5),i=n(9);t.exports=function(t,e){var n=(o.Object||{})[t]||Object[t],a={};a[t]=e(n),r(r.S+r.F*i(function(){n(1)}),"Object",a)}},function(t,e,n){var r=n(24),o=n(16);t.exports=function(t){return function(e,n){var i,a,s=String(o(e)),u=r(n),l=s.length;return u<0||u>=l?t?"":void 0:(i=s.charCodeAt(u),i<55296||i>56319||u+1===l||(a=s.charCodeAt(u+1))<56320||a>57343?t?s.charAt(u):i:t?s.slice(u,u+2):(i-55296<<10)+(a-56320)+65536)}}},function(t,e,n){var r=n(24),o=Math.max,i=Math.min;t.exports=function(t,e){return t=r(t),t<0?o(t+e,0):i(t,e)}},function(t,e,n){var r=n(24),o=Math.min;t.exports=function(t){return t>0?o(r(t),9007199254740991):0}},function(t,e,n){"use strict";var r=n(54),o=n(62),i=n(18),a=n(7);t.exports=n(34)(Array,"Array",function(t,e){this._t=a(t),this._i=0,this._k=e},function(){var t=this._t,e=this._k,n=this._i++;return!t||n>=t.length?(this._t=void 0,o(1)):"keys"==e?o(0,n):"values"==e?o(0,t[n]):o(0,[n,t[n]])},"values"),i.Arguments=i.Array,r("keys"),r("values"),r("entries")},function(t,e,n){var r=n(12);r(r.S+r.F*!n(2),"Object",{defineProperty:n(4).f})},function(t,e,n){var r=n(40),o=n(13);n(68)("keys",function(){return function(t){return o(r(t))}})},function(t,e){},function(t,e,n){"use strict";var r=n(69)(!0);n(34)(String,"String",function(t){this._t=String(t),this._i=0},function(){var t,e=this._t,n=this._i;return n>=e.length?{value:void 0,done:!0}:(t=r(e,n),this._i+=t.length,{value:t,done:!1})})},function(t,e,n){"use strict";var r=n(1),o=n(3),i=n(2),a=n(12),s=n(39),u=n(63).KEY,l=n(9),c=n(23),f=n(21),p=n(15),d=n(8),h=n(27),b=n(26),v=n(57),g=n(60),y=n(11),m=n(10),x=n(7),w=n(25),S=n(14),O=n(35),_=n(66),j=n(65),k=n(4),P=n(13),C=j.f,A=k.f,M=_.f,L=r.Symbol,T=r.JSON,E=T&&T.stringify,V="prototype",B=d("_hidden"),F=d("toPrimitive"),$={}.propertyIsEnumerable,N=c("symbol-registry"),D=c("symbols"),I=c("op-symbols"),R=Object[V],z="function"==typeof L,H=r.QObject,G=!H||!H[V]||!H[V].findChild,U=i&&l(function(){return 7!=O(A({},"a",{get:function(){return A(this,"a",{value:7}).a}})).a})?function(t,e,n){var r=C(R,e);r&&delete R[e],A(t,e,n),r&&t!==R&&A(R,e,r)}:A,W=function(t){var e=D[t]=O(L[V]);return e._k=t,e},J=z&&"symbol"==typeof L.iterator?function(t){return"symbol"==typeof t}:function(t){return t instanceof L},K=function(t,e,n){return t===R&&K(I,e,n),y(t),e=w(e,!0),y(n),o(D,e)?(n.enumerable?(o(t,B)&&t[B][e]&&(t[B][e]=!1),n=O(n,{enumerable:S(0,!1)})):(o(t,B)||A(t,B,S(1,{})),t[B][e]=!0),U(t,e,n)):A(t,e,n)},Y=function(t,e){y(t);for(var n,r=v(e=x(e)),o=0,i=r.length;i>o;)K(t,n=r[o++],e[n]);return t},q=function(t,e){return void 0===e?O(t):Y(O(t),e)},Q=function(t){var e=$.call(this,t=w(t,!0));return!(this===R&&o(D,t)&&!o(I,t))&&(!(e||!o(this,t)||!o(D,t)||o(this,B)&&this[B][t])||e)},Z=function(t,e){if(t=x(t),e=w(e,!0),t!==R||!o(D,e)||o(I,e)){var n=C(t,e);return!n||!o(D,e)||o(t,B)&&t[B][e]||(n.enumerable=!0),n}},X=function(t){for(var e,n=M(x(t)),r=[],i=0;n.length>i;)o(D,e=n[i++])||e==B||e==u||r.push(e);return r},tt=function(t){for(var e,n=t===R,r=M(n?I:x(t)),i=[],a=0;r.length>a;)!o(D,e=r[a++])||n&&!o(R,e)||i.push(D[e]);return i};z||(L=function(){if(this instanceof L)throw TypeError("Symbol is not a constructor!");var t=p(arguments.length>0?arguments[0]:void 0),e=function(n){this===R&&e.call(I,n),o(this,B)&&o(this[B],t)&&(this[B][t]=!1),U(this,t,S(1,n))};return i&&G&&U(R,t,{configurable:!0,set:e}),W(t)},s(L[V],"toString",function(){return this._k}),j.f=Z,k.f=K,n(36).f=_.f=X,n(20).f=Q,n(37).f=tt,i&&!n(19)&&s(R,"propertyIsEnumerable",Q,!0),h.f=function(t){return W(d(t))}),a(a.G+a.W+a.F*!z,{Symbol:L});for(var et="hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables".split(","),nt=0;et.length>nt;)d(et[nt++]);for(var rt=P(d.store),ot=0;rt.length>ot;)b(rt[ot++]);a(a.S+a.F*!z,"Symbol",{for:function(t){return o(N,t+="")?N[t]:N[t]=L(t)},keyFor:function(t){if(!J(t))throw TypeError(t+" is not a symbol!");for(var e in N)if(N[e]===t)return e},useSetter:function(){G=!0},useSimple:function(){G=!1}}),a(a.S+a.F*!z,"Object",{create:q,defineProperty:K,defineProperties:Y,getOwnPropertyDescriptor:Z,getOwnPropertyNames:X,getOwnPropertySymbols:tt}),T&&a(a.S+a.F*(!z||l(function(){var t=L();return"[null]"!=E([t])||"{}"!=E({a:t})||"{}"!=E(Object(t))})),"JSON",{stringify:function(t){for(var e,n,r=[t],o=1;arguments.length>o;)r.push(arguments[o++]);if(n=e=r[1],(m(e)||void 0!==t)&&!J(t))return g(e)||(e=function(t,e){if(n&&(e=n.call(this,t,e)),!J(e))return e}),r[1]=e,E.apply(T,r)}}),L[V][F]||n(6)(L[V],F,L[V].valueOf),f(L,"Symbol"),f(Math,"Math",!0),f(r.JSON,"JSON",!0)},function(t,e,n){n(26)("asyncIterator")},function(t,e,n){n(26)("observable")},function(t,e,n){n(72);for(var r=n(1),o=n(6),i=n(18),a=n(8)("toStringTag"),s="CSSRuleList,CSSStyleDeclaration,CSSValueList,ClientRectList,DOMRectList,DOMStringList,DOMTokenList,DataTransferItemList,FileList,HTMLAllCollection,HTMLCollection,HTMLFormElement,HTMLSelectElement,MediaList,MimeTypeArray,NamedNodeMap,NodeList,PaintRequestList,Plugin,PluginArray,SVGLengthList,SVGNumberList,SVGPathSegList,SVGPointList,SVGStringList,SVGTransformList,SourceBufferList,StyleSheetList,TextTrackCueList,TextTrackList,TouchList".split(","),u=0;u<s.length;u++){var l=s[u],c=r[l],f=c&&c.prototype;f&&!f[a]&&o(f,a,l),i[l]=i.Array}},function(t,e,n){e=t.exports=n(82)(),e.push([t.id,'.v-select{position:relative;font-family:sans-serif}.v-select,.v-select *{box-sizing:border-box}.v-select.rtl .open-indicator{left:10px;right:auto}.v-select.rtl .selected-tag{float:right;margin-right:3px;margin-left:1px}.v-select.rtl .dropdown-menu{text-align:right}.v-select.rtl .dropdown-toggle .clear{left:30px;right:auto}.v-select .open-indicator{position:absolute;bottom:6px;right:10px;cursor:pointer;pointer-events:all;opacity:1;height:20px}.v-select .open-indicator,.v-select .open-indicator:before{display:inline-block;transition:all .15s cubic-bezier(1,-.115,.975,.855);transition-timing-function:cubic-bezier(1,-.115,.975,.855);width:10px}.v-select .open-indicator:before{border-color:rgba(60,60,60,.5);border-style:solid;border-width:3px 3px 0 0;content:"";height:10px;vertical-align:top;transform:rotate(133deg);box-sizing:inherit}.v-select.open .open-indicator:before{transform:rotate(315deg)}.v-select.loading .open-indicator{opacity:0}.v-select.open .open-indicator{bottom:1px}.v-select .dropdown-toggle{-webkit-appearance:none;-moz-appearance:none;appearance:none;display:block;padding:0;background:none;border:1px solid rgba(60,60,60,.26);border-radius:4px;white-space:normal}.v-select .dropdown-toggle:after{visibility:hidden;display:block;font-size:0;content:" ";clear:both;height:0}.v-select .dropdown-toggle .clear{position:absolute;bottom:9px;right:30px;font-size:23px;font-weight:700;line-height:1;color:rgba(60,60,60,.5);padding:0;border:0;background-color:transparent;cursor:pointer}.v-select.searchable .dropdown-toggle{cursor:text}.v-select.unsearchable .dropdown-toggle{cursor:pointer}.v-select.open .dropdown-toggle{border-bottom-color:transparent;border-bottom-left-radius:0;border-bottom-right-radius:0}.v-select .dropdown-menu{display:block;position:absolute;top:100%;left:0;z-index:1000;min-width:160px;padding:5px 0;margin:0;width:100%;overflow-y:scroll;border:1px solid rgba(0,0,0,.26);box-shadow:0 3px 6px 0 rgba(0,0,0,.15);border-top:none;border-radius:0 0 4px 4px;text-align:left;list-style:none;background:#fff}.v-select .no-options{text-align:center}.v-select .selected-tag{color:#333;background-color:#f0f0f0;border:1px solid #ccc;border-radius:4px;height:26px;margin:4px 1px 0 3px;padding:1px .25em;float:left;line-height:24px}.v-select.single .selected-tag{background-color:transparent;border-color:transparent}.v-select.single.open .selected-tag{position:absolute;opacity:.5}.v-select.single.loading .selected-tag,.v-select.single.open.searching .selected-tag{display:none}.v-select .selected-tag .close{float:none;margin-right:0;font-size:20px;appearance:none;padding:0;cursor:pointer;background:0 0;border:0;font-weight:700;line-height:1;color:#000;text-shadow:0 1px 0 #fff;filter:alpha(opacity=20);opacity:.2}.v-select.single.searching:not(.open):not(.loading) input[type=search]{opacity:.2}.v-select input[type=search]::-webkit-search-cancel-button,.v-select input[type=search]::-webkit-search-decoration,.v-select input[type=search]::-webkit-search-results-button,.v-select input[type=search]::-webkit-search-results-decoration{display:none}.v-select input[type=search]::-ms-clear{display:none}.v-select input[type=search],.v-select input[type=search]:focus{appearance:none;-webkit-appearance:none;-moz-appearance:none;line-height:1.42857143;font-size:1em;height:34px;display:inline-block;border:none;outline:none;margin:0;padding:0 .5em;width:10em;max-width:100%;background:none;position:relative;box-shadow:none}.v-select.unsearchable input[type=search]{opacity:0}.v-select.unsearchable input[type=search]:hover{cursor:pointer}.v-select li{line-height:1.42857143}.v-select li>a{display:block;padding:3px 20px;clear:both;color:#333;white-space:nowrap}.v-select li:hover{cursor:pointer}.v-select .dropdown-menu .active>a{color:#333;background:rgba(50,50,50,.1)}.v-select .dropdown-menu>.highlight>a{background:#5897fb;color:#fff}.v-select .highlight:not(:last-child){margin-bottom:0}.v-select .spinner{opacity:0;position:absolute;top:5px;right:10px;font-size:5px;text-indent:-9999em;overflow:hidden;border-top:.9em solid hsla(0,0%,39%,.1);border-right:.9em solid hsla(0,0%,39%,.1);border-bottom:.9em solid hsla(0,0%,39%,.1);border-left:.9em solid rgba(60,60,60,.45);transform:translateZ(0);animation:vSelectSpinner 1.1s infinite linear;transition:opacity .1s}.v-select .spinner,.v-select .spinner:after{border-radius:50%;width:5em;height:5em}.v-select.disabled .dropdown-toggle,.v-select.disabled .dropdown-toggle .clear,.v-select.disabled .dropdown-toggle input,.v-select.disabled .open-indicator,.v-select.disabled .selected-tag .close{cursor:not-allowed;background-color:#f8f8f8}.v-select.loading .spinner{opacity:1}@-webkit-keyframes vSelectSpinner{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}@keyframes vSelectSpinner{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}.fade-enter-active,.fade-leave-active{transition:opacity .15s cubic-bezier(1,.5,.8,1)}.fade-enter,.fade-leave-to{opacity:0}',""])},function(t,e){t.exports=function(){var t=[];return t.toString=function(){for(var t=[],e=0;e<this.length;e++){var n=this[e];n[2]?t.push("@media "+n[2]+"{"+n[1]+"}"):t.push(n[1])}return t.join("")},t.i=function(e,n){"string"==typeof e&&(e=[[null,e,""]]);for(var r={},o=0;o<this.length;o++){var i=this[o][0];"number"==typeof i&&(r[i]=!0)}for(o=0;o<e.length;o++){var a=e[o];"number"==typeof a[0]&&r[a[0]]||(n&&!a[2]?a[2]=n:n&&(a[2]="("+a[2]+") and ("+n+")"),t.push(a))}},t}},function(t,e,n){n(87);var r=n(84)(n(41),n(85),null,null);t.exports=r.exports},function(t,e){t.exports=function(t,e,n,r){var o,i=t=t||{},a=typeof t.default;"object"!==a&&"function"!==a||(o=t,i=t.default);var s="function"==typeof i?i.options:i;if(e&&(s.render=e.render,s.staticRenderFns=e.staticRenderFns),n&&(s._scopeId=n),r){var u=s.computed||(s.computed={});Object.keys(r).forEach(function(t){var e=r[t];u[t]=function(){return e}})}return{esModule:o,exports:i,options:s}}},function(t,e){t.exports={render:function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",{staticClass:"dropdown v-select",class:t.dropdownClasses,attrs:{dir:t.dir}},[n("div",{ref:"toggle",class:["dropdown-toggle","clearfix"],on:{mousedown:function(e){e.preventDefault(),t.toggleDropdown(e)}}},[t._l(t.valueAsArray,function(e){return n("span",{key:e.index,staticClass:"selected-tag"},[t._t("selected-option",[t._v("\n        "+t._s(t.getOptionLabel(e))+"\n      ")],null,e),t._v(" "),t.multiple?n("button",{staticClass:"close",attrs:{disabled:t.disabled,type:"button","aria-label":"Remove option"},on:{click:function(n){t.deselect(e)}}},[n("span",{attrs:{"aria-hidden":"true"}},[t._v("×")])]):t._e()],2)}),t._v(" "),n("input",{directives:[{name:"model",rawName:"v-model",value:t.search,expression:"search"}],ref:"search",staticClass:"form-control",style:{width:t.isValueEmpty?"100%":"auto"},attrs:{type:"search",autocomplete:"false",disabled:t.disabled,placeholder:t.searchPlaceholder,tabindex:t.tabindex,readonly:!t.searchable,id:t.inputId,"aria-label":"Search for option"},domProps:{value:t.search},on:{keydown:[function(e){return"button"in e||!t._k(e.keyCode,"delete",[8,46],e.key)?void t.maybeDeleteValue(e):null},function(e){return"button"in e||!t._k(e.keyCode,"up",38,e.key)?(e.preventDefault(),void t.typeAheadUp(e)):null},function(e){return"button"in e||!t._k(e.keyCode,"down",40,e.key)?(e.preventDefault(),void t.typeAheadDown(e)):null},function(e){return"button"in e||!t._k(e.keyCode,"enter",13,e.key)?(e.preventDefault(),void t.typeAheadSelect(e)):null}],keyup:function(e){return"button"in e||!t._k(e.keyCode,"esc",27,e.key)?void t.onEscape(e):null},blur:t.onSearchBlur,focus:t.onSearchFocus,input:function(e){
-e.target.composing||(t.search=e.target.value)}}}),t._v(" "),n("button",{directives:[{name:"show",rawName:"v-show",value:t.showClearButton,expression:"showClearButton"}],staticClass:"clear",attrs:{disabled:t.disabled,type:"button",title:"Clear selection"},on:{click:t.clearSelection}},[n("span",{attrs:{"aria-hidden":"true"}},[t._v("×")])]),t._v(" "),t.noDrop?t._e():n("i",{ref:"openIndicator",staticClass:"open-indicator",attrs:{role:"presentation"}}),t._v(" "),t._t("spinner",[n("div",{directives:[{name:"show",rawName:"v-show",value:t.mutableLoading,expression:"mutableLoading"}],staticClass:"spinner"},[t._v("Loading...")])])],2),t._v(" "),n("transition",{attrs:{name:t.transition}},[t.dropdownOpen?n("ul",{ref:"dropdownMenu",staticClass:"dropdown-menu",style:{"max-height":t.maxHeight}},[t._l(t.filteredOptions,function(e,r){return n("li",{key:r,class:{active:t.isOptionSelected(e),highlight:r===t.typeAheadPointer},on:{mouseover:function(e){t.typeAheadPointer=r}}},[n("a",{on:{mousedown:function(n){n.preventDefault(),t.select(e)}}},[t._t("option",[t._v("\n          "+t._s(t.getOptionLabel(e))+"\n        ")],null,e)],2)])}),t._v(" "),t.filteredOptions.length?t._e():n("li",{staticClass:"no-options"},[t._t("no-options",[t._v("Sorry, no matching options.")])],2)],2):t._e()])],1)},staticRenderFns:[]}},function(t,e,n){function r(t,e){for(var n=0;n<t.length;n++){var r=t[n],o=f[r.id];if(o){o.refs++;for(var i=0;i<o.parts.length;i++)o.parts[i](r.parts[i]);for(;i<r.parts.length;i++)o.parts.push(u(r.parts[i],e))}else{for(var a=[],i=0;i<r.parts.length;i++)a.push(u(r.parts[i],e));f[r.id]={id:r.id,refs:1,parts:a}}}}function o(t){for(var e=[],n={},r=0;r<t.length;r++){var o=t[r],i=o[0],a=o[1],s=o[2],u=o[3],l={css:a,media:s,sourceMap:u};n[i]?n[i].parts.push(l):e.push(n[i]={id:i,parts:[l]})}return e}function i(t,e){var n=h(),r=g[g.length-1];if("top"===t.insertAt)r?r.nextSibling?n.insertBefore(e,r.nextSibling):n.appendChild(e):n.insertBefore(e,n.firstChild),g.push(e);else{if("bottom"!==t.insertAt)throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");n.appendChild(e)}}function a(t){t.parentNode.removeChild(t);var e=g.indexOf(t);e>=0&&g.splice(e,1)}function s(t){var e=document.createElement("style");return e.type="text/css",i(t,e),e}function u(t,e){var n,r,o;if(e.singleton){var i=v++;n=b||(b=s(e)),r=l.bind(null,n,i,!1),o=l.bind(null,n,i,!0)}else n=s(e),r=c.bind(null,n),o=function(){a(n)};return r(t),function(e){if(e){if(e.css===t.css&&e.media===t.media&&e.sourceMap===t.sourceMap)return;r(t=e)}else o()}}function l(t,e,n,r){var o=n?"":r.css;if(t.styleSheet)t.styleSheet.cssText=y(e,o);else{var i=document.createTextNode(o),a=t.childNodes;a[e]&&t.removeChild(a[e]),a.length?t.insertBefore(i,a[e]):t.appendChild(i)}}function c(t,e){var n=e.css,r=e.media,o=e.sourceMap;if(r&&t.setAttribute("media",r),o&&(n+="\n/*# sourceURL="+o.sources[0]+" */",n+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(o))))+" */"),t.styleSheet)t.styleSheet.cssText=n;else{for(;t.firstChild;)t.removeChild(t.firstChild);t.appendChild(document.createTextNode(n))}}var f={},p=function(t){var e;return function(){return"undefined"==typeof e&&(e=t.apply(this,arguments)),e}},d=p(function(){return/msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase())}),h=p(function(){return document.head||document.getElementsByTagName("head")[0]}),b=null,v=0,g=[];t.exports=function(t,e){e=e||{},"undefined"==typeof e.singleton&&(e.singleton=d()),"undefined"==typeof e.insertAt&&(e.insertAt="bottom");var n=o(t);return r(n,e),function(t){for(var i=[],a=0;a<n.length;a++){var s=n[a],u=f[s.id];u.refs--,i.push(u)}if(t){var l=o(t);r(l,e)}for(var a=0;a<i.length;a++){var u=i[a];if(0===u.refs){for(var c=0;c<u.parts.length;c++)u.parts[c]();delete f[u.id]}}}};var y=function(){var t=[];return function(e,n){return t[e]=n,t.filter(Boolean).join("\n")}}()},function(t,e,n){var r=n(81);"string"==typeof r&&(r=[[t.id,r,""]]);n(86)(r,{});r.locals&&(t.exports=r.locals)}])});
+!function(t,e){ true?module.exports=e():"function"==typeof define&&define.amd?define([],e):"object"==typeof exports?exports.VueSelect=e():t.VueSelect=e()}(this,function(){return function(t){function e(o){if(n[o])return n[o].exports;var r=n[o]={exports:{},id:o,loaded:!1};return t[o].call(r.exports,r,r.exports,e),r.loaded=!0,r.exports}var n={};return e.m=t,e.c=n,e.p="/",e(0)}([function(t,e,n){"use strict";function o(t){return t&&t.__esModule?t:{default:t}}Object.defineProperty(e,"__esModule",{value:!0}),e.mixins=e.VueSelect=void 0;var r=n(85),i=o(r),s=n(42),a=o(s);e.default=i.default,e.VueSelect=i.default,e.mixins=a.default},function(t,e){var n=t.exports="undefined"!=typeof window&&window.Math==Math?window:"undefined"!=typeof self&&self.Math==Math?self:Function("return this")();"number"==typeof __g&&(__g=n)},function(t,e){var n=t.exports={version:"2.5.3"};"number"==typeof __e&&(__e=n)},function(t,e,n){t.exports=!n(9)(function(){return 7!=Object.defineProperty({},"a",{get:function(){return 7}}).a})},function(t,e){var n={}.hasOwnProperty;t.exports=function(t,e){return n.call(t,e)}},function(t,e,n){var o=n(11),r=n(33),i=n(25),s=Object.defineProperty;e.f=n(3)?Object.defineProperty:function(t,e,n){if(o(t),e=i(e,!0),o(n),r)try{return s(t,e,n)}catch(t){}if("get"in n||"set"in n)throw TypeError("Accessors not supported!");return"value"in n&&(t[e]=n.value),t}},function(t,e,n){var o=n(5),r=n(14);t.exports=n(3)?function(t,e,n){return o.f(t,e,r(1,n))}:function(t,e,n){return t[e]=n,t}},function(t,e,n){var o=n(61),r=n(16);t.exports=function(t){return o(r(t))}},function(t,e,n){var o=n(23)("wks"),r=n(15),i=n(1).Symbol,s="function"==typeof i,a=t.exports=function(t){return o[t]||(o[t]=s&&i[t]||(s?i:r)("Symbol."+t))};a.store=o},function(t,e){t.exports=function(t){try{return!!t()}catch(t){return!0}}},function(t,e){t.exports=function(t){return"object"==typeof t?null!==t:"function"==typeof t}},function(t,e,n){var o=n(10);t.exports=function(t){if(!o(t))throw TypeError(t+" is not an object!");return t}},function(t,e,n){var o=n(1),r=n(2),i=n(58),s=n(6),a="prototype",u=function(t,e,n){var l,c,f,p=t&u.F,d=t&u.G,h=t&u.S,b=t&u.P,v=t&u.B,g=t&u.W,y=d?r:r[e]||(r[e]={}),m=y[a],x=d?o:h?o[e]:(o[e]||{})[a];d&&(n=e);for(l in n)c=!p&&x&&void 0!==x[l],c&&l in y||(f=c?x[l]:n[l],y[l]=d&&"function"!=typeof x[l]?n[l]:v&&c?i(f,o):g&&x[l]==f?function(t){var e=function(e,n,o){if(this instanceof t){switch(arguments.length){case 0:return new t;case 1:return new t(e);case 2:return new t(e,n)}return new t(e,n,o)}return t.apply(this,arguments)};return e[a]=t[a],e}(f):b&&"function"==typeof f?i(Function.call,f):f,b&&((y.virtual||(y.virtual={}))[l]=f,t&u.R&&m&&!m[l]&&s(m,l,f)))};u.F=1,u.G=2,u.S=4,u.P=8,u.B=16,u.W=32,u.U=64,u.R=128,t.exports=u},function(t,e,n){var o=n(38),r=n(17);t.exports=Object.keys||function(t){return o(t,r)}},function(t,e){t.exports=function(t,e){return{enumerable:!(1&t),configurable:!(2&t),writable:!(4&t),value:e}}},function(t,e){var n=0,o=Math.random();t.exports=function(t){return"Symbol(".concat(void 0===t?"":t,")_",(++n+o).toString(36))}},function(t,e){t.exports=function(t){if(void 0==t)throw TypeError("Can't call method on  "+t);return t}},function(t,e){t.exports="constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf".split(",")},function(t,e){t.exports={}},function(t,e){t.exports=!0},function(t,e){e.f={}.propertyIsEnumerable},function(t,e,n){var o=n(5).f,r=n(4),i=n(8)("toStringTag");t.exports=function(t,e,n){t&&!r(t=n?t:t.prototype,i)&&o(t,i,{configurable:!0,value:e})}},function(t,e,n){var o=n(23)("keys"),r=n(15);t.exports=function(t){return o[t]||(o[t]=r(t))}},function(t,e,n){var o=n(1),r="__core-js_shared__",i=o[r]||(o[r]={});t.exports=function(t){return i[t]||(i[t]={})}},function(t,e){var n=Math.ceil,o=Math.floor;t.exports=function(t){return isNaN(t=+t)?0:(t>0?o:n)(t)}},function(t,e,n){var o=n(10);t.exports=function(t,e){if(!o(t))return t;var n,r;if(e&&"function"==typeof(n=t.toString)&&!o(r=n.call(t)))return r;if("function"==typeof(n=t.valueOf)&&!o(r=n.call(t)))return r;if(!e&&"function"==typeof(n=t.toString)&&!o(r=n.call(t)))return r;throw TypeError("Can't convert object to primitive value")}},function(t,e,n){var o=n(1),r=n(2),i=n(19),s=n(27),a=n(5).f;t.exports=function(t){var e=r.Symbol||(r.Symbol=i?{}:o.Symbol||{});"_"==t.charAt(0)||t in e||a(e,t,{value:s.f(t)})}},function(t,e,n){e.f=n(8)},function(t,e){"use strict";t.exports={props:{loading:{type:Boolean,default:!1},onSearch:{type:Function,default:function(t,e){}}},data:function(){return{mutableLoading:!1}},watch:{search:function(){this.search.length>0&&(this.onSearch(this.search,this.toggleLoading),this.$emit("search",this.search,this.toggleLoading))},loading:function(t){this.mutableLoading=t}},methods:{toggleLoading:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:null;return null==t?this.mutableLoading=!this.mutableLoading:this.mutableLoading=t}}}},function(t,e){"use strict";t.exports={watch:{typeAheadPointer:function(){this.maybeAdjustScroll()}},methods:{maybeAdjustScroll:function(){var t=this.pixelsToPointerTop(),e=this.pixelsToPointerBottom();return t<=this.viewport().top?this.scrollTo(t):e>=this.viewport().bottom?this.scrollTo(this.viewport().top+this.pointerHeight()):void 0},pixelsToPointerTop:function t(){var t=0;if(this.$refs.dropdownMenu)for(var e=0;e<this.typeAheadPointer;e++)t+=this.$refs.dropdownMenu.children[e].offsetHeight;return t},pixelsToPointerBottom:function(){return this.pixelsToPointerTop()+this.pointerHeight()},pointerHeight:function(){var t=!!this.$refs.dropdownMenu&&this.$refs.dropdownMenu.children[this.typeAheadPointer];return t?t.offsetHeight:0},viewport:function(){return{top:this.$refs.dropdownMenu?this.$refs.dropdownMenu.scrollTop:0,bottom:this.$refs.dropdownMenu?this.$refs.dropdownMenu.offsetHeight+this.$refs.dropdownMenu.scrollTop:0}},scrollTo:function(t){return this.$refs.dropdownMenu?this.$refs.dropdownMenu.scrollTop=t:null}}}},function(t,e){"use strict";t.exports={data:function(){return{typeAheadPointer:-1}},watch:{filteredOptions:function(){this.typeAheadPointer=0}},methods:{typeAheadUp:function(){this.typeAheadPointer>0&&(this.typeAheadPointer--,this.maybeAdjustScroll&&this.maybeAdjustScroll())},typeAheadDown:function(){this.typeAheadPointer<this.filteredOptions.length-1&&(this.typeAheadPointer++,this.maybeAdjustScroll&&this.maybeAdjustScroll())},typeAheadSelect:function(){this.filteredOptions[this.typeAheadPointer]?this.select(this.filteredOptions[this.typeAheadPointer]):this.taggable&&this.search.length&&this.select(this.search),this.clearSearchOnSelect&&(this.search="")}}}},function(t,e){var n={}.toString;t.exports=function(t){return n.call(t).slice(8,-1)}},function(t,e,n){var o=n(10),r=n(1).document,i=o(r)&&o(r.createElement);t.exports=function(t){return i?r.createElement(t):{}}},function(t,e,n){t.exports=!n(3)&&!n(9)(function(){return 7!=Object.defineProperty(n(32)("div"),"a",{get:function(){return 7}}).a})},function(t,e,n){"use strict";var o=n(19),r=n(12),i=n(39),s=n(6),a=n(4),u=n(18),l=n(63),c=n(21),f=n(69),p=n(8)("iterator"),d=!([].keys&&"next"in[].keys()),h="@@iterator",b="keys",v="values",g=function(){return this};t.exports=function(t,e,n,y,m,x,w){l(n,e,y);var S,O,_,j=function(t){if(!d&&t in C)return C[t];switch(t){case b:return function(){return new n(this,t)};case v:return function(){return new n(this,t)}}return function(){return new n(this,t)}},k=e+" Iterator",P=m==v,A=!1,C=t.prototype,M=C[p]||C[h]||m&&C[m],L=!d&&M||j(m),T=m?P?j("entries"):L:void 0,E="Array"==e?C.entries||M:M;if(E&&(_=f(E.call(new t)),_!==Object.prototype&&_.next&&(c(_,k,!0),o||a(_,p)||s(_,p,g))),P&&M&&M.name!==v&&(A=!0,L=function(){return M.call(this)}),o&&!w||!d&&!A&&C[p]||s(C,p,L),u[e]=L,u[k]=g,m)if(S={values:P?L:j(v),keys:x?L:j(b),entries:T},w)for(O in S)O in C||i(C,O,S[O]);else r(r.P+r.F*(d||A),e,S);return S}},function(t,e,n){var o=n(11),r=n(66),i=n(17),s=n(22)("IE_PROTO"),a=function(){},u="prototype",l=function(){var t,e=n(32)("iframe"),o=i.length,r="<",s=">";for(e.style.display="none",n(60).appendChild(e),e.src="javascript:",t=e.contentWindow.document,t.open(),t.write(r+"script"+s+"document.F=Object"+r+"/script"+s),t.close(),l=t.F;o--;)delete l[u][i[o]];return l()};t.exports=Object.create||function(t,e){var n;return null!==t?(a[u]=o(t),n=new a,a[u]=null,n[s]=t):n=l(),void 0===e?n:r(n,e)}},function(t,e,n){var o=n(38),r=n(17).concat("length","prototype");e.f=Object.getOwnPropertyNames||function(t){return o(t,r)}},function(t,e){e.f=Object.getOwnPropertySymbols},function(t,e,n){var o=n(4),r=n(7),i=n(57)(!1),s=n(22)("IE_PROTO");t.exports=function(t,e){var n,a=r(t),u=0,l=[];for(n in a)n!=s&&o(a,n)&&l.push(n);for(;e.length>u;)o(a,n=e[u++])&&(~i(l,n)||l.push(n));return l}},function(t,e,n){t.exports=n(6)},function(t,e,n){var o=n(16);t.exports=function(t){return Object(o(t))}},function(t,e,n){"use strict";function o(t){return t&&t.__esModule?t:{default:t}}Object.defineProperty(e,"__esModule",{value:!0});var r=n(45),i=o(r),s=n(48),a=o(s),u=n(43),l=o(u),c=n(49),f=o(c),p=n(29),d=o(p),h=n(30),b=o(h),v=n(28),g=o(v);e.default={mixins:[d.default,b.default,g.default],props:{value:{default:null},options:{type:Array,default:function(){return[]}},disabled:{type:Boolean,default:!1},clearable:{type:Boolean,default:!0},maxHeight:{type:String,default:"400px"},searchable:{type:Boolean,default:!0},multiple:{type:Boolean,default:!1},placeholder:{type:String,default:""},transition:{type:String,default:"fade"},clearSearchOnSelect:{type:Boolean,default:!0},closeOnSelect:{type:Boolean,default:!0},label:{type:String,default:"label"},index:{type:String,default:null},getOptionLabel:{type:Function,default:function(t){return this.index&&(t=this.findOptionByIndexValue(t)),"object"===("undefined"==typeof t?"undefined":(0,f.default)(t))?t.hasOwnProperty(this.label)?t[this.label]:console.warn('[vue-select warn]: Label key "option.'+this.label+'" does not'+(" exist in options object "+(0,l.default)(t)+".\n")+"http://sagalbot.github.io/vue-select/#ex-labels"):t}},onChange:{type:Function,default:function(t){this.$emit("input",t)}},onTab:{type:Function,default:function(){this.selectOnTab&&this.typeAheadSelect()}},taggable:{type:Boolean,default:!1},tabindex:{type:Number,default:null},pushTags:{type:Boolean,default:!1},filterable:{type:Boolean,default:!0},filterBy:{type:Function,default:function(t,e,n){return(e||"").toLowerCase().indexOf(n.toLowerCase())>-1}},filter:{type:Function,default:function(t,e){var n=this;return t.filter(function(t){var o=n.getOptionLabel(t);return"number"==typeof o&&(o=o.toString()),n.filterBy(t,o,e)})}},createOption:{type:Function,default:function(t){return"object"===(0,f.default)(this.mutableOptions[0])&&(t=(0,a.default)({},this.label,t)),this.$emit("option:created",t),t}},resetOnOptionsChange:{type:Boolean,default:!1},noDrop:{type:Boolean,default:!1},inputId:{type:String},dir:{type:String,default:"auto"},selectOnTab:{type:Boolean,default:!1}},data:function(){return{search:"",open:!1,mutableValue:null,mutableOptions:[]}},watch:{value:function(t){this.mutableValue=t},mutableValue:function(t,e){this.multiple?this.onChange?this.onChange(t):null:this.onChange&&t!==e?this.onChange(t):null},options:function(t){this.mutableOptions=t},mutableOptions:function(){!this.taggable&&this.resetOnOptionsChange&&(this.mutableValue=this.multiple?[]:null)},multiple:function(t){this.mutableValue=t?[]:null}},created:function(){this.mutableValue=this.value,this.mutableOptions=this.options.slice(0),this.mutableLoading=this.loading,this.$on("option:created",this.maybePushTag)},methods:{select:function(t){if(!this.isOptionSelected(t)){if(this.taggable&&!this.optionExists(t)&&(t=this.createOption(t)),this.index){if(!t.hasOwnProperty(this.index))return console.warn('[vue-select warn]: Index key "option.'+this.index+'" does not'+(" exist in options object "+(0,l.default)(t)+"."));t=t[this.index]}this.multiple&&!this.mutableValue?this.mutableValue=[t]:this.multiple?this.mutableValue.push(t):this.mutableValue=t}this.onAfterSelect(t)},deselect:function(t){var e=this;if(this.multiple){var n=-1;this.mutableValue.forEach(function(o){(o===t||e.index&&o===t[e.index]||"object"===("undefined"==typeof o?"undefined":(0,f.default)(o))&&o[e.label]===t[e.label])&&(n=o)});var o=this.mutableValue.indexOf(n);this.mutableValue.splice(o,1)}else this.mutableValue=null},clearSelection:function(){this.mutableValue=this.multiple?[]:null},onAfterSelect:function(t){this.closeOnSelect&&(this.open=!this.open,this.$refs.search.blur()),this.clearSearchOnSelect&&(this.search="")},toggleDropdown:function(t){(t.target===this.$refs.openIndicator||t.target===this.$refs.search||t.target===this.$refs.toggle||t.target.classList.contains("selected-tag")||t.target===this.$el)&&(this.open?this.$refs.search.blur():this.disabled||(this.open=!0,this.$refs.search.focus()))},isOptionSelected:function(t){var e=this,n=!1;return this.valueAsArray.forEach(function(o){"object"===("undefined"==typeof o?"undefined":(0,f.default)(o))?n=e.optionObjectComparator(o,t):o!==t&&o!==t[e.index]||(n=!0)}),n},optionObjectComparator:function(t,e){return!(!this.index||t!==e[this.index])||(t[this.label]===e[this.label]||t[this.label]===e||!(!this.index||t[this.index]!==e[this.index]))},findOptionByIndexValue:function(t){var e=this;return this.options.forEach(function(n){(0,l.default)(n[e.index])===(0,l.default)(t)&&(t=n)}),t},onEscape:function(){this.search.length?this.search="":this.$refs.search.blur()},onSearchBlur:function(){this.mousedown&&!this.searching?this.mousedown=!1:(this.clearSearchOnBlur&&(this.search=""),this.open=!1,this.$emit("search:blur"))},onSearchFocus:function(){this.open=!0,this.$emit("search:focus")},maybeDeleteValue:function(){if(!this.$refs.search.value.length&&this.mutableValue)return this.multiple?this.mutableValue.pop():this.mutableValue=null},optionExists:function(t){var e=this,n=!1;return this.mutableOptions.forEach(function(o){"object"===("undefined"==typeof o?"undefined":(0,f.default)(o))&&o[e.label]===t?n=!0:o===t&&(n=!0)}),n},maybePushTag:function(t){this.pushTags&&this.mutableOptions.push(t)},onMousedown:function(){this.mousedown=!0}},computed:{dropdownClasses:function(){return{open:this.dropdownOpen,single:!this.multiple,searching:this.searching,searchable:this.searchable,unsearchable:!this.searchable,loading:this.mutableLoading,rtl:"rtl"===this.dir,disabled:this.disabled}},clearSearchOnBlur:function(){return this.clearSearchOnSelect&&!this.multiple},searching:function(){return!!this.search},dropdownOpen:function(){return!this.noDrop&&(this.open&&!this.mutableLoading)},searchPlaceholder:function(){if(this.isValueEmpty&&this.placeholder)return this.placeholder},filteredOptions:function(){if(!this.filterable&&!this.taggable)return this.mutableOptions.slice();var t=this.search.length?this.filter(this.mutableOptions,this.search,this):this.mutableOptions;return this.taggable&&this.search.length&&!this.optionExists(this.search)&&t.unshift(this.search),t},isValueEmpty:function(){return!this.mutableValue||("object"===(0,f.default)(this.mutableValue)?!(0,i.default)(this.mutableValue).length:!this.valueAsArray.length)},valueAsArray:function(){return this.multiple&&this.mutableValue?this.mutableValue:this.mutableValue?[].concat(this.mutableValue):[]},showClearButton:function(){return!this.multiple&&this.clearable&&!this.open&&null!=this.mutableValue}}}},function(t,e,n){"use strict";function o(t){return t&&t.__esModule?t:{default:t}}Object.defineProperty(e,"__esModule",{value:!0});var r=n(28),i=o(r),s=n(30),a=o(s),u=n(29),l=o(u);e.default={ajax:i.default,pointer:a.default,pointerScroll:l.default}},function(t,e,n){t.exports={default:n(50),__esModule:!0}},function(t,e,n){t.exports={default:n(51),__esModule:!0}},function(t,e,n){t.exports={default:n(52),__esModule:!0}},function(t,e,n){t.exports={default:n(53),__esModule:!0}},function(t,e,n){t.exports={default:n(54),__esModule:!0}},function(t,e,n){"use strict";function o(t){return t&&t.__esModule?t:{default:t}}e.__esModule=!0;var r=n(44),i=o(r);e.default=function(t,e,n){return e in t?(0,i.default)(t,e,{value:n,enumerable:!0,configurable:!0,writable:!0}):t[e]=n,t}},function(t,e,n){"use strict";function o(t){return t&&t.__esModule?t:{default:t}}e.__esModule=!0;var r=n(47),i=o(r),s=n(46),a=o(s),u="function"==typeof a.default&&"symbol"==typeof i.default?function(t){return typeof t}:function(t){return t&&"function"==typeof a.default&&t.constructor===a.default&&t!==a.default.prototype?"symbol":typeof t};e.default="function"==typeof a.default&&"symbol"===u(i.default)?function(t){return"undefined"==typeof t?"undefined":u(t)}:function(t){return t&&"function"==typeof a.default&&t.constructor===a.default&&t!==a.default.prototype?"symbol":"undefined"==typeof t?"undefined":u(t)}},function(t,e,n){var o=n(2),r=o.JSON||(o.JSON={stringify:JSON.stringify});t.exports=function(t){return r.stringify.apply(r,arguments)}},function(t,e,n){n(75);var o=n(2).Object;t.exports=function(t,e,n){return o.defineProperty(t,e,n)}},function(t,e,n){n(76),t.exports=n(2).Object.keys},function(t,e,n){n(79),n(77),n(80),n(81),t.exports=n(2).Symbol},function(t,e,n){n(78),n(82),t.exports=n(27).f("iterator")},function(t,e){t.exports=function(t){if("function"!=typeof t)throw TypeError(t+" is not a function!");return t}},function(t,e){t.exports=function(){}},function(t,e,n){var o=n(7),r=n(73),i=n(72);t.exports=function(t){return function(e,n,s){var a,u=o(e),l=r(u.length),c=i(s,l);if(t&&n!=n){for(;l>c;)if(a=u[c++],a!=a)return!0}else for(;l>c;c++)if((t||c in u)&&u[c]===n)return t||c||0;return!t&&-1}}},function(t,e,n){var o=n(55);t.exports=function(t,e,n){if(o(t),void 0===e)return t;switch(n){case 1:return function(n){return t.call(e,n)};case 2:return function(n,o){return t.call(e,n,o)};case 3:return function(n,o,r){return t.call(e,n,o,r)}}return function(){return t.apply(e,arguments)}}},function(t,e,n){var o=n(13),r=n(37),i=n(20);t.exports=function(t){var e=o(t),n=r.f;if(n)for(var s,a=n(t),u=i.f,l=0;a.length>l;)u.call(t,s=a[l++])&&e.push(s);return e}},function(t,e,n){var o=n(1).document;t.exports=o&&o.documentElement},function(t,e,n){var o=n(31);t.exports=Object("z").propertyIsEnumerable(0)?Object:function(t){return"String"==o(t)?t.split(""):Object(t)}},function(t,e,n){var o=n(31);t.exports=Array.isArray||function(t){return"Array"==o(t)}},function(t,e,n){"use strict";var o=n(35),r=n(14),i=n(21),s={};n(6)(s,n(8)("iterator"),function(){return this}),t.exports=function(t,e,n){t.prototype=o(s,{next:r(1,n)}),i(t,e+" Iterator")}},function(t,e){t.exports=function(t,e){return{value:e,done:!!t}}},function(t,e,n){var o=n(15)("meta"),r=n(10),i=n(4),s=n(5).f,a=0,u=Object.isExtensible||function(){return!0},l=!n(9)(function(){return u(Object.preventExtensions({}))}),c=function(t){s(t,o,{value:{i:"O"+ ++a,w:{}}})},f=function(t,e){if(!r(t))return"symbol"==typeof t?t:("string"==typeof t?"S":"P")+t;if(!i(t,o)){if(!u(t))return"F";if(!e)return"E";c(t)}return t[o].i},p=function(t,e){if(!i(t,o)){if(!u(t))return!0;if(!e)return!1;c(t)}return t[o].w},d=function(t){return l&&h.NEED&&u(t)&&!i(t,o)&&c(t),t},h=t.exports={KEY:o,NEED:!1,fastKey:f,getWeak:p,onFreeze:d}},function(t,e,n){var o=n(5),r=n(11),i=n(13);t.exports=n(3)?Object.defineProperties:function(t,e){r(t);for(var n,s=i(e),a=s.length,u=0;a>u;)o.f(t,n=s[u++],e[n]);return t}},function(t,e,n){var o=n(20),r=n(14),i=n(7),s=n(25),a=n(4),u=n(33),l=Object.getOwnPropertyDescriptor;e.f=n(3)?l:function(t,e){if(t=i(t),e=s(e,!0),u)try{return l(t,e)}catch(t){}if(a(t,e))return r(!o.f.call(t,e),t[e])}},function(t,e,n){var o=n(7),r=n(36).f,i={}.toString,s="object"==typeof window&&window&&Object.getOwnPropertyNames?Object.getOwnPropertyNames(window):[],a=function(t){try{return r(t)}catch(t){return s.slice()}};t.exports.f=function(t){return s&&"[object Window]"==i.call(t)?a(t):r(o(t))}},function(t,e,n){var o=n(4),r=n(40),i=n(22)("IE_PROTO"),s=Object.prototype;t.exports=Object.getPrototypeOf||function(t){return t=r(t),o(t,i)?t[i]:"function"==typeof t.constructor&&t instanceof t.constructor?t.constructor.prototype:t instanceof Object?s:null}},function(t,e,n){var o=n(12),r=n(2),i=n(9);t.exports=function(t,e){var n=(r.Object||{})[t]||Object[t],s={};s[t]=e(n),o(o.S+o.F*i(function(){n(1)}),"Object",s)}},function(t,e,n){var o=n(24),r=n(16);t.exports=function(t){return function(e,n){var i,s,a=String(r(e)),u=o(n),l=a.length;return u<0||u>=l?t?"":void 0:(i=a.charCodeAt(u),i<55296||i>56319||u+1===l||(s=a.charCodeAt(u+1))<56320||s>57343?t?a.charAt(u):i:t?a.slice(u,u+2):(i-55296<<10)+(s-56320)+65536)}}},function(t,e,n){var o=n(24),r=Math.max,i=Math.min;t.exports=function(t,e){return t=o(t),t<0?r(t+e,0):i(t,e)}},function(t,e,n){var o=n(24),r=Math.min;t.exports=function(t){return t>0?r(o(t),9007199254740991):0}},function(t,e,n){"use strict";var o=n(56),r=n(64),i=n(18),s=n(7);t.exports=n(34)(Array,"Array",function(t,e){this._t=s(t),this._i=0,this._k=e},function(){var t=this._t,e=this._k,n=this._i++;return!t||n>=t.length?(this._t=void 0,r(1)):"keys"==e?r(0,n):"values"==e?r(0,t[n]):r(0,[n,t[n]])},"values"),i.Arguments=i.Array,o("keys"),o("values"),o("entries")},function(t,e,n){var o=n(12);o(o.S+o.F*!n(3),"Object",{defineProperty:n(5).f})},function(t,e,n){var o=n(40),r=n(13);n(70)("keys",function(){return function(t){return r(o(t))}})},function(t,e){},function(t,e,n){"use strict";var o=n(71)(!0);n(34)(String,"String",function(t){this._t=String(t),this._i=0},function(){var t,e=this._t,n=this._i;return n>=e.length?{value:void 0,done:!0}:(t=o(e,n),this._i+=t.length,{value:t,done:!1})})},function(t,e,n){"use strict";var o=n(1),r=n(4),i=n(3),s=n(12),a=n(39),u=n(65).KEY,l=n(9),c=n(23),f=n(21),p=n(15),d=n(8),h=n(27),b=n(26),v=n(59),g=n(62),y=n(11),m=n(10),x=n(7),w=n(25),S=n(14),O=n(35),_=n(68),j=n(67),k=n(5),P=n(13),A=j.f,C=k.f,M=_.f,L=o.Symbol,T=o.JSON,E=T&&T.stringify,V="prototype",B=d("_hidden"),F=d("toPrimitive"),N={}.propertyIsEnumerable,$=c("symbol-registry"),D=c("symbols"),I=c("op-symbols"),R=Object[V],z="function"==typeof L,H=o.QObject,G=!H||!H[V]||!H[V].findChild,J=i&&l(function(){return 7!=O(C({},"a",{get:function(){return C(this,"a",{value:7}).a}})).a})?function(t,e,n){var o=A(R,e);o&&delete R[e],C(t,e,n),o&&t!==R&&C(R,e,o)}:C,U=function(t){var e=D[t]=O(L[V]);return e._k=t,e},W=z&&"symbol"==typeof L.iterator?function(t){return"symbol"==typeof t}:function(t){return t instanceof L},K=function(t,e,n){return t===R&&K(I,e,n),y(t),e=w(e,!0),y(n),r(D,e)?(n.enumerable?(r(t,B)&&t[B][e]&&(t[B][e]=!1),n=O(n,{enumerable:S(0,!1)})):(r(t,B)||C(t,B,S(1,{})),t[B][e]=!0),J(t,e,n)):C(t,e,n)},Y=function(t,e){y(t);for(var n,o=v(e=x(e)),r=0,i=o.length;i>r;)K(t,n=o[r++],e[n]);return t},q=function(t,e){return void 0===e?O(t):Y(O(t),e)},Q=function(t){var e=N.call(this,t=w(t,!0));return!(this===R&&r(D,t)&&!r(I,t))&&(!(e||!r(this,t)||!r(D,t)||r(this,B)&&this[B][t])||e)},Z=function(t,e){if(t=x(t),e=w(e,!0),t!==R||!r(D,e)||r(I,e)){var n=A(t,e);return!n||!r(D,e)||r(t,B)&&t[B][e]||(n.enumerable=!0),n}},X=function(t){for(var e,n=M(x(t)),o=[],i=0;n.length>i;)r(D,e=n[i++])||e==B||e==u||o.push(e);return o},tt=function(t){for(var e,n=t===R,o=M(n?I:x(t)),i=[],s=0;o.length>s;)!r(D,e=o[s++])||n&&!r(R,e)||i.push(D[e]);return i};z||(L=function(){if(this instanceof L)throw TypeError("Symbol is not a constructor!");var t=p(arguments.length>0?arguments[0]:void 0),e=function(n){this===R&&e.call(I,n),r(this,B)&&r(this[B],t)&&(this[B][t]=!1),J(this,t,S(1,n))};return i&&G&&J(R,t,{configurable:!0,set:e}),U(t)},a(L[V],"toString",function(){return this._k}),j.f=Z,k.f=K,n(36).f=_.f=X,n(20).f=Q,n(37).f=tt,i&&!n(19)&&a(R,"propertyIsEnumerable",Q,!0),h.f=function(t){return U(d(t))}),s(s.G+s.W+s.F*!z,{Symbol:L});for(var et="hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables".split(","),nt=0;et.length>nt;)d(et[nt++]);for(var ot=P(d.store),rt=0;ot.length>rt;)b(ot[rt++]);s(s.S+s.F*!z,"Symbol",{for:function(t){return r($,t+="")?$[t]:$[t]=L(t)},keyFor:function(t){if(!W(t))throw TypeError(t+" is not a symbol!");for(var e in $)if($[e]===t)return e},useSetter:function(){G=!0},useSimple:function(){G=!1}}),s(s.S+s.F*!z,"Object",{create:q,defineProperty:K,defineProperties:Y,getOwnPropertyDescriptor:Z,getOwnPropertyNames:X,getOwnPropertySymbols:tt}),T&&s(s.S+s.F*(!z||l(function(){var t=L();return"[null]"!=E([t])||"{}"!=E({a:t})||"{}"!=E(Object(t))})),"JSON",{stringify:function(t){for(var e,n,o=[t],r=1;arguments.length>r;)o.push(arguments[r++]);if(n=e=o[1],(m(e)||void 0!==t)&&!W(t))return g(e)||(e=function(t,e){if("function"==typeof n&&(e=n.call(this,t,e)),!W(e))return e}),o[1]=e,E.apply(T,o)}}),L[V][F]||n(6)(L[V],F,L[V].valueOf),f(L,"Symbol"),f(Math,"Math",!0),f(o.JSON,"JSON",!0)},function(t,e,n){n(26)("asyncIterator")},function(t,e,n){n(26)("observable")},function(t,e,n){n(74);for(var o=n(1),r=n(6),i=n(18),s=n(8)("toStringTag"),a="CSSRuleList,CSSStyleDeclaration,CSSValueList,ClientRectList,DOMRectList,DOMStringList,DOMTokenList,DataTransferItemList,FileList,HTMLAllCollection,HTMLCollection,HTMLFormElement,HTMLSelectElement,MediaList,MimeTypeArray,NamedNodeMap,NodeList,PaintRequestList,Plugin,PluginArray,SVGLengthList,SVGNumberList,SVGPathSegList,SVGPointList,SVGStringList,SVGTransformList,SourceBufferList,StyleSheetList,TextTrackCueList,TextTrackList,TouchList".split(","),u=0;u<a.length;u++){var l=a[u],c=o[l],f=c&&c.prototype;f&&!f[s]&&r(f,s,l),i[l]=i.Array}},function(t,e,n){e=t.exports=n(84)(),e.push([t.id,'.v-select{position:relative;font-family:inherit}.v-select,.v-select *{box-sizing:border-box}.v-select[dir=rtl] .vs__actions{padding:0 3px 0 6px}.v-select[dir=rtl] .dropdown-toggle .clear{margin-left:6px;margin-right:0}.v-select[dir=rtl] .selected-tag .close{margin-left:0;margin-right:2px}.v-select[dir=rtl] .dropdown-menu{text-align:right}.v-select .open-indicator{display:flex;align-items:center;cursor:pointer;pointer-events:all;opacity:1;width:12px}.v-select .open-indicator,.v-select .open-indicator:before{transition:all .15s cubic-bezier(1,-.115,.975,.855);transition-timing-function:cubic-bezier(1,-.115,.975,.855)}.v-select .open-indicator:before{border-color:rgba(60,60,60,.5);border-style:solid;border-width:3px 3px 0 0;content:"";display:inline-block;height:10px;width:10px;vertical-align:text-top;transform:rotate(133deg);box-sizing:inherit}.v-select.open .open-indicator:before{transform:rotate(315deg)}.v-select.loading .open-indicator{opacity:0}.v-select .dropdown-toggle{-webkit-appearance:none;-moz-appearance:none;appearance:none;display:flex;padding:0 0 4px;background:none;border:1px solid rgba(60,60,60,.26);border-radius:4px;white-space:normal}.v-select .vs__selected-options{display:flex;flex-basis:100%;flex-grow:1;flex-wrap:wrap;padding:0 2px;position:relative}.v-select .vs__actions{display:flex;align-items:stretch;padding:0 6px 0 3px}.v-select .dropdown-toggle .clear{font-size:23px;font-weight:700;line-height:1;color:rgba(60,60,60,.5);padding:0;border:0;background-color:transparent;cursor:pointer;margin-right:6px}.v-select.searchable .dropdown-toggle{cursor:text}.v-select.unsearchable .dropdown-toggle{cursor:pointer}.v-select.open .dropdown-toggle{border-bottom-color:transparent;border-bottom-left-radius:0;border-bottom-right-radius:0}.v-select .dropdown-menu{display:block;position:absolute;top:100%;left:0;z-index:1000;min-width:160px;padding:5px 0;margin:0;width:100%;overflow-y:scroll;border:1px solid rgba(0,0,0,.26);box-shadow:0 3px 6px 0 rgba(0,0,0,.15);border-top:none;border-radius:0 0 4px 4px;text-align:left;list-style:none;background:#fff}.v-select .no-options{text-align:center}.v-select .selected-tag{display:flex;align-items:center;background-color:#f0f0f0;border:1px solid #ccc;border-radius:4px;color:#333;line-height:1.42857143;margin:4px 2px 0;padding:0 .25em;transition:opacity .25s}.v-select.single .selected-tag{background-color:transparent;border-color:transparent}.v-select.single.open .selected-tag{position:absolute;opacity:.4}.v-select.single.searching .selected-tag{display:none}.v-select .selected-tag .close{margin-left:2px;font-size:1.25em;appearance:none;padding:0;cursor:pointer;background:0 0;border:0;font-weight:700;line-height:1;color:#000;text-shadow:0 1px 0 #fff;filter:alpha(opacity=20);opacity:.2}.v-select.single.searching:not(.open):not(.loading) input[type=search]{opacity:.2}.v-select input[type=search]::-webkit-search-cancel-button,.v-select input[type=search]::-webkit-search-decoration,.v-select input[type=search]::-webkit-search-results-button,.v-select input[type=search]::-webkit-search-results-decoration{display:none}.v-select input[type=search]::-ms-clear{display:none}.v-select input[type=search],.v-select input[type=search]:focus{appearance:none;-webkit-appearance:none;-moz-appearance:none;line-height:1.42857143;font-size:1em;display:inline-block;border:1px solid transparent;border-left:none;outline:none;margin:4px 0 0;padding:0 7px;max-width:100%;background:none;box-shadow:none;flex-grow:1;width:0}.v-select.unsearchable input[type=search]{opacity:0}.v-select.unsearchable input[type=search]:hover{cursor:pointer}.v-select li{line-height:1.42857143}.v-select li>a{display:block;padding:3px 20px;clear:both;color:#333;white-space:nowrap}.v-select li:hover{cursor:pointer}.v-select .dropdown-menu .active>a{color:#333;background:rgba(50,50,50,.1)}.v-select .dropdown-menu>.highlight>a{background:#5897fb;color:#fff}.v-select .highlight:not(:last-child){margin-bottom:0}.v-select .spinner{align-self:center;opacity:0;font-size:5px;text-indent:-9999em;overflow:hidden;border-top:.9em solid hsla(0,0%,39%,.1);border-right:.9em solid hsla(0,0%,39%,.1);border-bottom:.9em solid hsla(0,0%,39%,.1);border-left:.9em solid rgba(60,60,60,.45);transform:translateZ(0);animation:vSelectSpinner 1.1s infinite linear;transition:opacity .1s}.v-select .spinner,.v-select .spinner:after{border-radius:50%;width:5em;height:5em}.v-select.disabled .dropdown-toggle,.v-select.disabled .dropdown-toggle .clear,.v-select.disabled .dropdown-toggle input,.v-select.disabled .open-indicator,.v-select.disabled .selected-tag .close{cursor:not-allowed;background-color:#f8f8f8}.v-select.loading .spinner{opacity:1}@-webkit-keyframes vSelectSpinner{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}@keyframes vSelectSpinner{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}.fade-enter-active,.fade-leave-active{transition:opacity .15s cubic-bezier(1,.5,.8,1)}.fade-enter,.fade-leave-to{opacity:0}',""])},function(t,e){t.exports=function(){var t=[];return t.toString=function(){for(var t=[],e=0;e<this.length;e++){var n=this[e];n[2]?t.push("@media "+n[2]+"{"+n[1]+"}"):t.push(n[1])}return t.join("")},t.i=function(e,n){"string"==typeof e&&(e=[[null,e,""]]);for(var o={},r=0;r<this.length;r++){var i=this[r][0];"number"==typeof i&&(o[i]=!0)}for(r=0;r<e.length;r++){var s=e[r];"number"==typeof s[0]&&o[s[0]]||(n&&!s[2]?s[2]=n:n&&(s[2]="("+s[2]+") and ("+n+")"),t.push(s))}},t}},function(t,e,n){n(89);var o=n(86)(n(41),n(87),null,null);t.exports=o.exports},function(t,e){t.exports=function(t,e,n,o){var r,i=t=t||{},s=typeof t.default;"object"!==s&&"function"!==s||(r=t,i=t.default);var a="function"==typeof i?i.options:i;if(e&&(a.render=e.render,a.staticRenderFns=e.staticRenderFns),n&&(a._scopeId=n),o){var u=a.computed||(a.computed={});Object.keys(o).forEach(function(t){var e=o[t];u[t]=function(){return e}})}return{esModule:r,exports:i,options:a}}},function(t,e){t.exports={render:function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",{staticClass:"dropdown v-select",class:t.dropdownClasses,attrs:{dir:t.dir}},[n("div",{ref:"toggle",staticClass:"dropdown-toggle",on:{mousedown:function(e){e.preventDefault(),t.toggleDropdown(e)}}},[n("div",{ref:"selectedOptions",staticClass:"vs__selected-options"},[t._l(t.valueAsArray,function(e){return t._t("selected-option-container",[n("span",{key:e.index,staticClass:"selected-tag"},[t._t("selected-option",[t._v("\n            "+t._s(t.getOptionLabel(e))+"\n          ")],null,"object"==typeof e?e:(o={},
+o[t.label]=e,o)),t._v(" "),t.multiple?n("button",{staticClass:"close",attrs:{disabled:t.disabled,type:"button","aria-label":"Remove option"},on:{click:function(n){t.deselect(e)}}},[n("span",{attrs:{"aria-hidden":"true"}},[t._v("×")])]):t._e()],2)],{option:"object"==typeof e?e:(r={},r[t.label]=e,r),deselect:t.deselect,multiple:t.multiple,disabled:t.disabled});var o,r}),t._v(" "),n("input",{directives:[{name:"model",rawName:"v-model",value:t.search,expression:"search"}],ref:"search",staticClass:"form-control",attrs:{type:"search",autocomplete:"off",disabled:t.disabled,placeholder:t.searchPlaceholder,tabindex:t.tabindex,readonly:!t.searchable,id:t.inputId,role:"combobox","aria-expanded":t.dropdownOpen,"aria-label":"Search for option"},domProps:{value:t.search},on:{keydown:[function(e){return"button"in e||!t._k(e.keyCode,"delete",[8,46],e.key)?void t.maybeDeleteValue(e):null},function(e){return"button"in e||!t._k(e.keyCode,"up",38,e.key)?(e.preventDefault(),void t.typeAheadUp(e)):null},function(e){return"button"in e||!t._k(e.keyCode,"down",40,e.key)?(e.preventDefault(),void t.typeAheadDown(e)):null},function(e){return"button"in e||!t._k(e.keyCode,"enter",13,e.key)?(e.preventDefault(),void t.typeAheadSelect(e)):null},function(e){return"button"in e||!t._k(e.keyCode,"tab",9,e.key)?void t.onTab(e):null}],keyup:function(e){return"button"in e||!t._k(e.keyCode,"esc",27,e.key)?void t.onEscape(e):null},blur:t.onSearchBlur,focus:t.onSearchFocus,input:function(e){e.target.composing||(t.search=e.target.value)}}})],2),t._v(" "),n("div",{staticClass:"vs__actions"},[n("button",{directives:[{name:"show",rawName:"v-show",value:t.showClearButton,expression:"showClearButton"}],staticClass:"clear",attrs:{disabled:t.disabled,type:"button",title:"Clear selection"},on:{click:t.clearSelection}},[n("span",{attrs:{"aria-hidden":"true"}},[t._v("×")])]),t._v(" "),t.noDrop?t._e():n("i",{ref:"openIndicator",staticClass:"open-indicator",attrs:{role:"presentation"}}),t._v(" "),t._t("spinner",[n("div",{directives:[{name:"show",rawName:"v-show",value:t.mutableLoading,expression:"mutableLoading"}],staticClass:"spinner"},[t._v("Loading...")])])],2)]),t._v(" "),n("transition",{attrs:{name:t.transition}},[t.dropdownOpen?n("ul",{ref:"dropdownMenu",staticClass:"dropdown-menu",style:{"max-height":t.maxHeight},attrs:{role:"listbox"},on:{mousedown:t.onMousedown}},[t._l(t.filteredOptions,function(e,o){return n("li",{key:o,class:{active:t.isOptionSelected(e),highlight:o===t.typeAheadPointer},attrs:{role:"option"},on:{mouseover:function(e){t.typeAheadPointer=o}}},[n("a",{on:{mousedown:function(n){n.preventDefault(),n.stopPropagation(),t.select(e)}}},[t._t("option",[t._v("\n          "+t._s(t.getOptionLabel(e))+"\n        ")],null,"object"==typeof e?e:(r={},r[t.label]=e,r))],2)]);var r}),t._v(" "),t.filteredOptions.length?t._e():n("li",{staticClass:"no-options"},[t._t("no-options",[t._v("Sorry, no matching options.")])],2)],2):t._e()])],1)},staticRenderFns:[]}},function(t,e,n){function o(t,e){for(var n=0;n<t.length;n++){var o=t[n],r=f[o.id];if(r){r.refs++;for(var i=0;i<r.parts.length;i++)r.parts[i](o.parts[i]);for(;i<o.parts.length;i++)r.parts.push(u(o.parts[i],e))}else{for(var s=[],i=0;i<o.parts.length;i++)s.push(u(o.parts[i],e));f[o.id]={id:o.id,refs:1,parts:s}}}}function r(t){for(var e=[],n={},o=0;o<t.length;o++){var r=t[o],i=r[0],s=r[1],a=r[2],u=r[3],l={css:s,media:a,sourceMap:u};n[i]?n[i].parts.push(l):e.push(n[i]={id:i,parts:[l]})}return e}function i(t,e){var n=h(),o=g[g.length-1];if("top"===t.insertAt)o?o.nextSibling?n.insertBefore(e,o.nextSibling):n.appendChild(e):n.insertBefore(e,n.firstChild),g.push(e);else{if("bottom"!==t.insertAt)throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");n.appendChild(e)}}function s(t){t.parentNode.removeChild(t);var e=g.indexOf(t);e>=0&&g.splice(e,1)}function a(t){var e=document.createElement("style");return e.type="text/css",i(t,e),e}function u(t,e){var n,o,r;if(e.singleton){var i=v++;n=b||(b=a(e)),o=l.bind(null,n,i,!1),r=l.bind(null,n,i,!0)}else n=a(e),o=c.bind(null,n),r=function(){s(n)};return o(t),function(e){if(e){if(e.css===t.css&&e.media===t.media&&e.sourceMap===t.sourceMap)return;o(t=e)}else r()}}function l(t,e,n,o){var r=n?"":o.css;if(t.styleSheet)t.styleSheet.cssText=y(e,r);else{var i=document.createTextNode(r),s=t.childNodes;s[e]&&t.removeChild(s[e]),s.length?t.insertBefore(i,s[e]):t.appendChild(i)}}function c(t,e){var n=e.css,o=e.media,r=e.sourceMap;if(o&&t.setAttribute("media",o),r&&(n+="\n/*# sourceURL="+r.sources[0]+" */",n+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(r))))+" */"),t.styleSheet)t.styleSheet.cssText=n;else{for(;t.firstChild;)t.removeChild(t.firstChild);t.appendChild(document.createTextNode(n))}}var f={},p=function(t){var e;return function(){return"undefined"==typeof e&&(e=t.apply(this,arguments)),e}},d=p(function(){return/msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase())}),h=p(function(){return document.head||document.getElementsByTagName("head")[0]}),b=null,v=0,g=[];t.exports=function(t,e){e=e||{},"undefined"==typeof e.singleton&&(e.singleton=d()),"undefined"==typeof e.insertAt&&(e.insertAt="bottom");var n=r(t);return o(n,e),function(t){for(var i=[],s=0;s<n.length;s++){var a=n[s],u=f[a.id];u.refs--,i.push(u)}if(t){var l=r(t);o(l,e)}for(var s=0;s<i.length;s++){var u=i[s];if(0===u.refs){for(var c=0;c<u.parts.length;c++)u.parts[c]();delete f[u.id]}}}};var y=function(){var t=[];return function(e,n){return t[e]=n,t.filter(Boolean).join("\n")}}()},function(t,e,n){var o=n(83);"string"==typeof o&&(o=[[t.id,o,""]]);n(88)(o,{});o.locals&&(t.exports=o.locals)}])});
 //# sourceMappingURL=vue-select.js.map
 
 /***/ }),

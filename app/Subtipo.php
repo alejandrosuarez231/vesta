@@ -87,5 +87,15 @@ class Subtipo extends Model
     // hasMany(RelatedModel, foreignKeyOnRelatedModel = subtipo_id, localKey = id)
     return $this->hasMany(Mtp::class,'mtp_subtipo_id');
   }
+  /**
+   * Subtipo has many Modulo.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function modulo()
+  {
+    // hasMany(RelatedModel, foreignKeyOnRelatedModel = subtipo_id, localKey = id)
+    return $this->hasMany(Modulo::class);
+  }
 
 }

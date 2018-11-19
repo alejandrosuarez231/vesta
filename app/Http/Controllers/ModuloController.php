@@ -26,38 +26,13 @@ class ModuloController extends Controller
 
     public function indexData()
     {
-        $modulos = Modulo::with('sars:id,valor')->get();
-        // dd($modulos);
-        return Datatables::of($modulos)
-        ->editColumn('tipos', function(Modulo $modulo) {
-            $output = null;
-            $tipos = Tipo::whereIn('id',explode(',',$modulo->tipos))->get();
-            foreach ($tipos as $key => $value) {
-                $output .= '<span class="badge badge-info mr-1">'. $value->nombre .'</span>';
-            }
-            return $output;
-        })
-        ->editColumn('subtipos', function(Modulo $modulo) {
-            $output = null;
-            $subtipos = Subtipo::whereIn('id',explode(',',$modulo->subtipos))->get();
-            foreach ($subtipos as $key => $value) {
-                $output .= '<span class="badge badge-info mr-1">'. $value->nombre .'</span>';
-            }
-            return $output;
-        })
-        ->editColumn('sars.valor', function(Modulo $modulo){
-            $output = null;
-            $confparts = Confpart::whereIn('id',explode(',',$modulo->sar))->get();
-            foreach ($confparts as $key => $value) {
-                $output .= '<span class="badge badge-info mr-1">'. $value->valor .'</span>';
-            }
-            return $output;
+      // return datatables()->of(Modulo::query())->toJson();
+      $modulos = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre')->get();
+      return Datatables::of($modulos)
+      ->addColumn('action', function ($modulo) {
+        return '<a href="modulos/'.$modulo->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>';
       })
-        ->addColumn('action', function ($modulo) {
-            return '<a href="modulos/'.$modulo->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>';
-        })
-        ->rawColumns(['tipos','subtipos','sars.valor','action'])
-        ->make(true);
+      ->make(true);
     }
 
     /**

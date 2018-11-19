@@ -4,7 +4,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md">
-      <h3>Modulos</h3>
+      <h3>Lista de Modulos</h3>
       <ul class="nav">
         <li class="nav-item">
           <a href="{{ url('/home') }}" class="btn btn-link" title="Inicio">Regresar</a>
@@ -19,11 +19,11 @@
   <div class="row">
     <div class="col-md">
       <table class="table" id="modulos-table"  data-page-length="100">
-        <caption>Modulos</caption>
+        <caption>Lista de Modulos</caption>
         <thead>
           <tr>
             <th>Id</th>
-            <th>sku_grupo</th>
+            <th>SKU Grupo</th>
             <th>Tipo</th>
             <th>Subtipo</th>
             <th>Categoria</th>
@@ -45,13 +45,13 @@
     $('#modulos-table').DataTable({
       processing: true,
       serverSide: true,
-      ajax: '{!! route('data.modulos') !!}',
+      ajax: '{!! route('data.moduloslista') !!}',
       columns: [
       {data: 'id', name: 'id', title: 'Id'},
-      {data: 'sku_grupo', name: 'sku_grupo', title: 'sku_grupo'},
-      {data: 'tipo_id', name: 'tipo_id', title: 'Tipo', className: 'text-center'},
-      {data: 'subtipo_id', name: 'subtipo_id', title: 'SubTipo', className: 'text-center'},
-      {data: 'categoria_id', name: 'categoria_id', title: 'Categoria', className: 'text-left'},
+      {data: 'sku_grupo', name: 'sku_grupo', title: 'SKU Grupo'},
+      {data: 'tipo.nombre', name: 'tipo.nombre', title: 'Tipo', className: 'text-center'},
+      {data: 'subtipo.nombre', name: 'subtipo.nombre', title: 'SubTipo', className: 'text-center'},
+      {data: 'categoria.nombre', name: 'categoria.nombre', title: 'Categoria', className: 'text-left'},
       {data: 'nombre', name: 'nombre', title: 'Nombre', className: 'text-left'},
       {data: 'consecutivo', name: 'consecutivo', title: 'consecutivo', className: 'text-center'},
       {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-left'}

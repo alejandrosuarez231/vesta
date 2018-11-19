@@ -20,27 +20,38 @@ class Modulo extends Model
      *
      * @var array
      */
-    protected $fillable = ['tipos','subtipos','sar' ,'nombre','numerologia'];
-
-    /**
-     * Modulo belongs to Sar.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function sars()
-    {
-        // belongsTo(RelatedModel, foreignKey = sar_id, keyOnRelatedModel = id)
-        return $this->belongsTo(Confpart::class,'sar','id');
-    }
+    protected $fillable = ['sku_grupo','tipo_id','subtipo_id','categoria_id' ,'nombre','consecutivo'];
 
     /**
      * Modulo belongs to Tipos.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function tipos()
+    public function tipo()
     {
         // belongsTo(RelatedModel, foreignKey = tipos_id, keyOnRelatedModel = id)
-        return $this->belongsTo(Tipo::class,'tipos');
+        return $this->belongsTo(Tipo::class);
+    }
+
+    /**
+     * Modulo belongs to Subtipo.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function subtipo()
+    {
+        // belongsTo(RelatedModel, foreignKey = subtipo_id, keyOnRelatedModel = id)
+        return $this->belongsTo(Subtipo::class);
+    }
+
+    /**
+     * Modulo belongs to Categoria.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function categoria()
+    {
+        // belongsTo(RelatedModel, foreignKey = categoria_id, keyOnRelatedModel = id)
+        return $this->belongsTo(Categoria::class);
     }
   }

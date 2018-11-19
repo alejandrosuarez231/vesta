@@ -58,9 +58,12 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ route('cotizaciones.create') }}" title="Cotizar">Cotizar</a>
           </li>
-          {{-- <li class="nav-item">
-            <a class="nav-link" href="{{ route('constructor.construir') }}" title="Contruir">Construir</a>
-          </li> --}}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('moduloslista.index') }}" title="Lista de Modulos">Lista de Modulos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" title="SKUs">Lista de SKU's</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ route('productos.index') }}" title="Productos">Productos</a>
           </li>
@@ -93,6 +96,7 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="{{ url('backend/tipos') }}">Tipos</a>
               <a class="dropdown-item" href="{{ url('backend/subtipos') }}">Sub-Tipos</a>
+              <a class="dropdown-item" href="{{ url('backend/categorias') }}">Categorias</a>
               <a class="dropdown-item" href="{{ url('backend/unidades') }}" title="Unidades">Unidades</a>
               <a class="dropdown-item" href="{{ url('backend/marcas') }}" title="Marcas">Marcas</a>
               <a class="dropdown-item" href="{{ url('backend/colores') }}" title="Colores">Colores</a>

@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
           UsersSeeder::class,
           TiposSeeder::class,
           SubtiposSeeder::class,
-          // ProveedoresSeeder::class,
           MarcasSeeder::class,
           ColoresSeeder::class,
           Unidades::class,
@@ -31,6 +30,7 @@ class DatabaseSeeder extends Seeder
           MtpsSeeder::class,
           ModulosSeeder::class,
           ListaMaterialesSeeder::class,
+          CategoriasSeeder::class,
         ]);
     }
 }

@@ -15,11 +15,12 @@ class CreateModulosTable extends Migration
     {
         Schema::create('modulos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tipos');
-            $table->string('subtipos');
-            $table->string('sar');
+            $table->string('sku_grupo');
+            $table->string('tipo_id');
+            $table->string('subtipo_id');
+            $table->string('categoria_id');
             $table->string('nombre');
-            $table->integer('numerologia');
+            $table->integer('consecutivo');
             $table->timestamps();
             $table->softDeletes();
         });

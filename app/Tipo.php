@@ -102,10 +102,10 @@ class Tipo extends Model
    *
    * @return \Illuminate\Database\Eloquent\Relations\HasMany
    */
-  public function modulos()
+  public function modulo()
   {
     // hasMany(RelatedModel, foreignKeyOnRelatedModel = tipo_id, localKey = id)
-    return $this->hasMany(Modulo::class,'tipos');
+    return $this->hasMany(Modulo::class);
   }
 
 }
