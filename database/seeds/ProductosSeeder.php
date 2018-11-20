@@ -7,10 +7,10 @@ use App\Producto;
 class ProductosSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
+    * Run the database seeds.
+    *
+    * @return void
+    */
     public function run()
     {
        $data = collect(
@@ -1004,27 +1004,27 @@ class ProductosSeeder extends Seeder
                 "maximo" => "20"
             ]
         ]);
-// dd($data->take(2));
-        foreach ($data as $obj) {
-            $producto = new Producto;
-            $producto->sku = $obj['sku'];
-            $producto->tipo_id = $obj['tipo_id'];
-            $producto->subtipo_id = $obj['subtipo_id'];
-            $producto->nombre = $obj['nombre'];
-            $producto->descripcion = $obj['descripcion'];
-            $producto->marca_id = $obj['marca_id'];
-            $producto->unidad_id = $obj['unidad_id'];
-            $producto->ancho = $obj['ancho'];
-            $producto->largo = $obj['largo'];
-            $producto->espesor = $obj['espesor'];
-            $producto->propiedad_id = $obj['propiedad_id'];
-            $producto->extra_id = $obj['extra_id'];
-            $producto->color_id = $obj['color_id'];
-            $producto->importado = $obj['importado'];
-            $producto->minimo = $obj['minimo'];
-            $producto->maximo = $obj['maximo'];
-            $producto->save();
-      }
 
-  }
+foreach ($data as $obj) {
+    $producto = new Producto;
+    $producto->sku = $obj['sku'];
+    $producto->tipo_id = $obj['tipo_id'];
+    $producto->subtipo_id = $obj['subtipo_id'];
+    $producto->nombre = $obj['nombre'];
+    $producto->descripcion = $obj['descripcion'];
+    $producto->marca_id = $obj['marca_id'];
+    $producto->unidad_id = $obj['unidad_id'];
+    $producto->ancho = $obj['ancho'];
+    $producto->largo = $obj['largo'];
+    $producto->espesor = $obj['espesor'];
+    $producto->propiedad_id = $obj['propiedad_id'];
+    $producto->extra_id = $obj['extra_id'];
+    $producto->color_id = $obj['color_id'];
+    $producto->importado = $obj['importado'];
+    $producto->minimo = $obj['minimo'];
+    $producto->maximo = $obj['maximo'];
+    $producto->save();
+}
+
+}
 }

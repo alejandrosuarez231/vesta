@@ -20,7 +20,7 @@ class Modulo extends Model
      *
      * @var array
      */
-    protected $fillable = ['sku_grupo','tipo_id','subtipo_id','categoria_id' ,'nombre','consecutivo'];
+    protected $fillable = ['sku_grupo','tipo_id','subtipo_id','categoria_id' ,'nombre','consecutivo','descripcion','variantes','sap','fondo_id','espesor_permitido','ancho_minimo','ancho_maximo','ancho_var','alto_minimo','alto_maximo','alto_var','profundidad_minima','profundidad_maxima','profundidad_var'];
 
     /**
      * Modulo belongs to Tipos.

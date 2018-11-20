@@ -20,7 +20,10 @@ class ModulolistaController extends Controller
       $modulos = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre')->get();
       return Datatables::of($modulos)
       ->addColumn('action', function ($modulo) {
-        return '<a href="modulos/'.$modulo->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>';
+        return '
+            <a href="moduloslista/'.$modulo->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+            <a href="moduloslista/'.$modulo->id.'" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
+            ';
     })
       ->make(true);
   }
@@ -55,7 +58,8 @@ class ModulolistaController extends Controller
      */
     public function show($id)
     {
-        //
+        $modulo = Modulo::findOrFail($id);
+        return $modulo;
     }
 
     /**
@@ -66,7 +70,9 @@ class ModulolistaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $modulo = Modulo::findOrFail($id);
+        // return $modulo;
+        return view('frontend.moduloslista.edit', compact('modulo'));
     }
 
     /**

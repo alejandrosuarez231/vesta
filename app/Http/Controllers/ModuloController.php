@@ -6,7 +6,7 @@ use App\Modulo;
 use App\Tipo;
 use App\Subtipo;
 use App\Proyecto;
-use App\Confpart;
+use |App\Confpart;
 use Illuminate\Http\Request;
 use Alert;
 use Yajra\DataTables\DataTables;
