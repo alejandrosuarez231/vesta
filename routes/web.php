@@ -76,7 +76,7 @@ Route::get('/dataConfmats', 'ConfmatController@dataIndex')->name('data.confmats'
 Route::get('/materialCotiza/{material}', 'ConfmatController@cotizar')->name('data.materialCotiza');
 Route::resource('/backend/confmats', 'ConfmatController');
 
-/* Modulos OLD */
+/* Modulos */
 Route::get('/dataModulos', 'ModuloController@indexData')->name('data.modulos');
 Route::get('/modulosConstructor/{tipos}/{subtipos}/{sar}', 'ModuloController@modulosContructor')->name('data.moduloconstructor');
 Route::get('/ModuloEditData/{id}', 'ModuloController@editData')->name('data.modulosedit');

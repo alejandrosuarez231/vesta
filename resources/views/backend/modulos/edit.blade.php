@@ -1,14 +1,11 @@
 @extends('layouts.app')
 
-@section('css')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
-@endsection
-
 @section('content')
+
 <div class="container-fluid" id="app" v-cloak>
   <div class="row">
     <div class="col-md">
-      <h3>Modulos</h3>
+      <h3>Lista de Modulos</h3>
       <ul class="nav">
         <li class="nav-item">
           <a href="{{ url('/backend/modulos') }}" class="btn btn-link" title="Inicio">Regresar</a>
@@ -17,31 +14,103 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-10">
       {!! Form::model($modulo, ['route' => ['modulos.update', $modulo->id],'method'=>'PATCH']) !!}
-      <div class="form-group">
-        {!! Form::label('nombre', 'Nombre', ['class' => 'form-control-label']) !!}
-        {!! Form::text('nombre', null, ['class' => 'form-control','required','v-model'=> 'nombre']) !!}
+      <div class="form-row">
+        <div class="form-group mr-2">
+          {!! Form::label('sku_grupo', 'SKU Grupo', ['class' => 'form-control-label']) !!}
+          {!! Form::text('sku_grupo', null, ['class' => 'form-control','required']) !!}
+        </div>
+        <div class="form-group mr-2">
+          {!! Form::label('tipo_id', 'Tipo', ['class'=>'form-control-label']) !!}
+          {!! Form::select('tipo_id', \App\Tipo::pluck('nombre','id'), $modulo->tipo_id, ['class'=>'form-control','v-model'=>'tipo_id','@change'=>'getSubtipos']) !!}
+        </div>
+        <div class="form-group mr-2">
+          {!! Form::label('subtipo_id', 'Subtipo', ['class'=>'form-control-label']) !!}
+          <select name="subtipo_id" class="form-control" title="Asignar subtipo" v-model="subtipo_id">
+            <option v-for="(item, indice) in subtipo_list" :value="item.value">@{{ item.label }}</option>
+          </select>
+        </div>
+        <div class="form-group mr-2">
+          {!! Form::label('categoria_id', 'Categoria', ['class'=>'form-control-label']) !!}
+          {!! Form::select('categoria_id', \App\Categoria::pluck('nombre','id'), $modulo->categoria_id, ['class'=>'form-control']) !!}
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-6">
+          {!! Form::label('nombre', 'Nombre', ['class'=>'form-control-label']) !!}
+          {!! Form::text('nombre', $modulo->nombre, ['class'=>'form-control']) !!}
+        </div>
+        <div class="form-group">
+          {!! Form::label('consecutivo', 'Consecutivo', ['class'=>'form-control-label']) !!}
+          {!! Form::number('consecutivo', $modulo->consecutivo, ['class'=>'form-control']) !!}
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-6">
+          {!! Form::label('descripcion', 'Descripcion', ['class'=>'form-control-label']) !!}
+          {!! Form::text('descripcion', $modulo->descripcion, ['class'=>'form-control']) !!}
+        </div>
+        <div class="form-group">
+          {!! Form::label('variantes', 'Variantes', ['class'=>'form-control-label']) !!}
+          {!! Form::number('variantes', $modulo->variantes, ['class'=>'form-control']) !!}
+        </div>
       </div>
       <div class="form-row">
         <div class="form-group mr-2">
-          <select name="tipos[]" class="form-control" multiple data-live-search="true" title="Asignar tipo" multiple="multiple" v-model="tipos" data-width="auto">
-            <option v-for="(tipo, index) in tiposList" :value="tipo.value">@{{ tipo.label }}</option>
-          </select>
+          {!! Form::label('sap', 'Sist. de Apertura', ['class'=>'form-control-label']) !!}
+          {!! Form::select('sap[]', \App\Confpart::where('acronimo','=','sap')->pluck('valor','id'), explode(",",$modulo->sap), ['class'=>'form-control','required','multiple']) !!}
         </div>
         <div class="form-group mr-2">
-          <select name="subtipos[]" class="form-control" multiple title="Asignar subtipo" multiple="multiple" v-model="subtipos">
-            <option v-for="(item, indice) in subtiposList" :value="item.value">@{{ item.label }}</option>
-          </select>
+          {!! Form::label('fondo_id', 'Tipo de Fondo', ['class'=>'form-control-label']) !!}
+          {!! Form::select('fondo_id[]', \App\Confpart::where('acronimo','=','tf')->pluck('valor','id'), explode(",",$modulo->fondo_id), ['class'=>'form-control','required','multiple']) !!}
+        </div>
+        <div class="form-group mr-2">
+          {!! Form::label('espesor_permitido', 'Espesor Permitido', ['class'=>'form-control-label']) !!}
+          {!! Form::text('espesor_permitido', $modulo->espesor_permitido, ['class'=>'form-control']) !!}
         </div>
       </div>
-      <div class="form-group mr-2">
-        {!! Form::label('sar', 'Sist. de Armado', ['class' => 'form-control-label']) !!}
-        {!! Form::select('sar[]', \App\Confpart::where('nombre','=','Sist. de Armado')->pluck('valor','id'), null, ['class' => 'form-control','required','multiple','v-model'=>'sar']) !!}
+      <div class="form-row">
+        <div class="form-group mr-2">
+          {!! Form::label('ancho_minimo', 'Ancho Min.', ['class'=>'form-control-label']) !!}
+          {!! Form::number('ancho_minimo', $modulo->ancho_minimo, ['class'=>'form-control']) !!}
+        </div>
+        <div class="form-group mr-2">
+          {!! Form::label('ancho_maximo', 'Ancho Max.', ['class'=>'form-control-label']) !!}
+          {!! Form::number('ancho_maximo', $modulo->ancho_maximo, ['class'=>'form-control']) !!}
+        </div>
+        <div class="form-group mr-2">
+          {!! Form::label('ancho_var', 'Ancho Var.', ['class'=>'form-control-label']) !!}
+          {!! Form::number('ancho_var', $modulo->ancho_var, ['class'=>'form-control']) !!}
+        </div>
       </div>
-      <div class="form-group">
-        {!! Form::label('numerologia', 'Numerologia', ['class' => 'form-control-label']) !!}
-        {!! Form::number('numerologia', null, ['class' => 'form-control','required','v-model' => 'numerologia']) !!}
+      <div class="form-row">
+        <div class="form-group mr-2">
+          {!! Form::label('alto_minimo', 'Ancho Min.', ['class'=>'form-control-label']) !!}
+          {!! Form::number('alto_minimo', $modulo->alto_minimo, ['class'=>'form-control']) !!}
+        </div>
+        <div class="form-group mr-2">
+          {!! Form::label('alto_maximo', 'Ancho Max.', ['class'=>'form-control-label']) !!}
+          {!! Form::number('alto_maximo', $modulo->alto_maximo, ['class'=>'form-control']) !!}
+        </div>
+        <div class="form-group mr-2">
+          {!! Form::label('alto_var', 'Ancho Var.', ['class'=>'form-control-label']) !!}
+          {!! Form::number('alto_var', $modulo->alto_var, ['class'=>'form-control']) !!}
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group mr-2">
+          {!! Form::label('profundidad_minima', 'Ancho Min.', ['class'=>'form-control-label']) !!}
+          {!! Form::number('profundidad_minima', $modulo->profundidad_minima, ['class'=>'form-control']) !!}
+        </div>
+        <div class="form-group mr-2">
+          {!! Form::label('profundidad_maxima', 'Ancho Max.', ['class'=>'form-control-label']) !!}
+          {!! Form::number('profundidad_maxima', $modulo->profundidad_maxima, ['class'=>'form-control']) !!}
+        </div>
+        <div class="form-group mr-2">
+          {!! Form::label('profundidad_var', 'Ancho Var.', ['class'=>'form-control-label']) !!}
+          {!! Form::number('profundidad_var', $modulo->profundidad_var, ['class'=>'form-control']) !!}
+        </div>
       </div>
       <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Registrar</button>
       <a class="btn btn-warning text-danger" href="{{ url('/backend/modulos') }}" title="Cancelar"><i class="fas fa-ban"></i> Cancelar</a>
@@ -53,64 +122,26 @@
 @endsection
 
 @section('scripts')
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/i18n/defaults-es_ES.min.js"></script>
-<script>
-  $(document).ready(function(){
-    $('.test').selectpicker();
-  })
-</script>
 <script>
   var app = new Vue({
     el: '#app',
 
-    created() {
-      axios.get('/TiposPTO').then( response => { this.tiposList = response.data }).catch( function(error) { console.log(error) });
-      axios.get('/ModuloEditData/' + '{{ $modulo->id }}').then( response => {
-        this.nombre = response.data.nombre;
-        this.tipos = response.data.tipos.split(',');
-        this.subtipos = response.data.subtipos.split(',');
-        this.sar = response.data.sar.split(',');
-        this.numerologia = response.data.numerologia;
-      }).catch(function(error){ console.log(error)});
+    created(){
+      axios.get('/subtiposFiltro/' + this.tipo_id).then( response => { this.subtipo_list = response.data }).catch( function(error) { console.log(error); });
     },
 
     data: {
-      nombre: '',
-      tipos: [],
-      tiposList: '',
-      subtipos: [],
-      subtiposList: [],
-      sar: [],
-      numerologia: ''
+      tipo_id: '{{ $modulo->tipo_id }}',
+      subtipo_list: '',
+      subtipo_id: '{{ $modulo->subtipo_id }}'
     },
 
-    watch: {
-      tipos: function(){
-        axios.get('/subtiposFiltro/' + this.tipos)
-        .then( response => {
-          this.subtiposList = response.data
-        })
-        .catch(function(error) {
-          console.log(error)
-        })
+    method: {
+      getSubtipos: function(){
+        axios.get('/subtiposFiltro/' + this.tipo_id).then( response => { this.subtipo_list = response.data }).catch( function(error) { console.log(error); });
       }
-    },
+    }
 
-    methods: {
-      getSubtipo: function(){
-        if(this.tipo > 0){
-          axios.get('/subtipos/' + this.tipo)
-          .then( response => {
-            this.subtipos = response.data;
-          })
-          .catch(function(error){
-            console.log(error)
-          })
-        }
-      }
-    },
-  })
+  });
 </script>
 @endsection

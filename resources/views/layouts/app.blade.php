@@ -59,7 +59,7 @@
             <a class="nav-link" href="{{ route('cotizaciones.create') }}" title="Cotizar">Cotizar</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('moduloslista.index') }}" title="Lista de Modulos">Lista de Modulos</a>
+            <a class="nav-link" href="{{ route('modulos.index') }}" title="Lista de Modulos">Lista de Modulos</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#" title="SKUs">Lista de SKU's</a>

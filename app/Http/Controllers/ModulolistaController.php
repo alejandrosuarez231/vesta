@@ -59,7 +59,7 @@ class ModulolistaController extends Controller
     public function show($id)
     {
         $modulo = Modulo::findOrFail($id);
-        return $modulo;
+        return view('frontend.moduloslista.show', compact( $modulo));
     }
 
     /**

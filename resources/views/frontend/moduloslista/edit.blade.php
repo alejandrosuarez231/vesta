@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container-fluid" id="app">
+<div class="container-fluid" id="app" v-cloak>
   <div class="row">
     <div class="col-md">
       <h3>Lista de Modulos</h3>
@@ -23,17 +23,17 @@
         </div>
         <div class="form-group mr-2">
           {!! Form::label('tipo_id', 'Tipo', ['class'=>'form-control-label']) !!}
-          {!! Form::select('tipo_id', \App\Tipo::pluck('nombre','id'), $modulo->tipo_id, ['class'=>'form-control']) !!}
+          {!! Form::select('tipo_id', \App\Tipo::pluck('nombre','id'), $modulo->tipo_id, ['class'=>'form-control','v-model'=>'tipo_id']) !!}
           {{-- <select name="tipos[]" class="form-control" multiple data-live-search="true" title="Asignar tipo" multiple="multiple" v-model="tipos" data-width="auto">
             <option v-for="(tipo, index) in tiposList" :value="tipo.value">@{{ tipo.label }}</option>
           </select> --}}
         </div>
         <div class="form-group mr-2">
           {!! Form::label('subtipo_id', 'Subtipo', ['class'=>'form-control-label']) !!}
-          {!! Form::select('subtipo_id', \App\Subtipo::pluck('nombre','id'), $modulo->subtipo_id, ['class'=>'form-control']) !!}
-          {{-- <select name="subtipos[]" class="form-control" multiple title="Asignar subtipo" multiple="multiple" v-model="subtipos">
-            <option v-for="(item, indice) in subtiposList" :value="item.value">@{{ item.label }}</option>
-          </select> --}}
+          {{-- {!! Form::select('subtipo_id', \App\Subtipo::pluck('nombre','id'), $modulo->subtipo_id, ['class'=>'form-control']) !!} --}}
+          <select name="subtipo_id" class="form-control" title="Asignar subtipo" v-model="subtipo_id">
+            <option v-for="(item, indice) in subtipo_list" :value="item.value">@{{ item.label }}</option>
+          </select>
         </div>
         <div class="form-group mr-2">
           {!! Form::label('categoria_id', 'Categoria', ['class'=>'form-control-label']) !!}
@@ -56,18 +56,18 @@
           {!! Form::text('descripcion', $modulo->descripcion, ['class'=>'form-control']) !!}
         </div>
         <div class="form-group">
-          {!! Form::label('varaintes', 'Variantes', ['class'=>'form-control-label']) !!}
-          {!! Form::number('varaintes', $modulo->variantes, ['class'=>'form-control']) !!}
+          {!! Form::label('variantes', 'Variantes', ['class'=>'form-control-label']) !!}
+          {!! Form::number('variantes', $modulo->variantes, ['class'=>'form-control']) !!}
         </div>
       </div>
       <div class="form-row">
         <div class="form-group mr-2">
           {!! Form::label('sap', 'Sist. de Apertura', ['class'=>'form-control-label']) !!}
-          {!! Form::select('sap', \App\Confpart::where('acronimo','=','sap')->pluck('valor','id'), $modulo->sap, ['class'=>'form-control','multiple']) !!}
+          {!! Form::select('sap[]', \App\Confpart::where('acronimo','=','sap')->pluck('valor','id'), explode(",",$modulo->sap), ['class'=>'form-control','required','multiple']) !!}
         </div>
         <div class="form-group mr-2">
           {!! Form::label('fondo_id', 'Tipo de Fondo', ['class'=>'form-control-label']) !!}
-          {!! Form::select('fondo_id', \App\Confpart::where('acronimo','=','tf')->pluck('valor','id'), $modulo->fondo_id, ['class'=>'form-control','multiple']) !!}
+          {!! Form::select('fondo_id[]', \App\Confpart::where('acronimo','=','tf')->pluck('valor','id'), explode(",",$modulo->fondo_id), ['class'=>'form-control','required','multiple']) !!}
         </div>
         <div class="form-group mr-2">
           {!! Form::label('espesor_permitido', 'Espesor Permitido', ['class'=>'form-control-label']) !!}
@@ -123,4 +123,29 @@
   </div>
 </div>
 
+@endsection
+
+@section('scripts')
+<script>
+  var app = new Vue({
+    el: '#app',
+
+    created(){
+      axios.get('/subtiposFiltro/' + this.tipo_id).then( response => { this.subtipo_list = response.data }).catch( function(error) { console.log(error); });
+    },
+
+    data: {
+      tipo_id: '{{ $modulo->tipo_id }}',
+      subtipo_list: '',
+      subtipo_id: '{{ $modulo->subtipo_id }}'
+    },
+
+    method: {
+      getSubtipos: function(){
+        axios.get('/subtiposFiltro/' + this.tipo_id).then( response => { this.subtipo_list = response.data }).catch( function(error) { console.log(error); });
+      }
+    }
+
+  });
+</script>
 @endsection
