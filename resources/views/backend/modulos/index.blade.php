@@ -28,7 +28,6 @@
             <th>Subtipo</th>
             <th>Categoria</th>
             <th>Nombre</th>
-            <th>Consecutivo</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -49,11 +48,10 @@
       columns: [
       {data: 'id', name: 'id', title: 'Id'},
       {data: 'sku_grupo', name: 'sku_grupo', title: 'sku_grupo'},
-      {data: 'tipo_id', name: 'tipo_id', title: 'Tipo', className: 'text-center'},
-      {data: 'subtipo_id', name: 'subtipo_id', title: 'SubTipo', className: 'text-center'},
-      {data: 'categoria_id', name: 'categoria_id', title: 'Categoria', className: 'text-left'},
+      {data: 'tipo.nombre', name: 'tipo.nombre', title: 'Tipo', className: 'text-center'},
+      {data: 'subtipo.nombre', name: 'subtipo.nombre', title: 'SubTipo', className: 'text-center'},
+      {data: 'categoria.nombre', name: 'categoria.nombre', title: 'Categoria', className: 'text-left'},
       {data: 'nombre', name: 'nombre', title: 'Nombre', className: 'text-left'},
-      {data: 'consecutivo', name: 'consecutivo', title: 'consecutivo', className: 'text-center'},
       {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-left'}
       ],
       "language": {

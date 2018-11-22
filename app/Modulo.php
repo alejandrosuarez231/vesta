@@ -20,7 +20,7 @@ class Modulo extends Model
      *
      * @var array
      */
-    protected $fillable = ['sku_grupo','tipo_id','subtipo_id','categoria_id' ,'nombre','consecutivo','descripcion','variantes','sap','fondo_id','espesor_permitido','ancho_minimo','ancho_maximo','ancho_var','alto_minimo','alto_maximo','alto_var','profundidad_minima','profundidad_maxima','profundidad_var'];
+    protected $fillable = ['sku_grupo','tipo_id','subtipo_id','categoria_id' ,'nombre','consecutivo','descripcion','variantes','saps','fondos','espesor_permitido','ancho_minimo','ancho_maximo','ancho_var','alto_minimo','alto_maximo','alto_var','profundidad_minima','profundidad_maxima','profundidad_var'];
 
     /**
      * Modulo belongs to Tipos.
@@ -54,4 +54,25 @@ class Modulo extends Model
         // belongsTo(RelatedModel, foreignKey = categoria_id, keyOnRelatedModel = id)
         return $this->belongsTo(Categoria::class);
     }
-  }
+    /**
+     * Modulo belongs to Sap.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function saps()
+    {
+        // belongsTo(RelatedModel, foreignKey = sap_id, keyOnRelatedModel = id)
+        return $this->belongsTo(Sap::class,'saps','id');
+    }
+
+    /**
+     * Modulo belongs to Fondo.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function fondos()
+    {
+        // belongsTo(RelatedModel, foreignKey = fondo_id, keyOnRelatedModel = id)
+        return $this->belongsTo(Fondo::class,'fondos','id');
+    }
+}

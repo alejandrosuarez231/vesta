@@ -31,6 +31,8 @@ class DatabaseSeeder extends Seeder
           ModulosSeeder::class,
           ListaMaterialesSeeder::class,
           CategoriasSeeder::class,
+          FondosSeeder::class,
+          SapsSeeder::class,
         ]);
     }
 }

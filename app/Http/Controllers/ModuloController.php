@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Modulo;
+use App\Sap;
+use App\Fondo;
 use Alert;
 use Yajra\DataTables\DataTables;
 use DB;
@@ -18,6 +20,7 @@ class ModuloController extends Controller
     public function indexData()
     {
       $modulos = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre')->get();
+      // dd($modulos->take(10));
       return Datatables::of($modulos)
       ->addColumn('action', function ($modulo) {
         return '
@@ -58,8 +61,15 @@ class ModuloController extends Controller
      */
     public function show($id)
     {
-        $modulo = Modulo::findOrFail($id);
-        return view('backend.modulos.show', compact( $modulo));
+        $modulo = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre')
+        ->findOrFail($id);
+
+        $saps = Sap::whereIn('id',explode(",",$modulo->saps))->get();
+        // dd($modulo->fondos);
+        $fondos = Fondo::whereIn('id',explode(",",$modulo->fondos))->get();
+        // dd($fondos);
+        // dd($modulo,$saps->implode('valor',', '),$fondos->implode('valor',', '));
+        return view('backend.modulos.show', compact('modulo','saps','fondos'));
     }
 
     /**

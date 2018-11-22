@@ -23,11 +23,12 @@
         </div>
         <div class="form-group mr-2">
           {!! Form::label('tipo_id', 'Tipo', ['class'=>'form-control-label']) !!}
-          {!! Form::select('tipo_id', \App\Tipo::pluck('nombre','id'), null, ['class'=>'form-control','v-model'=>'tipo_id']) !!}
+          {!! Form::select('tipo_id', \App\Tipo::pluck('nombre','id'), null, ['class'=>'form-control','v-model'=>'tipo_id','placeholder'=>'Seleccion']) !!}
         </div>
         <div class="form-group mr-2">
           {!! Form::label('subtipo_id', 'Subtipo', ['class'=>'form-control-label']) !!}
           <select name="subtipo_id" class="form-control" title="Asignar subtipo" v-model="subtipo_id">
+            <option value="" selected>Seleccion</option>
             <option v-for="(item, indice) in subtipo_list" :value="item.value">@{{ item.label }}</option>
           </select>
         </div>
@@ -144,7 +145,7 @@
         }
       }
     },
-    
+
 
   });
 </script>

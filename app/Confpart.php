@@ -34,30 +34,13 @@ class Confpart extends Model
     protected $dates = ['created_at','updated_at','deleted_at'];
 
     /**
-     * Confpart has many Proyecto.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function proyectosar()
-    {
-        // hasMany(RelatedModel, foreignKeyOnRelatedModel = confpart_id, localKey = id)
-        return $this->hasMany(Proyecto::class,'sar','id');
-    }
-
-    public function proyectosap()
-    {
-        // hasMany(RelatedModel, foreignKeyOnRelatedModel = confpart_id, localKey = id)
-        return $this->hasMany(Proyecto::class,'sap','id');
-    }
-
-    /**
      * Confpart has many Modulo.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function modulos()
+    public function modulo()
     {
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = confpart_id, localKey = id)
-        return $this->hasMany(Modulo::class,'sar','id');
+        return $this->hasMany(Modulo::class,'[sap,fondo_id]','id');
     }
 }

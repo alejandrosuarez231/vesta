@@ -23,8 +23,8 @@ class CreateModulosTable extends Migration
             $table->integer('consecutivo');
             $table->string('descripcion')->nullable();
             $table->integer('variantes')->default(0);
-            $table->string('sap',80);
-            $table->string('fondo_id',80);
+            $table->string('saps',80);
+            $table->string('fondos',80);
             $table->string('espesor_permitido');
             $table->integer('ancho_minimo')->default(0);
             $table->integer('ancho_maximo')->default(0);
