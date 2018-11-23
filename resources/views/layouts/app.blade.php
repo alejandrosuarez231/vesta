@@ -62,7 +62,7 @@
             <a class="nav-link" href="{{ route('modulos.index') }}" title="Lista de Modulos">Lista de Modulos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" title="SKUs">Lista de SKU's</a>
+            <a class="nav-link" href="{{ url('/backend/skus')}}" title="SKUs">Lista de SKU's</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ route('productos.index') }}" title="Productos">Productos</a>

@@ -15,57 +15,44 @@ class SkulistadoController extends Controller
      */
     public function index()
     {
-        $modulo = Modulo::all()->take(1);
-        // $modulo = Modulo::findOrFail(1);
-        
-        $id = NULL;
-        $consecutivo = NULL;
-        $sap = NULL;
-        $fondo = NULL;
-        $NewSKUs = collect();
+        $modulo = Modulo::findOrFail(1);
 
-        foreach ($modulo as $key => $value) {
-            $id = $value->id;
-            $saps = count(explode(",",$value->saps));
-            $fondos = count(explode(",",$value->fondos));
+        $data01 = collect();
 
-            $sap = explode(",",$value->saps);
-            $fondo = explode(",",$value->fondos);
-            
-            if($saps > $fondos){
-                $consecutivo = $saps;
-                for ($i=0; $i <= $consecutivo -1 ; $i++) { 
-                    $NewSKUs->push([
-                        'modulo_id' => $value->id,
-                        'sku_grupo' => $value->sku_grupo,
-                        'sku_padre' => $value->sku_grupo,
-                        'tipo_id' => $value->tipo_id,
-                        'subtipo_id' => $value->subtipo_id,
-                        'categoria_id' => $value->categoria_id,
-                        'descripcion' => $value->descripcion,
-                        'sap_id' => NULL,
-                        'fondo_id' => $sap[$i]
-                    ]);
-                }
-            }else{
-                $consecutivo = $fondos;
-                for ($i=0; $i <= $consecutivo -1 ; $i++) { 
-                    $NewSKUs->push([
-                        'modulo_id' => $value->id,
-                        'sku_grupo' => $value->sku_grupo,
-                        'sku_padre' => $value->sku_grupo . str_pad($i+1, 2, '0', STR_PAD_LEFT),
-                        'tipo_id' => $value->tipo_id,
-                        'subtipo_id' => $value->subtipo_id,
-                        'categoria_id' => $value->categoria_id,
-                        'descripcion' => $value->descripcion,
-                        'sap_id' => NULL,
-                        'fondo_id' => $fondo[$i]
-                    ]);
-                }
-            }
+        /* Sistemas de Apertura */
+        $saps = explode(",",$modulo->saps);
+        for ($i=0; $i <= count($saps) - 1 ; $i++) { 
+            $data01->push([
+                'modulo_id' => $modulo->id,
+                'sku_grupo' => $modulo->sku_grupo,
+                'sku_padre' => $modulo->sku_grupo,
+                'tipo_id' => $modulo->tipo_id,
+                'subtipo_id' => $modulo->subtipo_id,
+                'categoria_id' => $modulo->categoria_id,
+                'descripcion' => $modulo->descripcion,
+                'sap_id' => $saps[$i],
+                'fondo_id' => NULL
+            ]);
+        }
+
+        /* Fondos */
+        $data02 = collect();
+        $fondos = explode(",",$modulo->fondos);
+        for ($i=0; $i <= count($fondos) - 1 ; $i++) { 
+            $data02->push([
+                'modulo_id' => $modulo->id,
+                'sku_grupo' => $modulo->sku_grupo,
+                'sku_padre' => $modulo->sku_grupo,
+                'tipo_id' => $modulo->tipo_id,
+                'subtipo_id' => $modulo->subtipo_id,
+                'categoria_id' => $modulo->categoria_id,
+                'descripcion' => $modulo->descripcion,
+                'sap_id' => NULL,
+                'fondo_id' => $fondos[$i]
+            ]);
         }
         
-        dd($consecutivo,$modulo,$NewSKUs);
+        dd($data01,$data02);
     }
 
     /**
