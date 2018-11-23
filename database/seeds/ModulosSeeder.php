@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\DB;
 use App\Modulo;
 
 class ModulosSeeder extends Seeder
@@ -15,7 +15,7 @@ class ModulosSeeder extends Seeder
   {
     $data = collect([
         [
-            "id" => 1,
+            
             "sku_grupo" => "ACJAB-01",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -41,7 +41,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 2,
+            
             "sku_grupo" => "ACJAB-02",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -67,7 +67,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 3,
+            
             "sku_grupo" => "ACJAB-03",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -93,7 +93,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 4,
+            
             "sku_grupo" => "ACJAB-04",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -119,7 +119,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 5,
+            
             "sku_grupo" => "ACJAB-05",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -145,7 +145,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 6,
+            
             "sku_grupo" => "ACJAB-06",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -171,7 +171,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 7,
+            
             "sku_grupo" => "ACJAB-07",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -197,7 +197,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 8,
+            
             "sku_grupo" => "ACJAB-08",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -223,7 +223,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 9,
+            
             "sku_grupo" => "ACJAB-09",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -249,7 +249,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 10,
+            
             "sku_grupo" => "ACJAB-10",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -275,7 +275,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 11,
+            
             "sku_grupo" => "ACJGV-06",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -301,7 +301,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 12,
+            
             "sku_grupo" => "ACJPT-01",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -327,7 +327,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 13,
+            
             "sku_grupo" => "ACJPT-02",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -353,7 +353,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 14,
+            
             "sku_grupo" => "ACJPT-03",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -379,7 +379,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 15,
+            
             "sku_grupo" => "ACJPT-04",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -405,7 +405,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 16,
+            
             "sku_grupo" => "ACJPT-05",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -431,7 +431,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 17,
+            
             "sku_grupo" => "ACJPT-06",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -457,7 +457,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 18,
+            
             "sku_grupo" => "CAEAB-01",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -483,7 +483,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 19,
+            
             "sku_grupo" => "CAEAB-02",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -509,7 +509,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 20,
+            
             "sku_grupo" => "CAEAB-03",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -535,7 +535,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 21,
+            
             "sku_grupo" => "CAECM-01",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -545,7 +545,7 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 16,
             "saps" => "1",
-           " fondos" => "1",
+            "fondos" => "1",
             "espesor_permitido" => "15,18",
             "ancho_minimo" => 140,
             "ancho_maximo" => 300,
@@ -561,7 +561,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 22,
+            
             "sku_grupo" => "CAECM-02",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -587,7 +587,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 23,
+            
             "sku_grupo" => "CAECM-03",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -613,7 +613,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 24,
+            
             "sku_grupo" => "CAECM-04",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -639,7 +639,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 25,
+            
             "sku_grupo" => "CAECM-05",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -665,7 +665,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 26,
+            
             "sku_grupo" => "CAEES-01",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -691,7 +691,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 27,
+            
             "sku_grupo" => "CAEES-02",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -717,7 +717,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 28,
+            
             "sku_grupo" => "CAEES-03",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -743,7 +743,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 29,
+            
             "sku_grupo" => "CAEES-04",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -769,7 +769,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 30,
+            
             "sku_grupo" => "CAEEQ-01",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -795,7 +795,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 31,
+            
             "sku_grupo" => "CAENV-01",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -821,7 +821,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 32,
+            
             "sku_grupo" => "CAENV-02",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -847,7 +847,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 33,
+            
             "sku_grupo" => "CAENV-03",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -873,7 +873,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 34,
+            
             "sku_grupo" => "CAEPT-01",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -899,7 +899,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 35,
+            
             "sku_grupo" => "CAEPT-02",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -925,7 +925,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 36,
+            
             "sku_grupo" => "CAEPT-03",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -951,7 +951,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 37,
+            
             "sku_grupo" => "CAEPT-04",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -977,7 +977,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 38,
+            
             "sku_grupo" => "CAEPT-05",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -1003,7 +1003,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 39,
+            
             "sku_grupo" => "CAEPT-06",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -1029,7 +1029,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 40,
+            
             "sku_grupo" => "CAEPT-07",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -1055,7 +1055,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 41,
+            
             "sku_grupo" => "CAEVI-01",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -1081,7 +1081,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 42,
+            
             "sku_grupo" => "CAEVI-02",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -1107,7 +1107,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 43,
+            
             "sku_grupo" => "CAEVI-03",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -1133,7 +1133,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 44,
+            
             "sku_grupo" => "CBAAB-02",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1159,7 +1159,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 45,
+            
             "sku_grupo" => "CBAAB-03",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1185,7 +1185,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 46,
+            
             "sku_grupo" => "CBAAB-01",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1211,7 +1211,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 47,
+            
             "sku_grupo" => "CBACM-01",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1237,7 +1237,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 48,
+            
             "sku_grupo" => "CBACM-02",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1263,7 +1263,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 49,
+            
             "sku_grupo" => "CBACM-03",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1289,7 +1289,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 50,
+            
             "sku_grupo" => "CBACM-04",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1315,7 +1315,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 51,
+            
             "sku_grupo" => "CBACM-05",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1341,7 +1341,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 52,
+            
             "sku_grupo" => "CBAES-01",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1367,7 +1367,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 53,
+            
             "sku_grupo" => "CBAES-02",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1393,7 +1393,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 54,
+            
             "sku_grupo" => "CBAES-03",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1419,7 +1419,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 55,
+            
             "sku_grupo" => "CBAES-04",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1445,7 +1445,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 56,
+            
             "sku_grupo" => "CBAFR-01",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1471,7 +1471,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 57,
+            
             "sku_grupo" => "CBAFR-02",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1497,7 +1497,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 58,
+            
             "sku_grupo" => "CBAFR-03",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1523,7 +1523,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 59,
+            
             "sku_grupo" => "CBAGV-01",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1549,7 +1549,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 60,
+            
             "sku_grupo" => "CBAGV-02",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1575,7 +1575,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 61,
+            
             "sku_grupo" => "CBAGV-03",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1601,7 +1601,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 62,
+            
             "sku_grupo" => "CBAGV-04",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1627,7 +1627,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 63,
+            
             "sku_grupo" => "CGAGG-01",
             "tipo_id" => 6,
             "subtipo_id" => 19,
@@ -1653,7 +1653,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 64,
+            
             "sku_grupo" => "CGAGG-02",
             "tipo_id" => 6,
             "subtipo_id" => 19,
@@ -1679,7 +1679,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 65,
+            
             "sku_grupo" => "CGAGP-01",
             "tipo_id" => 6,
             "subtipo_id" => 19,
@@ -1705,7 +1705,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 66,
+            
             "sku_grupo" => "CGAGP-02",
             "tipo_id" => 6,
             "subtipo_id" => 19,
@@ -1731,7 +1731,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 67,
+            
             "sku_grupo" => "CBAPT-01",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1757,7 +1757,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 68,
+            
             "sku_grupo" => "CBAPT-02",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1783,7 +1783,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 69,
+            
             "sku_grupo" => "CBAPT-03",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1809,7 +1809,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 70,
+            
             "sku_grupo" => "CBAPT-04",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1835,7 +1835,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 71,
+            
             "sku_grupo" => "CBAPT-05",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1861,7 +1861,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 72,
+            
             "sku_grupo" => "CBAPT-06",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1887,7 +1887,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 73,
+            
             "sku_grupo" => "CBAVI-01",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1913,7 +1913,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 74,
+            
             "sku_grupo" => "CBAVI-02",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1939,7 +1939,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 75,
+            
             "sku_grupo" => "CBAVI-03",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1965,7 +1965,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 76,
+            
             "sku_grupo" => "CTOAB-01",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -1991,7 +1991,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 77,
+            
             "sku_grupo" => "CTOAB-02",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2017,7 +2017,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 78,
+            
             "sku_grupo" => "CTOAB-03",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2043,7 +2043,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 79,
+            
             "sku_grupo" => "CTOAB-04",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2069,7 +2069,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 80,
+            
             "sku_grupo" => "CTOAB-05",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2095,7 +2095,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 81,
+            
             "sku_grupo" => "CTOAB-06",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2121,7 +2121,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 82,
+            
             "sku_grupo" => "CTOAB-07",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2147,7 +2147,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 83,
+            
             "sku_grupo" => "CTOCM-01",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2173,7 +2173,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 84,
+            
             "sku_grupo" => "CTOCM-02",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2199,7 +2199,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 85,
+            
             "sku_grupo" => "CTOCM-03",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2225,7 +2225,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 86,
+            
             "sku_grupo" => "CTOCM-04",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2251,7 +2251,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 87,
+            
             "sku_grupo" => "CTOPT-01",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2277,7 +2277,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 88,
+            
             "sku_grupo" => "CTOPT-02",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2303,7 +2303,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 89,
+            
             "sku_grupo" => "CTOPT-03",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2329,7 +2329,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 90,
+            
             "sku_grupo" => "CTOPT-04",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2355,7 +2355,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 91,
+            
             "sku_grupo" => "CTOPT-05",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2381,7 +2381,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 92,
+            
             "sku_grupo" => "CTOPT-06",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2407,7 +2407,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 93,
+            
             "sku_grupo" => "CTOSP-01",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2433,7 +2433,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 94,
+            
             "sku_grupo" => "CTOSP-02",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2459,7 +2459,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 95,
+            
             "sku_grupo" => "CTOSP-03",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2485,7 +2485,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 96,
+            
             "sku_grupo" => "CTOSP-04",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2511,7 +2511,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 97,
+            
             "sku_grupo" => "CTOSP-05",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2537,7 +2537,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 98,
+            
             "sku_grupo" => "CTOSP-06",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2563,7 +2563,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 99,
+            
             "sku_grupo" => "CTOSP-07",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2589,7 +2589,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 100,
+            
             "sku_grupo" => "CTOSP-08",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2615,7 +2615,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 101,
+            
             "sku_grupo" => "OECST-01",
             "tipo_id" => 7,
             "subtipo_id" => 21,
@@ -2641,7 +2641,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 102,
+            
             "sku_grupo" => "OEXST-01",
             "tipo_id" => 7,
             "subtipo_id" => 22,
@@ -2667,7 +2667,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 103,
+            
             "sku_grupo" => "BASGD-01",
             "tipo_id" => 8,
             "subtipo_id" => 23,
@@ -2693,7 +2693,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 104,
+            
             "sku_grupo" => "BASGD-02",
             "tipo_id" => 8,
             "subtipo_id" => 23,
@@ -2719,7 +2719,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 105,
+            
             "sku_grupo" => "BASGD-03",
             "tipo_id" => 8,
             "subtipo_id" => 23,
@@ -2745,7 +2745,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 106,
+            
             "sku_grupo" => "BASMD-01",
             "tipo_id" => 8,
             "subtipo_id" => 23,
@@ -2771,7 +2771,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 107,
+            
             "sku_grupo" => "BASMD-02",
             "tipo_id" => 8,
             "subtipo_id" => 23,
@@ -2797,7 +2797,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 108,
+            
             "sku_grupo" => "BASPQ-01",
             "tipo_id" => 8,
             "subtipo_id" => 23,
@@ -2823,7 +2823,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 109,
+            
             "sku_grupo" => "BASPQ-02",
             "tipo_id" => 8,
             "subtipo_id" => 23,
@@ -2849,7 +2849,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 110,
+            
             "sku_grupo" => "BDWMD-01",
             "tipo_id" => 8,
             "subtipo_id" => 24,
@@ -2875,7 +2875,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 111,
+            
             "sku_grupo" => "BDWMD-02",
             "tipo_id" => 8,
             "subtipo_id" => 24,
@@ -2901,7 +2901,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 112,
+            
             "sku_grupo" => "BDWPQ-01",
             "tipo_id" => 8,
             "subtipo_id" => 24,
@@ -2927,7 +2927,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 113,
+            
             "sku_grupo" => "BDWPQ-02",
             "tipo_id" => 8,
             "subtipo_id" => 24,
@@ -2953,7 +2953,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 114,
+            
             "sku_grupo" => "BMDCM-01",
             "tipo_id" => 8,
             "subtipo_id" => 25,
@@ -2979,7 +2979,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 115,
+            
             "sku_grupo" => "BMDCM-02",
             "tipo_id" => 8,
             "subtipo_id" => 25,
@@ -3005,7 +3005,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 116,
+            
             "sku_grupo" => "BMDGV-01",
             "tipo_id" => 8,
             "subtipo_id" => 25,
@@ -3031,7 +3031,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 117,
+            
             "sku_grupo" => "BMDGV-02",
             "tipo_id" => 8,
             "subtipo_id" => 25,
@@ -3057,7 +3057,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 118,
+            
             "sku_grupo" => "BMDPT-01",
             "tipo_id" => 8,
             "subtipo_id" => 25,
@@ -3083,7 +3083,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 119,
+            
             "sku_grupo" => "BMDPT-02",
             "tipo_id" => 8,
             "subtipo_id" => 25,
@@ -3109,7 +3109,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 120,
+            
             "sku_grupo" => "BMDPT-03",
             "tipo_id" => 8,
             "subtipo_id" => 25,
@@ -3135,7 +3135,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 121,
+            
             "sku_grupo" => "MGVST-01",
             "tipo_id" => 9,
             "subtipo_id" => 29,
@@ -3161,7 +3161,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 122,
+            
             "sku_grupo" => "MGVST-02",
             "tipo_id" => 9,
             "subtipo_id" => 29,
@@ -3187,7 +3187,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 123,
+            
             "sku_grupo" => "MGVST-03",
             "tipo_id" => 9,
             "subtipo_id" => 29,
@@ -3213,7 +3213,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 124,
+            
             "sku_grupo" => "MMNST-01",
             "tipo_id" => 9,
             "subtipo_id" => 27,
@@ -3239,7 +3239,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 125,
+            
             "sku_grupo" => "MMNST-02",
             "tipo_id" => 9,
             "subtipo_id" => 27,
@@ -3265,7 +3265,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 126,
+            
             "sku_grupo" => "MMNST-03",
             "tipo_id" => 9,
             "subtipo_id" => 27,
@@ -3291,7 +3291,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 127,
+            
             "sku_grupo" => "MMNST-04",
             "tipo_id" => 9,
             "subtipo_id" => 27,
@@ -3317,7 +3317,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 128,
+            
             "sku_grupo" => "MMNST-05",
             "tipo_id" => 9,
             "subtipo_id" => 27,
@@ -3343,7 +3343,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 129,
+            
             "sku_grupo" => "MMNST-06",
             "tipo_id" => 9,
             "subtipo_id" => 27,
@@ -3369,7 +3369,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 130,
+            
             "sku_grupo" => "MMNST-07",
             "tipo_id" => 9,
             "subtipo_id" => 27,
@@ -3395,7 +3395,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 131,
+            
             "sku_grupo" => "MMNST-08",
             "tipo_id" => 9,
             "subtipo_id" => 27,
@@ -3421,7 +3421,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 132,
+            
             "sku_grupo" => "MMNST-09",
             "tipo_id" => 9,
             "subtipo_id" => 27,
@@ -3447,7 +3447,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 133,
+            
             "sku_grupo" => "SBIST-01",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3473,7 +3473,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 134,
+            
             "sku_grupo" => "SBIST-02",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3499,7 +3499,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 135,
+            
             "sku_grupo" => "SBIST-03",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3525,7 +3525,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 136,
+            
             "sku_grupo" => "SBIST-04",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3551,7 +3551,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 137,
+            
             "sku_grupo" => "SBIST-05",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3577,7 +3577,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 138,
+            
             "sku_grupo" => "SBIST-06",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3603,7 +3603,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 139,
+            
             "sku_grupo" => "SBIST-07",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3629,7 +3629,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 140,
+            
             "sku_grupo" => "SBIST-08",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3655,7 +3655,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 141,
+            
             "sku_grupo" => "SBIST-09",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3681,7 +3681,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 142,
+            
             "sku_grupo" => "SBIST-10",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3707,7 +3707,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 143,
+            
             "sku_grupo" => "SBIST-11",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3733,7 +3733,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 144,
+            
             "sku_grupo" => "SBIST-12",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3759,7 +3759,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 145,
+            
             "sku_grupo" => "SBIST-13",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3785,7 +3785,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 146,
+            
             "sku_grupo" => "SBIST-14",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3811,7 +3811,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 147,
+            
             "sku_grupo" => "SBIST-15",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3837,7 +3837,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 148,
+            
             "sku_grupo" => "SBIST-16",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3863,7 +3863,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 149,
+            
             "sku_grupo" => "SBUST-01",
             "tipo_id" => 10,
             "subtipo_id" => 33,
@@ -3889,7 +3889,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 150,
+            
             "sku_grupo" => "SBUST-02",
             "tipo_id" => 10,
             "subtipo_id" => 33,
@@ -3915,7 +3915,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 151,
+            
             "sku_grupo" => "SBUST-03",
             "tipo_id" => 10,
             "subtipo_id" => 33,
@@ -3941,7 +3941,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 152,
+            
             "sku_grupo" => "SBUST-04",
             "tipo_id" => 10,
             "subtipo_id" => 33,
@@ -3967,7 +3967,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 153,
+            
             "sku_grupo" => "SMCST-01",
             "tipo_id" => 10,
             "subtipo_id" => 34,
@@ -3993,7 +3993,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 154,
+            
             "sku_grupo" => "SMCST-02",
             "tipo_id" => 10,
             "subtipo_id" => 34,
@@ -4019,7 +4019,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 155,
+            
             "sku_grupo" => "SMCST-03",
             "tipo_id" => 10,
             "subtipo_id" => 34,
@@ -4045,7 +4045,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 156,
+            
             "sku_grupo" => "SMCST-04",
             "tipo_id" => 10,
             "subtipo_id" => 34,
@@ -4071,7 +4071,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 157,
+            
             "sku_grupo" => "STVST-01",
             "tipo_id" => 10,
             "subtipo_id" => 31,
@@ -4097,7 +4097,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 158,
+            
             "sku_grupo" => "STVST-02",
             "tipo_id" => 10,
             "subtipo_id" => 31,
@@ -4123,7 +4123,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 159,
+            
             "sku_grupo" => "STVST-03",
             "tipo_id" => 10,
             "subtipo_id" => 31,
@@ -4149,7 +4149,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 160,
+            
             "sku_grupo" => "STVST-04",
             "tipo_id" => 10,
             "subtipo_id" => 31,
@@ -4175,7 +4175,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 161,
+            
             "sku_grupo" => "STVST-05",
             "tipo_id" => 10,
             "subtipo_id" => 31,
@@ -4201,7 +4201,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 162,
+            
             "sku_grupo" => "STVST-06",
             "tipo_id" => 10,
             "subtipo_id" => 31,
@@ -4227,7 +4227,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 163,
+            
             "sku_grupo" => "STVST-07",
             "tipo_id" => 10,
             "subtipo_id" => 31,
@@ -4253,7 +4253,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 164,
+            
             "sku_grupo" => "STVST-08",
             "tipo_id" => 10,
             "subtipo_id" => 31,
@@ -4279,7 +4279,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 165,
+            
             "sku_grupo" => "STVST-09",
             "tipo_id" => 10,
             "subtipo_id" => 31,
@@ -4305,7 +4305,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 166,
+            
             "sku_grupo" => "STVST-10",
             "tipo_id" => 10,
             "subtipo_id" => 31,
@@ -4331,7 +4331,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 167,
+            
             "sku_grupo" => "STVST-11",
             "tipo_id" => 10,
             "subtipo_id" => 31,
@@ -4357,7 +4357,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 168,
+            
             "sku_grupo" => "STVST-12",
             "tipo_id" => 10,
             "subtipo_id" => 31,
@@ -4383,7 +4383,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 169,
+            
             "sku_grupo" => "FBAPT-01",
             "tipo_id" => 11,
             "subtipo_id" => 17,
@@ -4409,7 +4409,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 170,
+            
             "sku_grupo" => "FESCM-01",
             "tipo_id" => 11,
             "subtipo_id" => 30,
@@ -4435,7 +4435,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 171,
+            
             "sku_grupo" => "FMFST-01",
             "tipo_id" => 11,
             "subtipo_id" => 35,
@@ -4461,7 +4461,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 172,
+            
             "sku_grupo" => "FMFST-02",
             "tipo_id" => 11,
             "subtipo_id" => 35,
@@ -4487,7 +4487,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 173,
+            
             "sku_grupo" => "FMFST-03",
             "tipo_id" => 11,
             "subtipo_id" => 35,
@@ -4513,7 +4513,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 174,
+            
             "sku_grupo" => "FMFST-04",
             "tipo_id" => 11,
             "subtipo_id" => 35,
@@ -4539,7 +4539,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 175,
+            
             "sku_grupo" => "FMFST-05",
             "tipo_id" => 11,
             "subtipo_id" => 35,
@@ -4565,7 +4565,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 176,
+            
             "sku_grupo" => "FMFST-06",
             "tipo_id" => 11,
             "subtipo_id" => 35,
@@ -4591,7 +4591,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 177,
+            
             "sku_grupo" => "FMFST-07",
             "tipo_id" => 11,
             "subtipo_id" => 35,
@@ -4617,7 +4617,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 178,
+            
             "sku_grupo" => "FMFST-08",
             "tipo_id" => 11,
             "subtipo_id" => 35,
@@ -4643,7 +4643,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 179,
+            
             "sku_grupo" => "FMFST-09",
             "tipo_id" => 11,
             "subtipo_id" => 35,
@@ -4669,7 +4669,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 180,
+            
             "sku_grupo" => "FMFST-10",
             "tipo_id" => 11,
             "subtipo_id" => 35,
@@ -4695,7 +4695,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 181,
+            
             "sku_grupo" => "FMFST-11",
             "tipo_id" => 11,
             "subtipo_id" => 35,
@@ -4721,7 +4721,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 182,
+            
             "sku_grupo" => "FMFST-12",
             "tipo_id" => 11,
             "subtipo_id" => 35,
@@ -4747,7 +4747,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 183,
+            
             "sku_grupo" => "QTFHR-01",
             "tipo_id" => 12,
             "subtipo_id" => 36,
@@ -4773,7 +4773,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 184,
+            
             "sku_grupo" => "QTFHR-02",
             "tipo_id" => 12,
             "subtipo_id" => 36,
@@ -4799,7 +4799,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 185,
+            
             "sku_grupo" => "QTFHR-03",
             "tipo_id" => 12,
             "subtipo_id" => 36,
@@ -4825,7 +4825,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 186,
+            
             "sku_grupo" => "QTFVT-01",
             "tipo_id" => 12,
             "subtipo_id" => 36,
@@ -4851,7 +4851,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 187,
+            
             "sku_grupo" => "QTFVT-02",
             "tipo_id" => 12,
             "subtipo_id" => 36,
@@ -4877,7 +4877,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 188,
+            
             "sku_grupo" => "QTFVT-03",
             "tipo_id" => 12,
             "subtipo_id" => 36,
@@ -4903,7 +4903,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 189,
+            
             "sku_grupo" => "RCLAB-01",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -4929,7 +4929,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 190,
+            
             "sku_grupo" => "RCLAB-02",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -4955,7 +4955,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 191,
+            
             "sku_grupo" => "RCLAB-03",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -4981,7 +4981,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 192,
+            
             "sku_grupo" => "RCLCM-01",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5007,7 +5007,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 193,
+            
             "sku_grupo" => "RCLCM-02",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5033,7 +5033,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 194,
+            
             "sku_grupo" => "RCLCM-03",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5059,7 +5059,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 195,
+            
             "sku_grupo" => "RCLCM-04",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5085,7 +5085,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 196,
+            
             "sku_grupo" => "RCLCM-05",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5111,7 +5111,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 197,
+            
             "sku_grupo" => "RCLGV-01",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5137,7 +5137,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 198,
+            
             "sku_grupo" => "RCLGV-02",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5163,7 +5163,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 199,
+            
             "sku_grupo" => "RCLGV-03",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5189,7 +5189,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 200,
+            
             "sku_grupo" => "RCLGV-04",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5215,7 +5215,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 201,
+            
             "sku_grupo" => "RCLGV-05",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5241,7 +5241,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 202,
+            
             "sku_grupo" => "RCLGV-06",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5267,7 +5267,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 203,
+            
             "sku_grupo" => "RCLGV-07",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5293,7 +5293,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 204,
+            
             "sku_grupo" => "RCLGV-08",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5319,7 +5319,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 205,
+            
             "sku_grupo" => "RCLGV-09",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5345,7 +5345,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 206,
+            
             "sku_grupo" => "RCLGV-10",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5371,7 +5371,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 207,
+            
             "sku_grupo" => "RCLGV-11",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5397,7 +5397,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 208,
+            
             "sku_grupo" => "RCLGV-12",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5423,7 +5423,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 209,
+            
             "sku_grupo" => "RCLGV-13",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5449,7 +5449,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 210,
+            
             "sku_grupo" => "RCLGV-14",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5475,7 +5475,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 211,
+            
             "sku_grupo" => "RCLGV-15",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5501,7 +5501,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 212,
+            
             "sku_grupo" => "RCLGV-16",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5527,7 +5527,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 213,
+            
             "sku_grupo" => "RCLGV-17",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5553,7 +5553,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 214,
+            
             "sku_grupo" => "RCLGV-18",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5579,7 +5579,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 215,
+            
             "sku_grupo" => "RCLPT-01",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5605,7 +5605,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 216,
+            
             "sku_grupo" => "RCLPT-02",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5631,7 +5631,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 217,
+            
             "sku_grupo" => "RCLPT-03",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5657,7 +5657,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 218,
+            
             "sku_grupo" => "RCLTB-01",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5683,7 +5683,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 219,
+            
             "sku_grupo" => "RCLTB-02",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5709,7 +5709,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 220,
+            
             "sku_grupo" => "RCLTB-03",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5735,7 +5735,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 221,
+            
             "sku_grupo" => "RCLTB-04",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5761,7 +5761,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 222,
+            
             "sku_grupo" => "RCLTB-05",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5787,7 +5787,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 223,
+            
             "sku_grupo" => "RCLTB-06",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5813,7 +5813,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 224,
+            
             "sku_grupo" => "RCLTB-07",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5839,7 +5839,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 225,
+            
             "sku_grupo" => "RCLTB-08",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5865,7 +5865,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 226,
+            
             "sku_grupo" => "RCLTB-09",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5891,7 +5891,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 227,
+            
             "sku_grupo" => "RCLTB-10",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5917,7 +5917,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 228,
+            
             "sku_grupo" => "RCLTB-11",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5943,7 +5943,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 229,
+            
             "sku_grupo" => "RCLTB-12",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5969,7 +5969,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 230,
+            
             "sku_grupo" => "RCLTB-13",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5995,7 +5995,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 231,
+            
             "sku_grupo" => "RCLTB-14",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -6021,7 +6021,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 232,
+            
             "sku_grupo" => "RCLTB-15",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -6047,7 +6047,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 233,
+            
             "sku_grupo" => "RCLTB-16",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -6073,7 +6073,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 234,
+            
             "sku_grupo" => "RCLTB-17",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -6099,7 +6099,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 235,
+            
             "sku_grupo" => "RCLTB-18",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -6125,7 +6125,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 236,
+            
             "sku_grupo" => "RCLTB-19",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -6151,7 +6151,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 237,
+            
             "sku_grupo" => "RCLTB-20",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -6177,7 +6177,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 238,
+            
             "sku_grupo" => "RCLTB-21",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -6203,7 +6203,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 239,
+            
             "sku_grupo" => "RCLTB-22",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -6229,7 +6229,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 240,
+            
             "sku_grupo" => "RCLTB-23",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -6255,7 +6255,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 241,
+            
             "sku_grupo" => "RVEAB-01",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6281,7 +6281,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 242,
+            
             "sku_grupo" => "RVEAB-02",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6307,7 +6307,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 243,
+            
             "sku_grupo" => "RVEAB-03",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6333,7 +6333,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 244,
+            
             "sku_grupo" => "RVEAB-04",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6359,7 +6359,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 245,
+            
             "sku_grupo" => "RVECM-01",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6385,7 +6385,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 246,
+            
             "sku_grupo" => "RVECM-02",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6411,7 +6411,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 247,
+            
             "sku_grupo" => "RVECM-03",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6437,7 +6437,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 248,
+            
             "sku_grupo" => "RVECM-04",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6463,7 +6463,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 249,
+            
             "sku_grupo" => "RVECM-05",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6489,7 +6489,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 250,
+            
             "sku_grupo" => "RVEGV-01",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6515,7 +6515,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 251,
+            
             "sku_grupo" => "RVEGV-02",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6541,7 +6541,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 252,
+            
             "sku_grupo" => "RVEGV-03",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6567,7 +6567,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 253,
+            
             "sku_grupo" => "RVEGV-04",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6593,7 +6593,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 254,
+            
             "sku_grupo" => "RVEGV-05",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6619,7 +6619,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 255,
+            
             "sku_grupo" => "RVEGV-06",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6645,7 +6645,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 256,
+            
             "sku_grupo" => "RVEGV-07",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6671,7 +6671,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 257,
+            
             "sku_grupo" => "RVEGV-08",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6697,7 +6697,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 258,
+            
             "sku_grupo" => "RVEGV-09",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6723,7 +6723,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 259,
+            
             "sku_grupo" => "RVEGV-10",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6749,7 +6749,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 260,
+            
             "sku_grupo" => "RVEGV-11",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6775,7 +6775,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 261,
+            
             "sku_grupo" => "RVEGV-12",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6801,7 +6801,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 262,
+            
             "sku_grupo" => "RVEGV-13",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6827,7 +6827,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 263,
+            
             "sku_grupo" => "RVEGV-14",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6853,7 +6853,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 264,
+            
             "sku_grupo" => "RVEGV-15",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6879,7 +6879,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 265,
+            
             "sku_grupo" => "RVEGV-16",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6905,7 +6905,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 266,
+            
             "sku_grupo" => "RVEGV-17",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6931,7 +6931,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 267,
+            
             "sku_grupo" => "RVEGV-18",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6957,7 +6957,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 268,
+            
             "sku_grupo" => "RVEGV-19",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6983,7 +6983,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 269,
+            
             "sku_grupo" => "RVEGV-20",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7009,7 +7009,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 270,
+            
             "sku_grupo" => "RVEGV-21",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7035,7 +7035,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 271,
+            
             "sku_grupo" => "RVEAB-05",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7061,7 +7061,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 272,
+            
             "sku_grupo" => "RVETB-01",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7087,7 +7087,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 273,
+            
             "sku_grupo" => "RVETB-02",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7113,7 +7113,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 274,
+            
             "sku_grupo" => "RVETB-03",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7139,7 +7139,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 275,
+            
             "sku_grupo" => "RVETB-04",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7165,7 +7165,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 276,
+            
             "sku_grupo" => "RVETB-05",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7191,7 +7191,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 277,
+            
             "sku_grupo" => "RVETB-06",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7217,7 +7217,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 278,
+            
             "sku_grupo" => "RVETB-07",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7243,7 +7243,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 279,
+            
             "sku_grupo" => "RVETB-08",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7269,7 +7269,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 280,
+            
             "sku_grupo" => "RVETB-09",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7295,7 +7295,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 281,
+            
             "sku_grupo" => "RVETB-10",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7321,7 +7321,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 282,
+            
             "sku_grupo" => "RVETB-11",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7347,7 +7347,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 283,
+            
             "sku_grupo" => "RVETB-12",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7373,7 +7373,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 284,
+            
             "sku_grupo" => "RVETB-13",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7399,7 +7399,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 285,
+            
             "sku_grupo" => "RVETB-14",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7425,7 +7425,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 286,
+            
             "sku_grupo" => "RVETB-15",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7451,7 +7451,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 287,
+            
             "sku_grupo" => "RVETB-16",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7477,7 +7477,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 288,
+            
             "sku_grupo" => "RVETB-17",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7503,7 +7503,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 289,
+            
             "sku_grupo" => "RVETB-18",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7529,7 +7529,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 290,
+            
             "sku_grupo" => "RVETB-19",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7555,7 +7555,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 291,
+            
             "sku_grupo" => "RVETB-20",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7581,7 +7581,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 292,
+            
             "sku_grupo" => "RVETB-21",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7607,7 +7607,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 293,
+            
             "sku_grupo" => "RVETB-22",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7633,7 +7633,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 294,
+            
             "sku_grupo" => "RVETB-23",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7659,7 +7659,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 295,
+            
             "sku_grupo" => "RVETB-24",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7685,7 +7685,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            "id" => 296,
+            
             "sku_grupo" => "RVETB-25",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7714,7 +7714,6 @@ class ModulosSeeder extends Seeder
 
     foreach($data as $obj){
         $modulo = new Modulo;
-        $modulo->id = $obj['id'];
         $modulo->sku_grupo = $obj['sku_grupo'];
         $modulo->tipo_id = $obj['tipo_id'];
         $modulo->subtipo_id = $obj['subtipo_id'];

@@ -83,6 +83,9 @@ Route::get('/ModuloEditData/{id}', 'ModuloController@editData')->name('data.modu
 Route::get('/getModulos/{tipo}/{sutipo}/{sap}/{sar}', 'ModuloController@getModulos')->name('data.getmodulos');
 Route::resource('/backend/modulos', 'ModuloController');
 
+/* SKU Lista */
+Route::resource('/backend/skus', 'SkulistadoController');
+
 /* Frontend */
 Route::get('/frontend/constructor/construir','ConstructorController@construir')->name('constructor.construir');
 Route::post('/frontend/constructor','ConstructorController@ensamble')->name('constructor.ensamble');
