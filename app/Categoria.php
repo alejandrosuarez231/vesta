@@ -15,7 +15,7 @@ class Categoria extends Model
   */
   protected $table = 'categorias';
 
-  protected $fillable = ['nombre','acronimo'];
+  protected $fillable = ['subtipo_id','nombre','acronimo'];
   protected $guarded = ['id'];
   protected $dates = ['created_at','updated_at','deleted_at'];
   /**

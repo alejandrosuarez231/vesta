@@ -34,7 +34,10 @@
         </div>
         <div class="form-group mr-2">
           {!! Form::label('categoria_id', 'Categoria', ['class'=>'form-control-label']) !!}
-          {!! Form::select('categoria_id', \App\Categoria::pluck('nombre','id'), null, ['class'=>'form-control','placeholder'=>'Categoria']) !!}
+          <select name="categoria_id" class="form-control" title="Asignar subtipo" v-model="categoria_id">
+            <option value="" selected>Seleccion</option>
+            <option v-for="(item, indice) in categorias_list" :value="item.value">@{{ item.label }}</option>
+          </select>
         </div>
       </div>
       <div class="form-row">
@@ -130,7 +133,9 @@
     data: {
       tipo_id: '',
       subtipo_list: '',
-      subtipo_id: ''
+      subtipo_id: '',
+      categorias_list: '',
+      categoria_id: ''
     },
 
     watch: {
@@ -143,6 +148,13 @@
           })
           .catch( function(error) { console.log(error); });
         }
+      },
+      subtipo_id(){
+        axios.get('/categoriasFiltro/' + this.subtipo_id)
+        .then( response => {
+          this.categorias_list = response.data
+        })
+        .catch( function(error) { console.log(error); });
       }
     },
 

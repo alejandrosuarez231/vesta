@@ -27,7 +27,7 @@ class CategoriasController extends Controller
     public function indexData()
     {
         $categorias = Categoria::all();
-        return Datatables::of($categorias)
+        return Datatables::of($categorias->all())
         ->addColumn('action', function ($categoria) {
             return '<a href="categorias/'.$categoria->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>';
         })
@@ -64,6 +64,15 @@ class CategoriasController extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function categoriasFiltro($subtipo){
+        $categoria = Categoria::where('subtipo_id',$subtipo)->get();
+        $categoriaList = collect();
+        foreach ($categoria as $key => $value) {
+            $categoriaList->push(['label' => $value->nombre, 'value' => $value->id, 'subtext' => $value->subtipo_id]);
+        }
+        return $categoriaList->toJson();
     }
 
     /**

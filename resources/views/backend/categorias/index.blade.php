@@ -41,6 +41,7 @@
 <script type="text/javascript">
   $(function () {
     $('#categorias-table').DataTable({
+      "order": [[ 1, "asc"]],
       processing: true,
       serverSide: true,
       ajax: '{!! route('data.categorias') !!}',
