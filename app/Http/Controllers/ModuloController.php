@@ -22,6 +22,15 @@ class ModuloController extends Controller
       $modulos = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre')->get();
       // dd($modulos->take(10));
       return Datatables::of($modulos)
+      ->addColumn('ape', function(Modulo $modulo){
+        $output = null;
+            $saps = Sap::whereIn('id',explode(',',$modulo->saps))->get();
+            foreach ($saps as $key => $value) {
+                $output .= '<span class="badge badge-info mr-1">'. $value->valor .'</span>';
+            }
+            return $output;
+
+      })
       ->addColumn('action', function ($modulo) {
         return '
             <a href="modulos/'.$modulo->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
@@ -29,6 +38,7 @@ class ModuloController extends Controller
             <a href="/backend/skus/'.$modulo->id.'" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
             ';
     })
+      ->rawColumns(['ape','action'])
       ->make(true);
   }
 
