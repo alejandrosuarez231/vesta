@@ -19,7 +19,7 @@
       <div class="form-row">
         <div class="form-group mr-2">
           {!! Form::label('sku_grupo', 'SKU Grupo', ['class' => 'form-control-label']) !!}
-          {!! Form::text('sku_grupo', null, ['class' => 'form-control','required']) !!}
+          {!! Form::text('sku_grupo', null, ['class' => 'form-control','required','v-model' => 'sku_grupo']) !!}
         </div>
         <div class="form-group mr-2">
           {!! Form::label('tipo_id', 'Tipo', ['class'=>'form-control-label']) !!}
@@ -135,7 +135,8 @@
       subtipo_list: '',
       subtipo_id: '',
       categorias_list: '',
-      categoria_id: ''
+      categoria_id: '',
+      sku_grupo: ''
     },
 
     watch: {

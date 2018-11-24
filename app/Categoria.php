@@ -28,4 +28,15 @@ class Categoria extends Model
     // hasMany(RelatedModel, foreignKeyOnRelatedModel = categoria_id, localKey = id)
     return $this->hasMany(Modulo::class);
   }
+
+  /**
+   * Categoria belongs to Subtipo.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+   */
+  public function subtipo()
+  {
+    // belongsTo(RelatedModel, foreignKey = subtipo_id, keyOnRelatedModel = id)
+    return $this->belongsTo(Subtipo::class);
+  }
 }

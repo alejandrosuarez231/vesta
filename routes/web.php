@@ -87,6 +87,9 @@ Route::resource('/backend/modulos', 'ModuloController');
 /* SKU Lista */
 Route::resource('/backend/skus', 'SkulistadoController');
 
+/* Creacion y Edicion de SKUs */
+Route::get('/makeSKU/{tipo}/{subtipo}/{categoria}', 'SkuController@makeSku')->name('sku.make');
+
 /* Frontend */
 Route::get('/frontend/constructor/construir','ConstructorController@construir')->name('constructor.construir');
 Route::post('/frontend/constructor','ConstructorController@ensamble')->name('constructor.ensamble');
