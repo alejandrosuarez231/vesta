@@ -26,7 +26,7 @@ class ModuloController extends Controller
         return '
             <a href="modulos/'.$modulo->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
             <a href="modulos/'.$modulo->id.'" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
-            <a href="/backend/skus/'.$modulo->id.'" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
+            <a href="/backend/skus/'.$modulo->id.'" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
             ';
     })
       ->make(true);

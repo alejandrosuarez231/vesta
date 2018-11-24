@@ -58,6 +58,21 @@ class SkulistadoController extends Controller
 
       if( count($saps) > count($fondos)){
         /* mayor sistema de apertura */
+        for ($i=0; $i <= count($saps) -1 ; $i++) {
+          for ($e=0; $e <= count($fondos) -1 ; $e++) {
+            $data->push([
+              'modulo_id' => $modulo->id,
+              'sku_grupo' => $modulo->sku_grupo,
+              'sku_padre' => $modulo->sku_grupo . $saps[$i]->acronimo . $fondos[$e]->acronimo,
+              'tipo_id' => $modulo->tipo->nombre,
+              'subtipo_id' => $modulo->subtipo->nombre,
+              'categoria_id' => $modulo->categoria->nombre,
+              'descripcion' => $modulo->descripcion,
+              'sap_id' => $saps[$i]->valor,
+              'fondo_id' => $fondos[$e]->valor
+            ]);
+          }
+        }
       }else {
         /* mayor fondos */
         for ($i=0; $i <= count($fondos) -1 ; $i++) {

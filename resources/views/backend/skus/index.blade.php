@@ -3,6 +3,17 @@
 @section('content')
 <div class="container-fluid">
   <div class="row">
+    <div class="col-md-8">
+      <h4>Lista de SKUs</h4>
+      <ul class="nav">
+        <li class="nav-item">
+          <a href="{{ url('/backend/modulos') }}" class="btn btn-link" title="Inicio">Regresar</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
     <div class="col-md">
       <table class="table table-bordered">
         <caption>table title and/or explanatory text</caption>
