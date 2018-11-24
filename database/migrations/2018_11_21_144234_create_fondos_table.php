@@ -16,6 +16,7 @@ class CreateFondosTable extends Migration
         Schema::create('fondos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('valor');
+            $table->string('acronimo');
             $table->timestamps();
             $table->softDeletes();
         });

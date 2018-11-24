@@ -16,6 +16,7 @@ class CreateSapsTable extends Migration
         Schema::create('saps', function (Blueprint $table) {
             $table->increments('id');
             $table->string('valor');
+            $table->string('acronimo');
             $table->timestamps();
             $table->softDeletes();
         });

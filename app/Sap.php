@@ -14,7 +14,7 @@ class Sap extends Model
    * @var string
    */
   protected $table = 'saps';
-  protected $fillable = ['valor'];
+  protected $fillable = ['valor','acronimo'];
   protected $guarded = ['id'];
   protected $dates = ['created_at','updated_at','deleted_at'];
   /**

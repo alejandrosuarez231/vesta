@@ -13,11 +13,10 @@ class SapsSeeder extends Seeder
     public function run()
     {
       DB::table('saps')->insert([
-        ['valor' => 'No Aplica'],
-        ['valor' => 'Gola'],
-        ['valor' => 'Tirador'],
-        ['valor' => 'Tip On'],
-        ['valor' => 'Riel']
+        ['valor' => 'No Aplica', 'acronimo' => '0'],
+        ['valor' => 'Tirador', 'acronimo' => '1'],
+        ['valor' => 'Gola', 'acronimo' => '2'],
+        ['valor' => 'Tip On', 'acronimo' => '3']
       ]);
     }
   }

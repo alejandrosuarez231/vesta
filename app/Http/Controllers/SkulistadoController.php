@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Skulistado;
 use App\Modulo;
+use App\Sap;
+use App\Fondo;
 use Illuminate\Http\Request;
 
 class SkulistadoController extends Controller
@@ -15,45 +17,9 @@ class SkulistadoController extends Controller
      */
     public function index()
     {
-        $modulo = Modulo::findOrFail(1);
-
-        $data01 = collect();
-
-        /* Sistemas de Apertura */
-        $saps = explode(",",$modulo->saps);
-        for ($i=0; $i <= count($saps) - 1 ; $i++) { 
-            $data01->push([
-                'modulo_id' => $modulo->id,
-                'sku_grupo' => $modulo->sku_grupo,
-                'sku_padre' => $modulo->sku_grupo,
-                'tipo_id' => $modulo->tipo_id,
-                'subtipo_id' => $modulo->subtipo_id,
-                'categoria_id' => $modulo->categoria_id,
-                'descripcion' => $modulo->descripcion,
-                'sap_id' => $saps[$i],
-                'fondo_id' => NULL
-            ]);
-        }
-
-        /* Fondos */
-        $data02 = collect();
-        $fondos = explode(",",$modulo->fondos);
-        for ($i=0; $i <= count($fondos) - 1 ; $i++) { 
-            $data02->push([
-                'modulo_id' => $modulo->id,
-                'sku_grupo' => $modulo->sku_grupo,
-                'sku_padre' => $modulo->sku_grupo,
-                'tipo_id' => $modulo->tipo_id,
-                'subtipo_id' => $modulo->subtipo_id,
-                'categoria_id' => $modulo->categoria_id,
-                'descripcion' => $modulo->descripcion,
-                'sap_id' => NULL,
-                'fondo_id' => $fondos[$i]
-            ]);
-        }
-        
-        dd($data01,$data02);
+      //
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -62,7 +28,7 @@ class SkulistadoController extends Controller
      */
     public function create()
     {
-        // 
+        //
     }
 
     /**
@@ -82,9 +48,36 @@ class SkulistadoController extends Controller
      * @param  \App\Skulistado  $skulistado
      * @return \Illuminate\Http\Response
      */
-    public function show(Skulistado $skulistado)
+    public function show(Skulistado $skulistado, $id)
     {
-        //
+      $modulo = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre')->findOrFail($id);
+      $saps = Sap::whereIn('id',explode(",",$modulo->saps))->get();
+      // dd($saps);
+      $fondos = Fondo::whereIn('id',explode(",",$modulo->fondos))->get();
+      $data = collect();
+
+      if( count($saps) > count($fondos)){
+        /* mayor sistema de apertura */
+      }else {
+        /* mayor fondos */
+        for ($i=0; $i <= count($fondos) -1 ; $i++) {
+          for ($e=0; $e <= count($saps) -1 ; $e++) {
+            $data->push([
+              'modulo_id' => $modulo->id,
+              'sku_grupo' => $modulo->sku_grupo,
+              'sku_padre' => $modulo->sku_grupo . $saps[$e]->acronimo . $fondos[$i]->acronimo,
+              'tipo_id' => $modulo->tipo->nombre,
+              'subtipo_id' => $modulo->subtipo->nombre,
+              'categoria_id' => $modulo->categoria->nombre,
+              'descripcion' => $modulo->descripcion,
+              'sap_id' => $saps[$e]->valor,
+              'fondo_id' => $fondos[$i]->valor
+            ]);
+          }
+        }
+      }
+
+      return view('backend.skus.index', compact('data'));
     }
 
     /**
@@ -120,4 +113,4 @@ class SkulistadoController extends Controller
     {
         //
     }
-}
+  }
