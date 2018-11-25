@@ -17,7 +17,7 @@ class CreateSkuListadosTable extends Migration
             $table->increments('id');
             $table->integer('modulo_id');
             $table->string('sku_grupo');
-            $table->string('sku_padre');
+            $table->string('sku_padre')->unique();
             $table->integer('tipo_id');
             $table->integer('subtipo_id');
             $table->integer('categoria_id');

@@ -136,6 +136,7 @@
       subtipo_id: '',
       categorias_list: '',
       categoria_id: '',
+      sku_base: '',
       sku_grupo: ''
     },
 
@@ -156,6 +157,16 @@
           this.categorias_list = response.data
         })
         .catch( function(error) { console.log(error); });
+      },
+      categoria_id(){
+        axios.get('/makeSKU/' + this.tipo_id + '/' + this.subtipo_id + '/' + this.categoria_id)
+        .then(response => {
+          this.sku_base = response.data;
+          this.sku_grupo = this.sku_base;
+        })
+        .catch( function(error){
+          console.log(error)
+        });
       }
     },
 

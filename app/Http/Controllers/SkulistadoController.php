@@ -17,7 +17,8 @@ class SkulistadoController extends Controller
      */
     public function index()
     {
-      //
+      $skulists = Skulistado::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre','sap:id,valor','fondo:id,valor')->get();
+      return view('backend.skus.index', compact('skulists'));
     }
 
 
@@ -48,51 +49,9 @@ class SkulistadoController extends Controller
      * @param  \App\Skulistado  $skulistado
      * @return \Illuminate\Http\Response
      */
-    public function show(Skulistado $skulistado, $id)
+    public function show($id)
     {
-      $modulo = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre')->findOrFail($id);
-      $saps = Sap::whereIn('id',explode(",",$modulo->saps))->get();
-      // dd($saps);
-      $fondos = Fondo::whereIn('id',explode(",",$modulo->fondos))->get();
-      $data = collect();
 
-      if( count($saps) > count($fondos)){
-        /* mayor sistema de apertura */
-        for ($i=0; $i <= count($saps) -1 ; $i++) {
-          for ($e=0; $e <= count($fondos) -1 ; $e++) {
-            $data->push([
-              'modulo_id' => $modulo->id,
-              'sku_grupo' => $modulo->sku_grupo,
-              'sku_padre' => $modulo->sku_grupo . $saps[$i]->acronimo . $fondos[$e]->acronimo,
-              'tipo_id' => $modulo->tipo->nombre,
-              'subtipo_id' => $modulo->subtipo->nombre,
-              'categoria_id' => $modulo->categoria->nombre,
-              'descripcion' => $modulo->descripcion,
-              'sap_id' => $saps[$i]->valor,
-              'fondo_id' => $fondos[$e]->valor
-            ]);
-          }
-        }
-      }else {
-        /* mayor fondos */
-        for ($i=0; $i <= count($fondos) -1 ; $i++) {
-          for ($e=0; $e <= count($saps) -1 ; $e++) {
-            $data->push([
-              'modulo_id' => $modulo->id,
-              'sku_grupo' => $modulo->sku_grupo,
-              'sku_padre' => $modulo->sku_grupo . $saps[$e]->acronimo . $fondos[$i]->acronimo,
-              'tipo_id' => $modulo->tipo->nombre,
-              'subtipo_id' => $modulo->subtipo->nombre,
-              'categoria_id' => $modulo->categoria->nombre,
-              'descripcion' => $modulo->descripcion,
-              'sap_id' => $saps[$e]->valor,
-              'fondo_id' => $fondos[$i]->valor
-            ]);
-          }
-        }
-      }
-
-      return view('backend.skus.index', compact('data'));
     }
 
     /**

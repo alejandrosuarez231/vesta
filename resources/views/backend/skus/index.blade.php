@@ -19,30 +19,30 @@
         <caption>table title and/or explanatory text</caption>
         <thead>
           <tr>
-            <th>Modulo id</th>
-            <th>sku grupo</th>
-            <th>sku padre</th>
-            <th>tipo id</th>
-            <th>subtipo id</th>
-            <th>categoria id</th>
+            <th>Id</th>
+            <th>SKU Grupo</th>
+            <th>SKU Padre</th>
+            <th>Tipo</th>
+            <th>Subtipo</th>
+            <th>Categoria</th>
             <th>descripcion</th>
-            <th>sap id</th>
-            <th>fondo id</th>
+            <th>Sist./Apertura</th>
+            <th>Tipos/Fondo</th>
           </tr>
         </thead>
 
         <tbody>
-          @foreach ($data as $element)
+          @foreach ($skulists as $element)
           <tr>
-            <td>{{ $element['modulo_id'] }}</td>
-            <td>{{ $element['sku_grupo'] }}</td>
-            <td>{{ $element['sku_padre'] }}</td>
-            <td>{{ $element['tipo_id'] }}</td>
-            <td>{{ $element['subtipo_id'] }}</td>
-            <td>{{ $element['categoria_id'] }}</td>
-            <td>{{ $element['descripcion'] }}</td>
-            <td>{{ $element['sap_id'] }}</td>
-            <td>{{ $element['fondo_id'] }}</td>
+            <td>{{ $element->id }}</td>
+            <td>{{ $element->sku_grupo }}</td>
+            <td>{{ $element->sku_padre }}</td>
+            <td>{{ $element->tipo->nombre }}</td>
+            <td>{{ $element->subtipo->nombre }}</td>
+            <td>{{ $element->categoria->nombre }}</td>
+            <td>{{ $element->descripcion }}</td>
+            <td>{{ $element->sap->valor }}</td>
+            <td>{{ $element->fondo->valor }}</td>
           </tr>
           @endforeach
         </tbody>

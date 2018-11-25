@@ -85,10 +85,10 @@ Route::get('/getModulos/{tipo}/{sutipo}/{sap}/{sar}', 'ModuloController@getModul
 Route::resource('/backend/modulos', 'ModuloController');
 
 /* SKU Lista */
-Route::resource('/backend/skus', 'SkulistadoController');
-
 /* Creacion y Edicion de SKUs */
 Route::get('/makeSKU/{tipo}/{subtipo}/{categoria}', 'SkuController@makeSku')->name('sku.make');
+Route::get('/makeSkuPadre/{id}', 'SkuController@makeSkuPadre')->name('sku.makeskupadre');
+Route::resource('/backend/skus', 'SkulistadoController');
 
 /* Frontend */
 Route::get('/frontend/constructor/construir','ConstructorController@construir')->name('constructor.construir');

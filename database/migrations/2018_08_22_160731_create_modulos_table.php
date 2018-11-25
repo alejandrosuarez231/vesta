@@ -15,7 +15,7 @@ class CreateModulosTable extends Migration
     {
         Schema::create('modulos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('sku_grupo');
+            $table->string('sku_grupo')->unique();
             $table->integer('tipo_id');
             $table->integer('subtipo_id');
             $table->integer('categoria_id');

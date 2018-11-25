@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Modulo;
+use App\Skulistado;
 use App\Sap;
 use App\Fondo;
 use Alert;
@@ -19,19 +20,25 @@ class ModuloController extends Controller
 
     public function indexData()
     {
-      $modulos = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre','sap:id,valor','fondo:id,valor')
-      ->get();
-      // dd($modulos->take(10));
+      $modulos = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre','sap:id,valor','fondo:id,valor')->get();
       return Datatables::of($modulos)
       ->editColumn('saps', function(Modulo $modulo){
         return $modulo->saps;
     })
       ->addColumn('action', function ($modulo) {
-        return '
-        <a href="modulos/'.$modulo->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-        <a href="modulos/'.$modulo->id.'" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
-        <a href="/backend/skus/'.$modulo->id.'" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
-        ';
+        $list = Skulistado::where('sku_grupo',$modulo->sku_grupo)->get();
+        if($list->count() == 0){
+            return '
+            <a href="modulos/'.$modulo->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+            <a href="modulos/'.$modulo->id.'" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
+            <a href="/makeSkuPadre/'.$modulo->id.'" class="btn btn-sm btn-warning"><i class="fas fa-share-square"></i></a>
+            ';
+        }else{
+            return '
+            <a href="modulos/'.$modulo->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+            <a href="modulos/'.$modulo->id.'" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
+            ';
+        }
     })
       ->rawColumns(['action'])
       ->make(true);
