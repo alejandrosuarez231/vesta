@@ -54,6 +54,12 @@ class SkulistadoController extends Controller
 
     }
 
+    public function showList($sku_grupo)
+    {
+        $lista = Skulistado::where('sku_grupo',$sku_grupo)->get();
+        return view('backend.skus.showList', compact('lista'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

@@ -181,7 +181,7 @@ class SkuController extends Controller
             }
 
             toast('Registros creados!','success','top-right');
-            return redirect('/backend/skus');
+            return redirect('/backend/modulos');
         }
         // dd($list->count());
         // dd($skus->implode('sku_grupo', ','));
