@@ -33,6 +33,10 @@ class DatabaseSeeder extends Seeder
           CategoriasSeeder::class,
           FondosSeeder::class,
           SapsSeeder::class,
+          BisagrasSeeder::class,
+          BrapesSeeder::class,
+          CorrederasSeeder::class,
+          TiradoresSeeder::class,
         ]);
     }
 }
