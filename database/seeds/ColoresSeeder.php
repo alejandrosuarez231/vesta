@@ -13,30 +13,34 @@ class ColoresSeeder extends Seeder
     public function run()
     {
       DB::table('colores')->insert([
-        ['nombre' => 'Espresso', 'acronimo' => 'ESP'],
-        ['nombre' => 'Rovere Mate', 'acronimo' => 'ROV'],
         ['nombre' => 'Amaretto', 'acronimo' => 'AMA'],
-        ['nombre' => 'Sombra Poro', 'acronimo' => 'SOM'],
-        ['nombre' => 'Roble Ahumado', 'acronimo' => 'ROB'],
-        ['nombre' => 'Olivo Mate', 'acronimo' => 'OLI'],
-        ['nombre' => 'Miel Poro', 'acronimo' => 'MIE'],
-        ['nombre' => 'Manzano', 'acronimo' => 'MAN'],
-        ['nombre' => 'Sangria', 'acronimo' => 'SAN'],
-        ['nombre' => 'Ceniza Mate', 'acronimo' => 'CEN'],
-        ['nombre' => 'Caramelo', 'acronimo' => 'CAR'],
         ['nombre' => 'Artico', 'acronimo' => 'ART'],
-        ['nombre' => 'Blanco Brillante', 'acronimo' => 'BBR'],
-        ['nombre' => 'Grey Stone', 'acronimo' => 'GRE'],
         ['nombre' => 'Blanco', 'acronimo' => 'BLA'],
-        ['nombre' => 'Negro', 'acronimo' => 'NGR'],
+        ['nombre' => 'Blanco Brillante', 'acronimo' => 'BBR'],
+        ['nombre' => 'Canela', 'acronimo' => 'CAN'],
+        ['nombre' => 'Caramelo', 'acronimo' => 'CAR'],
+        ['nombre' => 'Cemento Mate', 'acronimo' => 'CEM'],
+        ['nombre' => 'Ceniza Mate', 'acronimo' => 'CEN'],
+        ['nombre' => 'Espresso', 'acronimo' => 'ESP'],
+        ['nombre' => 'Grey Stone', 'acronimo' => 'GRE'],
+        ['nombre' => 'Gris Brillante', 'acronimo' => 'GBR'],
         ['nombre' => 'Gris Fantasia', 'acronimo' => 'GFA'],
         ['nombre' => 'Gris Plomo', 'acronimo' => 'GPL'],
-        ['nombre' => 'Lino Fantasia', 'acronimo' => 'LIN'],
-        ['nombre' => 'Cemento Mate', 'acronimo' => 'CEM'],
-        ['nombre' => 'White Chic', 'acronimo' => 'WHI'],
         ['nombre' => 'Habano Poro', 'acronimo' => 'HAB'],
         ['nombre' => 'Lino Beige', 'acronimo' => 'LIB'],
-        ['nombre' => 'Sienna', 'acronimo' => 'SIE']
-      ]);
-    }
+        ['nombre' => 'Lino Fantasia', 'acronimo' => 'LIN'],
+        ['nombre' => 'Manzano', 'acronimo' => 'MAN'],
+        ['nombre' => 'Miel Poro', 'acronimo' => 'MIE'],
+        ['nombre' => 'Negro', 'acronimo' => 'NGR'],
+        ['nombre' => 'Olivo Mate', 'acronimo' => 'OLI'],
+        ['nombre' => 'Roble', 'acronimo' => 'ROB'],
+        ['nombre' => 'Roble Ahumado', 'acronimo' => 'ROA'],
+        ['nombre' => 'Rovere Mate', 'acronimo' => 'ROV'],
+        ['nombre' => 'Sangria', 'acronimo' => 'SAN'],
+        ['nombre' => 'Sienna', 'acronimo' => 'SIE'],
+        ['nombre' => 'Sombra Poro', 'acronimo' => 'SOM'],
+        ['nombre' => 'Tabacco', 'acronimo' => 'TAB'],
+        ['nombre' => 'White Chic', 'acronimo' => 'WHI']
+    ]);
   }
+}

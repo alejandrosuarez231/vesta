@@ -91,6 +91,12 @@ Route::get('/makeSkuPadre/{id}', 'SkuController@makeSkuPadre')->name('sku.makesk
 Route::get('/backend/skus/showList/{sku_grupo}', 'SkulistadoController@showList')->name('sku.showList');
 Route::resource('/backend/skus', 'SkulistadoController');
 
+/* Herrajes */
+Route::resource('/backend/correderas', 'CorrederaController');
+Route::resource('/backend/bisagras', 'BisagraController');
+Route::resource('/backend/brapes', 'BrapeController');
+Route::resource('/backend/tiradores', 'TiradoreController');
+
 /* Frontend */
 Route::get('/frontend/constructor/construir','ConstructorController@construir')->name('constructor.construir');
 Route::post('/frontend/constructor','ConstructorController@ensamble')->name('constructor.ensamble');

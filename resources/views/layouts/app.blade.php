@@ -49,9 +49,9 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
+          {{-- <li class="nav-item active">
             <a class="nav-link" href="{{ url('/dashboard') }}">Dashboard </a>
-          </li>
+          </li> --}}
           <li class="nav-item active">
             <a class="nav-link" href="{{ url('/home') }}">Inicio <span class="sr-only">(current)</span></a>
           </li>
@@ -63,6 +63,19 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url('/backend/skus')}}" title="SKUs">Lista de SKU's</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Herrajes
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{ url('backend/correderas') }}" title="Correderas">Correderas</a>
+              <a class="dropdown-item" href="{{ url('backend/bisagras') }}" title="Bisagras">Bisagras</a>
+              <a class="dropdown-item" href="{{ url('backend/brapes') }}" title="Brazos de Apertura">Brapes</a>
+              <a class="dropdown-item" href="{{ url('backend/tiradores') }}" title="Tiradores">Tiradores</a>
+
+            </div>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ route('productos.index') }}" title="Productos">Productos</a>
