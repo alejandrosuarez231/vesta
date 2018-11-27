@@ -42,6 +42,7 @@ class SkuController extends Controller
     public function makeSkuPadre($id)
     {
         $modulo = Modulo::findOrFail($id);
+
         /* Configuracion de Modelos */
         $cantidad_saps = count(explode(",",$modulo->saps));
         $cantidad_fondos = count(explode(",",$modulo->fondos));
@@ -96,6 +97,7 @@ class SkuController extends Controller
             for ($i=0; $i <= $cantidad_saps -1 ; $i++) {
                 $sisape = Sap::whereIn('id',explode(",",$modulo->saps))->get();
                 $fondotipo = Fondo::where('id',$modulo->fondos)->get();
+                // dd($sisape,$fondotipo);
                 $skus->push([
                     'modulo_id' => $modulo->id,
                     'sku_grupo' => $modulo->sku_grupo,
@@ -104,11 +106,12 @@ class SkuController extends Controller
                     'subtipo_id' => $modulo->subtipo_id,
                     'categoria_id' => $modulo->categoria_id,
                     'descripcion' => NULL,
-                    'sap_id' => $modulo->saps,
+                    'sap_id' => $sisape[$i]->id,
                     'fondo_id' => (int) $modulo->fondos,
                     'activo' => 0
                 ]);
             }
+            // dd($skus);
         }else if($cantidad_saps > 1 && $cantidad_fondos > 1 && $cantidad_saps == $cantidad_fondos){
             /* saps y fondos iguales pero mayores a 1 */
             for ($i=0; $i <= $cantidad_saps -1 ; $i++) {
@@ -179,13 +182,21 @@ class SkuController extends Controller
             foreach ($skus as $key => $value) {
                 Skulistado::create($value);
             }
-
-            toast('Registros creados!','success','top-right');
-            return redirect('/backend/modulos');
         }
-        // dd($list->count());
-        // dd($skus->implode('sku_grupo', ','));
-      // return view('backend.skus.index', compact('data'));
+        // toast('Registros creados!','success','top-right');
+        // return redirect('/backend/modulos');
+    }
+
+    public function makeSkuPadreLote()
+    {
+        if(Skulistado::count() == 0){
+            $modulos = Modulo::all();
+            foreach ($modulos as $key => $value) {
+                self::makeSkuPadre($value->id);
+            }
+            toast('Registros creados!','success','top-right');
+            return redirect('/backend/skus');
+        }
     }
 
     /**

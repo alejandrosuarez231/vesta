@@ -4,7 +4,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md">
-      <h3>Modulos</h3>
+      <h3>Modulos/Piezas</h3>
       <ul class="nav">
         <li class="nav-item">
           <a href="{{ url('/home') }}" class="btn btn-link" title="Inicio">Regresar</a>
@@ -23,16 +23,14 @@
 
   <div class="row">
     <div class="col-md">
-      <table class="table" id="modulos-table"  data-page-length="100">
-        <caption>Modulos</caption>
+      <table class="table" id="modulospiezas-table"  data-page-length="100">
+        <caption>Modulos/Piezas</caption>
         <thead>
           <tr>
             <th>Id</th>
-            <th>sku_grupo</th>
-            <th>Tipo</th>
-            <th>Subtipo</th>
-            <th>Categoria</th>
-            <th>Nombre</th>
+            <th>Tipo/Pieza</th>
+            <th>Material</th>
+            <th>Acronimo</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -46,17 +44,15 @@
 @section('scripts')
 <script type="text/javascript">
   $(function () {
-    $('#modulos-table').DataTable({
+    $('#modulospiezas-table').DataTable({
       processing: true,
       serverSide: true,
-      ajax: '{!! route('data.modulos') !!}',
+      ajax: '{!! route('data.modulospiezas') !!}',
       columns: [
       {data: 'id', name: 'id', title: 'Id'},
-      {data: 'sku_grupo', name: 'sku_grupo', title: 'sku_grupo'},
-      {data: 'tipo.nombre', name: 'tipo.nombre', title: 'Tipo', className: 'text-center'},
-      {data: 'subtipo.nombre', name: 'subtipo.nombre', title: 'SubTipo', className: 'text-center'},
-      {data: 'categoria.nombre', name: 'categoria.nombre', title: 'Categoria', className: 'text-left'},
-      {data: 'nombre', name: 'nombre', title: 'Nombre', className: 'text-left'},
+      {data: 'tipo_pieza', name: 'tipo_pieza', title: 'Tipo/Pieza'},
+      {data: 'materiale.nombre', name: 'materiale.nombre', title: 'Material', className: 'text-left'},
+      {data: 'acronimo', name: 'acronimo', title: 'Acronimo', className: 'text-left'},
       {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-left'}
       ],
       "language": {

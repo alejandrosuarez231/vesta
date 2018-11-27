@@ -81,10 +81,7 @@ class DescripcionesSeeder extends Seeder
         ['materiale_id'=>3,'descripcion'=>'Fondo','acronimo'=>'FG','formula_area'=>'A*H','formula_canto'=>'NULL','canto_largo1'=>'NULL','canto_largo2'=>'NULL','canto_ancho1'=>'NULL','canto_ancho2'=>'NULL'],
         ['materiale_id'=>2,'descripcion'=>'Lama','acronimo'=>'LM','formula_area'=>'A*H','formula_canto'=>'2*A+2*H','canto_largo1'=>'2','canto_largo2'=>'2','canto_ancho1'=>'2','canto_ancho2'=>'2'],
         ['materiale_id'=>1,'descripcion'=>'Soporte Vertical','acronimo'=>'SV','formula_area'=>'H*P','formula_canto'=>'2*A+2*H','canto_largo1'=>'1','canto_largo2'=>'1','canto_ancho1'=>'1','canto_ancho2'=>'1'],
-        ['materiale_id'=>1,'descripcion'=>'Soporte Horizontal','acronimo'=>'SH','formula_area'=>'A*H','formula_canto'=>'2*A+2*H','canto_largo1'=>'1','canto_largo2'=>'1','canto_ancho1'=>'1','canto_ancho2'=>'1'],
-
-
-
+        ['materiale_id'=>1,'descripcion'=>'Soporte Horizontal','acronimo'=>'SH','formula_area'=>'A*H','formula_canto'=>'2*A+2*H','canto_largo1'=>'1','canto_largo2'=>'1','canto_ancho1'=>'1','canto_ancho2'=>'1']
       ]);
 }
 }

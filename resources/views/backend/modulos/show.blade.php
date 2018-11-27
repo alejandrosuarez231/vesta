@@ -32,7 +32,7 @@
                 Cant. Variantes: <strong>{{ $modulo->variantes }}</strong><br>
                 Sist. Apertura: <strong>{{ $saps->implode('valor',', ') }}</strong><br>
                 Tipos / Fondo: <strong>{{ $fondos->implode('valor',', ') }}</strong><br>
-                Espesor Permitido: <strong>{{ $modulo->espesor_permitido }}</strong><br>
+                Espesor Permitido: <strong>{{ $modulo->espesor_caja_permitido }}</strong><br>
               </div>
             </div>
           </p>

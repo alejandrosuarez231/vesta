@@ -58,8 +58,16 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ route('cotizaciones.create') }}" title="Cotizar">Cotizar</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('modulos.index') }}" title="Lista de Modulos">Lista de Modulos</a>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Lista de Modulos
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{ url('backend/modulos') }}" title="Lista de Modulos">Listado</a>
+              <a class="dropdown-item" href="{{ url('backend/modulos/piezas') }}" title="Piezas">Piezas</a>
+              <a class="dropdown-item" href="#" title="Complementos">Complementos</a>
+            </div>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url('/backend/skus')}}" title="SKUs">Lista de SKU's</a>

@@ -23,7 +23,7 @@
         </div>
         <div class="form-group mr-2">
           {!! Form::label('tipo_id', 'Tipo', ['class'=>'form-control-label']) !!}
-          {!! Form::select('tipo_id', \App\Tipo::pluck('nombre','id'), $modulo->tipo_id, ['class'=>'form-control','v-model'=>'tipo_id','@change'=>'getSubtipos']) !!}
+          {!! Form::select('tipo_id', \App\Tipo::where('acromtip','T')->pluck('nombre','id'), $modulo->tipo_id, ['class'=>'form-control','v-model'=>'tipo_id','@change'=>'getSubtipos']) !!}
         </div>
         <div class="form-group mr-2">
           {!! Form::label('subtipo_id', 'Subtipo', ['class'=>'form-control-label']) !!}
@@ -44,20 +44,20 @@
           {!! Form::label('nombre', 'Nombre', ['class'=>'form-control-label']) !!}
           {!! Form::text('nombre', $modulo->nombre, ['class'=>'form-control']) !!}
         </div>
-        <div class="form-group">
+        {{-- <div class="form-group">
           {!! Form::label('consecutivo', 'Consecutivo', ['class'=>'form-control-label']) !!}
           {!! Form::number('consecutivo', $modulo->consecutivo, ['class'=>'form-control']) !!}
-        </div>
+        </div> --}}
       </div>
       <div class="form-row">
         <div class="form-group col-6">
           {!! Form::label('descripcion', 'Descripcion', ['class'=>'form-control-label']) !!}
           {!! Form::text('descripcion', $modulo->descripcion, ['class'=>'form-control']) !!}
         </div>
-        <div class="form-group">
+        {{-- <div class="form-group">
           {!! Form::label('variantes', 'Variantes', ['class'=>'form-control-label']) !!}
           {!! Form::number('variantes', $modulo->variantes, ['class'=>'form-control']) !!}
-        </div>
+        </div> --}}
       </div>
       <div class="form-row">
         <div class="form-group mr-2">
@@ -68,9 +68,10 @@
           {!! Form::label('fondos', 'Tipo de Fondo', ['class'=>'form-control-label']) !!}
           {!! Form::select('fondos[]', \App\Fondo::pluck('valor','id'), explode(",",$modulo->fondos), ['class'=>'form-control','required','multiple']) !!}
         </div>
+
         <div class="form-group mr-2">
-          {!! Form::label('espesor_permitido', 'Espesor Permitido', ['class'=>'form-control-label']) !!}
-          {!! Form::text('espesor_permitido', $modulo->espesor_permitido, ['class'=>'form-control']) !!}
+          {!! Form::label('espesor_caja_permitido', 'Espesor Caja Permitido', ['class'=>'form-control-label']) !!}
+          {!! Form::select('espesor_caja_permitido', ["15"=>"15","18"=>"18","25"=>"25"], explode(",",$modulo->espesor_permitido), ['class'=>'form-control','multiple']) !!}
         </div>
       </div>
       <div class="form-row">
@@ -82,10 +83,10 @@
           {!! Form::label('ancho_maximo', 'Ancho Max.', ['class'=>'form-control-label']) !!}
           {!! Form::number('ancho_maximo', $modulo->ancho_maximo, ['class'=>'form-control']) !!}
         </div>
-        <div class="form-group mr-2">
+        {{-- <div class="form-group mr-2">
           {!! Form::label('ancho_var', 'Ancho Var.', ['class'=>'form-control-label']) !!}
           {!! Form::number('ancho_var', $modulo->ancho_var, ['class'=>'form-control']) !!}
-        </div>
+        </div> --}}
       </div>
       <div class="form-row">
         <div class="form-group mr-2">
@@ -96,10 +97,10 @@
           {!! Form::label('alto_maximo', 'Ancho Max.', ['class'=>'form-control-label']) !!}
           {!! Form::number('alto_maximo', $modulo->alto_maximo, ['class'=>'form-control']) !!}
         </div>
-        <div class="form-group mr-2">
+        {{-- <div class="form-group mr-2">
           {!! Form::label('alto_var', 'Ancho Var.', ['class'=>'form-control-label']) !!}
           {!! Form::number('alto_var', $modulo->alto_var, ['class'=>'form-control']) !!}
-        </div>
+        </div> --}}
       </div>
       <div class="form-row">
         <div class="form-group mr-2">
@@ -110,10 +111,10 @@
           {!! Form::label('profundidad_maxima', 'Ancho Max.', ['class'=>'form-control-label']) !!}
           {!! Form::number('profundidad_maxima', $modulo->profundidad_maxima, ['class'=>'form-control']) !!}
         </div>
-        <div class="form-group mr-2">
+        {{-- <div class="form-group mr-2">
           {!! Form::label('profundidad_var', 'Ancho Var.', ['class'=>'form-control-label']) !!}
           {!! Form::number('profundidad_var', $modulo->profundidad_var, ['class'=>'form-control']) !!}
-        </div>
+        </div> --}}
       </div>
       <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Registrar</button>
       <a class="btn btn-warning text-danger" href="{{ url('/backend/modulos') }}" title="Cancelar"><i class="fas fa-ban"></i> Cancelar</a>

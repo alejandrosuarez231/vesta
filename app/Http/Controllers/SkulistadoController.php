@@ -7,19 +7,35 @@ use App\Modulo;
 use App\Sap;
 use App\Fondo;
 use Illuminate\Http\Request;
+Use Alert;
+use Yajra\DataTables\DataTables;
 
 class SkulistadoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-      $skulists = Skulistado::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre','sap:id,valor','fondo:id,valor')->get();
-      return view('backend.skus.index', compact('skulists'));
-    }
+  /**
+  * Display a listing of the resource.
+  *
+  * @return \Illuminate\Http\Response
+  */
+  public function index()
+  {
+    $skulists = Skulistado::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre','sap:id,valor','fondo:id,valor')->get();
+    return view('backend.skus.index', compact('skulists'));
+  }
+
+  public function indexData()
+  {
+    $skus = Skulistado::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre','sap:id,valor','fondo:id,valor')->get();
+    return Datatables::of($skus)
+    ->addColumn('action', function ($skus) {
+      return '
+      <a href="skus/'.$skus->id.'/edit " titlle="Editar" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+      <a href="skus/'.$skus->id.'" titlle="" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
+      ';
+    })
+    ->rawColumns(['action'])
+    ->make(true);
+  }
 
 
     /**
@@ -56,8 +72,8 @@ class SkulistadoController extends Controller
 
     public function showList($sku_grupo)
     {
-        $lista = Skulistado::where('sku_grupo',$sku_grupo)->get();
-        return view('backend.skus.showList', compact('lista'));
+      $lista = Skulistado::where('sku_grupo',$sku_grupo)->get();
+      return view('backend.skus.showList', compact('lista'));
     }
 
     /**

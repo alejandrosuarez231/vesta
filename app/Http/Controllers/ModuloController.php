@@ -26,20 +26,10 @@ class ModuloController extends Controller
         return $modulo->saps;
     })
       ->addColumn('action', function ($modulo) {
-        $list = Skulistado::where('sku_grupo',$modulo->sku_grupo)->get();
-        if($list->count() == 0){
-            return '
-            <a href="modulos/'.$modulo->id.'/edit " titlle="Editar" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-            <a href="modulos/'.$modulo->id.'" titlle="" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
-            <a href="/makeSkuPadre/'.$modulo->id.'" title="Crear Listado" class="btn btn-sm btn-danger"><i class="fas fa-cogs"></i></a>
-            ';
-        }else{
-            return '
-            <a href="modulos/'.$modulo->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-            <a href="modulos/'.$modulo->id.'" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
-            <a href="/backend/skus/showList/'.$modulo->sku_grupo.'" class="btn btn-sm btn-primary"><i class="fas fa-cog"></i></a>
-            ';
-        }
+        return '
+        <a href="modulos/'.$modulo->id.'/edit " titlle="Editar" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+        <a href="modulos/'.$modulo->id.'" titlle="" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
+        ';
     })
       ->rawColumns(['action'])
       ->make(true);

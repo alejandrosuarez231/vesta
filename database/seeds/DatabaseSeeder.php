@@ -37,6 +37,8 @@ class DatabaseSeeder extends Seeder
           BrapesSeeder::class,
           CorrederasSeeder::class,
           TiradoresSeeder::class,
+          SkulistadoSeeder::class,
+          PiezasModulosSeeder::class,
         ]);
     }
 }

@@ -15,7 +15,7 @@ class ModulosSeeder extends Seeder
   {
     $data = collect([
         [
-            
+
             "sku_grupo" => "ACJAB-01",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -26,7 +26,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 60,
             "saps" => "1",
             "fondos" => "2,3",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -41,7 +41,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "ACJAB-02",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -52,7 +52,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 60,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -67,7 +67,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "ACJAB-03",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -78,7 +78,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 60,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 1200,
             "ancho_var" => 100,
@@ -93,7 +93,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "ACJAB-04",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -104,7 +104,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 84,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 800,
             "ancho_maximo" => 1500,
             "ancho_var" => 100,
@@ -119,7 +119,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "ACJAB-05",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -130,7 +130,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 96,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 1000,
             "ancho_maximo" => 1800,
             "ancho_var" => 100,
@@ -145,7 +145,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "ACJAB-06",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -156,7 +156,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 72,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 1500,
             "ancho_maximo" => 2100,
             "ancho_var" => 100,
@@ -171,7 +171,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "ACJAB-07",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -182,7 +182,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 96,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 1600,
             "ancho_maximo" => 2400,
             "ancho_var" => 100,
@@ -197,7 +197,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "ACJAB-08",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -208,7 +208,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 60,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -223,7 +223,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "ACJAB-09",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -234,7 +234,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 84,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 200,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -249,7 +249,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "ACJAB-10",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -260,7 +260,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -275,7 +275,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "ACJGV-06",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -286,7 +286,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 96,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 800,
             "ancho_var" => 100,
@@ -301,7 +301,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "ACJPT-01",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -312,7 +312,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 36,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 300,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -327,7 +327,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "ACJPT-02",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -338,7 +338,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 36,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 300,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -353,7 +353,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "ACJPT-03",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -364,7 +364,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 90,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -379,7 +379,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "ACJPT-04",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -390,7 +390,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 90,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -405,7 +405,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "ACJPT-05",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -416,7 +416,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -431,7 +431,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "ACJPT-06",
             "tipo_id" => 5,
             "subtipo_id" => 15,
@@ -442,7 +442,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 144,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 300,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -457,7 +457,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CAEAB-01",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -468,7 +468,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 40,
             "saps" => "1",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -483,7 +483,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CAEAB-02",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -494,7 +494,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 40,
             "saps" => "1",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -509,7 +509,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CAEAB-03",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -520,7 +520,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 40,
             "saps" => "1",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -535,7 +535,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CAECM-01",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -546,7 +546,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 16,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 140,
             "ancho_maximo" => 300,
             "ancho_var" => 80,
@@ -561,7 +561,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CAECM-02",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -572,7 +572,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 90,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 1200,
             "ancho_maximo" => 2100,
             "ancho_var" => 300,
@@ -587,7 +587,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CAECM-03",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -598,7 +598,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 8,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 350,
             "ancho_maximo" => 350,
             "ancho_var" => 100,
@@ -613,7 +613,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CAECM-04",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -624,7 +624,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 64,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 2000,
             "ancho_var" => 200,
@@ -639,7 +639,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CAECM-05",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -650,7 +650,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 56,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 900,
             "ancho_maximo" => 1600,
             "ancho_var" => 100,
@@ -665,7 +665,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CAEES-01",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -676,7 +676,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 8,
             "saps" => "3,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 900,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -691,7 +691,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CAEES-02",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -702,7 +702,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 20,
             "saps" => "3,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 650,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -717,7 +717,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CAEES-03",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -728,7 +728,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 8,
             "saps" => "3,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 600,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -743,7 +743,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CAEES-04",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -754,7 +754,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 8,
             "saps" => "3,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 600,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -769,7 +769,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CAEEQ-01",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -780,7 +780,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 40,
             "saps" => "1",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -795,7 +795,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CAENV-01",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -806,7 +806,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 40,
             "saps" => "3,2,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -821,7 +821,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CAENV-02",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -832,7 +832,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 20,
             "saps" => "3,2,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 650,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -847,7 +847,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CAENV-03",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -858,7 +858,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 96,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 600,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -873,7 +873,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CAEPT-01",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -884,7 +884,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,2,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 600,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -899,7 +899,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CAEPT-02",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -910,7 +910,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 8,
             "saps" => "3,2,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 600,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -925,7 +925,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CAEPT-03",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -936,7 +936,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 32,
             "saps" => "3,2,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 200,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -951,7 +951,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CAEPT-04",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -962,7 +962,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 80,
             "saps" => "3,2,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -977,7 +977,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CAEPT-05",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -988,7 +988,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 32,
             "saps" => "3,2,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 200,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -1003,7 +1003,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CAEPT-06",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -1014,7 +1014,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 20,
             "saps" => "3,2,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 650,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -1029,7 +1029,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CAEPT-07",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -1040,7 +1040,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 20,
             "saps" => "3,2,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 650,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -1055,7 +1055,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CAEVI-01",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -1066,7 +1066,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 8,
             "saps" => "1",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 300,
             "ancho_maximo" => 300,
             "ancho_var" => 100,
@@ -1081,7 +1081,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CAEVI-02",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -1092,7 +1092,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 8,
             "saps" => "1",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 400,
             "ancho_var" => 100,
@@ -1107,7 +1107,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CAEVI-03",
             "tipo_id" => 6,
             "subtipo_id" => 16,
@@ -1118,7 +1118,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 8,
             "saps" => "1",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 200,
             "ancho_maximo" => 200,
             "ancho_var" => 100,
@@ -1133,7 +1133,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBAAB-02",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1144,7 +1144,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 56,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 200,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -1159,7 +1159,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBAAB-03",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1170,7 +1170,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 56,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 200,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -1185,7 +1185,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBAAB-01",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1196,7 +1196,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 56,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 200,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -1211,7 +1211,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBACM-01",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1222,7 +1222,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 16,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 140,
             "ancho_maximo" => 300,
             "ancho_var" => 80,
@@ -1237,7 +1237,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBACM-02",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1248,7 +1248,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 90,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 1200,
             "ancho_maximo" => 2100,
             "ancho_var" => 300,
@@ -1263,7 +1263,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBACM-03",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1274,7 +1274,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 600,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -1289,7 +1289,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBACM-04",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1300,7 +1300,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 600,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -1315,7 +1315,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBACM-05",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1326,7 +1326,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 60,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 350,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -1341,7 +1341,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBAES-01",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1352,7 +1352,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 32,
             "saps" => "3,2,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 200,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -1367,7 +1367,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBAES-02",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1378,7 +1378,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,2,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 600,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -1393,7 +1393,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBAES-03",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1404,7 +1404,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 16,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 450,
             "ancho_maximo" => 650,
             "ancho_var" => 100,
@@ -1419,7 +1419,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBAES-04",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1430,7 +1430,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "3,2,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 450,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -1445,7 +1445,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBAFR-01",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1455,8 +1455,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 16,
             "saps" => "3,2,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -1471,7 +1471,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBAFR-02",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1481,8 +1481,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 16,
             "saps" => "3,2,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -1497,7 +1497,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBAFR-03",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1507,8 +1507,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 20,
             "saps" => "3,2,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 650,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -1523,7 +1523,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBAGV-01",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1534,7 +1534,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 40,
             "saps" => "3,2,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -1549,7 +1549,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBAGV-02",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1560,7 +1560,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 40,
             "saps" => "3,2,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -1575,7 +1575,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBAGV-03",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1586,7 +1586,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 40,
             "saps" => "3,2,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -1601,7 +1601,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBAGV-04",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1612,7 +1612,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 40,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -1627,7 +1627,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CGAGG-01",
             "tipo_id" => 6,
             "subtipo_id" => 19,
@@ -1638,7 +1638,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 40,
             "saps" => "1",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -1653,7 +1653,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CGAGG-02",
             "tipo_id" => 6,
             "subtipo_id" => 19,
@@ -1664,7 +1664,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 40,
             "saps" => "1",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -1679,7 +1679,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CGAGP-01",
             "tipo_id" => 6,
             "subtipo_id" => 19,
@@ -1690,7 +1690,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 40,
             "saps" => "1",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -1705,7 +1705,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CGAGP-02",
             "tipo_id" => 6,
             "subtipo_id" => 19,
@@ -1716,7 +1716,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 40,
             "saps" => "1",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -1731,7 +1731,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBAPT-01",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1742,7 +1742,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 8,
             "saps" => "3,2,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 900,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -1757,7 +1757,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBAPT-02",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1768,7 +1768,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 8,
             "saps" => "3,2,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 900,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -1783,7 +1783,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBAPT-03",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1794,7 +1794,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 32,
             "saps" => "3,2,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 200,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -1809,7 +1809,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBAPT-04",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1820,7 +1820,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 32,
             "saps" => "3,2,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 200,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -1835,7 +1835,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBAPT-05",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1846,7 +1846,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 16,
             "saps" => "3,2,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -1861,7 +1861,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBAPT-06",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1872,7 +1872,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 32,
             "saps" => "3,2,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 200,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -1887,7 +1887,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBAVI-01",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1898,7 +1898,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 8,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 300,
             "ancho_maximo" => 300,
             "ancho_var" => 100,
@@ -1913,7 +1913,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBAVI-02",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1924,7 +1924,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 8,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 400,
             "ancho_var" => 100,
@@ -1939,7 +1939,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CBAVI-03",
             "tipo_id" => 6,
             "subtipo_id" => 17,
@@ -1950,7 +1950,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 8,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 200,
             "ancho_maximo" => 200,
             "ancho_var" => 100,
@@ -1965,7 +1965,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CTOAB-01",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -1976,7 +1976,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 80,
             "saps" => "1",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -1991,7 +1991,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CTOAB-02",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2002,7 +2002,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 80,
             "saps" => "1",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -2017,7 +2017,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CTOAB-03",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2028,7 +2028,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 80,
             "saps" => "1",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -2043,7 +2043,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CTOAB-04",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2054,7 +2054,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 80,
             "saps" => "1",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -2069,7 +2069,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CTOAB-05",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2080,7 +2080,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 80,
             "saps" => "1",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -2095,7 +2095,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CTOAB-06",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2106,7 +2106,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 80,
             "saps" => "1",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -2121,7 +2121,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CTOAB-07",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2132,7 +2132,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 80,
             "saps" => "1",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -2147,7 +2147,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CTOCM-01",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2158,7 +2158,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 16,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 140,
             "ancho_maximo" => 300,
             "ancho_var" => 80,
@@ -2173,7 +2173,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CTOCM-02",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2184,7 +2184,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 90,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 1200,
             "ancho_maximo" => 2100,
             "ancho_var" => 300,
@@ -2199,7 +2199,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CTOCM-03",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2210,7 +2210,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 600,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -2225,7 +2225,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CTOCM-04",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2236,7 +2236,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 600,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -2251,7 +2251,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CTOPT-01",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2262,7 +2262,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,2,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 300,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -2277,7 +2277,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CTOPT-02",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2288,7 +2288,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,2,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 300,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -2303,7 +2303,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CTOPT-03",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2314,7 +2314,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,2,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 300,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -2329,7 +2329,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CTOPT-04",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2340,7 +2340,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,2,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 300,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -2355,7 +2355,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CTOPT-05",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2366,7 +2366,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 16,
             "saps" => "3,2,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -2381,7 +2381,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CTOPT-06",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2392,7 +2392,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 16,
             "saps" => "3,2,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -2407,7 +2407,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CTOSP-01",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2418,7 +2418,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 36,
             "saps" => "3,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 600,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -2433,7 +2433,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CTOSP-02",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2444,7 +2444,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 36,
             "saps" => "3,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 600,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -2459,7 +2459,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CTOSP-03",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2470,7 +2470,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 36,
             "saps" => "3,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 600,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -2485,7 +2485,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CTOSP-04",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2496,7 +2496,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 36,
             "saps" => "3,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 600,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -2511,7 +2511,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CTOSP-05",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2522,7 +2522,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 36,
             "saps" => "3,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 600,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -2537,7 +2537,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CTOSP-06",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2548,7 +2548,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 36,
             "saps" => "3,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 600,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -2563,7 +2563,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CTOSP-07",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2574,7 +2574,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 36,
             "saps" => "3,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 600,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -2589,7 +2589,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "CTOSP-08",
             "tipo_id" => 6,
             "subtipo_id" => 18,
@@ -2600,7 +2600,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 36,
             "saps" => "3,4",
             "fondos" => "3,4",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 600,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -2615,7 +2615,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "OECST-01",
             "tipo_id" => 7,
             "subtipo_id" => 21,
@@ -2626,7 +2626,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 96,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 1200,
             "ancho_maximo" => 2000,
             "ancho_var" => 100,
@@ -2641,7 +2641,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "OEXST-01",
             "tipo_id" => 7,
             "subtipo_id" => 22,
@@ -2652,7 +2652,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 48,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 800,
             "ancho_maximo" => 1200,
             "ancho_var" => 100,
@@ -2667,7 +2667,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "BASGD-01",
             "tipo_id" => 8,
             "subtipo_id" => 23,
@@ -2677,8 +2677,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 8,
             "saps" => "3,2,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 1221,
             "ancho_maximo" => 1221,
             "ancho_var" => 0,
@@ -2693,7 +2693,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "BASGD-02",
             "tipo_id" => 8,
             "subtipo_id" => 23,
@@ -2703,8 +2703,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 8,
             "saps" => "3,2,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 1221,
             "ancho_maximo" => 1221,
             "ancho_var" => 0,
@@ -2719,7 +2719,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "BASGD-03",
             "tipo_id" => 8,
             "subtipo_id" => 23,
@@ -2729,8 +2729,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 8,
             "saps" => "3,2,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 1221,
             "ancho_maximo" => 1221,
             "ancho_var" => 0,
@@ -2745,7 +2745,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "BASMD-01",
             "tipo_id" => 8,
             "subtipo_id" => 23,
@@ -2755,8 +2755,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 8,
             "saps" => "3,2,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 900,
             "ancho_maximo" => 900,
             "ancho_var" => 0,
@@ -2771,7 +2771,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "BASMD-02",
             "tipo_id" => 8,
             "subtipo_id" => 23,
@@ -2781,8 +2781,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 8,
             "saps" => "3,2,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 900,
             "ancho_maximo" => 900,
             "ancho_var" => 0,
@@ -2797,7 +2797,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "BASPQ-01",
             "tipo_id" => 8,
             "subtipo_id" => 23,
@@ -2807,8 +2807,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 8,
             "saps" => "3,2,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 605,
             "ancho_maximo" => 605,
             "ancho_var" => 0,
@@ -2823,7 +2823,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "BASPQ-02",
             "tipo_id" => 8,
             "subtipo_id" => 23,
@@ -2833,8 +2833,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 8,
             "saps" => "3,2,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 605,
             "ancho_maximo" => 605,
             "ancho_var" => 0,
@@ -2849,7 +2849,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "BDWMD-01",
             "tipo_id" => 8,
             "subtipo_id" => 24,
@@ -2859,8 +2859,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 8,
             "saps" => "3,2,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 810,
             "ancho_maximo" => 810,
             "ancho_var" => 0,
@@ -2875,7 +2875,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "BDWMD-02",
             "tipo_id" => 8,
             "subtipo_id" => 24,
@@ -2885,8 +2885,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 8,
             "saps" => "3,2,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 810,
             "ancho_maximo" => 810,
             "ancho_var" => 0,
@@ -2901,7 +2901,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "BDWPQ-01",
             "tipo_id" => 8,
             "subtipo_id" => 24,
@@ -2911,8 +2911,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 8,
             "saps" => "3,2,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 605,
             "ancho_maximo" => 605,
             "ancho_var" => 0,
@@ -2927,7 +2927,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "BDWPQ-02",
             "tipo_id" => 8,
             "subtipo_id" => 24,
@@ -2937,8 +2937,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 8,
             "saps" => "3,2,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 605,
             "ancho_maximo" => 605,
             "ancho_var" => 0,
@@ -2953,7 +2953,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "BMDCM-01",
             "tipo_id" => 8,
             "subtipo_id" => 25,
@@ -2964,7 +2964,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 16,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 140,
             "ancho_maximo" => 300,
             "ancho_var" => 80,
@@ -2979,7 +2979,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "BMDCM-02",
             "tipo_id" => 8,
             "subtipo_id" => 25,
@@ -2990,7 +2990,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 8,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 500,
             "ancho_maximo" => 500,
             "ancho_var" => 100,
@@ -3005,7 +3005,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "BMDGV-01",
             "tipo_id" => 8,
             "subtipo_id" => 25,
@@ -3015,8 +3015,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3,2,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -3031,7 +3031,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "BMDGV-02",
             "tipo_id" => 8,
             "subtipo_id" => 25,
@@ -3041,8 +3041,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3,2,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -3057,7 +3057,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "BMDPT-01",
             "tipo_id" => 8,
             "subtipo_id" => 25,
@@ -3067,8 +3067,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 24,
             "saps" => "3,2,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -3083,7 +3083,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "BMDPT-02",
             "tipo_id" => 8,
             "subtipo_id" => 25,
@@ -3093,8 +3093,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 24,
             "saps" => "3,2,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -3109,7 +3109,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "BMDPT-03",
             "tipo_id" => 8,
             "subtipo_id" => 25,
@@ -3119,8 +3119,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 28,
             "saps" => "3,2,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 650,
             "ancho_maximo" => 1000,
             "ancho_var" => 100,
@@ -3135,7 +3135,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "MGVST-01",
             "tipo_id" => 9,
             "subtipo_id" => 29,
@@ -3146,7 +3146,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 800,
             "ancho_maximo" => 800,
             "ancho_var" => 0,
@@ -3161,7 +3161,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "MGVST-02",
             "tipo_id" => 9,
             "subtipo_id" => 29,
@@ -3172,7 +3172,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1200,
             "ancho_maximo" => 1200,
             "ancho_var" => 0,
@@ -3187,7 +3187,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "MGVST-03",
             "tipo_id" => 9,
             "subtipo_id" => 29,
@@ -3198,7 +3198,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1600,
             "ancho_maximo" => 1600,
             "ancho_var" => 0,
@@ -3213,7 +3213,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "MMNST-01",
             "tipo_id" => 9,
             "subtipo_id" => 27,
@@ -3224,7 +3224,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 400,
             "ancho_maximo" => 400,
             "ancho_var" => 0,
@@ -3239,7 +3239,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "MMNST-02",
             "tipo_id" => 9,
             "subtipo_id" => 27,
@@ -3250,7 +3250,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 400,
             "ancho_maximo" => 400,
             "ancho_var" => 0,
@@ -3265,7 +3265,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "MMNST-03",
             "tipo_id" => 9,
             "subtipo_id" => 27,
@@ -3276,7 +3276,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 400,
             "ancho_maximo" => 400,
             "ancho_var" => 0,
@@ -3291,7 +3291,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "MMNST-04",
             "tipo_id" => 9,
             "subtipo_id" => 27,
@@ -3302,7 +3302,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 400,
             "ancho_maximo" => 400,
             "ancho_var" => 0,
@@ -3317,7 +3317,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "MMNST-05",
             "tipo_id" => 9,
             "subtipo_id" => 27,
@@ -3328,7 +3328,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 600,
             "ancho_maximo" => 600,
             "ancho_var" => 0,
@@ -3343,7 +3343,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "MMNST-06",
             "tipo_id" => 9,
             "subtipo_id" => 27,
@@ -3354,7 +3354,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 600,
             "ancho_maximo" => 600,
             "ancho_var" => 0,
@@ -3369,7 +3369,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "MMNST-07",
             "tipo_id" => 9,
             "subtipo_id" => 27,
@@ -3380,7 +3380,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 400,
             "ancho_maximo" => 400,
             "ancho_var" => 0,
@@ -3395,7 +3395,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "MMNST-08",
             "tipo_id" => 9,
             "subtipo_id" => 27,
@@ -3406,7 +3406,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 500,
             "ancho_maximo" => 500,
             "ancho_var" => 0,
@@ -3421,7 +3421,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "MMNST-09",
             "tipo_id" => 9,
             "subtipo_id" => 27,
@@ -3432,7 +3432,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 500,
             "ancho_maximo" => 500,
             "ancho_var" => 0,
@@ -3447,7 +3447,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "SBIST-01",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3458,7 +3458,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1182,
             "ancho_maximo" => 1182,
             "ancho_var" => 0,
@@ -3473,7 +3473,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "SBIST-02",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3484,7 +3484,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 650,
             "ancho_maximo" => 650,
             "ancho_var" => 0,
@@ -3499,7 +3499,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "SBIST-03",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3510,7 +3510,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 650,
             "ancho_maximo" => 650,
             "ancho_var" => 0,
@@ -3525,7 +3525,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "SBIST-04",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3536,7 +3536,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 400,
             "ancho_maximo" => 400,
             "ancho_var" => 0,
@@ -3551,7 +3551,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "SBIST-05",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3562,7 +3562,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 600,
             "ancho_maximo" => 600,
             "ancho_var" => 0,
@@ -3577,7 +3577,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "SBIST-06",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3588,7 +3588,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 400,
             "ancho_maximo" => 400,
             "ancho_var" => 0,
@@ -3603,7 +3603,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "SBIST-07",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3614,7 +3614,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 600,
             "ancho_maximo" => 600,
             "ancho_var" => 0,
@@ -3629,7 +3629,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "SBIST-08",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3640,7 +3640,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1600,
             "ancho_maximo" => 1600,
             "ancho_var" => 0,
@@ -3655,7 +3655,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "SBIST-09",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3666,7 +3666,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 515,
             "ancho_maximo" => 515,
             "ancho_var" => 0,
@@ -3681,7 +3681,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "SBIST-10",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3692,7 +3692,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 800,
             "ancho_maximo" => 800,
             "ancho_var" => 0,
@@ -3707,7 +3707,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "SBIST-11",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3718,7 +3718,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 964,
             "ancho_maximo" => 964,
             "ancho_var" => 0,
@@ -3733,7 +3733,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "SBIST-12",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3744,7 +3744,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1200,
             "ancho_maximo" => 1200,
             "ancho_var" => 0,
@@ -3759,7 +3759,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "SBIST-13",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3770,7 +3770,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 450,
             "ancho_maximo" => 450,
             "ancho_var" => 0,
@@ -3785,7 +3785,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "SBIST-14",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3796,7 +3796,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 450,
             "ancho_maximo" => 450,
             "ancho_var" => 0,
@@ -3811,7 +3811,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "SBIST-15",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3822,7 +3822,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 900,
             "ancho_maximo" => 900,
             "ancho_var" => 0,
@@ -3837,7 +3837,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "SBIST-16",
             "tipo_id" => 10,
             "subtipo_id" => 32,
@@ -3848,7 +3848,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 400,
             "ancho_maximo" => 400,
             "ancho_var" => 0,
@@ -3863,7 +3863,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "SBUST-01",
             "tipo_id" => 10,
             "subtipo_id" => 33,
@@ -3874,7 +3874,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1600,
             "ancho_maximo" => 1600,
             "ancho_var" => 0,
@@ -3889,7 +3889,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "SBUST-02",
             "tipo_id" => 10,
             "subtipo_id" => 33,
@@ -3900,7 +3900,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1200,
             "ancho_maximo" => 1200,
             "ancho_var" => 0,
@@ -3915,7 +3915,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "SBUST-03",
             "tipo_id" => 10,
             "subtipo_id" => 33,
@@ -3926,7 +3926,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1200,
             "ancho_maximo" => 1200,
             "ancho_var" => 0,
@@ -3941,7 +3941,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "SBUST-04",
             "tipo_id" => 10,
             "subtipo_id" => 33,
@@ -3952,7 +3952,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1200,
             "ancho_maximo" => 1200,
             "ancho_var" => 0,
@@ -3967,7 +3967,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "SMCST-01",
             "tipo_id" => 10,
             "subtipo_id" => 34,
@@ -3978,7 +3978,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 750,
             "ancho_maximo" => 750,
             "ancho_var" => 0,
@@ -3993,7 +3993,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "SMCST-02",
             "tipo_id" => 10,
             "subtipo_id" => 34,
@@ -4004,7 +4004,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1200,
             "ancho_maximo" => 1200,
             "ancho_var" => 0,
@@ -4019,7 +4019,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "SMCST-03",
             "tipo_id" => 10,
             "subtipo_id" => 34,
@@ -4030,7 +4030,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 900,
             "ancho_maximo" => 900,
             "ancho_var" => 0,
@@ -4045,7 +4045,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "SMCST-04",
             "tipo_id" => 10,
             "subtipo_id" => 34,
@@ -4056,7 +4056,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1200,
             "ancho_maximo" => 1200,
             "ancho_var" => 0,
@@ -4071,7 +4071,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "STVST-01",
             "tipo_id" => 10,
             "subtipo_id" => 31,
@@ -4082,7 +4082,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1200,
             "ancho_maximo" => 1200,
             "ancho_var" => 0,
@@ -4097,7 +4097,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "STVST-02",
             "tipo_id" => 10,
             "subtipo_id" => 31,
@@ -4108,7 +4108,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1600,
             "ancho_maximo" => 1600,
             "ancho_var" => 0,
@@ -4123,7 +4123,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "STVST-03",
             "tipo_id" => 10,
             "subtipo_id" => 31,
@@ -4134,7 +4134,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1600,
             "ancho_maximo" => 1600,
             "ancho_var" => 0,
@@ -4149,7 +4149,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "STVST-04",
             "tipo_id" => 10,
             "subtipo_id" => 31,
@@ -4160,7 +4160,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1600,
             "ancho_maximo" => 1600,
             "ancho_var" => 0,
@@ -4175,7 +4175,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "STVST-05",
             "tipo_id" => 10,
             "subtipo_id" => 31,
@@ -4186,7 +4186,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1600,
             "ancho_maximo" => 1600,
             "ancho_var" => 0,
@@ -4201,7 +4201,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "STVST-06",
             "tipo_id" => 10,
             "subtipo_id" => 31,
@@ -4212,7 +4212,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1600,
             "ancho_maximo" => 1600,
             "ancho_var" => 0,
@@ -4227,7 +4227,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "STVST-07",
             "tipo_id" => 10,
             "subtipo_id" => 31,
@@ -4238,7 +4238,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1200,
             "ancho_maximo" => 1200,
             "ancho_var" => 0,
@@ -4253,7 +4253,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "STVST-08",
             "tipo_id" => 10,
             "subtipo_id" => 31,
@@ -4264,7 +4264,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1600,
             "ancho_maximo" => 1600,
             "ancho_var" => 0,
@@ -4279,7 +4279,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "STVST-09",
             "tipo_id" => 10,
             "subtipo_id" => 31,
@@ -4290,7 +4290,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1600,
             "ancho_maximo" => 1600,
             "ancho_var" => 0,
@@ -4305,7 +4305,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "STVST-10",
             "tipo_id" => 10,
             "subtipo_id" => 31,
@@ -4316,7 +4316,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1600,
             "ancho_maximo" => 1600,
             "ancho_var" => 0,
@@ -4331,7 +4331,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "STVST-11",
             "tipo_id" => 10,
             "subtipo_id" => 31,
@@ -4342,7 +4342,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1600,
             "ancho_maximo" => 1600,
             "ancho_var" => 0,
@@ -4357,7 +4357,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "STVST-12",
             "tipo_id" => 10,
             "subtipo_id" => 31,
@@ -4368,7 +4368,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1600,
             "ancho_maximo" => 1600,
             "ancho_var" => 0,
@@ -4383,7 +4383,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "FBAPT-01",
             "tipo_id" => 11,
             "subtipo_id" => 17,
@@ -4393,8 +4393,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 32,
             "saps" => "3",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 50,
@@ -4409,7 +4409,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "FESCM-01",
             "tipo_id" => 11,
             "subtipo_id" => 30,
@@ -4420,7 +4420,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 56,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18",
+            "espesor_caja_permitido" => "15,18",
             "ancho_minimo" => 900,
             "ancho_maximo" => 1600,
             "ancho_var" => 100,
@@ -4435,7 +4435,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "FMFST-01",
             "tipo_id" => 11,
             "subtipo_id" => 35,
@@ -4446,7 +4446,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 4,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1200,
             "ancho_maximo" => 1200,
             "ancho_var" => 0,
@@ -4461,7 +4461,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "FMFST-02",
             "tipo_id" => 11,
             "subtipo_id" => 35,
@@ -4472,7 +4472,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1200,
             "ancho_maximo" => 1200,
             "ancho_var" => 0,
@@ -4487,7 +4487,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "FMFST-03",
             "tipo_id" => 11,
             "subtipo_id" => 35,
@@ -4498,7 +4498,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1200,
             "ancho_maximo" => 1200,
             "ancho_var" => 0,
@@ -4513,7 +4513,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "FMFST-04",
             "tipo_id" => 11,
             "subtipo_id" => 35,
@@ -4524,7 +4524,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1600,
             "ancho_maximo" => 1600,
             "ancho_var" => 0,
@@ -4539,7 +4539,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "FMFST-05",
             "tipo_id" => 11,
             "subtipo_id" => 35,
@@ -4550,7 +4550,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1200,
             "ancho_maximo" => 1200,
             "ancho_var" => 0,
@@ -4565,7 +4565,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "FMFST-06",
             "tipo_id" => 11,
             "subtipo_id" => 35,
@@ -4576,7 +4576,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1200,
             "ancho_maximo" => 1200,
             "ancho_var" => 0,
@@ -4591,7 +4591,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "FMFST-07",
             "tipo_id" => 11,
             "subtipo_id" => 35,
@@ -4602,7 +4602,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1200,
             "ancho_maximo" => 1200,
             "ancho_var" => 0,
@@ -4617,7 +4617,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "FMFST-08",
             "tipo_id" => 11,
             "subtipo_id" => 35,
@@ -4628,7 +4628,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 500,
             "ancho_maximo" => 500,
             "ancho_var" => 0,
@@ -4643,7 +4643,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "FMFST-09",
             "tipo_id" => 11,
             "subtipo_id" => 35,
@@ -4654,7 +4654,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 424,
             "ancho_maximo" => 424,
             "ancho_var" => 0,
@@ -4669,7 +4669,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "FMFST-10",
             "tipo_id" => 11,
             "subtipo_id" => 35,
@@ -4680,7 +4680,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 600,
             "ancho_maximo" => 600,
             "ancho_var" => 0,
@@ -4695,7 +4695,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "FMFST-11",
             "tipo_id" => 11,
             "subtipo_id" => 35,
@@ -4706,7 +4706,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 600,
             "ancho_maximo" => 600,
             "ancho_var" => 0,
@@ -4721,7 +4721,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "FMFST-12",
             "tipo_id" => 11,
             "subtipo_id" => 35,
@@ -4732,7 +4732,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 895,
             "ancho_maximo" => 895,
             "ancho_var" => 0,
@@ -4747,7 +4747,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "QTFHR-01",
             "tipo_id" => 12,
             "subtipo_id" => 36,
@@ -4758,7 +4758,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 96,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1300,
             "ancho_maximo" => 2100,
             "ancho_var" => 100,
@@ -4773,7 +4773,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "QTFHR-02",
             "tipo_id" => 12,
             "subtipo_id" => 36,
@@ -4784,7 +4784,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 96,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1300,
             "ancho_maximo" => 2100,
             "ancho_var" => 100,
@@ -4799,7 +4799,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "QTFHR-03",
             "tipo_id" => 12,
             "subtipo_id" => 36,
@@ -4810,7 +4810,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 96,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1300,
             "ancho_maximo" => 2100,
             "ancho_var" => 100,
@@ -4825,7 +4825,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "QTFVT-01",
             "tipo_id" => 12,
             "subtipo_id" => 36,
@@ -4836,7 +4836,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 96,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1300,
             "ancho_maximo" => 2100,
             "ancho_var" => 100,
@@ -4851,7 +4851,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "QTFVT-02",
             "tipo_id" => 12,
             "subtipo_id" => 36,
@@ -4862,7 +4862,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 96,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1300,
             "ancho_maximo" => 2100,
             "ancho_var" => 100,
@@ -4877,7 +4877,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "QTFVT-03",
             "tipo_id" => 12,
             "subtipo_id" => 36,
@@ -4888,7 +4888,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 96,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15",
+            "espesor_caja_permitido" => "15",
             "ancho_minimo" => 1300,
             "ancho_maximo" => 2100,
             "ancho_var" => 100,
@@ -4903,7 +4903,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLAB-01",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -4914,7 +4914,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -4929,7 +4929,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLAB-02",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -4940,7 +4940,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -4955,7 +4955,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLAB-03",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -4966,7 +4966,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -4981,7 +4981,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLCM-01",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -4992,7 +4992,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 140,
             "ancho_maximo" => 300,
             "ancho_var" => 80,
@@ -5007,7 +5007,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLCM-02",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5018,7 +5018,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 36,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 600,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -5033,7 +5033,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLCM-03",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5044,7 +5044,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 36,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 600,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -5059,7 +5059,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLCM-04",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5070,7 +5070,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 600,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -5085,7 +5085,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLCM-05",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5096,7 +5096,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 96,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 1200,
             "ancho_var" => 100,
@@ -5111,7 +5111,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLGV-01",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5121,8 +5121,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -5137,7 +5137,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLGV-02",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5147,8 +5147,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -5163,7 +5163,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLGV-03",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5173,8 +5173,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -5189,7 +5189,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLGV-04",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5199,8 +5199,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -5215,7 +5215,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLGV-05",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5225,8 +5225,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -5241,7 +5241,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLGV-06",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5251,8 +5251,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -5267,7 +5267,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLGV-07",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5277,8 +5277,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -5293,7 +5293,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLGV-08",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5303,8 +5303,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -5319,7 +5319,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLGV-09",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5329,8 +5329,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -5345,7 +5345,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLGV-10",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5355,8 +5355,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -5371,7 +5371,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLGV-11",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5381,8 +5381,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -5397,7 +5397,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLGV-12",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5407,8 +5407,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -5423,7 +5423,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLGV-13",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5433,8 +5433,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -5449,7 +5449,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLGV-14",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5459,8 +5459,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -5475,7 +5475,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLGV-15",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5485,8 +5485,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -5501,7 +5501,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLGV-16",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5511,8 +5511,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -5527,7 +5527,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLGV-17",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5537,8 +5537,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -5553,7 +5553,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLGV-18",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5563,8 +5563,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -5579,7 +5579,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLPT-01",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5590,7 +5590,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -5605,7 +5605,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLPT-02",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5616,7 +5616,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -5631,7 +5631,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLPT-03",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5642,7 +5642,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -5657,7 +5657,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLTB-01",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5668,7 +5668,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -5683,7 +5683,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLTB-02",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5694,7 +5694,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -5709,7 +5709,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLTB-03",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5720,7 +5720,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -5735,7 +5735,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLTB-04",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5746,7 +5746,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -5761,7 +5761,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLTB-05",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5772,7 +5772,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -5787,7 +5787,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLTB-06",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5798,7 +5798,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -5813,7 +5813,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLTB-07",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5824,7 +5824,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -5839,7 +5839,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLTB-08",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5850,7 +5850,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -5865,7 +5865,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLTB-09",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5876,7 +5876,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -5891,7 +5891,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLTB-10",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5902,7 +5902,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -5917,7 +5917,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLTB-11",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5928,7 +5928,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -5943,7 +5943,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLTB-12",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5954,7 +5954,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -5969,7 +5969,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLTB-13",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -5980,7 +5980,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -5995,7 +5995,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLTB-14",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -6006,7 +6006,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -6021,7 +6021,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLTB-15",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -6032,7 +6032,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -6047,7 +6047,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLTB-16",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -6058,7 +6058,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -6073,7 +6073,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLTB-17",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -6084,7 +6084,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -6099,7 +6099,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLTB-18",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -6110,7 +6110,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -6125,7 +6125,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLTB-19",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -6136,7 +6136,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -6151,7 +6151,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLTB-20",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -6162,7 +6162,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -6177,7 +6177,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLTB-21",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -6188,7 +6188,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -6203,7 +6203,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLTB-22",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -6214,7 +6214,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -6229,7 +6229,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RCLTB-23",
             "tipo_id" => 13,
             "subtipo_id" => 38,
@@ -6240,7 +6240,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 48,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 800,
             "ancho_maximo" => 1200,
             "ancho_var" => 100,
@@ -6255,7 +6255,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVEAB-01",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6266,7 +6266,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 60,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -6281,7 +6281,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVEAB-02",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6292,7 +6292,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 60,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -6307,7 +6307,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVEAB-03",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6318,7 +6318,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -6333,7 +6333,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVEAB-04",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6344,7 +6344,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -6359,7 +6359,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVECM-01",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6370,7 +6370,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 96,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 1200,
             "ancho_var" => 100,
@@ -6385,7 +6385,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVECM-02",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6396,7 +6396,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 96,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 1200,
             "ancho_var" => 100,
@@ -6411,7 +6411,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVECM-03",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6422,7 +6422,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 140,
             "ancho_maximo" => 300,
             "ancho_var" => 80,
@@ -6437,7 +6437,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVECM-04",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6448,7 +6448,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 36,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 330,
             "ancho_maximo" => 630,
             "ancho_var" => 100,
@@ -6463,7 +6463,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVECM-05",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6474,7 +6474,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 12,
             "saps" => "1",
             "fondos" => "1",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 330,
             "ancho_maximo" => 330,
             "ancho_var" => 100,
@@ -6489,7 +6489,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVEGV-01",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6499,8 +6499,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -6515,7 +6515,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVEGV-02",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6525,8 +6525,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -6541,7 +6541,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVEGV-03",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6551,8 +6551,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -6567,7 +6567,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVEGV-04",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6577,8 +6577,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -6593,7 +6593,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVEGV-05",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6604,7 +6604,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -6619,7 +6619,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVEGV-06",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6629,8 +6629,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -6645,7 +6645,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVEGV-07",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6655,8 +6655,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -6671,7 +6671,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVEGV-08",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6681,8 +6681,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -6697,7 +6697,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVEGV-09",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6707,8 +6707,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -6723,7 +6723,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVEGV-10",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6733,8 +6733,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -6749,7 +6749,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVEGV-11",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6759,8 +6759,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -6775,7 +6775,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVEGV-12",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6786,7 +6786,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -6801,7 +6801,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVEGV-13",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6811,8 +6811,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -6827,7 +6827,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVEGV-14",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6837,8 +6837,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -6853,7 +6853,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVEGV-15",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6863,8 +6863,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -6879,7 +6879,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVEGV-16",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6889,8 +6889,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -6905,7 +6905,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVEGV-17",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6915,8 +6915,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -6931,7 +6931,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVEGV-18",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6941,8 +6941,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -6957,7 +6957,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVEGV-19",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6968,7 +6968,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "3,4",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 600,
             "ancho_var" => 100,
@@ -6983,7 +6983,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVEGV-20",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -6993,8 +6993,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7009,7 +7009,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVEGV-21",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7019,8 +7019,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7035,7 +7035,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVEAB-05",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7045,8 +7045,8 @@ class ModulosSeeder extends Seeder
             "descripcion" => null,
             "variantes" => 60,
             "saps" => "3,4",
-            "fondos" => "7",
-            "espesor_permitido" => "15,18,25",
+            "fondos" => "2",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7061,7 +7061,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVETB-01",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7072,7 +7072,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 60,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7087,7 +7087,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVETB-02",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7098,7 +7098,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7113,7 +7113,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVETB-03",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7124,7 +7124,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7139,7 +7139,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVETB-04",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7150,7 +7150,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 60,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7165,7 +7165,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVETB-05",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7176,7 +7176,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7191,7 +7191,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVETB-06",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7202,7 +7202,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7217,7 +7217,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVETB-07",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7228,7 +7228,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 60,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7243,7 +7243,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVETB-08",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7254,7 +7254,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 60,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7269,7 +7269,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVETB-09",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7280,7 +7280,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7295,7 +7295,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVETB-10",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7306,7 +7306,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7321,7 +7321,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVETB-11",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7332,7 +7332,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 60,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7347,7 +7347,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVETB-12",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7358,7 +7358,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7373,7 +7373,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVETB-13",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7384,7 +7384,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7399,7 +7399,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVETB-14",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7410,7 +7410,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 60,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7425,7 +7425,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVETB-15",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7436,7 +7436,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7451,7 +7451,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVETB-16",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7462,7 +7462,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7477,7 +7477,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVETB-17",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7488,7 +7488,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 60,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7503,7 +7503,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVETB-18",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7514,7 +7514,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7529,7 +7529,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVETB-19",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7540,7 +7540,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7555,7 +7555,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVETB-20",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7566,7 +7566,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 60,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7581,7 +7581,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVETB-21",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7592,7 +7592,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7607,7 +7607,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVETB-22",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7618,7 +7618,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7633,7 +7633,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVETB-23",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7644,7 +7644,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7659,7 +7659,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVETB-24",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7670,7 +7670,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 24,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 700,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7685,7 +7685,7 @@ class ModulosSeeder extends Seeder
             "deleted_at" => null
         ],
         [
-            
+
             "sku_grupo" => "RVETB-25",
             "tipo_id" => 13,
             "subtipo_id" => 39,
@@ -7696,7 +7696,7 @@ class ModulosSeeder extends Seeder
             "variantes" => 60,
             "saps" => "1",
             "fondos" => "2,3,4",
-            "espesor_permitido" => "15,18,25",
+            "espesor_caja_permitido" => "15,18,25",
             "ancho_minimo" => 400,
             "ancho_maximo" => 900,
             "ancho_var" => 100,
@@ -7724,7 +7724,7 @@ class ModulosSeeder extends Seeder
         $modulo->variantes = $obj['variantes'];
         $modulo->saps = $obj['saps'];
         $modulo->fondos = $obj['fondos'];
-        $modulo->espesor_permitido = $obj['espesor_permitido'];
+        $modulo->espesor_caja_permitido = $obj['espesor_caja_permitido'];
         $modulo->ancho_minimo = $obj['ancho_minimo'];
         $modulo->ancho_maximo = $obj['ancho_maximo'];
         $modulo->ancho_var = $obj['ancho_var'];

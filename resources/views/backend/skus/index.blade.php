@@ -2,12 +2,15 @@
 
 @section('content')
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-8">
-      <h4>Lista de SKUs</h4>
+  <div class="row justify-content-center">
+    <div class="col-md">
+      <h4>Listado SKU's</h4>
       <ul class="nav">
         <li class="nav-item">
-          <a href="{{ url('/backend/modulos') }}" class="btn btn-link" title="Inicio">Regresar</a>
+          <a href="{{ url('/home') }}" class="btn btn-link" title="Inicio">Regresar</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">Nueva</a>
         </li>
       </ul>
     </div>
@@ -15,41 +18,55 @@
 
   <div class="row justify-content-center">
     <div class="col-md">
-      <table class="table table-bordered">
-        <caption>Listado de SKU's</caption>
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>SKU Grupo</th>
-            <th>SKU Padre</th>
-            <th>Tipo</th>
-            <th>Subtipo</th>
-            <th>Categoria</th>
-            <th>Sist./Apertura</th>
-            <th>Tipos/Fondo</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          @foreach ($skulists as $element)
-          <tr>
-            <td>{{ $element->id }}</td>
-            <td>{{ $element->sku_grupo }}</td>
-            <td>{{ $element->sku_padre }}</td>
-            <td>{{ $element->tipo->nombre }}</td>
-            <td>{{ $element->subtipo->nombre }}</td>
-            <td>{{ $element->categoria->nombre }}</td>
-            <td>{{ $element->sap->valor }}</td>
-            <td>{{ $element->fondo->valor }}</td>
-            <td>
-              <a href="{{-- {{ url('/backend/skus/showList/'.$element->sku_grupo) }} --}}" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
+      <div class="">
+        <table class="table" id="skus-table" data-page-length="100">
+          <caption>SKU's</caption>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>SKU/Grupo</th>
+              <th>SKU/Padre</th>
+              <th>Tipo</th>
+              <th>Subtipo</th>
+              <th>Categoria</th>
+              <th>SAP</th>
+              <th>Fondo</th>
+              <th>Activo</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
     </div>
   </div>
 </div>
+@endsection
+
+@section('scripts')
+{{-- @section('js') --}}
+<script type="text/javascript">
+  $(function () {
+    $('#skus-table').DataTable({
+      "order": [[ 1, "asc" ]],
+      processing: true,
+      serverSide: true,
+      ajax: '{!! route('data.skuslist') !!}',
+      columns: [
+      {data: 'id', name: 'id', title: 'Id'},
+      {data: 'sku_grupo', name: 'sku_grupo', title: 'SKU/Grupo'},
+      {data: 'sku_padre', name: 'sku_padre', title: 'SKU/Padre'},
+      {data: 'tipo.nombre', name: 'tipo.nombre', title: 'Tipo', className: 'text-left'},
+      {data: 'subtipo.nombre', name: 'subtipo.nombre', title: 'Subtipo', className: 'text-left'},
+      {data: 'categoria.nombre', name: 'categoria.nombre', title: 'Categoria', className: 'text-left'},
+      {data: 'sap.valor', name: 'sap.valor', title: 'SAP', className: 'text-left'},
+      {data: 'fondo.valor', name: 'fondo.valor', title: 'Fondo', className: 'text-left'},
+      {data: 'activo', name: 'activo', title: 'Activo', className: 'text-center'},
+      {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'}
+      ],
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+      }
+    });
+  });
+</script>
 @endsection

@@ -17,7 +17,7 @@ class TiposSeeder extends Seeder
         ['tipologia' => 'MTP', 'acromtip' => 'M', 'padre' =>  1, 'nombre' => 'Consumibles', 'acronimo' => 'CO'],
         ['tipologia' => 'MTP', 'acromtip' => 'M', 'padre' =>  1, 'nombre' => 'Materia Prima', 'acronimo' => 'MP'],
         ['tipologia' => 'MTP', 'acromtip' => 'M', 'padre' =>  1, 'nombre' => 'Packing', 'acronimo' => 'PA'],
-        ['tipologia' => 'MTP', 'acromtip' => 'M', 'padre' =>  1, 'nombre' => 'Cajas', 'acronimo' => 'A'],
+        ['tipologia' => 'MTP', 'acromtip' => 'T', 'padre' =>  1, 'nombre' => 'Cajas', 'acronimo' => 'A'],
         ['tipologia' => 'PTO', 'acromtip' => 'T', 'padre' =>  1, 'nombre' => 'Cocina', 'acronimo' => 'C'],
         ['tipologia' => 'PTO', 'acromtip' => 'T', 'padre' =>  1, 'nombre' => 'Mueble de Oficina', 'acronimo' => 'O'],
         ['tipologia' => 'PTO', 'acromtip' => 'T', 'padre' =>  1, 'nombre' => 'Muebles de Baño', 'acronimo' => 'B'],

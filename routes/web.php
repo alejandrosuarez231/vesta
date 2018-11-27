@@ -82,13 +82,18 @@ Route::get('/dataModulos', 'ModuloController@indexData')->name('data.modulos');
 Route::get('/modulosConstructor/{tipos}/{subtipos}/{sar}', 'ModuloController@modulosContructor')->name('data.moduloconstructor');
 Route::get('/ModuloEditData/{id}', 'ModuloController@editData')->name('data.modulosedit');
 Route::get('/getModulos/{tipo}/{sutipo}/{sap}/{sar}', 'ModuloController@getModulos')->name('data.getmodulos');
+Route::get('/dataModulosPiezas', 'PiezasModuloController@indexData')->name('data.modulospiezas');
+Route::resource('/backend/modulos/piezas', 'PiezasModuloController');
 Route::resource('/backend/modulos', 'ModuloController');
+
 
 /* SKU Lista */
 /* Creacion y Edicion de SKUs */
 Route::get('/makeSKU/{tipo}/{subtipo}/{categoria}', 'SkuController@makeSku')->name('sku.make');
 Route::get('/makeSkuPadre/{id}', 'SkuController@makeSkuPadre')->name('sku.makeskupadre');
+Route::get('/makeSkuPadrelote', 'SkuController@makeSkuPadreLote')->name('sku.makeskupadrelote'); // Generar lote de SKU's
 Route::get('/backend/skus/showList/{sku_grupo}', 'SkulistadoController@showList')->name('sku.showList');
+Route::get('/dataskuslist', 'SkulistadoController@indexData')->name('data.skuslist');
 Route::resource('/backend/skus', 'SkulistadoController');
 
 /* Herrajes */
