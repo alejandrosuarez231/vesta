@@ -108,7 +108,7 @@ class ModuloController extends Controller
         $modulo->variantes = $request->variantes;
         $modulo->saps = implode(",",$request->saps);
         $modulo->fondos = implode(",",$request->fondos);
-        $modulo->espesor_permitido = $request->espesor_permitido;
+        $modulo->espesor_caja_permitido = $request->espesor_caja_permitido;
         $modulo->ancho_minimo = $request->ancho_minimo;
         $modulo->ancho_maximo = $request->ancho_maximo;
         $modulo->ancho_var = $request->ancho_var;

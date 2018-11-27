@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Modulo extends Model
 {
+    public static function boot()
+    {
+        parent::boot();
+        // Al Actualizar
+        Modulo::updated(function($table){
+            
+        });
+    }
     /**
      * The database table used by the model.
      *
