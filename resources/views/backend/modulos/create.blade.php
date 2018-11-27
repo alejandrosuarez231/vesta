@@ -62,12 +62,16 @@
       </div>
       <div class="form-row">
         <div class="form-group mr-2">
-          {!! Form::label('sap', 'Sist. de Apertura', ['class'=>'form-control-label']) !!}
-          {!! Form::select('sap', \App\Sap::pluck('valor','id'), null, ['class'=>'form-control','multiple']) !!}
+          {!! Form::label('saps', 'Sist. de Apertura', ['class'=>'form-control-label']) !!}
+          <select name="saps[]" id="saps[]" class="form-control" multiple v-model="saps" ref="selSap">
+            <option v-for="(item, indice) in sap_list" :value="item.value">@{{ item.label }}</option>
+          </select>
         </div>
         <div class="form-group mr-2">
-          {!! Form::label('fondo_id', 'Tipo de Fondo', ['class'=>'form-control-label']) !!}
-          {!! Form::select('fondo_id', \App\Fondo::pluck('valor','id'), null, ['class'=>'form-control','multiple']) !!}
+          {!! Form::label('fondos', 'Tipo de Fondo', ['class'=>'form-control-label']) !!}
+          <select name="fondos[]" id="fondos[]" class="form-control" multiple v-model="fondos" ref="selFondo">
+            <option v-for="(item, indice) in fondo_list" :value="item.value">@{{ item.label }}</option>
+          </select>
         </div>
         <div class="form-group mr-2">
           {!! Form::label('espesor_caja_permitido', 'Espesor Caja Permitido', ['class'=>'form-control-label']) !!}
@@ -130,6 +134,11 @@
   var app = new Vue({
     el: '#app',
 
+    created(){
+      axios.get('/saplist').then(response => { this.sap_list = response.data; console.log(response.data) }).catch(function(error){ console.log(error)});
+      axios.get('/fondolist').then(response => { this.fondo_list = response.data; console.log(response.data) }).catch(function(error){ console.log(error)});
+    },
+
     data: {
       tipo_id: '',
       subtipo_list: '',
@@ -137,7 +146,12 @@
       categorias_list: '',
       categoria_id: '',
       sku_base: '',
-      sku_grupo: ''
+      sku_grupo: '',
+      saps: [],
+      sap_list: '',
+      fondos: [],
+      fondo_list: '',
+      selSap: ''
     },
 
     watch: {
@@ -167,6 +181,16 @@
         .catch( function(error){
           console.log(error)
         });
+      },
+      saps(){
+        if(this.saps.length > 1 && this.saps.includes(1)){
+          this.saps = [];
+        }
+      },
+      fondos(){
+        if(this.fondos.length > 1 && this.fondos.includes(1)){
+          this.fondos = [];
+        }
       }
     },
 

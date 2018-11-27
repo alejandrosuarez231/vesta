@@ -84,6 +84,8 @@ Route::get('/ModuloEditData/{id}', 'ModuloController@editData')->name('data.modu
 Route::get('/getModulos/{tipo}/{sutipo}/{sap}/{sar}', 'ModuloController@getModulos')->name('data.getmodulos');
 Route::get('/dataModulosPiezas', 'PiezasModuloController@indexData')->name('data.modulospiezas');
 Route::resource('/backend/modulos/piezas', 'PiezasModuloController');
+Route::get('/dataModulosComplementos', 'ComplementoModuloController@indexData')->name('data.moduloscomplementos');
+Route::resource('/backend/modulos/complementos', 'ComplementoModuloController');
 Route::resource('/backend/modulos', 'ModuloController');
 
 
@@ -101,6 +103,10 @@ Route::resource('/backend/correderas', 'CorrederaController');
 Route::resource('/backend/bisagras', 'BisagraController');
 Route::resource('/backend/brapes', 'BrapeController');
 Route::resource('/backend/tiradores', 'TiradoreController');
+
+/* Sistemas de Aperturdas */
+Route::get('/saplist', 'SapController@sapList')->name('data.saplist');
+Route::get('/fondolist', 'FondoController@fondoList')->name('data.fondolist');
 
 /* Frontend */
 Route::get('/frontend/constructor/construir','ConstructorController@construir')->name('constructor.construir');

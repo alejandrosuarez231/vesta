@@ -66,7 +66,7 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="{{ url('backend/modulos') }}" title="Lista de Modulos">Listado</a>
               <a class="dropdown-item" href="{{ url('backend/modulos/piezas') }}" title="Piezas">Piezas</a>
-              <a class="dropdown-item" href="#" title="Complementos">Complementos</a>
+              <a class="dropdown-item" href="{{ url('backend/modulos/complementos') }}" title="Complementos">Complementos</a>
             </div>
           </li>
           <li class="nav-item">

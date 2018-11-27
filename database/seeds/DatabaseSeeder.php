@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
           TiradoresSeeder::class,
           SkulistadoSeeder::class,
           PiezasModulosSeeder::class,
+          ComplementosModulosSeeder::class,
         ]);
     }
 }

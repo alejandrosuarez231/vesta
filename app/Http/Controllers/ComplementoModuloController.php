@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Fondo;
+use App\Complemento_Modulo;
 use Illuminate\Http\Request;
+use Alert;
+use Yajra\DataTables\DataTables;
 
-class FondoController extends Controller
+class ComplementoModuloController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,17 @@ class FondoController extends Controller
      */
     public function index()
     {
-        //
+      return view('backend.modulos.complementos.index');
+    }
+
+    public function indexData()
+    {
+      $complementos = Complemento_Modulo::all();
+      return Datatables::of($complementos->all())
+      ->addColumn('action', function ($pieza) {
+        return '<a href="#" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>';
+      })
+      ->make(true);
     }
 
     /**
@@ -41,31 +53,21 @@ class FondoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Fondo  $fondo
+     * @param  \App\Complemento_Modulo  $complemento_Modulo
      * @return \Illuminate\Http\Response
      */
-    public function show(Fondo $fondo)
+    public function show(Complemento_Modulo $complemento_Modulo)
     {
         //
-    }
-
-    public function fondoList()
-    {
-      $fondo_list = Fondo::all();
-      $lists = collect();
-      foreach ($fondo_list as $key => $value) {
-        $lists->push(['value'=>$value->id,'label'=>$value->valor]);
-      }
-      return $lists->toJson();
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Fondo  $fondo
+     * @param  \App\Complemento_Modulo  $complemento_Modulo
      * @return \Illuminate\Http\Response
      */
-    public function edit(Fondo $fondo)
+    public function edit(Complemento_Modulo $complemento_Modulo)
     {
         //
     }
@@ -74,10 +76,10 @@ class FondoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Fondo  $fondo
+     * @param  \App\Complemento_Modulo  $complemento_Modulo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Fondo $fondo)
+    public function update(Request $request, Complemento_Modulo $complemento_Modulo)
     {
         //
     }
@@ -85,11 +87,11 @@ class FondoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Fondo  $fondo
+     * @param  \App\Complemento_Modulo  $complemento_Modulo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Fondo $fondo)
+    public function destroy(Complemento_Modulo $complemento_Modulo)
     {
         //
     }
-}
+  }

@@ -49,6 +49,16 @@ class SapController extends Controller
         //
     }
 
+    public function sapList()
+    {
+      $sap_list = Sap::all();
+      $lists = collect();
+      foreach ($sap_list as $key => $value) {
+        $lists->push(['value'=>$value->id,'label'=>$value->valor]);
+      }
+      return $lists->toJson();
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -82,4 +92,4 @@ class SapController extends Controller
     {
         //
     }
-}
+  }
