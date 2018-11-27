@@ -23,7 +23,7 @@
         </div>
         <div class="form-group mr-2">
           {!! Form::label('tipo_id', 'Tipo', ['class'=>'form-control-label']) !!}
-          {!! Form::select('tipo_id', \App\Tipo::where('acromtip','T')->pluck('nombre','id'), $modulo->tipo_id, ['class'=>'form-control','v-model'=>'tipo_id','@change'=>'getSubtipos']) !!}
+          {!! Form::select('tipo_id', \App\Tipo::where('acromtip','T')->pluck('nombre','id'), $modulo->tipo_id, ['class'=>'form-control','v-model'=>'tipo_id','@change'=>'getSubtipos()']) !!}
         </div>
         <div class="form-group mr-2">
           {!! Form::label('subtipo_id', 'Subtipo', ['class'=>'form-control-label']) !!}
@@ -62,16 +62,20 @@
       <div class="form-row">
         <div class="form-group mr-2">
           {!! Form::label('saps', 'Sist. de Apertura', ['class'=>'form-control-label']) !!}
-          {!! Form::select('saps[]', \App\Sap::pluck('valor','id'), explode(",",$modulo->saps), ['class'=>'form-control','required','multiple']) !!}
+          <select name="saps[]" id="saps[]" class="form-control" multiple="true" v-model="saps" ref="selSap">
+            <option v-for="(item, indice) in sap_list" :value="item.value">@{{ item.label }}</option>
+          </select>
         </div>
         <div class="form-group mr-2">
           {!! Form::label('fondos', 'Tipo de Fondo', ['class'=>'form-control-label']) !!}
-          {!! Form::select('fondos[]', \App\Fondo::pluck('valor','id'), explode(",",$modulo->fondos), ['class'=>'form-control','required','multiple']) !!}
+          <select name="fondos[]" id="fondos[]" class="form-control" multiple="true" v-model="fondos" ref="selFondo">
+            <option v-for="(item, indice) in fondo_list" :value="item.value">@{{ item.label }}</option>
+          </select>
         </div>
-
+        
         <div class="form-group mr-2">
           {!! Form::label('espesor_caja_permitido', 'Espesor Caja Permitido', ['class'=>'form-control-label']) !!}
-          {!! Form::select('espesor_caja_permitido', ["15"=>"15","18"=>"18","25"=>"25"], explode(",",$modulo->espesor_permitido), ['class'=>'form-control','multiple']) !!}
+          {!! Form::select('espesor_caja_permitido', ["15"=>"15","18"=>"18","25"=>"25"], explode(",",$modulo->espesor_caja_permitido), ['class'=>'form-control','multiple']) !!}
         </div>
       </div>
       <div class="form-row">
@@ -133,6 +137,8 @@
     created(){
       axios.get('/subtiposFiltro/' + this.tipo_id).then( response => { this.subtipo_list = response.data }).catch( function(error) { console.log(error); });
       axios.get('/categoriasFiltro/' + this.subtipo_id).then( response => { this.categorias_list = response.data }).catch( function(error) { console.log(error); });
+      axios.get('/saplist').then(response => { this.sap_list = response.data; console.log(response.data) }).catch(function(error){ console.log(error)});
+      axios.get('/fondolist').then(response => { this.fondo_list = response.data; console.log(response.data) }).catch(function(error){ console.log(error)});
     },
 
     data: {
@@ -140,7 +146,25 @@
       subtipo_list: '',
       subtipo_id: '{{ $modulo->subtipo_id }}',
       categorias_list: '',
-      categoria_id: '{{ $modulo->categoria_id }}'
+      categoria_id: '{{ $modulo->categoria_id }}',
+      saps: [{{$modulo->saps}}],
+      sap_list: '',
+      fondos: [{{$modulo->fondos}}],
+      fondo_list: '',
+      selSap: ''
+    },
+
+    watch: {
+      saps(){
+        if(this.saps.length > 1 && this.saps.includes(1)){
+          this.saps = [];
+        }
+      },
+      fondos(){
+        if(this.fondos.length > 1 && this.fondos.includes(1)){
+          this.fondos = [];
+        }
+      }
     },
 
     method: {
