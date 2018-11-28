@@ -94,7 +94,7 @@ class ModuloController extends Controller
       $modulo->profundidad_minima = $request->profundidad_minima;
       $modulo->profundidad_maxima = $request->profundidad_maxima;
       $modulo->profundidad_var = $request->profundidad_var;
-      $modulo->created_by = auth()->user()->id;
+      // $modulo->created_by = auth()->user()->id;
       // dd($modulo->id);
       $modulo->save();
       // \App\Http\Controllers\SkuController::makeSkuPadre($modulo->id);
