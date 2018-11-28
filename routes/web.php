@@ -82,8 +82,10 @@ Route::get('/dataModulos', 'ModuloController@indexData')->name('data.modulos');
 Route::get('/modulosConstructor/{tipos}/{subtipos}/{sar}', 'ModuloController@modulosContructor')->name('data.moduloconstructor');
 Route::get('/ModuloEditData/{id}', 'ModuloController@editData')->name('data.modulosedit');
 Route::get('/getModulos/{tipo}/{sutipo}/{sap}/{sar}', 'ModuloController@getModulos')->name('data.getmodulos');
+/* Modulo-Piezas */
 Route::get('/dataModulosPiezas', 'PiezasModuloController@indexData')->name('data.modulospiezas');
 Route::resource('/backend/modulos/piezas', 'PiezasModuloController');
+/* Modulo-Complementos */
 Route::get('/dataModulosComplementos', 'ComplementoModuloController@indexData')->name('data.moduloscomplementos');
 Route::resource('/backend/modulos/complementos', 'ComplementoModuloController');
 Route::resource('/backend/modulos', 'ModuloController');

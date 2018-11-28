@@ -5,7 +5,7 @@
 <div class="container-fluid" id="app" v-cloak>
   <div class="row">
     <div class="col-md">
-      <h3>Lista de Modulos</h3>
+      <h3>Lista de Modulos <small>Nuevo</small></h3>
       <ul class="nav">
         <li class="nav-item">
           <a href="{{ url('/backend/modulos') }}" class="btn btn-link" title="Inicio">Regresar</a>
@@ -15,15 +15,17 @@
   </div>
   <div class="row">
     <div class="col-md-10">
-      {!! Form::open() !!}
+      {!! Form::open(['url' => 'backend/modulos', 'method' => 'POST']) !!}
       <div class="form-row">
         <div class="form-group mr-2">
           {!! Form::label('sku_grupo', 'SKU Grupo', ['class' => 'form-control-label']) !!}
-          {!! Form::text('sku_grupo', null, ['class' => 'form-control','required','v-model' => 'sku_grupo']) !!}
+          {!! Form::text('sku_grupo', null, ['class' => 'form-control','required','v-model' => 'sku_grupo','readonly']) !!}
+          {!! $errors->first('sku_grupo', '<small class="help-block text-danger">:message</small>') !!}
         </div>
         <div class="form-group mr-2">
           {!! Form::label('tipo_id', 'Tipo', ['class'=>'form-control-label']) !!}
           {!! Form::select('tipo_id', \App\Tipo::where('acromtip','T')->pluck('nombre','id'), null, ['class'=>'form-control','v-model'=>'tipo_id','placeholder'=>'Seleccion']) !!}
+          {!! $errors->first('tipo_id', '<small class="help-block text-danger">:message</small>') !!}
         </div>
         <div class="form-group mr-2">
           {!! Form::label('subtipo_id', 'Subtipo', ['class'=>'form-control-label']) !!}
@@ -31,6 +33,7 @@
             <option value="" selected>Seleccion</option>
             <option v-for="(item, indice) in subtipo_list" :value="item.value">@{{ item.label }}</option>
           </select>
+          {!! $errors->first('subtipo_id', '<small class="help-block text-danger">:message</small>') !!}
         </div>
         <div class="form-group mr-2">
           {!! Form::label('categoria_id', 'Categoria', ['class'=>'form-control-label']) !!}
@@ -38,12 +41,14 @@
             <option value="" selected>Seleccion</option>
             <option v-for="(item, indice) in categorias_list" :value="item.value">@{{ item.label }}</option>
           </select>
+          {!! $errors->first('categoria_id_id', '<small class="help-block text-danger">:message</small>') !!}
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-6">
           {!! Form::label('nombre', 'Nombre', ['class'=>'form-control-label']) !!}
           {!! Form::text('nombre', null, ['class'=>'form-control','placeholder'=>'Nombre']) !!}
+          {!! $errors->first('nombre', '<small class="help-block text-danger">:message</small>') !!}
         </div>
         {{-- <div class="form-group">
           {!! Form::label('consecutivo', 'Consecutivo', ['class'=>'form-control-label']) !!}
@@ -54,6 +59,7 @@
         <div class="form-group col-6">
           {!! Form::label('descripcion', 'Descripcion', ['class'=>'form-control-label']) !!}
           {!! Form::text('descripcion', null, ['class'=>'form-control','placeholder'=>'Descripcion']) !!}
+          {!! $errors->first('descripcion', '<small class="help-block text-danger">:message</small>') !!}
         </div>
         {{-- <div class="form-group">
           {!! Form::label('variantes', 'Variantes', ['class'=>'form-control-label']) !!}
@@ -75,7 +81,7 @@
         </div>
         <div class="form-group mr-2">
           {!! Form::label('espesor_caja_permitido', 'Espesor Caja Permitido', ['class'=>'form-control-label']) !!}
-          {!! Form::select('espesor_caja_permitido', ["15"=>"15","18"=>"18","25"=>"25"], null, ['class'=>'form-control','multiple']) !!}
+          {!! Form::select('espesor_caja_permitido[]', ["15"=>"15","18"=>"18","25"=>"25"], null, ['class'=>'form-control','multiple']) !!}
         </div>
       </div>
       <div class="form-row">

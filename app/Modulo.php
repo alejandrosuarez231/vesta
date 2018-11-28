@@ -3,17 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Auth;
 
 class Modulo extends Model
 {
-    public static function boot()
-    {
-        parent::boot();
-        // Al Actualizar
-        Modulo::updated(function($table){
-            
-        });
-    }
     /**
      * The database table used by the model.
      *
@@ -28,7 +21,7 @@ class Modulo extends Model
      *
      * @var array
      */
-    protected $fillable = ['sku_grupo','tipo_id','subtipo_id','categoria_id' ,'nombre','consecutivo','descripcion','variantes','saps','fondos','espesor_permitido','ancho_minimo','ancho_maximo','ancho_var','alto_minimo','alto_maximo','alto_var','profundidad_minima','profundidad_maxima','profundidad_var'];
+    protected $fillable = ['sku_grupo','tipo_id','subtipo_id','categoria_id' ,'nombre','consecutivo','descripcion','variantes','saps','fondos','espesor_permitido','ancho_minimo','ancho_maximo','ancho_var','alto_minimo','alto_maximo','alto_var','profundidad_minima','profundidad_maxima','profundidad_var','created_by','updated_by'];
 
 
     /**

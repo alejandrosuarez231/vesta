@@ -13,26 +13,26 @@ use DB;
 
 class ModuloController extends Controller
 {
-    public function index()
-    {
-        return view('backend.modulos.index');
-    }
+  public function index()
+  {
+    return view('backend.modulos.index');
+  }
 
-    public function indexData()
-    {
-      $modulos = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre','sap:id,valor','fondo:id,valor')->get();
-      return Datatables::of($modulos)
-      ->editColumn('saps', function(Modulo $modulo){
-        return $modulo->saps;
+  public function indexData()
+  {
+    $modulos = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre','sap:id,valor','fondo:id,valor')->get();
+    return Datatables::of($modulos)
+    ->editColumn('saps', function(Modulo $modulo){
+      return $modulo->saps;
     })
-      ->addColumn('action', function ($modulo) {
-        return '
-        <a href="modulos/'.$modulo->id.'/edit " titlle="Editar" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-        <a href="modulos/'.$modulo->id.'" titlle="" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
-        ';
+    ->addColumn('action', function ($modulo) {
+      return '
+      <a href="modulos/'.$modulo->id.'/edit " titlle="Editar" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+      <a href="modulos/'.$modulo->id.'" titlle="" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
+      ';
     })
-      ->rawColumns(['action'])
-      ->make(true);
+    ->rawColumns(['action'])
+    ->make(true);
   }
 
 
@@ -43,7 +43,7 @@ class ModuloController extends Controller
      */
     public function create()
     {
-        return view('backend.modulos.create');
+      return view('backend.modulos.create');
     }
 
     /**
@@ -54,7 +54,53 @@ class ModuloController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->input());
+      // dd($request->input());
+      $this->validate($request, [
+        'sku_grupo' => 'bail|required|max:200|unique:modulos',
+        'tipo_id' => 'required',
+        'subtipo_id' => 'required',
+        'categoria_id' => 'required',
+        'nombre' => 'bail|required|max:200|unique:modulos',
+        'descripcion' => 'nullable',
+        "saps.*" => 'required',
+        "fondos.*" => 'required',
+        "espesor_caja_permitido.*" => 'required',
+        'ancho_minimo' => 'bail|required',
+        'ancho_maximo' => 'bail|required',
+        'alto_minimo' => 'bail|required',
+        'alto_maximo' => 'bail|required',
+        'profundidad_minima' => 'bail|required',
+        'profundidad_maxima' => 'bail|required',
+      ]);
+
+      $modulo = new Modulo();
+      $modulo->sku_grupo = $request->sku_grupo;
+      $modulo->tipo_id = $request->tipo_id;
+      $modulo->subtipo_id = $request->subtipo_id;
+      $modulo->categoria_id = $request->categoria_id;
+      $modulo->nombre = $request->nombre;
+      $modulo->consecutivo = $request->consecutivo;
+      $modulo->descripcion = $request->descripcion;
+      $modulo->variantes = $request->variantes;
+      $modulo->saps = implode(",",$request->saps);
+      $modulo->fondos = implode(",",$request->fondos);
+      $modulo->espesor_caja_permitido = implode(",",$request->espesor_caja_permitido);
+      $modulo->ancho_minimo = $request->ancho_minimo;
+      $modulo->ancho_maximo = $request->ancho_maximo;
+      $modulo->ancho_var = $request->ancho_var;
+      $modulo->alto_minimo = $request->alto_minimo;
+      $modulo->alto_maximo = $request->alto_maximo;
+      $modulo->alto_var = $request->alto_var;
+      $modulo->profundidad_minima = $request->profundidad_minima;
+      $modulo->profundidad_maxima = $request->profundidad_maxima;
+      $modulo->profundidad_var = $request->profundidad_var;
+      $modulo->created_by = auth()->user()->id;
+      // dd($modulo->id);
+      $modulo->save();
+      // \App\Http\Controllers\SkuController::makeSkuPadre($modulo->id);
+      // dd($modulo->id);
+      toast('Registro Actualizado!','success','top-right');
+      return redirect()->action('SkuController@makeSkuPadre', ['id' => $modulo->id]);
     }
 
     /**
@@ -65,14 +111,14 @@ class ModuloController extends Controller
      */
     public function show($id)
     {
-        $modulo = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre')
-        ->findOrFail($id);
-        $saps = Sap::whereIn('id',explode(",",$modulo->saps))->get();
+      $modulo = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre')
+      ->findOrFail($id);
+      $saps = Sap::whereIn('id',explode(",",$modulo->saps))->get();
         // dd($modulo->fondos);
-        $fondos = Fondo::whereIn('id',explode(",",$modulo->fondos))->get();
+      $fondos = Fondo::whereIn('id',explode(",",$modulo->fondos))->get();
         // dd($fondos);
         // dd($modulo,$saps->implode('valor',', '),$fondos->implode('valor',', '));
-        return view('backend.modulos.show', compact('modulo','saps','fondos'));
+      return view('backend.modulos.show', compact('modulo','saps','fondos'));
     }
 
     /**
@@ -83,9 +129,9 @@ class ModuloController extends Controller
      */
     public function edit($id)
     {
-        $modulo = Modulo::findOrFail($id);
+      $modulo = Modulo::findOrFail($id);
         // return $modulo;
-        return view('backend.modulos.edit', compact('modulo'));
+      return view('backend.modulos.edit', compact('modulo'));
     }
 
     /**
@@ -97,30 +143,48 @@ class ModuloController extends Controller
      */
     public function update(Request $request, Modulo $modulo)
     {
-        // dd($request->input());
-        $modulo->sku_grupo = $request->sku_grupo;
-        $modulo->tipo_id = $request->tipo_id;
-        $modulo->subtipo_id = $request->subtipo_id;
-        $modulo->categoria_id = $request->categoria_id;
-        $modulo->nombre = $request->nombre;
-        $modulo->consecutivo = $request->consecutivo;
-        $modulo->descripcion = $request->descripcion;
-        $modulo->variantes = $request->variantes;
-        $modulo->saps = implode(",",$request->saps);
-        $modulo->fondos = implode(",",$request->fondos);
-        $modulo->espesor_caja_permitido = $request->espesor_caja_permitido;
-        $modulo->ancho_minimo = $request->ancho_minimo;
-        $modulo->ancho_maximo = $request->ancho_maximo;
-        $modulo->ancho_var = $request->ancho_var;
-        $modulo->alto_minimo = $request->alto_minimo;
-        $modulo->alto_maximo = $request->alto_maximo;
-        $modulo->alto_var = $request->alto_var;
-        $modulo->profundidad_minima = $request->profundidad_minima;
-        $modulo->profundidad_maxima = $request->profundidad_maxima;
-        $modulo->profundidad_var = $request->profundidad_var;
-        $modulo->save();
-        toast('Registro actualizado!','success','top-right');
-        return redirect('/backend/modulos');
+      $this->validate($request, [
+        'sku_grupo' => 'bail|required|max:200|unique:modulos,id,'.$modulo->id,
+        'tipo_id' => 'required',
+        'subtipo_id' => 'required',
+        'categoria_id' => 'required',
+        'nombre' => 'bail|required|max:200|unique:modulos,id,'.$modulo->id,
+        'descripcion' => 'nullable',
+        "saps.*" => 'required',
+        "fondos.*" => 'required',
+        "espesor_caja_permitido.*" => 'required',
+        'ancho_minimo' => 'bail|required',
+        'ancho_maximo' => 'bail|required',
+        'alto_minimo' => 'bail|required',
+        'alto_maximo' => 'bail|required',
+        'profundidad_minima' => 'bail|required',
+        'profundidad_maxima' => 'bail|required',
+      ]);
+      // dd($request->input());
+      $modulo->sku_grupo = $request->sku_grupo;
+      $modulo->tipo_id = $request->tipo_id;
+      $modulo->subtipo_id = $request->subtipo_id;
+      $modulo->categoria_id = $request->categoria_id;
+      $modulo->nombre = $request->nombre;
+      $modulo->consecutivo = $request->consecutivo;
+      $modulo->descripcion = $request->descripcion;
+      $modulo->variantes = $request->variantes;
+      $modulo->saps = implode(",",$request->saps);
+      $modulo->fondos = implode(",",$request->fondos);
+      $modulo->espesor_caja_permitido = implode(",",$request->espesor_caja_permitido);
+      $modulo->ancho_minimo = $request->ancho_minimo;
+      $modulo->ancho_maximo = $request->ancho_maximo;
+      $modulo->ancho_var = $request->ancho_var;
+      $modulo->alto_minimo = $request->alto_minimo;
+      $modulo->alto_maximo = $request->alto_maximo;
+      $modulo->alto_var = $request->alto_var;
+      $modulo->profundidad_minima = $request->profundidad_minima;
+      $modulo->profundidad_maxima = $request->profundidad_maxima;
+      $modulo->profundidad_var = $request->profundidad_var;
+      $modulo->updated_by = auth()->user()->id;
+      $modulo->save();
+      toast('Registro actualizado!','success','top-right');
+      return redirect('/backend/modulos');
     }
 
     /**
@@ -133,4 +197,4 @@ class ModuloController extends Controller
     {
         //
     }
-}
+  }

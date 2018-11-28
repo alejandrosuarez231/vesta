@@ -23,8 +23,8 @@ class ComplementoModuloController extends Controller
     {
       $complementos = Complemento_Modulo::all();
       return Datatables::of($complementos->all())
-      ->addColumn('action', function ($pieza) {
-        return '<a href="#" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>';
+      ->addColumn('action', function ($complemento) {
+        return '<a href="complementos/'.$complemento->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>';
       })
       ->make(true);
     }
@@ -36,7 +36,7 @@ class ComplementoModuloController extends Controller
      */
     public function create()
     {
-        //
+      return view('backend.modulos.complementos.create');
     }
 
     /**
@@ -47,16 +47,24 @@ class ComplementoModuloController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $this->validate($request, [
+        'tipo_id' => 'nullable',
+        'subtipo_id' => 'nullable',
+        'nombre' => 'bail|required|max:200|unique:complemento_modulos',
+        'costo' => 'nullable'
+      ]);
+      Complemento_Modulo::create($request->except(['_method','_token']));
+      toast('Registro Actualizado!','success','top-right');
+      return redirect('/backend/modulos/complementos');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Complemento_Modulo  $complemento_Modulo
+     * @param  \App\Complemento_Modulo  $complemento
      * @return \Illuminate\Http\Response
      */
-    public function show(Complemento_Modulo $complemento_Modulo)
+    public function show(Complemento_Modulo $complemento)
     {
         //
     }
@@ -64,33 +72,42 @@ class ComplementoModuloController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Complemento_Modulo  $complemento_Modulo
+     * @param  \App\Complemento_Modulo  $complemento
      * @return \Illuminate\Http\Response
      */
-    public function edit(Complemento_Modulo $complemento_Modulo)
+    public function edit(Complemento_Modulo $complemento)
     {
-        //
+      return view('backend.modulos.complementos.edit', compact('complemento'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Complemento_Modulo  $complemento_Modulo
+     * @param  \App\Complemento_Modulo  $complemento
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Complemento_Modulo $complemento_Modulo)
+    public function update(Request $request, Complemento_Modulo $complemento)
     {
-        //
+      // dd($request->except(['_method','_token']), $complemento->id);
+      $this->validate($request, [
+        'tipo_id' => 'nullable',
+        'subtipo_id' => 'nullable',
+        'nombre' => 'bail|required|max:200|unique:complemento_modulos,id,'.$complemento->id,
+        'costo' => 'nullable'
+      ]);
+      Complemento_Modulo::where('id',$complemento->id)->update($request->except(['_method','_token']));
+      toast('Registro Actualizado!','success','top-right');
+      return redirect('/backend/modulos/complementos');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Complemento_Modulo  $complemento_Modulo
+     * @param  \App\Complemento_Modulo  $complemento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Complemento_Modulo $complemento_Modulo)
+    public function destroy(Complemento_Modulo $complemento)
     {
         //
     }

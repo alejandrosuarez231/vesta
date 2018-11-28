@@ -39,7 +39,7 @@ class SkuController extends Controller
         return json_encode($sku_grupo);
     }
 
-    public function makeSkuPadre($id)
+    public static function makeSkuPadre($id)
     {
         $modulo = Modulo::findOrFail($id);
 
@@ -183,8 +183,9 @@ class SkuController extends Controller
                 Skulistado::create($value);
             }
         }
-        // toast('Registros creados!','success','top-right');
-        // return redirect('/backend/modulos');
+
+        toast('Registros creados!','success','top-right');
+        return redirect()->route('modulos.index');
     }
 
     public function makeSkuPadreLote()

@@ -10,7 +10,7 @@
           <a href="{{ url('/home') }}" class="btn btn-link" title="Inicio">Regresar</a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('modulos.create') }}" class="nav-link">Nuevo</a>
+          <a href="{{ route('piezas.create') }}" class="nav-link">Nuevo</a>
         </li>
         @if (\App\Skulistado::count() == 0)
         <li class="nav-item">
@@ -31,6 +31,13 @@
             <th>Tipo/Pieza</th>
             <th>Material</th>
             <th>Acronimo</th>
+            <th>FA</th>
+            <th>FC</th>
+            <th>CL1</th>
+            <th>CL2</th>
+            <th>CA1</th>
+            <th>CA2</th>
+            <th>Costo</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -53,6 +60,13 @@
       {data: 'tipo_pieza', name: 'tipo_pieza', title: 'Tipo/Pieza'},
       {data: 'materiale.nombre', name: 'materiale.nombre', title: 'Material', className: 'text-left'},
       {data: 'acronimo', name: 'acronimo', title: 'Acronimo', className: 'text-left'},
+      {data: 'formula_area', name: 'formula_area', title: 'FA', className: 'text-left'},
+      {data: 'formula_canto', name: 'formula_canto', title: 'FC', className: 'text-left'},
+      {data: 'canto_largo1', name: 'canto_largo1', title: 'CL1', className: 'text-left'},
+      {data: 'canto_largo2', name: 'canto_largo2', title: 'CL2', className: 'text-left'},
+      {data: 'canto_ancho1', name: 'canto_ancho1', title: 'CA1', className: 'text-left'},
+      {data: 'canto_ancho2', name: 'canto_ancho2', title: 'CA2', className: 'text-left'},
+      {data: 'costo', name: 'costo', title: 'Costo', className: 'text-left'},
       {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-left'}
       ],
       "language": {
