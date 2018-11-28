@@ -24,6 +24,7 @@
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
     "bootstrap-select": "^1.13.3",
+    "bootstrap4-toggle": "^3.2.0",
     "hoek": "^5.0.4",
     "npm-check": "^5.9.0",
     "safe-buffer": "^5.1.2",

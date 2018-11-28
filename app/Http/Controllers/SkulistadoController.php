@@ -27,13 +27,20 @@ class SkulistadoController extends Controller
   {
     $skus = Skulistado::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre','sap:id,valor','fondo:id,valor')->get();
     return Datatables::of($skus)
+    ->editColumn('activo', function($skus){
+      if($skus->activo == 1){
+        return '<span class="text-success"><i class="fas fa-check-circle"></i></span>';
+      }else {
+        return '<span class="text-danger"><i class="fas fa-circle"></i></span>';
+      }
+    })
     ->addColumn('action', function ($skus) {
       return '
       <a href="skus/'.$skus->id.'/edit " titlle="Editar" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
       <a href="skus/'.$skus->id.'" titlle="" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
       ';
     })
-    ->rawColumns(['action'])
+    ->rawColumns(['activo', 'action'])
     ->make(true);
   }
 

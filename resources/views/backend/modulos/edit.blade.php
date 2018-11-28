@@ -72,10 +72,10 @@
             <option v-for="(item, indice) in fondo_list" :value="item.value">@{{ item.label }}</option>
           </select>
         </div>
-        
+
         <div class="form-group mr-2">
           {!! Form::label('espesor_caja_permitido', 'Espesor Caja Permitido', ['class'=>'form-control-label']) !!}
-          {!! Form::select('espesor_caja_permitido', ["15"=>"15","18"=>"18","25"=>"25"], explode(",",$modulo->espesor_caja_permitido), ['class'=>'form-control','multiple']) !!}
+          {!! Form::select('espesor_caja_permitido[]', ["15"=>"15","18"=>"18","25"=>"25"], explode(",",$modulo->espesor_caja_permitido), ['class'=>'form-control','multiple']) !!}
         </div>
       </div>
       <div class="form-row">

@@ -182,7 +182,9 @@ class ModuloController extends Controller
       $modulo->profundidad_maxima = $request->profundidad_maxima;
       $modulo->profundidad_var = $request->profundidad_var;
       $modulo->updated_by = auth()->user()->id;
+      $changes = $modulo->getDirty();
       $modulo->save();
+      dd($changes);
       toast('Registro actualizado!','success','top-right');
       return redirect('/backend/modulos');
     }
