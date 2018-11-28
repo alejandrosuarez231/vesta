@@ -33,6 +33,7 @@
             <th>Subtipo</th>
             <th>Categoria</th>
             <th>Nombre</th>
+            <th>Piezas</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -57,6 +58,7 @@
       {data: 'subtipo.nombre', name: 'subtipo.nombre', title: 'SubTipo', className: 'text-center'},
       {data: 'categoria.nombre', name: 'categoria.nombre', title: 'Categoria', className: 'text-left'},
       {data: 'nombre', name: 'nombre', title: 'Nombre', className: 'text-left'},
+      // {data: 'piezas', name: 'piezas', title: 'Piezas', className: 'text-left'},
       {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-left'}
       ],
       "language": {

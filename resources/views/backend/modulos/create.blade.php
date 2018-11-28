@@ -100,11 +100,11 @@
       </div>
       <div class="form-row">
         <div class="form-group mr-2">
-          {!! Form::label('alto_minimo', 'Ancho Min.', ['class'=>'form-control-label']) !!}
+          {!! Form::label('alto_minimo', 'Alto Min.', ['class'=>'form-control-label']) !!}
           {!! Form::number('alto_minimo', null, ['class'=>'form-control','placeholder'=>'Alto Minimo']) !!}
         </div>
         <div class="form-group mr-2">
-          {!! Form::label('alto_maximo', 'Ancho Max.', ['class'=>'form-control-label']) !!}
+          {!! Form::label('alto_maximo', 'Alto Max.', ['class'=>'form-control-label']) !!}
           {!! Form::number('alto_maximo', null, ['class'=>'form-control','placeholder'=>'Alto Maximo']) !!}
         </div>
         {{-- <div class="form-group mr-2">
@@ -114,11 +114,11 @@
       </div>
       <div class="form-row">
         <div class="form-group mr-2">
-          {!! Form::label('profundidad_minima', 'Ancho Min.', ['class'=>'form-control-label']) !!}
+          {!! Form::label('profundidad_minima', 'Profundidad Min.', ['class'=>'form-control-label']) !!}
           {!! Form::number('profundidad_minima', null, ['class'=>'form-control','placeholder'=>'Profundidad Minima']) !!}
         </div>
         <div class="form-group mr-2">
-          {!! Form::label('profundidad_maxima', 'Ancho Max.', ['class'=>'form-control-label']) !!}
+          {!! Form::label('profundidad_maxima', 'Profundidad Max.', ['class'=>'form-control-label']) !!}
           {!! Form::number('profundidad_maxima', null, ['class'=>'form-control', 'placeholder'=>'Profundidad Maxima']) !!}
         </div>
         {{-- <div class="form-group mr-2">
