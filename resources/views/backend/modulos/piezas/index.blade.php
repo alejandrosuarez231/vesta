@@ -4,7 +4,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md">
-      <h3>Modulos/Piezas</h3>
+      <h3>Modulos/Piezas <small>Base Desarrollo</small></h3>
       <ul class="nav">
         <li class="nav-item">
           <a href="{{ url('/home') }}" class="btn btn-link" title="Inicio">Regresar</a>

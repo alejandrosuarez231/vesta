@@ -22,16 +22,20 @@ class ModuloController extends Controller
   {
     $modulos = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre','sap:id,valor','fondo:id,valor')->get();
     return Datatables::of($modulos)
-    ->editColumn('saps', function(Modulo $modulo){
-      return $modulo->saps;
-    })
+    // ->addColumn('piezas', function($modulo){
+    //   if(\App\Pieza::where('modulo_id',$modulo->id)->count() > 0){
+    //     return 1;
+    //   }else {
+    //     return 'Sin Piezas';
+    //   }
+    // })
     ->addColumn('action', function ($modulo) {
       return '
       <a href="modulos/'.$modulo->id.'/edit " titlle="Editar" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
       <a href="modulos/'.$modulo->id.'" titlle="" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
       ';
     })
-    ->rawColumns(['action'])
+    ->rawColumns(['piezas','action'])
     ->make(true);
   }
 
