@@ -13,6 +13,7 @@ class CreateComplementosTable extends Migration
      */
     public function up()
     {
+        // Schema::dropIfExists('complementos');
         Schema::create('complementos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('modulo_id');
@@ -21,6 +22,8 @@ class CreateComplementosTable extends Migration
             $table->integer('cantidad');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
+            $table->integer('approved_by')->nullable();
+            $table->timestamp('approved_on')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

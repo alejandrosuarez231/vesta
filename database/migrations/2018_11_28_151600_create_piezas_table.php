@@ -13,6 +13,7 @@ class CreatePiezasTable extends Migration
      */
     public function up()
     {
+        // Schema::dropIfExists('piezas');
         Schema::create('piezas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('modulo_id');
@@ -31,6 +32,8 @@ class CreatePiezasTable extends Migration
             $table->string('mecanizado2')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
+            $table->integer('approved_by')->nullable();
+            $table->timestamp('approved_on')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -13,6 +13,7 @@ class CreateComplementoModulosTable extends Migration
      */
     public function up()
     {
+        // Schema::dropIfExists('complemento_modulos');
         Schema::create('complemento_modulos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('tipo_id')->nullable();

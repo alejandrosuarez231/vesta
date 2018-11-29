@@ -13,6 +13,7 @@ class CreatePiezasModulosTable extends Migration
      */
     public function up()
     {
+        // Schema::dropIfExists('piezas_modulos');
         Schema::create('piezas_modulos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('tipo_pieza',250);
