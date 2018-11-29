@@ -79,6 +79,7 @@ Route::resource('/backend/confmats', 'ConfmatController');
 
 /* Modulos */
 Route::get('/dataModulos', 'ModuloController@indexData')->name('data.modulos');
+Route::get('/aprobarModulo/{id}', 'ModuloController@aprobar')->name('modulos.aprobar');
 Route::get('/modulosConstructor/{tipos}/{subtipos}/{sar}', 'ModuloController@modulosContructor')->name('data.moduloconstructor');
 Route::get('/ModuloEditData/{id}', 'ModuloController@editData')->name('data.modulosedit');
 Route::get('/getModulos/{tipo}/{sutipo}/{sap}/{sar}', 'ModuloController@getModulos')->name('data.getmodulos');
@@ -88,11 +89,13 @@ Route::get('/getPiezaModulo/{pieza}', 'PiezasModuloController@getPiezaModulo')->
 Route::resource('/backend/modulos/piezas', 'PiezasModuloController');
 /* Definicion de piezas */
 Route::get('backend/piezas/create/{id}','PiezaController@createBySku')->name('piezassku.piezas.create');
+Route::get('/aprobarPiezas/{id}', 'PiezaController@aprobar')->name('piezassku.piezas.aprobar');
 Route::resource('backend/piezas', 'PiezaController',['as' => 'piezassku'])->except([
   'index','create','destroy'
 ]);
 /* Modulo-Complementos */
 Route::get('/dataModulosComplementos', 'ComplementoModuloController@indexData')->name('data.moduloscomplementos');
+Route::get('/aprobarComplementos/{id}', 'ComplementoController@aprobar')->name('complementosku.complementos.aprobar');
 Route::resource('/backend/modulos/complementos', 'ComplementoModuloController');
 /* Definicion de complementos */
 Route::get('backend/complementos/create/{id}','ComplementoController@createBySku')->name('complementosku.complementos.create');

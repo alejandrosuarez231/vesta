@@ -122,6 +122,16 @@ class PiezaController extends Controller
         //
     }
 
+    public function aprobar($id)
+    {
+      Pieza::where('modulo_id',$id)
+      ->update(['approved_by' => auth()->id(), 'approved_on' => \Illuminate\Support\Carbon::now()]);
+
+      toast('Piezas Aprobadas!','success','top-right');
+      return redirect('/backend/modulos');
+
+    }
+
     /**
      * Remove the specified resource from storage.
      *

@@ -7,7 +7,10 @@
       <h3>
         Modulo <strong>{{ $modulo->nombre }}</strong>
         @isset ($modulo->aprobado))
-        <small><span class="float-right ml-1">Aprobado por: {{ $modulo->aprobado->name }}</span></small>
+        <small><span class="float-right ml-1">
+          Creado por: {{ $modulo->creado->name }} <br>
+          Aprobado por: {{ $modulo->aprobado->name }}
+        </span></small>
         @endisset
       </h3>
       <ul class="nav">

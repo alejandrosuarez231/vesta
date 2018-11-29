@@ -42,4 +42,14 @@ class Complemento extends Model
       // belongsTo(RelatedModel, foreignKey = categoria_id, keyOnRelatedModel = id)
       return $this->belongsTo(Categoria::class);
     }
+    /**
+     * Complemento belongs to Aprobado.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function aprobado()
+    {
+        // belongsTo(RelatedModel, foreignKey = aprobado_id, keyOnRelatedModel = id)
+        return $this->belongsTo(User::class,'approved_by');
+    }
   }

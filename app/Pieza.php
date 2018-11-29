@@ -53,4 +53,14 @@ class Pieza extends Model
 		// belongsTo(RelatedModel, foreignKey = materiale_id, keyOnRelatedModel = id)
 		return $this->belongsTo(Materiale::class);
 	}
+	/**
+	 * Pieza belongs to Aprobado.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
+	public function aprobado()
+	{
+		// belongsTo(RelatedModel, foreignKey = aprobado_id, keyOnRelatedModel = id)
+		return $this->belongsTo(User::class,'approved_by');
+	}
 }

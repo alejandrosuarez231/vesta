@@ -22,32 +22,53 @@ class ModuloController extends Controller
 
   public function indexData()
   {
-    $modulos = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre','sap:id,valor','fondo:id,valor','pieza','complemento')->get();
+    $modulos = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre','sap:id,valor','fondo:id,valor','pieza','complemento','aprobado:id,name')->get();
 
     return Datatables::of($modulos)
     ->editColumn('pieza', function($modulo){
       if($modulo->pieza->count() == 0){
         return '<a href="../backend/piezas/create/'.$modulo->id.'" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Piezas"><i class="fas fa-plus-circle"></i></a>';
-      }else if($modulo->pieza->count() > 0){
-        return '<a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Aprobar"><i class="fas fa-lock-open"></i></a>';
+      }else if( $modulo->pieza->count() > 0 && Pieza::where('modulo_id',$modulo->id)->where('approved_by',null)->count() > 0 ) {
+        return '<a href="../../aprobarPiezas/'.$modulo->id.'" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Aprobar"><i class="fas fa-lock-open"></i></a>';
+      }else if($modulo->pieza->count() > 0 && (Pieza::with('aprobado:id,name')->where('modulo_id',$modulo->id)->where('approved_by','>',0)->count()) > 0 ){
+        return '<span class="text-success" data-toggle="tooltip" data-placement="top" title="'.Pieza::with('aprobado:id,name')->where('modulo_id',$modulo->id)->where('approved_by','>',0)->first()->aprobado->name.'"><i class="fas fa-user-check"></i></span>';
       }
     })
     ->editColumn('complemento', function($modulo){
       if($modulo->complemento->count() == 0){
         return '<a href="../backend/complementos/create/'.$modulo->id.'" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Complementos"><i class="fas fa-plus-circle"></i></a>';
-      }else if($modulo->pieza->count() > 0){
-        return '<a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Aprobar"><i class="fas fa-lock-open"></i></a>';
+      }else if($modulo->complemento->count() > 0 && Complemento::where('modulo_id',$modulo->id)->where('approved_by',null)->count() > 0){
+        return '<a href="/aprobarComplementos/'.$modulo->id.'" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Aprobar"><i class="fas fa-lock-open"></i></a>';
+      }else if($modulo->pieza->count() > 0 && (Complemento::with('aprobado:id,name')->where('modulo_id',$modulo->id)->where('approved_by','>',0)->count()) > 0 ){
+        return '<span class="text-success" data-toggle="tooltip" data-placement="top" title="'.Complemento::with('aprobado:id,name')->where('modulo_id',$modulo->id)->where('approved_by','>',0)->first()->aprobado->name.'"><i class="fas fa-user-check"></i></span>';
       }
     })
     ->addColumn('action', function ($modulo) {
-      return '
-      <a href="modulos/'.$modulo->id.'/edit " titlle="Editar" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Editar Modulo"><i class="fas fa-edit"></i></a>
-      <a href="modulos/'.$modulo->id.'" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Ver Modulo"><i class="fas fa-eye"></i></a>
-      <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Aprobar"><i class="fas fa-lock-open"></i></a>
-      ';
+      if( (Pieza::where('modulo_id',$modulo->id)->where('approved_by','>',0)->count() > 0) && (Complemento::where('modulo_id',$modulo->id)->where('approved_by','>',0)->count() > 0) && $modulo->approved_by > 0 ){
+        return '
+        <a href="modulos/'.$modulo->id.'/edit " titlle="Editar" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Editar Modulo"><i class="fas fa-edit"></i></a>
+        <a href="modulos/'.$modulo->id.'" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Ver Modulo"><i class="fas fa-eye"></i></a>
+        <span class="text-success float-right" data-toggle="tooltip" data-placement="top" title="'.$modulo->aprobado->name.'"><i class="fas fa-user-check"></i></span>
+        ';
+      }else if(
+        (Pieza::where('modulo_id',$modulo->id)->where('approved_by','<>',null)->count() > 0) &&
+        (Complemento::where('modulo_id',$modulo->id)->where('approved_by','<>',null)->count() > 0) &&
+        $modulo->approved_by == null
+      ){
+          return '
+        <a href="modulos/'.$modulo->id.'/edit " titlle="Editar" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Editar Modulo"><i class="fas fa-edit"></i></a>
+        <a href="modulos/'.$modulo->id.'" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Ver Modulo"><i class="fas fa-eye"></i></a>
+        <a href="/aprobarModulo/'.$modulo->id.'" class="btn btn-sm btn-danger float-right" data-toggle="tooltip" data-placement="top" title="Aprobar"><i class="fas fa-lock-open"></i></a>
+        ';
+      }else{
+        return '
+        <a href="modulos/'.$modulo->id.'/edit " titlle="Editar" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Editar Modulo"><i class="fas fa-edit"></i></a>
+        <a href="modulos/'.$modulo->id.'" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Ver Modulo"><i class="fas fa-eye"></i></a>
+        ';
+      }
     })
     ->rawColumns(['pieza','complemento','action'])
-    ->make(true);
+    ->toJson();
   }
 
 
@@ -126,7 +147,7 @@ class ModuloController extends Controller
      */
     public function show($id)
     {
-      $modulo = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre','aprobado:id,name')
+      $modulo = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre','creado:id,name','aprobado:id,name')
       ->findOrFail($id);
       $saps = Sap::whereIn('id',explode(",",$modulo->saps))->get();
       $fondos = Fondo::whereIn('id',explode(",",$modulo->fondos))->get();
@@ -212,6 +233,16 @@ class ModuloController extends Controller
       dd($changes);
       toast('Registro actualizado!','success','top-right');
       return redirect('/backend/modulos');
+    }
+
+    public function aprobar($id)
+    {
+      Modulo::where('id',$id)
+      ->update(['approved_by' => auth()->id(), 'approved_on' => \Illuminate\Support\Carbon::now()]);
+
+      toast('Modulo Aprobado!','success','top-right');
+      return redirect('/backend/modulos');
+
     }
 
     /**

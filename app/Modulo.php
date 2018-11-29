@@ -104,6 +104,16 @@ class Modulo extends Model
         return $this->hasMany(Complemento::class);
     }
     /**
+     * Modulo belongs to Creado.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function creado()
+    {
+        // belongsTo(RelatedModel, foreignKey = creado_id, keyOnRelatedModel = id)
+        return $this->belongsTo(User::class,'created_by');
+    }
+    /**
      * Modulo belongs to Aprobado.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
