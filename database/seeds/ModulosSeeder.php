@@ -36,9 +36,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -62,9 +60,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -88,9 +84,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -114,9 +108,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -140,9 +132,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -166,9 +156,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -192,9 +180,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -218,9 +204,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -244,9 +228,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -270,9 +252,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 350,
             "profundidad_maxima" => 350,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -296,9 +276,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -322,9 +300,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -348,9 +324,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -374,9 +348,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -400,9 +372,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -426,9 +396,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -452,9 +420,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 300,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -478,9 +444,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 330,
             "profundidad_maxima" => 330,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -504,9 +468,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 330,
             "profundidad_maxima" => 330,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -530,9 +492,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 330,
             "profundidad_maxima" => 330,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -556,9 +516,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 0,
             "profundidad_maxima" => 0,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -582,9 +540,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 0,
             "profundidad_maxima" => 0,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -608,9 +564,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 0,
             "profundidad_maxima" => 0,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -634,9 +588,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 0,
             "profundidad_maxima" => 0,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -660,9 +612,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 150,
             "profundidad_maxima" => 150,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -686,9 +636,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 330,
             "profundidad_maxima" => 330,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -712,9 +660,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 330,
             "profundidad_maxima" => 330,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -738,9 +684,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 330,
             "profundidad_maxima" => 330,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -764,9 +708,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 330,
             "profundidad_maxima" => 330,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -790,9 +732,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 330,
             "profundidad_maxima" => 330,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -816,9 +756,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 330,
             "profundidad_maxima" => 330,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -842,9 +780,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 330,
             "profundidad_maxima" => 330,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -868,9 +804,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 0,
             "profundidad_maxima" => 0,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -894,9 +828,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 330,
             "profundidad_maxima" => 330,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -920,9 +852,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 330,
             "profundidad_maxima" => 330,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -946,9 +876,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 330,
             "profundidad_maxima" => 330,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -972,9 +900,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 330,
             "profundidad_maxima" => 330,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -998,9 +924,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 330,
             "profundidad_maxima" => 330,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1024,9 +948,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 330,
             "profundidad_maxima" => 330,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1050,9 +972,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 330,
             "profundidad_maxima" => 330,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1076,9 +996,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 330,
             "profundidad_maxima" => 330,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1102,9 +1020,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 330,
             "profundidad_maxima" => 330,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1128,9 +1044,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 330,
             "profundidad_maxima" => 330,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1154,9 +1068,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1180,9 +1092,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1206,9 +1116,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1232,9 +1140,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 0,
             "profundidad_maxima" => 0,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1258,9 +1164,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 0,
             "profundidad_maxima" => 0,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1284,9 +1188,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 0,
             "profundidad_maxima" => 0,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1310,9 +1212,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 0,
             "profundidad_maxima" => 0,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1336,9 +1236,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 0,
             "profundidad_maxima" => 0,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1362,9 +1260,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1388,9 +1284,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1414,9 +1308,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1440,9 +1332,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1466,9 +1356,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1492,9 +1380,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1518,9 +1404,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1544,9 +1428,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1570,9 +1452,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1596,9 +1476,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1622,9 +1500,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1648,9 +1524,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1674,9 +1548,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1700,9 +1572,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1726,9 +1596,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1752,9 +1620,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1778,9 +1644,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1804,9 +1668,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1830,9 +1692,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1856,9 +1716,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1882,9 +1740,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1908,9 +1764,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1934,9 +1788,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1960,9 +1812,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -1986,9 +1836,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2012,9 +1860,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2038,9 +1884,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2064,9 +1908,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2090,9 +1932,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2116,9 +1956,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2142,9 +1980,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2168,9 +2004,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 0,
             "profundidad_maxima" => 0,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2194,9 +2028,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 0,
             "profundidad_maxima" => 0,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2220,9 +2052,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 0,
             "profundidad_maxima" => 0,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2246,9 +2076,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 0,
             "profundidad_maxima" => 0,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2272,9 +2100,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2298,9 +2124,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2324,9 +2148,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2350,9 +2172,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2376,9 +2196,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2402,9 +2220,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2428,9 +2244,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2454,9 +2268,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2480,9 +2292,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2506,9 +2316,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2532,9 +2340,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2558,9 +2364,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2584,9 +2388,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2610,9 +2412,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 580,
             "profundidad_maxima" => 580,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2636,9 +2436,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 700,
             "profundidad_maxima" => 700,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2662,9 +2460,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2688,9 +2484,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 460,
             "profundidad_maxima" => 460,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2714,9 +2508,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 460,
             "profundidad_maxima" => 460,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2740,9 +2532,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 460,
             "profundidad_maxima" => 460,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2766,9 +2556,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 455,
             "profundidad_maxima" => 455,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2792,9 +2580,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 455,
             "profundidad_maxima" => 455,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2818,9 +2604,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 460,
             "profundidad_maxima" => 460,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2844,9 +2628,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 460,
             "profundidad_maxima" => 460,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2870,9 +2652,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2896,9 +2676,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2922,9 +2700,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 395,
             "profundidad_maxima" => 395,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2948,9 +2724,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 395,
             "profundidad_maxima" => 395,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -2974,9 +2748,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 0,
             "profundidad_maxima" => 0,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3000,9 +2772,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 0,
             "profundidad_maxima" => 0,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3026,9 +2796,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 550,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3052,9 +2820,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 550,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3078,9 +2844,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 550,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3104,9 +2868,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 550,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3130,9 +2892,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3156,9 +2916,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3182,9 +2940,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3208,9 +2964,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3234,9 +2988,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3260,9 +3012,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3286,9 +3036,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3312,9 +3060,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3338,9 +3084,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3364,9 +3108,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3390,9 +3132,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3416,9 +3156,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3442,9 +3180,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3468,9 +3204,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 280,
             "profundidad_maxima" => 280,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3494,9 +3228,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3520,9 +3252,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3546,9 +3276,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3572,9 +3300,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3598,9 +3324,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3624,9 +3348,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3650,9 +3372,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3676,9 +3396,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3702,9 +3420,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3728,9 +3444,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3754,9 +3468,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3780,9 +3492,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3806,9 +3516,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3832,9 +3540,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3858,9 +3564,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3884,9 +3588,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3910,9 +3612,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3936,9 +3636,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3962,9 +3660,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -3988,9 +3684,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 750,
             "profundidad_maxima" => 750,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4014,9 +3708,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 450,
             "profundidad_maxima" => 450,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4040,9 +3732,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 450,
             "profundidad_maxima" => 450,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4066,9 +3756,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4092,9 +3780,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4118,9 +3804,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4144,9 +3828,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4170,9 +3852,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4196,9 +3876,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4222,9 +3900,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4248,9 +3924,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4274,9 +3948,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4300,9 +3972,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4326,9 +3996,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4352,9 +4020,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4378,9 +4044,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4404,9 +4068,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4430,9 +4092,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 165,
             "profundidad_maxima" => 165,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4456,9 +4116,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4482,9 +4140,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4508,9 +4164,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4534,9 +4188,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4560,9 +4212,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4586,9 +4236,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4612,9 +4260,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4638,9 +4284,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4664,9 +4308,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 236,
             "profundidad_maxima" => 236,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4690,9 +4332,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 400,
             "profundidad_maxima" => 400,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4716,9 +4356,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 280,
             "profundidad_maxima" => 280,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4742,9 +4380,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 280,
             "profundidad_maxima" => 280,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4768,9 +4404,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4794,9 +4428,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 800,
             "profundidad_maxima" => 800,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4820,9 +4452,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 1000,
             "profundidad_maxima" => 1000,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4846,9 +4476,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4872,9 +4500,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 800,
             "profundidad_maxima" => 800,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4898,9 +4524,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 1000,
             "profundidad_maxima" => 1000,
             "profundidad_var" => 0,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4924,9 +4548,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4950,9 +4572,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -4976,9 +4596,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5002,9 +4620,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 0,
             "profundidad_maxima" => 0,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5028,9 +4644,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 0,
             "profundidad_maxima" => 0,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5054,9 +4668,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 0,
             "profundidad_maxima" => 0,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5080,9 +4692,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 0,
             "profundidad_maxima" => 0,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5106,9 +4716,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 0,
             "profundidad_maxima" => 0,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5132,9 +4740,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5158,9 +4764,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5184,9 +4788,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5210,9 +4812,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5236,9 +4836,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5262,9 +4860,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5288,9 +4884,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5314,9 +4908,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5340,9 +4932,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5366,9 +4956,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5392,9 +4980,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5418,9 +5004,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5444,9 +5028,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5470,9 +5052,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5496,9 +5076,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5522,9 +5100,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5548,9 +5124,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5574,9 +5148,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5600,9 +5172,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5626,9 +5196,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5652,9 +5220,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5678,9 +5244,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5704,9 +5268,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5730,9 +5292,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5756,9 +5316,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5782,9 +5340,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5808,9 +5364,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5834,9 +5388,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5860,9 +5412,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5886,9 +5436,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5912,9 +5460,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5938,9 +5484,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5964,9 +5508,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -5990,9 +5532,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6016,9 +5556,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6042,9 +5580,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6068,9 +5604,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6094,9 +5628,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6120,9 +5652,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6146,9 +5676,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6172,9 +5700,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6198,9 +5724,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6224,9 +5748,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6250,9 +5772,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 600,
             "profundidad_maxima" => 600,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6276,9 +5796,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6302,9 +5820,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6328,9 +5844,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6354,9 +5868,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6380,9 +5892,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 0,
             "profundidad_maxima" => 0,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6406,9 +5916,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 0,
             "profundidad_maxima" => 0,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6432,9 +5940,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 0,
             "profundidad_maxima" => 0,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6458,9 +5964,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 0,
             "profundidad_maxima" => 0,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6484,9 +5988,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 0,
             "profundidad_maxima" => 0,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6510,9 +6012,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6536,9 +6036,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6562,9 +6060,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6588,9 +6084,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6614,9 +6108,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6640,9 +6132,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6666,9 +6156,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6692,9 +6180,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6718,9 +6204,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6744,9 +6228,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6770,9 +6252,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6796,9 +6276,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6822,9 +6300,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6848,9 +6324,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6874,9 +6348,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6900,9 +6372,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6926,9 +6396,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6952,9 +6420,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -6978,9 +6444,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7004,9 +6468,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7030,9 +6492,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7056,9 +6516,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7082,9 +6540,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7108,9 +6564,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7134,9 +6588,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7160,9 +6612,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7186,9 +6636,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7212,9 +6660,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7238,9 +6684,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7264,9 +6708,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7290,9 +6732,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7316,9 +6756,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7342,9 +6780,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7368,9 +6804,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7394,9 +6828,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7420,9 +6852,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7446,9 +6876,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7472,9 +6900,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7498,9 +6924,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7524,9 +6948,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7550,9 +6972,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7576,9 +6996,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7602,9 +7020,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7628,9 +7044,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7654,9 +7068,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7680,9 +7092,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ],
         [
 
@@ -7706,9 +7116,7 @@ class ModulosSeeder extends Seeder
             "profundidad_minima" => 500,
             "profundidad_maxima" => 500,
             "profundidad_var" => 100,
-            "created_at" => null,
-            "updated_at" => null,
-            "deleted_at" => null
+            "created_by" => 2
         ]
     ]);
 
@@ -7734,6 +7142,7 @@ class ModulosSeeder extends Seeder
         $modulo->profundidad_minima = $obj['profundidad_minima'];
         $modulo->profundidad_maxima = $obj['profundidad_maxima'];
         $modulo->profundidad_var = $obj['profundidad_var'];
+        $modulo->created_by = $obj['created_by'];
         $modulo->save();
     }
   }

@@ -15,13 +15,13 @@ class Pieza extends Model
 	 */
 	protected $table = 'piezas';
 	protected $guarded = ['id'];
-	protected $dates = ['created_at','updated_at','deleted_at'];
+	protected $dates = ['created_at','updated_at','deleted_at','approved_on'];
 	/**
 	 * Fields that can be mass assigned.
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['modulo_id','producto','pieza_modulo_id','materiale_id','descripcion','cantidad','largo','largo_sup','largo_inf','ancho','ancho_izq','ancho_der','mecanizado1','mecanizado2','created_by','updated_by'];
+	protected $fillable = ['modulo_id','producto','pieza_modulo_id','materiale_id','descripcion','cantidad','largo','largo_sup','largo_inf','ancho','ancho_izq','ancho_der','mecanizado1','mecanizado2','created_by','updated_by','approved_by','approved_on'];
 
 	/**
 	 * Pieza belongs to Modelo.

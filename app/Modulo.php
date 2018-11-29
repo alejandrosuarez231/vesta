@@ -14,14 +14,20 @@ class Modulo extends Model
      */
     protected $table = 'modulos';
     protected $guarded = ['id'];
-    protected $dates = ['created_at','updated_at','deleted_at'];
+    protected $dates = ['created_at','updated_at','deleted_at','approved_on'];
 
     /**
      * Fields that can be mass assigned.
      *
      * @var array
      */
-    protected $fillable = ['sku_grupo','tipo_id','subtipo_id','categoria_id' ,'nombre','consecutivo','descripcion','variantes','saps','fondos','espesor_permitido','ancho_minimo','ancho_maximo','ancho_var','alto_minimo','alto_maximo','alto_var','profundidad_minima','profundidad_maxima','profundidad_var','created_by','updated_by'];
+    protected $fillable = ['sku_grupo','tipo_id','subtipo_id','categoria_id' ,'nombre','consecutivo','descripcion','variantes','saps','fondos','espesor_permitido','ancho_minimo','ancho_maximo','ancho_var','alto_minimo','alto_maximo','alto_var','profundidad_minima','profundidad_maxima','profundidad_var','created_by','updated_by','approved_by','approved_on'];
+
+    /* Scope Aprovados */
+    public function scopeAprobados($query)
+    {
+        return $query->where('approved_by',true);
+    }
 
 
     /**
@@ -96,5 +102,15 @@ class Modulo extends Model
     {
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = modulo_id, localKey = id)
         return $this->hasMany(Complemento::class);
+    }
+    /**
+     * Modulo belongs to Aprobado.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function aprobado()
+    {
+        // belongsTo(RelatedModel, foreignKey = aprobado_id, keyOnRelatedModel = id)
+        return $this->belongsTo(User::class,'approved_by');
     }
 }

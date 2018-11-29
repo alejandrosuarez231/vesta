@@ -4,7 +4,12 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md">
-      <h3>Modulo <strong>{{ $modulo->nombre }}</strong> </h3>
+      <h3>
+        Modulo <strong>{{ $modulo->nombre }}</strong>
+        @isset ($modulo->aprobado))
+        <small><span class="float-right ml-1">Aprobado por: {{ $modulo->aprobado->name }}</span></small>
+        @endisset
+      </h3>
       <ul class="nav">
         <li class="nav-item">
           <a href="{{ url('/backend/modulos') }}" class="btn btn-link" title="Inicio">Regresar</a>
@@ -80,6 +85,7 @@
     </div>
   </div>
   <div class="row mt-2">
+    @if ($piezas->count() > 0)
     <div class="col-md-6">
       <div class="card p-2">
         <div class="card-block">
@@ -116,7 +122,13 @@
         </div>
       </div>
     </div>
+    @else
+    <div class="col-md-6">
+      <h4 class="text-danger"><i class="fas fa-exclamation-triangle"></i> No se ha definido Piezas</h4>
+    </div>
+    @endif
 
+    @if (count($complementos) > 0)
     <div class="col-md-6">
       <div class="card p-2">
         <div class="card-block">
@@ -134,6 +146,11 @@
         </div>
       </div>
     </div>
+    @else
+    <div class="col-md-6">
+      <h4 class="text-danger"><i class="fas fa-exclamation-triangle"></i> No se ha definido Complementos</h4>
+    </div>
+    @endif
   </div>
 </div>
 @endsection

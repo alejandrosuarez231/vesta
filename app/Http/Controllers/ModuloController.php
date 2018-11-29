@@ -29,20 +29,21 @@ class ModuloController extends Controller
       if($modulo->pieza->count() == 0){
         return '<a href="../backend/piezas/create/'.$modulo->id.'" titlle="Editar" class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i></a>';
       }else if($modulo->pieza->count() > 0){
-        return '<small class="text-danger">Pendiente por aprovación</small>';
+        return '<a href="#" titlle="Aprobar" class="btn btn-sm btn-danger"><i class="fas fa-lock-open"></i></a>';
       }
     })
     ->editColumn('complemento', function($modulo){
       if($modulo->complemento->count() == 0){
         return '<a href="../backend/complementos/create/'.$modulo->id.'" titlle="Editar" class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i></a>';
       }else if($modulo->pieza->count() > 0){
-        return '<small class="text-danger">Pendiente por aprovación</small>';
+        return '<a href="#" titlle="Aprobar" class="btn btn-sm btn-danger"><i class="fas fa-lock-open"></i></a>';
       }
     })
     ->addColumn('action', function ($modulo) {
       return '
       <a href="modulos/'.$modulo->id.'/edit " titlle="Editar" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
       <a href="modulos/'.$modulo->id.'" titlle="" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
+      <a href="#" titlle="Aprobar" class="btn btn-sm btn-danger"><i class="fas fa-lock-open"></i></a>
       ';
     })
     ->rawColumns(['pieza','complemento','action'])
@@ -108,7 +109,7 @@ class ModuloController extends Controller
       $modulo->profundidad_minima = $request->profundidad_minima;
       $modulo->profundidad_maxima = $request->profundidad_maxima;
       $modulo->profundidad_var = $request->profundidad_var;
-      // $modulo->created_by = auth()->user()->id;
+      $modulo->created_by =  auth()->id();
       // dd($modulo->id);
       $modulo->save();
       // \App\Http\Controllers\SkuController::makeSkuPadre($modulo->id);
@@ -125,7 +126,7 @@ class ModuloController extends Controller
      */
     public function show($id)
     {
-      $modulo = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre')
+      $modulo = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre','aprobado:id,name')
       ->findOrFail($id);
       $saps = Sap::whereIn('id',explode(",",$modulo->saps))->get();
       $fondos = Fondo::whereIn('id',explode(",",$modulo->fondos))->get();
@@ -205,7 +206,7 @@ class ModuloController extends Controller
       $modulo->profundidad_minima = $request->profundidad_minima;
       $modulo->profundidad_maxima = $request->profundidad_maxima;
       $modulo->profundidad_var = $request->profundidad_var;
-      $modulo->updated_by = auth()->user()->id;
+      $modulo->updated_by = auth()->id();
       $changes = $modulo->getDirty();
       $modulo->save();
       dd($changes);
