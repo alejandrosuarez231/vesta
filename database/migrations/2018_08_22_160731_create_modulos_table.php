@@ -37,6 +37,8 @@ class CreateModulosTable extends Migration
             $table->integer('profundidad_var')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
+            $table->integer('approved_by')->nullable();
+            $table->timestamp('approved_on')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
