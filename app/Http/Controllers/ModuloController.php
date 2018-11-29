@@ -27,23 +27,23 @@ class ModuloController extends Controller
     return Datatables::of($modulos)
     ->editColumn('pieza', function($modulo){
       if($modulo->pieza->count() == 0){
-        return '<a href="../backend/piezas/create/'.$modulo->id.'" titlle="Editar" class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i></a>';
+        return '<a href="../backend/piezas/create/'.$modulo->id.'" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Piezas"><i class="fas fa-plus-circle"></i></a>';
       }else if($modulo->pieza->count() > 0){
-        return '<a href="#" titlle="Aprobar" class="btn btn-sm btn-danger"><i class="fas fa-lock-open"></i></a>';
+        return '<a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Aprobar"><i class="fas fa-lock-open"></i></a>';
       }
     })
     ->editColumn('complemento', function($modulo){
       if($modulo->complemento->count() == 0){
-        return '<a href="../backend/complementos/create/'.$modulo->id.'" titlle="Editar" class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i></a>';
+        return '<a href="../backend/complementos/create/'.$modulo->id.'" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Complementos"><i class="fas fa-plus-circle"></i></a>';
       }else if($modulo->pieza->count() > 0){
-        return '<a href="#" titlle="Aprobar" class="btn btn-sm btn-danger"><i class="fas fa-lock-open"></i></a>';
+        return '<a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Aprobar"><i class="fas fa-lock-open"></i></a>';
       }
     })
     ->addColumn('action', function ($modulo) {
       return '
-      <a href="modulos/'.$modulo->id.'/edit " titlle="Editar" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-      <a href="modulos/'.$modulo->id.'" titlle="" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
-      <a href="#" titlle="Aprobar" class="btn btn-sm btn-danger"><i class="fas fa-lock-open"></i></a>
+      <a href="modulos/'.$modulo->id.'/edit " titlle="Editar" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Editar Modulo"><i class="fas fa-edit"></i></a>
+      <a href="modulos/'.$modulo->id.'" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Ver Modulo"><i class="fas fa-eye"></i></a>
+      <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Aprobar"><i class="fas fa-lock-open"></i></a>
       ';
     })
     ->rawColumns(['pieza','complemento','action'])
