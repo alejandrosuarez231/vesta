@@ -27,14 +27,16 @@ class ModuloController extends Controller
     return Datatables::of($modulos)
     ->editColumn('pieza', function($modulo){
       if($modulo->pieza->count() == 0){
-        // return $modulo->pieza->count();
         return '<a href="../backend/piezas/create/'.$modulo->id.'" titlle="Editar" class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i></a>';
+      }else if($modulo->pieza->count() > 0){
+        return '<small class="text-danger">Pendiente por aprovación</small>';
       }
     })
     ->editColumn('complemento', function($modulo){
       if($modulo->complemento->count() == 0){
-        // return $modulo->complemento->count();
         return '<a href="../backend/complementos/create/'.$modulo->id.'" titlle="Editar" class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i></a>';
+      }else if($modulo->pieza->count() > 0){
+        return '<small class="text-danger">Pendiente por aprovación</small>';
       }
     })
     ->addColumn('action', function ($modulo) {
@@ -127,13 +129,20 @@ class ModuloController extends Controller
       ->findOrFail($id);
       $saps = Sap::whereIn('id',explode(",",$modulo->saps))->get();
       $fondos = Fondo::whereIn('id',explode(",",$modulo->fondos))->get();
+
       $piezas = Pieza::with('pieza_modulo:id,tipo_pieza','materiale:id,nombre')->where('modulo_id',$id)->get();
       $descripciones = collect();
       foreach ($piezas as $key => $value) {
         $descripciones->push($value->descripcion);
       }
 
-      return view('backend.modulos.show', compact('modulo','saps','fondos','piezas','descripciones'));
+      $componentes = Complemento::with('categoria:id,nombre')->where('modulo_id',$id)->get();
+      $complementos = collect();
+      foreach ($componentes as $key => $value) {
+        $complementos->push(['nombre' => $value->categoria->nombre, 'cantidad' => $value->cantidad]);
+      }
+
+      return view('backend.modulos.show', compact('modulo','saps','fondos','piezas','descripciones','complementos'));
     }
 
     /**

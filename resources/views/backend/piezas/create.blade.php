@@ -54,7 +54,7 @@
             <td>{!! Form::number('ancho_der[]', null, ['class'=>'form-control', 'v-model'=>'pieza.ancho_der']) !!}</td>
             <td>{!! Form::number('mecanizado1[]', null, ['class' => 'form-control', 'v-model' => 'pieza.mecanizado1']) !!}</td>
             <td>{!! Form::number('mecanizado2[]', null, ['class' => 'form-control', 'v-model' => 'pieza.mecanizado2']) !!}</td>
-            <td>{!! Form::number('cantidad[]', null, ['class'=>'form-control text-right', 'step' => 1, 'v-model'=>'pieza.cantidad','required']) !!}</td>
+            <td>{!! Form::number('cantidad[]', null, ['class'=>'form-control text-right', 'step' => 1, 'min' => 1, 'v-model'=>'pieza.cantidad','required']) !!}</td>
             <td><a class="btn btn-link text-danger align-middle" href="#" title="Eliminar" @click="removeRowPIEZA(index)" v-if="piezas.length > 1"><i class="fas fa-minus fa-xs"></i></a></td>
           </tr>
         </tbody>

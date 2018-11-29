@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Complemento;
 use App\Modulo;
+use App\Pieza;
+use App\Skulistado;
+use App\Complemento_Modulo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ComplementoController extends Controller
 {
@@ -30,8 +34,10 @@ class ComplementoController extends Controller
 
     public function createBySku($id)
     {
-        $modulo = Modulo::findOrFail($id);
-        return view('backend.complementos.create', compact('modulo'));
+      $piezas = Pieza::with('pieza_modulo:id,tipo_pieza','materiale:id,nombre')->where('modulo_id',$id)->get();
+      $piezas_modulo = $piezas->groupBy('descripcion')->first();
+      $modulo = Modulo::findOrFail($id);
+      return view('backend.complementos.create', compact('modulo','piezas_modulo'));
     }
 
     /**
@@ -42,7 +48,32 @@ class ComplementoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      // $this->validate($request, [
+      //   'modulo_id.*' => 'bail|required',
+      //   'categoria_id.*' => 'bail|required',
+      //   'cantidad.*' => 'bail|required|min:1'
+      // ]);
+
+      $skus_padres = Skulistado::where('modulo_id',$request->modulo_id[0][0])->get();
+      $cantidad = $skus_padres->count();
+      $data = collect();
+
+      for ($i=0; $i <= $cantidad -1 ; $i++) {
+        for ($e=0; $e <= count($request->modulo_id) - 1 ; $e++) {
+          $acronimo = Complemento_Modulo::findOrFail($request->modulo_id[$e]);
+          DB::table('complementos')->insert([
+            'modulo_id' => $request->modulo_id[$e],
+            'producto' => null,
+            'categoria_id' => $request->categoria_id[$e],
+            // 'descripcion' => $acronimo->acronimo . '-' . $skus_padres[$i]->sku_padre,
+            'cantidad' => $request->cantidad[$e],
+            'created_by' => auth()->id(),
+          ]);
+        }
+      }
+
+      toast('Registros creado!','success','top-right');
+      return redirect('/backend/modulos');
     }
 
     /**

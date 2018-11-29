@@ -83,7 +83,7 @@
     <div class="col-md-6">
       <div class="card p-2">
         <div class="card-block">
-          <h4 class="card-title">Piezas </h4>
+          <h4 class="card-title">Piezas</h4>
           <div class="row">
             <div class="col-md">
               <span>SKU's: <strong><small>{{ $descripciones->implode(", ") }}</small></strong></span><br>
@@ -120,31 +120,17 @@
     <div class="col-md-6">
       <div class="card p-2">
         <div class="card-block">
-          <h4 class="card-title">Componentes</h4>
+          <h4 class="card-title">Componentes </h4>
+          @foreach ($complementos as $element)
           <div class="row">
             <div class="col-md">
-              <p>
-                <span>Tipo/Pieza: <strong>{{ $piezas->first()->pieza_modulo->tipo_pieza }}</strong></span><br>
-                <span>Material: <strong>{{ $piezas->first()->materiale->nombre }}</strong></span><br>
-                <span>Mecanizado1: <strong>{{ $piezas->first()->mecanizado1 }}</strong></span><br>
-                <span>Mecanizado2: <strong>{{ $piezas->first()->mecanizado2 }}</strong></span><br>
-              </p>
+              <p><span>Categoria: <strong>{{ $element['nombre'] }}</strong></span></p>
             </div>
             <div class="col-md">
-              <p>
-                <span>Largo: <strong>{{ $piezas->first()->largo }}</strong></span><br>
-                <span>Largo Sup: <strong>{{ $piezas->first()->largo_sup }}</strong></span><br>
-                <span>Largo Inf: <strong>{{ $piezas->first()->largo_inf }}</strong></span><br>
-              </p>
-            </div>
-            <div class="col-md">
-              <p>
-                <span>Ancho: <strong>{{ $piezas->first()->ancho }}</strong></span><br>
-                <span>Ancho Sup: <strong>{{ $piezas->first()->ancho_sup }}</strong></span><br>
-                <span>Ancho Inf: <strong>{{ $piezas->first()->ancho_inf }}</strong></span><br>
-              </p>
+              <p><span>Cantidad: <strong>{{ $element['cantidad'] }}</strong></span></p>
             </div>
           </div>
+          @endforeach
         </div>
       </div>
     </div>

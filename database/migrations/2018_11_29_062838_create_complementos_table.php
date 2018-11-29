@@ -18,6 +18,7 @@ class CreateComplementosTable extends Migration
             $table->increments('id');
             $table->integer('modulo_id');
             $table->string('producto')->nullable();
+            $table->string('descripcion')->nullable();
             $table->integer('categoria_id');
             $table->integer('cantidad');
             $table->integer('created_by')->nullable();
@@ -36,6 +37,6 @@ class CreateComplementosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('componentes');
+        Schema::dropIfExists('complementos');
     }
 }
