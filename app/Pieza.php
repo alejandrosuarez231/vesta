@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Pieza extends Model
 {
+	use SoftDeletes;
 	/**
 	 * The database table used by the model.
 	 *
@@ -26,10 +28,10 @@ class Pieza extends Model
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
-	public function modelo()
+	public function modulo()
 	{
-		// belongsTo(RelatedModel, foreignKey = modelo_id, keyOnRelatedModel = id)
-		return $this->belongsTo(Modelo::class);
+		// belongsTo(RelatedModel, foreignKey = modulo_id, keyOnRelatedModel = id)
+		return $this->belongsTo(Modulo::class);
 	}
 	/**
 	 * Pieza belongs to Pieza_modulo.
@@ -39,7 +41,7 @@ class Pieza extends Model
 	public function pieza_modulo()
 	{
 		// belongsTo(RelatedModel, foreignKey = pieza_modulo_id, keyOnRelatedModel = id)
-		return $this->belongsTo(Pieza_modulo::class);
+		return $this->belongsTo(Pieza_modulo::class,'piezas_modulo_id');
 	}
 	/**
 	 * Pieza belongs to Materiale.

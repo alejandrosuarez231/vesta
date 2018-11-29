@@ -87,6 +87,11 @@ class PiezasModuloController extends Controller
       return view('backend.modulos.piezas.edit', compact('pieza'));
     }
 
+    public function getPiezaModulo(Pieza_modulo $pieza)
+    {
+        return $pieza;
+    }
+
     /**
      * Update the specified resource in storage.
      *

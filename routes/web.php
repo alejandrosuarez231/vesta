@@ -84,10 +84,21 @@ Route::get('/ModuloEditData/{id}', 'ModuloController@editData')->name('data.modu
 Route::get('/getModulos/{tipo}/{sutipo}/{sap}/{sar}', 'ModuloController@getModulos')->name('data.getmodulos');
 /* Modulo-Piezas */
 Route::get('/dataModulosPiezas', 'PiezasModuloController@indexData')->name('data.modulospiezas');
+Route::get('/getPiezaModulo/{pieza}', 'PiezasModuloController@getPiezaModulo')->name('data.modulopieza');
 Route::resource('/backend/modulos/piezas', 'PiezasModuloController');
+/* Definicion de piezas */
+Route::get('backend/piezas/create/{id}','PiezaController@createBySku')->name('piezassku.piezas.create');
+Route::resource('backend/piezas', 'PiezaController',['as' => 'piezassku'])->except([
+  'index','create','destroy'
+]);
 /* Modulo-Complementos */
 Route::get('/dataModulosComplementos', 'ComplementoModuloController@indexData')->name('data.moduloscomplementos');
 Route::resource('/backend/modulos/complementos', 'ComplementoModuloController');
+/* Definicion de complementos */
+Route::get('backend/complementos/create/{id}','ComplementoController@createBySku')->name('complementosku.complementos.create');
+Route::resource('backend/complementos', 'ComplementoController',['as' => 'complementosku'])->except([
+  'index','create','destroy'
+]);
 Route::resource('/backend/modulos', 'ModuloController');
 
 

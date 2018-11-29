@@ -77,4 +77,24 @@ class Modulo extends Model
         // belongsTo(RelatedModel, foreignKey = fondo_id, keyOnRelatedModel = id)
         return $this->belongsTo(Fondo::class);
     }
+    /**
+     * Modulo has many Pieza.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function pieza()
+    {
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = modulo_id, localKey = id)
+        return $this->hasMany(Pieza::class);
+    }
+    /**
+     * Modulo has many Complemento.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function complemento()
+    {
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = modulo_id, localKey = id)
+        return $this->hasMany(Complemento::class);
+    }
 }

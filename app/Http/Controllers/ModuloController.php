@@ -7,6 +7,8 @@ use App\Modulo;
 use App\Skulistado;
 use App\Sap;
 use App\Fondo;
+use App\Pieza;
+use App\Complemento;
 use Alert;
 use Yajra\DataTables\DataTables;
 use DB;
@@ -20,22 +22,28 @@ class ModuloController extends Controller
 
   public function indexData()
   {
-    $modulos = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre','sap:id,valor','fondo:id,valor')->get();
+    $modulos = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre','sap:id,valor','fondo:id,valor','pieza','complemento')->get();
+
     return Datatables::of($modulos)
-    // ->addColumn('piezas', function($modulo){
-    //   if(\App\Pieza::where('modulo_id',$modulo->id)->count() > 0){
-    //     return 1;
-    //   }else {
-    //     return 'Sin Piezas';
-    //   }
-    // })
+    ->editColumn('pieza', function($modulo){
+      if($modulo->pieza->count() == 0){
+        // return $modulo->pieza->count();
+        return '<a href="../backend/piezas/create/'.$modulo->id.'" titlle="Editar" class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i></a>';
+      }
+    })
+    ->editColumn('complemento', function($modulo){
+      if($modulo->complemento->count() == 0){
+        // return $modulo->complemento->count();
+        return '<a href="../backend/complementos/create/'.$modulo->id.'" titlle="Editar" class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i></a>';
+      }
+    })
     ->addColumn('action', function ($modulo) {
       return '
       <a href="modulos/'.$modulo->id.'/edit " titlle="Editar" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
       <a href="modulos/'.$modulo->id.'" titlle="" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
       ';
     })
-    ->rawColumns(['piezas','action'])
+    ->rawColumns(['pieza','complemento','action'])
     ->make(true);
   }
 
@@ -118,11 +126,14 @@ class ModuloController extends Controller
       $modulo = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre')
       ->findOrFail($id);
       $saps = Sap::whereIn('id',explode(",",$modulo->saps))->get();
-        // dd($modulo->fondos);
       $fondos = Fondo::whereIn('id',explode(",",$modulo->fondos))->get();
-        // dd($fondos);
-        // dd($modulo,$saps->implode('valor',', '),$fondos->implode('valor',', '));
-      return view('backend.modulos.show', compact('modulo','saps','fondos'));
+      $piezas = Pieza::with('pieza_modulo:id,tipo_pieza','materiale:id,nombre')->where('modulo_id',$id)->get();
+      $descripciones = collect();
+      foreach ($piezas as $key => $value) {
+        $descripciones->push($value->descripcion);
+      }
+
+      return view('backend.modulos.show', compact('modulo','saps','fondos','piezas','descripciones'));
     }
 
     /**

@@ -13,9 +13,9 @@
       </ul>
     </div>
   </div>
+  {!! Form::open(['url' => 'backend/modulos', 'method' => 'POST']) !!}
   <div class="row">
-    <div class="col-md-10">
-      {!! Form::open(['url' => 'backend/modulos', 'method' => 'POST']) !!}
+    <div class="col-md-6">
       <div class="form-row">
         <div class="form-group mr-2">
           {!! Form::label('sku_grupo', 'SKU Grupo', ['class' => 'form-control-label']) !!}
@@ -50,10 +50,6 @@
           {!! Form::text('nombre', null, ['class'=>'form-control','placeholder'=>'Nombre']) !!}
           {!! $errors->first('nombre', '<small class="help-block text-danger">:message</small>') !!}
         </div>
-        {{-- <div class="form-group">
-          {!! Form::label('consecutivo', 'Consecutivo', ['class'=>'form-control-label']) !!}
-          {!! Form::number('consecutivo', null, ['class'=>'form-control','placeholder'=>'Nº Consecutivo']) !!}
-        </div> --}}
       </div>
       <div class="form-row">
         <div class="form-group col-6">
@@ -61,10 +57,6 @@
           {!! Form::text('descripcion', null, ['class'=>'form-control','placeholder'=>'Descripcion']) !!}
           {!! $errors->first('descripcion', '<small class="help-block text-danger">:message</small>') !!}
         </div>
-        {{-- <div class="form-group">
-          {!! Form::label('variantes', 'Variantes', ['class'=>'form-control-label']) !!}
-          {!! Form::number('variantes', null, ['class'=>'form-control','placeholder'=>'Variantes']) !!}
-        </div> --}}
       </div>
       <div class="form-row">
         <div class="form-group mr-2">
@@ -93,44 +85,32 @@
           {!! Form::label('ancho_maximo', 'Ancho Max.', ['class'=>'form-control-label']) !!}
           {!! Form::number('ancho_maximo', null, ['class'=>'form-control','placeholder'=>'Ancho Maximo']) !!}
         </div>
-        {{-- <div class="form-group mr-2">
-          {!! Form::label('ancho_var', 'Ancho Var.', ['class'=>'form-control-label']) !!}
-          {!! Form::number('ancho_var', null, ['class'=>'form-control','placeholder'=>'Ancho Permitido']) !!}
-        </div> --}}
       </div>
       <div class="form-row">
         <div class="form-group mr-2">
-          {!! Form::label('alto_minimo', 'Alto Min.', ['class'=>'form-control-label']) !!}
+          {!! Form::label('alto_minimo', 'Ancho Min.', ['class'=>'form-control-label']) !!}
           {!! Form::number('alto_minimo', null, ['class'=>'form-control','placeholder'=>'Alto Minimo']) !!}
         </div>
         <div class="form-group mr-2">
-          {!! Form::label('alto_maximo', 'Alto Max.', ['class'=>'form-control-label']) !!}
+          {!! Form::label('alto_maximo', 'Ancho Max.', ['class'=>'form-control-label']) !!}
           {!! Form::number('alto_maximo', null, ['class'=>'form-control','placeholder'=>'Alto Maximo']) !!}
         </div>
-        {{-- <div class="form-group mr-2">
-          {!! Form::label('alto_var', 'Ancho Var.', ['class'=>'form-control-label']) !!}
-          {!! Form::number('alto_var', null, ['class'=>'form-control','placeholder'=>'Alto Var']) !!}
-        </div> --}}
       </div>
       <div class="form-row">
         <div class="form-group mr-2">
-          {!! Form::label('profundidad_minima', 'Profundidad Min.', ['class'=>'form-control-label']) !!}
+          {!! Form::label('profundidad_minima', 'Ancho Min.', ['class'=>'form-control-label']) !!}
           {!! Form::number('profundidad_minima', null, ['class'=>'form-control','placeholder'=>'Profundidad Minima']) !!}
         </div>
         <div class="form-group mr-2">
-          {!! Form::label('profundidad_maxima', 'Profundidad Max.', ['class'=>'form-control-label']) !!}
+          {!! Form::label('profundidad_maxima', 'Ancho Max.', ['class'=>'form-control-label']) !!}
           {!! Form::number('profundidad_maxima', null, ['class'=>'form-control', 'placeholder'=>'Profundidad Maxima']) !!}
         </div>
-        {{-- <div class="form-group mr-2">
-          {!! Form::label('profundidad_var', 'Ancho Var.', ['class'=>'form-control-label']) !!}
-          {!! Form::number('profundidad_var', null, ['class'=>'form-control', 'placeholder'=>'Profundidad Var']) !!}
-        </div> --}}
       </div>
       <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Registrar</button>
       <a class="btn btn-warning text-danger" href="{{ url('/backend/modulos') }}" title="Cancelar"><i class="fas fa-ban"></i> Cancelar</a>
-      {!! Form::close() !!}
     </div>
   </div>
+  {!! Form::close() !!}
 </div>
 
 @endsection
