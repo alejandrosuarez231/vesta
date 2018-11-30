@@ -59,8 +59,8 @@
       {data: 'subtipo.nombre', name: 'subtipo.nombre', title: 'SubTipo', className: 'text-center'},
       {data: 'categoria.nombre', name: 'categoria.nombre', title: 'Categoria', className: 'text-left'},
       {data: 'nombre', name: 'nombre', title: 'Nombre', className: 'text-left'},
-      {data: 'pieza', name: 'pieza', title: 'Piezas', className: 'text-center'},
-      {data: 'complemento', name: 'complemento', title: 'Complementos', className: 'text-center'},
+      {data: 'piezas', name: 'piezas', title: 'Piezas', className: 'text-center'},
+      {data: 'complementos', name: 'complementos', title: 'Complementos', className: 'text-center'},
       {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-left'}
       ],
       "language": {

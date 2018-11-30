@@ -24,6 +24,17 @@ class Pieza extends Model
 	protected $fillable = ['modulo_id','producto','pieza_modulo_id','materiale_id','descripcion','cantidad','largo','largo_sup','largo_inf','ancho','ancho_izq','ancho_der','mecanizado1','mecanizado2','created_by','updated_by','approved_by','approved_on'];
 
 	/**
+	 * Query scope .
+	 *
+	 * @param  \Illuminate\Database\Eloquent\Builder
+	 * @return \Illuminate\Database\Eloquent\Builder
+	 */
+	public function scopeDone($query,$flag)
+	{
+		return $query->where('approved_by',$flag);
+	}
+
+	/**
 	 * Pieza belongs to Modelo.
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

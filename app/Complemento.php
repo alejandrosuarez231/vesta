@@ -22,6 +22,17 @@ class Complemento extends Model
      * @var array
      */
     protected $fillable = ['modulo_id','producto','categoria_id','cantidad','created_by','updated_by','approved_by','approved_on'];
+
+    /**
+     * Query scope .
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeDone($query,$flag)
+    {
+        return $query->where('approved_by',$flag);
+    }
     /**
      * Complemento belongs to Modulo.
      *

@@ -24,9 +24,9 @@ class Modulo extends Model
     protected $fillable = ['sku_grupo','tipo_id','subtipo_id','categoria_id' ,'nombre','consecutivo','descripcion','variantes','saps','fondos','espesor_permitido','ancho_minimo','ancho_maximo','ancho_var','alto_minimo','alto_maximo','alto_var','profundidad_minima','profundidad_maxima','profundidad_var','created_by','updated_by','approved_by','approved_on'];
 
     /* Scope Aprovados */
-    public function scopeAprobados($query)
+    public function scopeDone($query, $flag)
     {
-        return $query->where('approved_by',true);
+        return $query->where('approved_by',$flag);
     }
 
 
@@ -118,6 +118,7 @@ class Modulo extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
+
     public function aprobado()
     {
         // belongsTo(RelatedModel, foreignKey = aprobado_id, keyOnRelatedModel = id)
