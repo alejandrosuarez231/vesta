@@ -17,17 +17,20 @@ class PiezasModuloController extends Controller
     public function index()
     {
       return view('backend.modulos.piezas.index');
-    }
+  }
 
-    public function indexData()
-    {
-      $piezas = Pieza_modulo::with('materiale:id,nombre')->get();
+  public function indexData()
+  {
+      $piezas = Pieza_modulo::with('materiale:id,nombre','creado:id,name','aprobado:id,name')->get();
       return Datatables::of($piezas->all())
+      ->editColumn('created_by', function($pieza){
+        return $pieza->creado->name;
+      })
       ->addColumn('action', function ($pieza) {
         return '<a href="piezas/'.$pieza->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>';
-      })
+    })
       ->make(true);
-    }
+  }
 
     /**
      * Show the form for creating a new resource.
@@ -37,7 +40,7 @@ class PiezasModuloController extends Controller
     public function create()
     {
       return view('backend.modulos.piezas.create');
-    }
+  }
 
     /**
      * Store a newly created resource in storage.
@@ -47,23 +50,26 @@ class PiezasModuloController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->except(['_method','_token']));
       $this->validate($request, [
         'tipo_pieza' => 'bail|required|unique:piezas_modulos|max:200',
         'materiale_id' => 'bail|required',
         'acronimo' => 'bail|required',
-        'formula_area' => 'nullable',
+        'formula_largo' => 'nullable',
+        'formula_ancho' => 'nullable',
         'formula_canto' => 'nullable',
         'canto_largo1' => 'nullable',
         'canto_largo2' => 'nullable',
         'canto_ancho1' => 'nullable',
         'canto_ancho2' => 'nullable',
-        'costo' => 'nullable',
-      ]);
+        'updated_by' => 'required',
+        'costo' => 'nullable'
+    ]);
 
       Pieza_modulo::create($request->except(['_method','_token']));
       toast('Registro creado!','success','top-right');
       return redirect('/backend/modulos/piezas');
-    }
+  }
 
     /**
      * Display the specified resource.
@@ -85,12 +91,12 @@ class PiezasModuloController extends Controller
     public function edit(Pieza_modulo $pieza)
     {
       return view('backend.modulos.piezas.edit', compact('pieza'));
-    }
+  }
 
-    public function getPiezaModulo(Pieza_modulo $pieza)
-    {
-        return $pieza;
-    }
+  public function getPiezaModulo(Pieza_modulo $pieza)
+  {
+    return $pieza;
+}
 
     /**
      * Update the specified resource in storage.
@@ -106,18 +112,20 @@ class PiezasModuloController extends Controller
         'tipo_pieza' => 'bail|required|max:200|unique:piezas_modulos,id,'.$pieza->id,
         'materiale_id' => 'bail|required',
         'acronimo' => 'bail|required',
-        'formula_area' => 'nullable',
+        'formula_largo' => 'nullable',
+        'formula_ancho' => 'nullable',
         'formula_canto' => 'nullable',
         'canto_largo1' => 'nullable',
         'canto_largo2' => 'nullable',
         'canto_ancho1' => 'nullable',
         'canto_ancho2' => 'nullable',
+        'updated_by' => 'required',
         'costo' => 'nullable'
-      ]);
+    ]);
       Pieza_modulo::where('id',$pieza->id)->update($request->except(['_method','_token']));
       toast('Registro Actualizado!','success','top-right');
       return redirect('/backend/modulos/piezas');
-    }
+  }
 
     /**
      * Remove the specified resource from storage.
@@ -129,4 +137,4 @@ class PiezasModuloController extends Controller
     {
         //
     }
-  }
+}

@@ -31,12 +31,14 @@
             <th>Tipo/Pieza</th>
             <th>Material</th>
             <th>Acronimo</th>
-            <th>Largo</th>
-            <th>Ancho</th>
+            <th>F/Largo</th>
+            <th>F/Ancho</th>
+            <th>F/Canto</th>
             <th>CL1</th>
             <th>CL2</th>
             <th>CA1</th>
             <th>CA2</th>
+            <th>Creado por</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -59,12 +61,14 @@
       {data: 'tipo_pieza', name: 'tipo_pieza', title: 'Tipo/Pieza'},
       {data: 'materiale.nombre', name: 'materiale.nombre', title: 'Material', className: 'text-left'},
       {data: 'acronimo', name: 'acronimo', title: 'Acronimo', className: 'text-left'},
-      {data: 'formula_area', name: 'formula_area', title: 'Largo', className: 'text-left'},
-      {data: 'formula_canto', name: 'formula_canto', title: 'Ancho', className: 'text-left'},
+      {data: 'formula_largo', name: 'formula_largo', title: 'F/Largo', className: 'text-left'},
+      {data: 'formula_ancho', name: 'formula_ancho', title: 'F/Ancho', className: 'text-left'},
+      {data: 'formula_canto', name: 'formula_canto', title: 'F/Ancho', className: 'text-left'},
       {data: 'canto_largo1', name: 'canto_largo1', title: 'CL1', className: 'text-left'},
       {data: 'canto_largo2', name: 'canto_largo2', title: 'CL2', className: 'text-left'},
       {data: 'canto_ancho1', name: 'canto_ancho1', title: 'CA1', className: 'text-left'},
       {data: 'canto_ancho2', name: 'canto_ancho2', title: 'CA2', className: 'text-left'},
+      {data: 'created_by', name: 'created_by', title: 'Creado por', className: 'text-left'},
       {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-left'}
       ],
       "language": {

@@ -32,9 +32,15 @@
           {!! Form::text('acronimo', null, ['class'=>'form-control','placeholder'=>'Acronimo']) !!}
           {!! $errors->first('acronimo', '<small class="help-block text-danger">:message</small>') !!}
         </div>
+      </div>
+      <div class="form-row">
         <div class="form-group mr-2">
-          {!! Form::label('formula_area', 'Formula Area', ['class'=>'form-control-label']) !!}
-          {!! Form::text('formula_area', null, ['class'=>'form-control','placeholder'=>'Formula Area']) !!}
+          {!! Form::label('formula_largo', 'Formula Largo', ['class'=>'form-control-label']) !!}
+          {!! Form::text('formula_largo', null, ['class'=>'form-control','placeholder'=>'Formula Largo']) !!}
+        </div>
+        <div class="form-group mr-2">
+          {!! Form::label('formula_ancho', 'Formula Ancho', ['class'=>'form-control-label']) !!}
+          {!! Form::text('formula_ancho', null, ['class'=>'form-control','placeholder'=>'Formula Ancho']) !!}
         </div>
         <div class="form-group mr-2">
           {!! Form::label('formula_canto', 'Formula Canto', ['class'=>'form-control-label']) !!}
@@ -64,6 +70,7 @@
         {!! Form::label('costo', 'Costo', ['class'=>'form-control-label']) !!}
         {!! Form::number('costo', null, ['class'=>'form-control col-md-2 text-right','placeholder'=>'0.00']) !!}
       </div>
+      {!! Form::hidden('created_by', auth()->id(), []) !!}
       <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Registrar</button>
       <a class="btn btn-warning text-danger" href="{{ url('/backend/modulos/piezas') }}" title="Cancelar"><i class="fas fa-ban"></i> Cancelar</a>
       {!! Form::close() !!}
