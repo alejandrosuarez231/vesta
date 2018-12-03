@@ -197,6 +197,8 @@ class SkuController extends Controller
             }
             toast('Registros creados!','success','top-right');
             return redirect('/backend/skus');
+        }else {
+            return 'Imposible remplazar listado existente';
         }
     }
 
