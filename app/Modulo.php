@@ -15,6 +15,7 @@ class Modulo extends Model
     protected $table = 'modulos';
     protected $guarded = ['id'];
     protected $dates = ['created_at','updated_at','deleted_at','approved_on'];
+    // protected $appends = ['cantidadpiezas','cantidadcomplementos'];
 
     /**
      * Fields that can be mass assigned.
@@ -28,6 +29,14 @@ class Modulo extends Model
     {
         return $query->where('approved_by',$flag);
     }
+
+    // public function getCantidadPiezasAttribute(){
+    //     return $this->pieza->count();
+    // }
+
+    // public function getCantidadComplementosAttribute(){
+    //     return $this->complemento->count();
+    // }
 
 
     /**

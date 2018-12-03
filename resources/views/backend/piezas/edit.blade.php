@@ -4,21 +4,28 @@
 <div class="container-fluid" id="app" v-cloak>
   <div class="row">
     <div class="col-md">
-      <h3>Modulo: [<span class="text-primary"><strong>{{ $modulo->sku_grupo }}</strong></span>]  {{ $modulo->nombre }} <br><small>Nuevas Piezas </small></h3>
+      <h3>Modulo: [<span class="text-primary"><strong>{{ $modulo->sku_grupo }}</strong></span>]  {{ $modulo->nombre }}  @if($aprobadas <> null)<span class="text-success"><strong>Aprobadas</strong></span>@endif <br><small>Nuevas Piezas </small></h3>
       <ul class="nav">
         <li class="nav-item">
           <a href="{{ url()->previous() }}" class="btn btn-link" title="Inicio">Regresar</a>
         </li>
+
+        @if ($aprobadas == null)
+        <li>
+          <span class="float-right"><a class="btn btn-sm btn-light" href="{{ action('PiezaController@aprobar', ['id' => $modulo->id]) }}" title="Aprobar">Aprobar Piezas</a></span>
+        </li>
+        @endif
+
       </ul>
     </div>
   </div>
-  {!! Form::open(['route' => 'piezassku.piezas.store', 'method' => 'POST']) !!}
+  {!! Form::open([]) !!}
   <div class="row">
     <div class="col-md" @keyup.ctrl.alt.97="addRowPIEZA(this.app.piezas.length -1)">
       <table class="table">
         <caption>
           <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Registrar</button>
-          <a class="btn btn-warning text-danger" href="{{ url('/frontend/proyectos') }}" title="Cancelar"><i class="fas fa-ban"></i> Cancelar</a>
+          <a class="btn btn-warning text-danger" href="{{ url()->previous() }}" title="Cancelar"><i class="fas fa-ban"></i> Cancelar</a>
         </caption>
         <thead>
           <tr>
@@ -71,8 +78,19 @@
   var app = new Vue({
     el: '#app',
 
+    created(){
+      axios.get('/editPiezaData/' + '{{ $modulo->id }}')
+      .then( response => {
+        this.piezas = response.data
+      })
+      .catch(function(error){
+        console.log(error)
+      })
+    },
+
     data: {
-      sku_grupo: '{{ $modulo->sku_grupo }}',
+      modulo_id: '',
+      sku_grupo: '',
       descripcion: '',
       piezas: [{modulo_id:'',piezas_modulo_id:'',materiale_id:'',descripcion:'',cantidad:'',largo:'',largo_sup:'',largo_inf:'',ancho:'',ancho_izq:'',ancho_der:'',mecanizado1:'',mecanizado2:''}],
     },
@@ -96,7 +114,7 @@
           console.log(response.data);
           this.descripcion = response.data.acronimo + '-' + this.sku_grupo;
           this.piezas.splice(index, 1, {
-            modulo_id:'{{ $modulo->id }}',
+            modulo_id:'',
             piezas_modulo_id: response.data.id,
             materiale_id: response.data.materiale_id,
             descripcion: response.data.acronimo + '-' + this.sku_grupo,

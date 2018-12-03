@@ -45,43 +45,40 @@ class PiezaController extends Controller
      */
     public function store(Request $request)
     {
-      // $this->validate($request, [
-      //   'piezas_modulo_id.*' => 'bail|required',
-      //   'formula_area.*' => 'bail|required',,
-      //   'formula_canto.*' => 'bail|required',,
-      //   'canto_largo1.*' => 'nullable',
-      //   'canto_largo2.*' => 'nullable',
-      //   'canto_ancho1.*' => 'nullable',
-      //   'canto_ancho2.*' => 'nullable',
-      //   'mecanizado1.*' => 'nullable',
-      //   'mecanizado2.*' => 'nullable',
-      //   'cantidad.*' => 'bail|required|min:1'
-      // ]);
-      $skus_padres = Skulistado::where('modulo_id',$request->piezas_modulo_id[0][0])->get();
-      $cantidad = $skus_padres->count();
+      $this->validate($request, [
+        'modulo_id.*' => 'bail|required',
+        'piezas_modulo_id.*' => 'bail|required',
+        'formula_area.*' => 'bail|required',
+        'formula_canto.*' => 'bail|required',
+        'canto_largo1.*' => 'nullable',
+        'canto_largo2.*' => 'nullable',
+        'canto_ancho1.*' => 'nullable',
+        'canto_ancho2.*' => 'nullable',
+        'mecanizado1.*' => 'nullable',
+        'mecanizado2.*' => 'nullable',
+        'cantidad.*' => 'bail|required|min:1'
+      ]);
 
-      $data = collect();
-      // dd($request->except(['_token']));
-      for ($i=0; $i <= $cantidad -1 ; $i++) {
-        for ($e=0; $e <= count($request->piezas_modulo_id) - 1 ; $e++) {
-          $acronimo = Pieza_modulo::findOrFail($request->piezas_modulo_id[$e]);
-          DB::table('piezas')->insert([
-            'modulo_id' => $request->modulo_id[$e],
-            'piezas_modulo_id' => $request->piezas_modulo_id[$e],
-            'materiale_id' => $request->materiale_id[$e],
-            'descripcion' => $acronimo->acronimo . '-' . $skus_padres[$i]->sku_padre,
-            'largo' => $request->largo[$e],
-            'largo_sup' => $request->largo_sup[$e],
-            'largo_inf' => $request->largo_inf[$e],
-            'ancho' => $request->ancho[$e],
-            'ancho_izq' => $request->ancho_izq[$e],
-            'ancho_der' => $request->ancho_der[$e],
-            'mecanizado1' => $request->mecanizado1[$e],
-            'mecanizado2' => $request->mecanizado2[$e],
-            'cantidad' => $request->cantidad[$e],
-            'created_by' => auth()->id(),
-          ]);
-        }
+      $modulo = Modulo::findOrFail($request->modulo_id[0]);
+
+      for ($i=0; $i <= count($request->modulo_id) - 1 ; $i++) {
+        $acronimo = Pieza_modulo::findOrFail($request->piezas_modulo_id[$i]);
+        DB::table('piezas')->insert([
+          'modulo_id' => $request->modulo_id[$i],
+          'piezas_modulo_id' => $request->piezas_modulo_id[$i],
+          'materiale_id' => $request->materiale_id[$i],
+          'descripcion' => $acronimo->acronimo . '-' . $modulo->sku_grupo,
+          'largo' => $request->largo[$i],
+          'largo_sup' => $request->largo_sup[$i],
+          'largo_inf' => $request->largo_inf[$i],
+          'ancho' => $request->ancho[$i],
+          'ancho_izq' => $request->ancho_izq[$i],
+          'ancho_der' => $request->ancho_der[$i],
+          'mecanizado1' => $request->mecanizado1[$i],
+          'mecanizado2' => $request->mecanizado2[$i],
+          'cantidad' => $request->cantidad[$i],
+          'created_by' => auth()->id(),
+        ]);
       }
 
       toast('Registros creado!','success','top-right');
@@ -107,7 +104,16 @@ class PiezaController extends Controller
      */
     public function edit(Pieza $pieza)
     {
-        //
+      $piezas = Pieza::where('modulo_id',$pieza->modulo_id)->get();
+      $aprobadas = $piezas->first()->approved_by;
+      $modulo = Modulo::findOrFail($pieza->modulo_id);
+      return view('backend.piezas.edit', compact('modulo','aprobadas'));
+    }
+
+    public function editPiezaData($modulo_id)
+    {
+      $piezas = Pieza::where('modulo_id', $modulo_id)->get();
+      return $piezas;
     }
 
     /**

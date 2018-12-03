@@ -48,28 +48,20 @@ class ComplementoController extends Controller
      */
     public function store(Request $request)
     {
-      // $this->validate($request, [
-      //   'modulo_id.*' => 'bail|required',
-      //   'categoria_id.*' => 'bail|required',
-      //   'cantidad.*' => 'bail|required|min:1'
-      // ]);
+      $this->validate($request, [
+        'modulo_id.*' => 'bail|required',
+        'categoria_id.*' => 'bail|required',
+        'cantidad.*' => 'bail|required|min:1'
+      ]);
 
-      $skus_padres = Skulistado::where('modulo_id',$request->modulo_id[0][0])->get();
-      $cantidad = $skus_padres->count();
-      $data = collect();
-
-      for ($i=0; $i <= $cantidad -1 ; $i++) {
-        for ($e=0; $e <= count($request->modulo_id) - 1 ; $e++) {
-          $acronimo = Complemento_Modulo::findOrFail($request->modulo_id[$e]);
-          DB::table('complementos')->insert([
-            'modulo_id' => $request->modulo_id[$e],
-            'producto' => null,
-            'categoria_id' => $request->categoria_id[$e],
-            // 'descripcion' => $acronimo->acronimo . '-' . $skus_padres[$i]->sku_padre,
-            'cantidad' => $request->cantidad[$e],
-            'created_by' => auth()->id(),
-          ]);
-        }
+      for ($i=0; $i <= count($request->modulo_id) - 1 ; $i++) {
+        DB::table('complementos')->insert([
+          'modulo_id' => $request->modulo_id[$i],
+          'producto' => null,
+          'categoria_id' => $request->categoria_id[$i],
+          'cantidad' => $request->cantidad[$i],
+          'created_by' => auth()->id(),
+        ]);
       }
 
       toast('Registros creado!','success','top-right');
@@ -95,7 +87,14 @@ class ComplementoController extends Controller
      */
     public function edit(Complemento $complemento)
     {
-        //
+      $modulo = $complemento->modulo_id;
+      return view('backend.complementos.edit', compact('modulo'));
+    }
+
+    public function editComplementoData($modulo_id)
+    {
+      $complementos = Complemento::where('modulo_id',$modulo_id)->get();
+      return $complementos;
     }
 
     /**

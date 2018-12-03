@@ -25,49 +25,29 @@ class ModuloController extends Controller
     $modulos = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre','sap:id,valor','fondo:id,valor','pieza','complemento','aprobado:id,name')->get();
 
     return Datatables::of($modulos)
-    ->editColumn('piezas', function($modulo){
+    ->addColumn('other', function($modulo){
+      $botones = '<span>';
       if($modulo->pieza->count() == 0){
-        return '<a href="../backend/piezas/create/'.$modulo->id.'" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Piezas"><i class="fas fa-plus-circle"></i></a>';
-      }else if( $modulo->pieza->count() > 0 && Pieza::where('modulo_id',$modulo->id)->where('approved_by',null)->count() > 0 ) {
-        return '<a href="../../aprobarPiezas/'.$modulo->id.'" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Aprobar"><i class="fas fa-lock-open"></i></a>';
-      }else if($modulo->pieza->count() > 0 && (Pieza::with('aprobado:id,name')->where('modulo_id',$modulo->id)->where('approved_by','>',0)->count()) > 0 ){
-        return '<span class="text-success" data-toggle="tooltip" data-placement="top" title="'.Pieza::with('aprobado:id,name')->where('modulo_id',$modulo->id)->where('approved_by','>',0)->first()->aprobado->name.'"><i class="fas fa-user-check"></i></span>';
+        $botones = '<a href="../backend/piezas/create/'.$modulo->id.'" class="btn btn-sm btn-light text-success mr-2" data-toggle="tooltip" data-placement="top" title="Agregar Piezas"><i class="far fa-plus-square"></i></a>';
+      }else {
+        $botones = '<a href="../backend/piezas/'.$modulo->id.'/edit" class="btn btn-sm btn-light text-primary mr-2" data-toggle="tooltip" data-placement="top" title="Editar Piezas"><i class="far fa-edit"></i></a>';
       }
-    })
-    ->editColumn('complementos', function($modulo){
       if($modulo->complemento->count() == 0){
-        return '<a href="../backend/complementos/create/'.$modulo->id.'" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Agregar Complementos"><i class="fas fa-plus-circle"></i></a>';
-      }else if($modulo->complemento->count() > 0 && Complemento::where('modulo_id',$modulo->id)->where('approved_by',null)->count() > 0){
-        return '<a href="/aprobarComplementos/'.$modulo->id.'" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Aprobar"><i class="fas fa-lock-open"></i></a>';
-      }else if($modulo->pieza->count() > 0 && (Complemento::with('aprobado:id,name')->where('modulo_id',$modulo->id)->where('approved_by','>',0)->count()) > 0 ){
-        return '<span class="text-success" data-toggle="tooltip" data-placement="top" title="'.Complemento::with('aprobado:id,name')->where('modulo_id',$modulo->id)->where('approved_by','>',0)->first()->aprobado->name.'"><i class="fas fa-user-check"></i></span>';
+        $botones .= '<a href="../backend/complementos/create/'.$modulo->id.'" class="btn btn-sm btn-light text-success mr-2" data-toggle="tooltip" data-placement="top" title="Agregar Complementos"><i class="far fa-plus-square"></i></a></span>';
+      }else {
+        $botones .= '<a href="../backend/complementos/'.$modulo->id.'/edit" class="btn btn-sm btn-light text-primary mr-2" data-toggle="tooltip" data-placement="top" title="Editar Complementos"><i class="far fa-edit"></i></a></span>';
       }
+      return $botones;
     })
     ->addColumn('action', function ($modulo) {
-      if( (Pieza::done(true)->where('modulo_id',$modulo->id)->count() > 0) && (Complemento::done(true)->where('modulo_id',$modulo->id)->count() > 0) && $modulo->approved_by > 0 ){
-        return '
-        <a href="modulos/'.$modulo->id.'/edit " titlle="Editar" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Editar Modulo"><i class="fas fa-edit"></i></a>
-        <a href="modulos/'.$modulo->id.'" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Ver Modulo"><i class="fas fa-eye"></i></a>
-        <span class="text-success float-right" data-toggle="tooltip" data-placement="top" title="'.$modulo->aprobado->name.'"><i class="fas fa-user-check"></i></span>
-        ';
-      }else if(
-        (Pieza::done(true)->where('modulo_id',$modulo->id)->count() > 0) &&
-        (Complemento::done(true)->where('modulo_id',$modulo->id)->count() > 0) &&
-        $modulo->done(false)
-      ){
-          return '
-        <a href="modulos/'.$modulo->id.'/edit " titlle="Editar" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Editar Modulo"><i class="fas fa-edit"></i></a>
-        <a href="modulos/'.$modulo->id.'" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Ver Modulo"><i class="fas fa-eye"></i></a>
-        <a href="/aprobarModulo/'.$modulo->id.'" class="btn btn-sm btn-danger float-right" data-toggle="tooltip" data-placement="top" title="Aprobar"><i class="fas fa-lock-open"></i></a>
-        ';
-      }else{
-        return '
-        <a href="modulos/'.$modulo->id.'/edit " titlle="Editar" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Editar Modulo"><i class="fas fa-edit"></i></a>
-        <a href="modulos/'.$modulo->id.'" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Ver Modulo"><i class="fas fa-eye"></i></a>
-        ';
-      }
+      return '
+      <span>
+      <a href="modulos/'.$modulo->id.'/edit " class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Editar Modulo"><i class="fas fa-edit"></i></a>
+      <a href="modulos/'.$modulo->id.'" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Ver Modulo"><i class="fas fa-eye"></i></a>
+      <a href="#" class="btn btn-sm btn-danger float-right" title="Construir" data-toggle="tooltip" data-placement="top"><i class="fas fa-cubes"></i></a>
+      ';
     })
-    ->rawColumns(['piezas','complementos','action'])
+    ->rawColumns(['test','other','action'])
     ->toJson();
   }
 

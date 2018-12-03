@@ -1,17 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid" id="app" v-cloak>
+<div class="container-fluid">
   <div class="row">
     <div class="col-md">
-      <h3>Modulo: [<span class="text-primary"><strong>{{ $modulo->sku_grupo }}</strong></span>]  {{ $modulo->nombre }} <br><small>Nuevo Complemento </small></h3>
+      <h3>Editar Complemento</h3>
       <ul class="nav">
         <li class="nav-item">
           <a href="{{ url()->previous() }}" class="btn btn-link" title="Inicio">Regresar</a>
         </li>
+        <li>
+          <span class="float-right"><a class="btn btn-sm btn-light" href="#" title="Aprobar">Aprobar Complementos</a></span>
+        </li>
       </ul>
     </div>
   </div>
+
   {!! Form::open(['route' => 'complementosku.complementos.store', 'method' => 'POST']) !!}
   <div class="row">
     <div class="col-md-6" @keyup.ctrl.alt.97="addRowComplemento(this.app.complementos.length -1)">
@@ -43,34 +47,7 @@
         </tbody>
       </table>
     </div>
-    <div class="col-md-6">
-      <div class="card p-2">
-        <div class="card-block">
-          <h4 class="card-title">Piezas </h4>
-          <div class="row">
-            <div class="col-md">
 
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md">
-              @php
-              {{ $var = 1; }}
-              @endphp
-              @if ($piezas_modulo)
-              @foreach ($piezas_modulo as $element)
-              <p>
-                <span>{{ $var++ }}</span> &nbsp; &nbsp;
-                <span>Tipo/Pieza: <strong>{{ $element->pieza_modulo->tipo_pieza }}</strong></span> &nbsp; &nbsp;
-                <span>Material: <strong>{{ $element->materiale->nombre }}</strong></span><br>
-              </p>
-              @endforeach
-              @endif
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
   {!! Form::close() !!}
 </div>
@@ -81,13 +58,23 @@
   var app = new Vue({
     el: '#app',
 
+    created(){
+      axios.get('/editComplementoData/' + {{ $modulo }})
+      .then( response => {
+        this.complementos = response.data
+      })
+      .catch(function(error){
+        console.log(error)
+      })
+    },
+
     data: {
-      complementos: [{modulo_id: '{{ $modulo->id }}', producto: '', categoria_id: '', cantidad: 0}],
+      complementos: [{modulo_id: {{ $modulo }}, producto: '', categoria_id: '', cantidad: 0}],
     },
 
     methods: {
       addRowComplemento: function (index) {
-        this.complementos.splice(index + 1, 1, {modulo_id: '{{ $modulo->id }}', producto: null, categoria_id: null, cantidad: 0});
+        this.complementos.splice(index + 1, 1, {modulo_id: {{ $modulo }}, producto: null, categoria_id: null, cantidad: 0});
       },
       removeRowComplemento: function(index){
         // console.log(index);
@@ -101,4 +88,3 @@
   });
 </script>
 @endsection
-
