@@ -30,7 +30,10 @@ class ModuloController extends Controller
       if($modulo->pieza->count() == 0){
         $botones = '<a href="../backend/piezas/create/'.$modulo->id.'" class="btn btn-sm btn-light text-success mr-2" data-toggle="tooltip" data-placement="top" title="Agregar Piezas"><i class="far fa-plus-square"></i></a>';
       }else {
-        $botones = '<a href="../backend/piezas/'.$modulo->id.'/edit" class="btn btn-sm btn-light text-primary mr-2" data-toggle="tooltip" data-placement="top" title="Editar Piezas"><i class="far fa-edit"></i></a>';
+        $botones = '
+        <a href="../backend/piezas/'.$modulo->id.'/edit" class="btn btn-sm btn-light text-primary mr-0" data-toggle="tooltip" data-placement="top" title="Editar Piezas"><i class="far fa-edit"></i></a>
+        <a href="/backend/piezas/'.$modulo->id.'" class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="top" title="Ver Piezas"><i class="fas fa-eye"></i></a>
+        ';
       }
       if($modulo->complemento->count() == 0){
         $botones .= '<a href="../backend/complementos/create/'.$modulo->id.'" class="btn btn-sm btn-light text-success mr-2" data-toggle="tooltip" data-placement="top" title="Agregar Complementos"><i class="far fa-plus-square"></i></a></span>';

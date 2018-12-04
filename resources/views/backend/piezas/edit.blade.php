@@ -81,7 +81,8 @@
     created(){
       axios.get('/editPiezaData/' + '{{ $modulo->id }}')
       .then( response => {
-        this.piezas = response.data
+        this.piezas = response.data;
+        console.log(response.data)
       })
       .catch(function(error){
         console.log(error)

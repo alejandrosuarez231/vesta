@@ -96,7 +96,8 @@ class PiezaController extends Controller
      */
     public function show(Pieza $pieza)
     {
-        //
+      $piezas = Pieza::with('pieza_modulo:id,tipo_pieza,acronimo','materiale:id,nombre')->where('modulo_id',$pieza->modulo_id)->get();
+      return view('backend.piezas.show', compact('piezas'));
     }
 
     /**
@@ -128,7 +129,7 @@ class PiezaController extends Controller
      */
     public function update(Request $request, Pieza $pieza)
     {
-        //
+      dd($request->all());
     }
 
     public function aprobar($id)
