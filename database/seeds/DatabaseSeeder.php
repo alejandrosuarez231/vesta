@@ -40,6 +40,7 @@ class DatabaseSeeder extends Seeder
           SkulistadoSeeder::class,
           PiezasModulosSeeder::class,
           ComplementosModulosSeeder::class,
+          PiezasSeeder::class,
         ]);
     }
 }

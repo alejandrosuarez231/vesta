@@ -96,7 +96,8 @@ class PiezaController extends Controller
      */
     public function show(Pieza $pieza)
     {
-      $piezas = Pieza::with('pieza_modulo:id,tipo_pieza,acronimo','materiale:id,nombre')->where('modulo_id',$pieza->modulo_id)->get();
+      $piezas = Pieza::with('pieza_modulo:id,tipo_pieza,acronimo','materiale:id,nombre','creado:id,name')->where('modulo_id',$pieza->modulo_id)->get();
+      // dd($piezas);
       return view('backend.piezas.show', compact('piezas'));
     }
 

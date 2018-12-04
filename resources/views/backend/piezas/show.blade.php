@@ -50,7 +50,7 @@
 						<td>{{$element->mecanizado1}}</td>
 						<td>{{$element->mecanizado2}}</td>
 						<td class="text-right">{{$element->cantidad}}</td>
-						<td>{{$element->created_by}}</td>
+						<td><small>{{$element->creado->name}}</small></td>
 					</tr>
 					@endforeach
 				</tbody>
