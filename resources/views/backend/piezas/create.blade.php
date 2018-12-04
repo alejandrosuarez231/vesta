@@ -25,11 +25,11 @@
             <th title="Tipo de Pieza">Pieza/Tipo</th>
             <th title="Descripcion">Descripcion</th>
             <th title="Formula Area">Largo</th>
-            <th title="Formula Canto">CL-1</th>
-            <th title="Canto Largo 1">CL-2</th>
+            <th title="Formula Canto">Largo <sup>SUP</sup></th>
+            <th title="Canto Largo 1">Largo <sup>INFR</sup></th>
             <th title="Canto Largo 2">Ancho</th>
-            <th title="Canto Ancho 1">CA-1</th>
-            <th title="Canto Ancho 2">CA-2</th>
+            <th title="Canto Ancho 1">Ancho <sup>IZQ</sup></th>
+            <th title="Canto Ancho 2">Ancho <sup>DER</sup></th>
             <th title="Mecanizado1">Mecanizado1</th>
             <th title="Mecanizado2">Mecanizado2</th>
             <th title="Cantidad">Cantidad</th>

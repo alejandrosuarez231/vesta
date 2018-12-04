@@ -22,7 +22,7 @@ class CreatePiezasTable extends Migration
             $table->integer('materiale_id');
             $table->string('descripcion');
             $table->integer('cantidad');
-            $table->string('largo');
+            $table->string('largo')->nullable();
             $table->string('largo_sup')->nullable();
             $table->string('largo_inf')->nullable();
             $table->string('ancho');

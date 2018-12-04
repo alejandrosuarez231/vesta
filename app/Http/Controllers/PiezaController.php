@@ -45,18 +45,21 @@ class PiezaController extends Controller
      */
     public function store(Request $request)
     {
+      // dd($request->all());
       $this->validate($request, [
-        'modulo_id.*' => 'bail|required',
+        'modulo_id' => 'bail|required',
         'piezas_modulo_id.*' => 'bail|required',
-        'formula_area.*' => 'bail|required',
-        'formula_canto.*' => 'bail|required',
-        'canto_largo1.*' => 'nullable',
-        'canto_largo2.*' => 'nullable',
-        'canto_ancho1.*' => 'nullable',
-        'canto_ancho2.*' => 'nullable',
-        'mecanizado1.*' => 'nullable',
-        'mecanizado2.*' => 'nullable',
-        'cantidad.*' => 'bail|required|min:1'
+        'materiale_id.*' => 'required',
+        'descripcion' => 'nullable',
+        'largo' => 'nullable',
+        'largo_sup' => 'nullable',
+        'largo_inf' => 'nullable',
+        'ancho' => 'nullable',
+        'ancho_izq' => 'nullable',
+        'ancho_der' => 'nullable',
+        'mecanizado1' => 'nullable',
+        'mecanizado2' => 'nullable',
+        'cantidad' => 'bail|required|min:1'
       ]);
 
       $modulo = Modulo::findOrFail($request->modulo_id[0]);
