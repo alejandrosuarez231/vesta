@@ -88,17 +88,41 @@ class PiezaController extends Controller
       return redirect('/backend/modulos');
     }
 
+    public function generarDescripcion($modulo_id)
+    {
+      $piezas = Pieza::with('pieza_modulo:id,acronimo','modulo:id,sku_grupo')
+      ->where('modulo_id',$modulo_id)
+      ->whereNull('descripcion')
+      ->get();
+
+      foreach ($piezas as $key => $value) {
+        Pieza::findOrFail($value->id)->update(['descripcion' => $value->pieza_modulo->acronimo .'-'.$value->modulo->sku_grupo]);
+      }
+      toast('Descripcion Generada!','success','top-right');
+      return redirect()->route('piezassku.piezas.show',['modulo_id' => $modulo_id]);
+    }
+
+    public function generaLoteDescripciones()
+    {
+      $piezas = Pieza::with('pieza_modulo:id,acronimo','modulo:id,sku_grupo')->whereNull('descripcion')->get();
+      foreach ($piezas as $key => $value) {
+        Pieza::findOrFail($value->id)->update(['descripcion' => $value->pieza_modulo->acronimo .'-'.$value->modulo->sku_grupo]);
+      }
+      toast('Descripcion Generada!','success','top-right');
+      return redirect()->route('modulos.index');
+    }
+
     /**
      * Display the specified resource.
      *
      * @param  \App\Pieza  $pieza
      * @return \Illuminate\Http\Response
      */
-    public function show(Pieza $pieza)
+    public function show($modulo_id)
     {
-      $piezas = Pieza::with('pieza_modulo:id,tipo_pieza,acronimo','materiale:id,nombre','creado:id,name')->where('modulo_id',$pieza->modulo_id)->get();
-      // dd($piezas);
-      return view('backend.piezas.show', compact('piezas'));
+      $piezas = Pieza::with('pieza_modulo:id,tipo_pieza,acronimo','materiale:id,nombre','creado:id,name')
+      ->where('modulo_id',$modulo_id)->get();
+      return view('backend.piezas.show', compact('piezas','modulo_id'));
     }
 
     /**

@@ -7,9 +7,18 @@
 		<div class="col-md">
 			<h3>Piezas</h3>
 			<ul class="nav">
+				@if ($piezas->where('descripcion',null)->count() > 0)
 				<li class="nav-item">
 					<a href="{{ url()->previous() }}" class="btn btn-link" title="Inicio">Regresar</a>
 				</li>
+				<li>
+					<a href="{{ route('piezassku.piezas.generadescripcion',['modulo_id' => $modulo_id]) }}" class="btn btn-sm btn-light" title="">Generar Descripcion</a>
+				</li>
+				@else
+				<li class="nav-item">
+					<a href="{{ url('backend/modulos') }}" class="btn btn-link" title="Inicio">Regresar</a>
+				</li>
+				@endif
 			</ul>
 		</div>
 	</div>

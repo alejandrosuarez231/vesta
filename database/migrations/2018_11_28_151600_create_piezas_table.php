@@ -20,12 +20,12 @@ class CreatePiezasTable extends Migration
             $table->string('producto')->nullable();
             $table->integer('piezas_modulo_id');
             $table->integer('materiale_id');
-            $table->string('descripcion');
+            $table->string('descripcion')->nullable();
             $table->integer('cantidad');
             $table->string('largo')->nullable();
             $table->string('largo_sup')->nullable();
             $table->string('largo_inf')->nullable();
-            $table->string('ancho');
+            $table->string('ancho')->nullable();
             $table->string('ancho_izq')->nullable();
             $table->string('ancho_der')->nullable();
             $table->string('mecanizado1')->nullable();
