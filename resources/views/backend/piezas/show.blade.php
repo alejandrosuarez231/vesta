@@ -7,18 +7,9 @@
 		<div class="col-md">
 			<h3>Piezas {{ $piezas->first()->modulo->sku_grupo }}</h3>
 			<ul class="nav">
-				@if ($piezas->where('descripcion',null)->count() > 0)
 				<li class="nav-item">
 					<a href="{{ url()->previous() }}" class="btn btn-link" title="Inicio">Regresar</a>
 				</li>
-				<li>
-					<a href="{{ route('piezassku.piezas.generadescripcion',['modulo_id' => $modulo_id]) }}" class="btn btn-sm btn-light" title="">Generar Descripcion</a>
-				</li>
-				@else
-				<li class="nav-item">
-					<a href="{{ url('backend/modulos') }}" class="btn btn-link" title="Inicio">Regresar</a>
-				</li>
-				@endif
 			</ul>
 		</div>
 	</div>
@@ -29,7 +20,6 @@
 			<table class="table table-inverse table-striped">
 				<thead>
 					<tr>
-						<th>SKU/Padre</th>
 						<th>Pieza</th>
 						<th>Material</th>
 						<th>Largo</th>
@@ -47,9 +37,6 @@
 				<tbody>
 					@foreach ($piezas as $element)
 					<tr>
-						<td>
-							{{ @$element->skulistado->sku_padre }}
-						</td>
 						<td>{{$element->pieza_modulo->tipo_pieza}}</td>
 						<td>{{$element->materiale->nombre}}</td>
 						<td>{{$element->largo}}</td>

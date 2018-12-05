@@ -12570,7 +12570,7 @@ class SkulistadoSeeder extends Seeder
         'deleted_at' => NULL,
     ],
 ]);
-$this->command->getOutput()->progressStart(10);
+$this->command->getOutput()->progressStart(785);
 foreach ($skulistados as $value) {
     sleep(1);
     Skulistado::create($value);
