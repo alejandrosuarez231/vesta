@@ -76,7 +76,7 @@ class ComplementoController extends Controller
      */
     public function show(Complemento $complemento)
     {
-        //
+      return view('/backend/complementos/show');
     }
 
     /**

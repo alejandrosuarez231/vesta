@@ -30,7 +30,6 @@
         <thead>
           <tr>
             <th title="Tipo de Pieza">Pieza/Tipo</th>
-            <th title="Descripcion">Descripcion</th>
             <th title="Formula Area">Largo</th>
             <th title="Formula Canto">CL-1</th>
             <th title="Canto Largo 1">CL-2</th>
@@ -52,7 +51,6 @@
               {!! Form::select('piezas_modulo_id[]', \App\Pieza_modulo::pluck('tipo_pieza','id'), null, ['class'=>'form-control','v-model'=>'pieza.piezas_modulo_id','placeholder'=>'Selección','@change'=>'getInfo(index,piezas[index].piezas_modulo_id)','required']) !!}
               {!! Form::hidden('materiale_id[]', null, ['v-model'=>'pieza.materiale_id']) !!}
             </td>
-            <td>{!! Form::text('descripcion[]', null, ['class'=>'form-control', 'v-model'=>'pieza.descripcion']) !!}</td>
             <td>{!! Form::text('largo[]', null, ['class'=>'form-control', 'v-model'=>'pieza.largo']) !!}</td>
             <td>{!! Form::text('largo_sup[]', null, ['class'=>'form-control', 'v-model'=>'pieza.largo_sup']) !!}</td>
             <td>{!! Form::number('largo_inf[]', null, ['class'=>'form-control', 'v-model'=>'pieza.largo_inf']) !!}</td>
@@ -93,13 +91,13 @@
       modulo_id: '',
       sku_grupo: '',
       descripcion: '',
-      piezas: [{modulo_id:'',piezas_modulo_id:'',materiale_id:'',descripcion:'',cantidad:'',largo:'',largo_sup:'',largo_inf:'',ancho:'',ancho_izq:'',ancho_der:'',mecanizado1:'',mecanizado2:''}],
+      piezas: [{modulo_id:'',piezas_modulo_id:'',materiale_id:'',cantidad:'',largo:'',largo_sup:'',largo_inf:'',ancho:'',ancho_izq:'',ancho_der:'',mecanizado1:'',mecanizado2:''}],
     },
 
     methods: {
       addRowPIEZA: function (index) {
         this.piezas.splice(index + 1, 1, {
-          piezas_modulo_id:null,materiale_id:null,descripcion:null,cantidad:0,largo:null,largo_sup:null,largo_inf:null,ancho:null,ancho_izq:null,ancho_der:null,mecanizado1:null,mecanizado2:null
+          piezas_modulo_id:null,materiale_id:null,cantidad:0,largo:null,largo_sup:null,largo_inf:null,ancho:null,ancho_izq:null,ancho_der:null,mecanizado1:null,mecanizado2:null
         });
       },
       removeRowPIEZA: function(index){
@@ -118,7 +116,6 @@
             modulo_id:'',
             piezas_modulo_id: response.data.id,
             materiale_id: response.data.materiale_id,
-            descripcion: response.data.acronimo + '-' + this.sku_grupo,
             cantidad:'',
             largo: response.data.formula_area,
             largo_sup: '',

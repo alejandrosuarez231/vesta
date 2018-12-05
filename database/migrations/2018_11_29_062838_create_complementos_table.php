@@ -17,7 +17,7 @@ class CreateComplementosTable extends Migration
         Schema::create('complementos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('modulo_id')->index();
-            $table->string('producto')->nullable();
+            $table->string('skulistado_id')->index()->nullable();
             $table->string('descripcion')->nullable();
             $table->integer('categoria_id')->index();
             $table->integer('cantidad');

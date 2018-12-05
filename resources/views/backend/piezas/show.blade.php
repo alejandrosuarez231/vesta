@@ -32,7 +32,6 @@
 						<th>SKU/Padre</th>
 						<th>Pieza</th>
 						<th>Material</th>
-						<th>Descripcion</th>
 						<th>Largo</th>
 						<th>Largo <sup>SUP</sup></th>
 						<th>Largo <sup>INF</sup></th>
@@ -53,7 +52,6 @@
 						</td>
 						<td>{{$element->pieza_modulo->tipo_pieza}}</td>
 						<td>{{$element->materiale->nombre}}</td>
-						<td>{{$element->descripcion}}</td>
 						<td>{{$element->largo}}</td>
 						<td>{{$element->largo_sup}}</td>
 						<td>{{$element->largo_inf}}</td>

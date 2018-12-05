@@ -25,7 +25,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:08',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 2,
         'modulo_id' => 2,
         'sku_grupo' => 'ACJAB-13',
@@ -41,7 +41,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:08',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 3,
         'modulo_id' => 3,
         'sku_grupo' => 'ACJAB-08',
@@ -57,7 +57,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:09',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 4,
         'modulo_id' => 4,
         'sku_grupo' => 'ACJAB-03',
@@ -73,7 +73,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:09',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 5,
         'modulo_id' => 5,
         'sku_grupo' => 'ACJAB-09',
@@ -89,7 +89,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:09',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 6,
         'modulo_id' => 6,
         'sku_grupo' => 'ACJAB-04',
@@ -105,7 +105,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:09',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 7,
         'modulo_id' => 7,
         'sku_grupo' => 'ACJAB-10',
@@ -121,7 +121,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:09',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 8,
         'modulo_id' => 8,
         'sku_grupo' => 'ACJAB-05',
@@ -137,7 +137,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:09',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 9,
         'modulo_id' => 9,
         'sku_grupo' => 'ACJAB-11',
@@ -153,7 +153,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:09',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 10,
         'modulo_id' => 10,
         'sku_grupo' => 'ACJAB-06',
@@ -169,7 +169,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:09',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 11,
         'modulo_id' => 11,
         'sku_grupo' => 'ACJAB-07',
@@ -185,7 +185,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:09',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 12,
         'modulo_id' => 12,
         'sku_grupo' => 'ACJAB-14',
@@ -201,7 +201,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:09',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 13,
         'modulo_id' => 13,
         'sku_grupo' => 'ACJAB-15',
@@ -217,7 +217,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:09',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 14,
         'modulo_id' => 14,
         'sku_grupo' => 'ACJAB-12',
@@ -233,7 +233,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:09',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 15,
         'modulo_id' => 15,
         'sku_grupo' => 'ACJAB-01',
@@ -249,7 +249,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:10',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 16,
         'modulo_id' => 16,
         'sku_grupo' => 'ACJCM-16',
@@ -265,7 +265,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:10',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 17,
         'modulo_id' => 17,
         'sku_grupo' => 'ACJCM-17',
@@ -281,7 +281,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:10',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 18,
         'modulo_id' => 18,
         'sku_grupo' => 'ACJGV-06',
@@ -297,7 +297,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:10',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 19,
         'modulo_id' => 18,
         'sku_grupo' => 'ACJGV-06',
@@ -313,7 +313,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:11',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 20,
         'modulo_id' => 19,
         'sku_grupo' => 'ACJPT-01',
@@ -329,7 +329,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:11',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 21,
         'modulo_id' => 19,
         'sku_grupo' => 'ACJPT-01',
@@ -345,7 +345,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:11',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 22,
         'modulo_id' => 20,
         'sku_grupo' => 'ACJPT-03',
@@ -361,7 +361,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:11',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 23,
         'modulo_id' => 20,
         'sku_grupo' => 'ACJPT-03',
@@ -377,7 +377,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:11',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 24,
         'modulo_id' => 21,
         'sku_grupo' => 'ACJPT-04',
@@ -393,7 +393,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:11',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 25,
         'modulo_id' => 21,
         'sku_grupo' => 'ACJPT-04',
@@ -409,7 +409,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:11',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 26,
         'modulo_id' => 22,
         'sku_grupo' => 'ACJPT-02',
@@ -425,7 +425,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:11',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 27,
         'modulo_id' => 22,
         'sku_grupo' => 'ACJPT-02',
@@ -441,7 +441,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:11',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 28,
         'modulo_id' => 23,
         'sku_grupo' => 'ACJPT-05',
@@ -457,7 +457,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:12',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 29,
         'modulo_id' => 23,
         'sku_grupo' => 'ACJPT-05',
@@ -473,7 +473,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:12',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 30,
         'modulo_id' => 24,
         'sku_grupo' => 'CAEAB-03',
@@ -489,7 +489,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:12',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 31,
         'modulo_id' => 25,
         'sku_grupo' => 'CAEAB-02',
@@ -505,7 +505,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:12',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 32,
         'modulo_id' => 26,
         'sku_grupo' => 'CAEAB-04',
@@ -521,7 +521,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:12',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 33,
         'modulo_id' => 27,
         'sku_grupo' => 'CAEAB-01',
@@ -537,7 +537,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:12',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 34,
         'modulo_id' => 28,
         'sku_grupo' => 'CAEAB-05',
@@ -553,7 +553,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:12',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 35,
         'modulo_id' => 29,
         'sku_grupo' => 'CAECM-04',
@@ -569,7 +569,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:12',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 36,
         'modulo_id' => 29,
         'sku_grupo' => 'CAECM-04',
@@ -585,7 +585,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:13',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 37,
         'modulo_id' => 29,
         'sku_grupo' => 'CAECM-04',
@@ -601,7 +601,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:13',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 38,
         'modulo_id' => 30,
         'sku_grupo' => 'CAECM-01',
@@ -617,7 +617,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:13',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 39,
         'modulo_id' => 31,
         'sku_grupo' => 'CAECM-02',
@@ -633,7 +633,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:13',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 40,
         'modulo_id' => 32,
         'sku_grupo' => 'CAECM-03',
@@ -649,7 +649,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:13',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 41,
         'modulo_id' => 33,
         'sku_grupo' => 'CAEES-04',
@@ -665,7 +665,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:13',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 42,
         'modulo_id' => 33,
         'sku_grupo' => 'CAEES-04',
@@ -681,7 +681,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:13',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 43,
         'modulo_id' => 33,
         'sku_grupo' => 'CAEES-04',
@@ -697,7 +697,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:13',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 44,
         'modulo_id' => 33,
         'sku_grupo' => 'CAEES-04',
@@ -713,7 +713,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:13',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 45,
         'modulo_id' => 34,
         'sku_grupo' => 'CAEES-03',
@@ -729,7 +729,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:13',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 46,
         'modulo_id' => 34,
         'sku_grupo' => 'CAEES-03',
@@ -745,7 +745,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:13',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 47,
         'modulo_id' => 34,
         'sku_grupo' => 'CAEES-03',
@@ -761,7 +761,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:13',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 48,
         'modulo_id' => 34,
         'sku_grupo' => 'CAEES-03',
@@ -777,7 +777,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:13',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 49,
         'modulo_id' => 35,
         'sku_grupo' => 'CAEES-01',
@@ -793,7 +793,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:13',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 50,
         'modulo_id' => 35,
         'sku_grupo' => 'CAEES-01',
@@ -809,7 +809,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:13',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 51,
         'modulo_id' => 35,
         'sku_grupo' => 'CAEES-01',
@@ -825,7 +825,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:13',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 52,
         'modulo_id' => 35,
         'sku_grupo' => 'CAEES-01',
@@ -841,7 +841,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:14',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 53,
         'modulo_id' => 36,
         'sku_grupo' => 'CAEES-02',
@@ -857,7 +857,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:14',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 54,
         'modulo_id' => 36,
         'sku_grupo' => 'CAEES-02',
@@ -873,7 +873,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:14',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 55,
         'modulo_id' => 36,
         'sku_grupo' => 'CAEES-02',
@@ -889,7 +889,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:14',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 56,
         'modulo_id' => 36,
         'sku_grupo' => 'CAEES-02',
@@ -905,7 +905,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:14',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 57,
         'modulo_id' => 37,
         'sku_grupo' => 'CAENV-01',
@@ -921,7 +921,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:14',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 58,
         'modulo_id' => 37,
         'sku_grupo' => 'CAENV-01',
@@ -937,7 +937,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:14',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 59,
         'modulo_id' => 37,
         'sku_grupo' => 'CAENV-01',
@@ -953,7 +953,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:14',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 60,
         'modulo_id' => 37,
         'sku_grupo' => 'CAENV-01',
@@ -969,7 +969,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:14',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 61,
         'modulo_id' => 37,
         'sku_grupo' => 'CAENV-01',
@@ -985,7 +985,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:14',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 62,
         'modulo_id' => 37,
         'sku_grupo' => 'CAENV-01',
@@ -1001,7 +1001,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:14',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 63,
         'modulo_id' => 38,
         'sku_grupo' => 'CAENV-02',
@@ -1017,7 +1017,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:14',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 64,
         'modulo_id' => 38,
         'sku_grupo' => 'CAENV-02',
@@ -1033,7 +1033,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:14',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 65,
         'modulo_id' => 38,
         'sku_grupo' => 'CAENV-02',
@@ -1049,7 +1049,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:14',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 66,
         'modulo_id' => 38,
         'sku_grupo' => 'CAENV-02',
@@ -1065,7 +1065,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:14',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 67,
         'modulo_id' => 38,
         'sku_grupo' => 'CAENV-02',
@@ -1081,7 +1081,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:14',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 68,
         'modulo_id' => 38,
         'sku_grupo' => 'CAENV-02',
@@ -1097,7 +1097,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:14',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 69,
         'modulo_id' => 39,
         'sku_grupo' => 'CAENV-03',
@@ -1113,7 +1113,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:14',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 70,
         'modulo_id' => 40,
         'sku_grupo' => 'CAEPT-01',
@@ -1129,7 +1129,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:14',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 71,
         'modulo_id' => 40,
         'sku_grupo' => 'CAEPT-01',
@@ -1145,7 +1145,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:15',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 72,
         'modulo_id' => 40,
         'sku_grupo' => 'CAEPT-01',
@@ -1161,7 +1161,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:15',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 73,
         'modulo_id' => 40,
         'sku_grupo' => 'CAEPT-01',
@@ -1177,7 +1177,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:15',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 74,
         'modulo_id' => 40,
         'sku_grupo' => 'CAEPT-01',
@@ -1193,7 +1193,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:15',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 75,
         'modulo_id' => 40,
         'sku_grupo' => 'CAEPT-01',
@@ -1209,7 +1209,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:15',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 76,
         'modulo_id' => 41,
         'sku_grupo' => 'CAEPT-02',
@@ -1225,7 +1225,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:15',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 77,
         'modulo_id' => 41,
         'sku_grupo' => 'CAEPT-02',
@@ -1241,7 +1241,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:15',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 78,
         'modulo_id' => 41,
         'sku_grupo' => 'CAEPT-02',
@@ -1257,7 +1257,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:15',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 79,
         'modulo_id' => 41,
         'sku_grupo' => 'CAEPT-02',
@@ -1273,7 +1273,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:15',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 80,
         'modulo_id' => 41,
         'sku_grupo' => 'CAEPT-02',
@@ -1289,7 +1289,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:15',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 81,
         'modulo_id' => 41,
         'sku_grupo' => 'CAEPT-02',
@@ -1305,7 +1305,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:15',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 82,
         'modulo_id' => 42,
         'sku_grupo' => 'CAEPT-03',
@@ -1321,7 +1321,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:15',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 83,
         'modulo_id' => 42,
         'sku_grupo' => 'CAEPT-03',
@@ -1337,7 +1337,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:15',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 84,
         'modulo_id' => 42,
         'sku_grupo' => 'CAEPT-03',
@@ -1353,7 +1353,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:15',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 85,
         'modulo_id' => 42,
         'sku_grupo' => 'CAEPT-03',
@@ -1369,7 +1369,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:15',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 86,
         'modulo_id' => 42,
         'sku_grupo' => 'CAEPT-03',
@@ -1385,7 +1385,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:15',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 87,
         'modulo_id' => 42,
         'sku_grupo' => 'CAEPT-03',
@@ -1401,7 +1401,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:16',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 88,
         'modulo_id' => 43,
         'sku_grupo' => 'CAEPT-06',
@@ -1417,7 +1417,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:16',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 89,
         'modulo_id' => 43,
         'sku_grupo' => 'CAEPT-06',
@@ -1433,7 +1433,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:16',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 90,
         'modulo_id' => 43,
         'sku_grupo' => 'CAEPT-06',
@@ -1449,7 +1449,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:16',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 91,
         'modulo_id' => 43,
         'sku_grupo' => 'CAEPT-06',
@@ -1465,7 +1465,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:16',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 92,
         'modulo_id' => 43,
         'sku_grupo' => 'CAEPT-06',
@@ -1481,7 +1481,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:16',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 93,
         'modulo_id' => 43,
         'sku_grupo' => 'CAEPT-06',
@@ -1497,7 +1497,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:16',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 94,
         'modulo_id' => 44,
         'sku_grupo' => 'CAEPT-04',
@@ -1513,7 +1513,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:16',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 95,
         'modulo_id' => 44,
         'sku_grupo' => 'CAEPT-04',
@@ -1529,7 +1529,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:16',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 96,
         'modulo_id' => 44,
         'sku_grupo' => 'CAEPT-04',
@@ -1545,7 +1545,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:16',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 97,
         'modulo_id' => 44,
         'sku_grupo' => 'CAEPT-04',
@@ -1561,7 +1561,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:16',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 98,
         'modulo_id' => 44,
         'sku_grupo' => 'CAEPT-04',
@@ -1577,7 +1577,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:16',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 99,
         'modulo_id' => 44,
         'sku_grupo' => 'CAEPT-04',
@@ -1593,7 +1593,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:16',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 100,
         'modulo_id' => 45,
         'sku_grupo' => 'CAEPT-05',
@@ -1609,7 +1609,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:16',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 101,
         'modulo_id' => 45,
         'sku_grupo' => 'CAEPT-05',
@@ -1625,7 +1625,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:16',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 102,
         'modulo_id' => 45,
         'sku_grupo' => 'CAEPT-05',
@@ -1641,7 +1641,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:16',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 103,
         'modulo_id' => 45,
         'sku_grupo' => 'CAEPT-05',
@@ -1657,7 +1657,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:16',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 104,
         'modulo_id' => 45,
         'sku_grupo' => 'CAEPT-05',
@@ -1673,7 +1673,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:17',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 105,
         'modulo_id' => 45,
         'sku_grupo' => 'CAEPT-05',
@@ -1689,7 +1689,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:17',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 106,
         'modulo_id' => 46,
         'sku_grupo' => 'CAEPT-07',
@@ -1705,7 +1705,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:17',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 107,
         'modulo_id' => 46,
         'sku_grupo' => 'CAEPT-07',
@@ -1721,7 +1721,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:17',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 108,
         'modulo_id' => 46,
         'sku_grupo' => 'CAEPT-07',
@@ -1737,7 +1737,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:17',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 109,
         'modulo_id' => 46,
         'sku_grupo' => 'CAEPT-07',
@@ -1753,7 +1753,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:17',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 110,
         'modulo_id' => 46,
         'sku_grupo' => 'CAEPT-07',
@@ -1769,7 +1769,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:17',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 111,
         'modulo_id' => 46,
         'sku_grupo' => 'CAEPT-07',
@@ -1785,7 +1785,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:17',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 112,
         'modulo_id' => 47,
         'sku_grupo' => 'CAEVI-02',
@@ -1801,7 +1801,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:17',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 113,
         'modulo_id' => 48,
         'sku_grupo' => 'CAEVI-03',
@@ -1817,7 +1817,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:17',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 114,
         'modulo_id' => 49,
         'sku_grupo' => 'CAEVI-01',
@@ -1833,7 +1833,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:17',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 115,
         'modulo_id' => 50,
         'sku_grupo' => 'CBAAB-03',
@@ -1849,7 +1849,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:17',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 116,
         'modulo_id' => 51,
         'sku_grupo' => 'CBAAB-02',
@@ -1865,7 +1865,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:17',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 117,
         'modulo_id' => 52,
         'sku_grupo' => 'CBAAB-04',
@@ -1881,7 +1881,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:17',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 118,
         'modulo_id' => 53,
         'sku_grupo' => 'CBAAB-01',
@@ -1897,7 +1897,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:17',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 119,
         'modulo_id' => 54,
         'sku_grupo' => 'CBACM-01',
@@ -1913,7 +1913,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:18',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 120,
         'modulo_id' => 54,
         'sku_grupo' => 'CBACM-01',
@@ -1929,7 +1929,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:18',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 121,
         'modulo_id' => 54,
         'sku_grupo' => 'CBACM-01',
@@ -1945,7 +1945,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:18',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 122,
         'modulo_id' => 55,
         'sku_grupo' => 'CBACM-02',
@@ -1961,7 +1961,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:18',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 123,
         'modulo_id' => 56,
         'sku_grupo' => 'CBACM-03',
@@ -1977,7 +1977,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:18',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 124,
         'modulo_id' => 57,
         'sku_grupo' => 'CBACM-04',
@@ -1993,7 +1993,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:18',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 125,
         'modulo_id' => 58,
         'sku_grupo' => 'CBACM-05',
@@ -2009,7 +2009,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:18',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 126,
         'modulo_id' => 59,
         'sku_grupo' => 'CBAES-01',
@@ -2025,7 +2025,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:18',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 127,
         'modulo_id' => 59,
         'sku_grupo' => 'CBAES-01',
@@ -2041,7 +2041,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:18',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 128,
         'modulo_id' => 59,
         'sku_grupo' => 'CBAES-01',
@@ -2057,7 +2057,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:18',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 129,
         'modulo_id' => 59,
         'sku_grupo' => 'CBAES-01',
@@ -2073,7 +2073,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:18',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 130,
         'modulo_id' => 59,
         'sku_grupo' => 'CBAES-01',
@@ -2089,7 +2089,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:18',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 131,
         'modulo_id' => 59,
         'sku_grupo' => 'CBAES-01',
@@ -2105,7 +2105,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:18',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 132,
         'modulo_id' => 59,
         'sku_grupo' => 'CBAES-01',
@@ -2121,7 +2121,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:18',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 133,
         'modulo_id' => 59,
         'sku_grupo' => 'CBAES-01',
@@ -2137,7 +2137,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:18',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 134,
         'modulo_id' => 59,
         'sku_grupo' => 'CBAES-01',
@@ -2153,7 +2153,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:18',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 135,
         'modulo_id' => 60,
         'sku_grupo' => 'CBAES-02',
@@ -2169,7 +2169,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:18',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 136,
         'modulo_id' => 60,
         'sku_grupo' => 'CBAES-02',
@@ -2185,7 +2185,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:19',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 137,
         'modulo_id' => 60,
         'sku_grupo' => 'CBAES-02',
@@ -2201,7 +2201,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:19',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 138,
         'modulo_id' => 60,
         'sku_grupo' => 'CBAES-02',
@@ -2217,7 +2217,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:19',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 139,
         'modulo_id' => 60,
         'sku_grupo' => 'CBAES-02',
@@ -2233,7 +2233,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:19',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 140,
         'modulo_id' => 60,
         'sku_grupo' => 'CBAES-02',
@@ -2249,7 +2249,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:19',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 141,
         'modulo_id' => 60,
         'sku_grupo' => 'CBAES-02',
@@ -2265,7 +2265,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:19',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 142,
         'modulo_id' => 60,
         'sku_grupo' => 'CBAES-02',
@@ -2281,7 +2281,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:19',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 143,
         'modulo_id' => 60,
         'sku_grupo' => 'CBAES-02',
@@ -2297,7 +2297,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:19',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 144,
         'modulo_id' => 61,
         'sku_grupo' => 'CBAES-03',
@@ -2313,7 +2313,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:19',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 145,
         'modulo_id' => 62,
         'sku_grupo' => 'CBAES-04',
@@ -2329,7 +2329,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:19',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 146,
         'modulo_id' => 62,
         'sku_grupo' => 'CBAES-04',
@@ -2345,7 +2345,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:19',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 147,
         'modulo_id' => 62,
         'sku_grupo' => 'CBAES-04',
@@ -2361,7 +2361,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:19',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 148,
         'modulo_id' => 62,
         'sku_grupo' => 'CBAES-04',
@@ -2377,7 +2377,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:19',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 149,
         'modulo_id' => 62,
         'sku_grupo' => 'CBAES-04',
@@ -2393,7 +2393,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:19',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 150,
         'modulo_id' => 62,
         'sku_grupo' => 'CBAES-04',
@@ -2409,7 +2409,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:19',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 151,
         'modulo_id' => 62,
         'sku_grupo' => 'CBAES-04',
@@ -2425,7 +2425,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:19',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 152,
         'modulo_id' => 62,
         'sku_grupo' => 'CBAES-04',
@@ -2441,7 +2441,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:19',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 153,
         'modulo_id' => 62,
         'sku_grupo' => 'CBAES-04',
@@ -2457,7 +2457,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:19',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 154,
         'modulo_id' => 63,
         'sku_grupo' => 'CBAFR-01',
@@ -2473,7 +2473,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:19',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 155,
         'modulo_id' => 63,
         'sku_grupo' => 'CBAFR-01',
@@ -2489,7 +2489,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:20',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 156,
         'modulo_id' => 63,
         'sku_grupo' => 'CBAFR-01',
@@ -2505,7 +2505,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:20',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 157,
         'modulo_id' => 64,
         'sku_grupo' => 'CBAFR-02',
@@ -2521,7 +2521,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:20',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 158,
         'modulo_id' => 64,
         'sku_grupo' => 'CBAFR-02',
@@ -2537,7 +2537,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:20',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 159,
         'modulo_id' => 64,
         'sku_grupo' => 'CBAFR-02',
@@ -2553,7 +2553,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:20',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 160,
         'modulo_id' => 65,
         'sku_grupo' => 'CBAFR-03',
@@ -2569,7 +2569,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:20',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 161,
         'modulo_id' => 65,
         'sku_grupo' => 'CBAFR-03',
@@ -2585,7 +2585,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:20',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 162,
         'modulo_id' => 65,
         'sku_grupo' => 'CBAFR-03',
@@ -2601,7 +2601,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:20',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 163,
         'modulo_id' => 66,
         'sku_grupo' => 'CBAGV-01',
@@ -2617,7 +2617,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:20',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 164,
         'modulo_id' => 66,
         'sku_grupo' => 'CBAGV-01',
@@ -2633,7 +2633,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:20',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 165,
         'modulo_id' => 66,
         'sku_grupo' => 'CBAGV-01',
@@ -2649,7 +2649,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:20',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 166,
         'modulo_id' => 66,
         'sku_grupo' => 'CBAGV-01',
@@ -2665,7 +2665,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:20',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 167,
         'modulo_id' => 66,
         'sku_grupo' => 'CBAGV-01',
@@ -2681,7 +2681,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:20',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 168,
         'modulo_id' => 66,
         'sku_grupo' => 'CBAGV-01',
@@ -2697,7 +2697,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:20',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 169,
         'modulo_id' => 66,
         'sku_grupo' => 'CBAGV-01',
@@ -2713,7 +2713,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:20',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 170,
         'modulo_id' => 66,
         'sku_grupo' => 'CBAGV-01',
@@ -2729,7 +2729,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:20',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 171,
         'modulo_id' => 66,
         'sku_grupo' => 'CBAGV-01',
@@ -2745,7 +2745,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:20',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 172,
         'modulo_id' => 67,
         'sku_grupo' => 'CBAGV-03',
@@ -2761,7 +2761,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:20',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 173,
         'modulo_id' => 67,
         'sku_grupo' => 'CBAGV-03',
@@ -2777,7 +2777,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:21',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 174,
         'modulo_id' => 67,
         'sku_grupo' => 'CBAGV-03',
@@ -2793,7 +2793,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:21',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 175,
         'modulo_id' => 67,
         'sku_grupo' => 'CBAGV-03',
@@ -2809,7 +2809,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:21',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 176,
         'modulo_id' => 67,
         'sku_grupo' => 'CBAGV-03',
@@ -2825,7 +2825,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:21',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 177,
         'modulo_id' => 67,
         'sku_grupo' => 'CBAGV-03',
@@ -2841,7 +2841,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:21',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 178,
         'modulo_id' => 67,
         'sku_grupo' => 'CBAGV-03',
@@ -2857,7 +2857,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:21',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 179,
         'modulo_id' => 67,
         'sku_grupo' => 'CBAGV-03',
@@ -2873,7 +2873,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:21',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 180,
         'modulo_id' => 67,
         'sku_grupo' => 'CBAGV-03',
@@ -2889,7 +2889,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:21',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 181,
         'modulo_id' => 68,
         'sku_grupo' => 'CBAGV-02',
@@ -2905,7 +2905,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:21',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 182,
         'modulo_id' => 68,
         'sku_grupo' => 'CBAGV-02',
@@ -2921,7 +2921,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:21',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 183,
         'modulo_id' => 68,
         'sku_grupo' => 'CBAGV-02',
@@ -2937,7 +2937,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:21',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 184,
         'modulo_id' => 68,
         'sku_grupo' => 'CBAGV-02',
@@ -2953,7 +2953,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:21',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 185,
         'modulo_id' => 68,
         'sku_grupo' => 'CBAGV-02',
@@ -2969,7 +2969,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:21',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 186,
         'modulo_id' => 68,
         'sku_grupo' => 'CBAGV-02',
@@ -2985,7 +2985,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:21',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 187,
         'modulo_id' => 68,
         'sku_grupo' => 'CBAGV-02',
@@ -3001,7 +3001,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:21',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 188,
         'modulo_id' => 68,
         'sku_grupo' => 'CBAGV-02',
@@ -3017,7 +3017,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:21',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 189,
         'modulo_id' => 68,
         'sku_grupo' => 'CBAGV-02',
@@ -3033,7 +3033,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:21',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 190,
         'modulo_id' => 69,
         'sku_grupo' => 'CBAGV-04',
@@ -3049,7 +3049,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:22',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 191,
         'modulo_id' => 69,
         'sku_grupo' => 'CBAGV-04',
@@ -3065,7 +3065,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:22',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 192,
         'modulo_id' => 69,
         'sku_grupo' => 'CBAGV-04',
@@ -3081,7 +3081,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:22',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 193,
         'modulo_id' => 69,
         'sku_grupo' => 'CBAGV-04',
@@ -3097,7 +3097,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:22',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 194,
         'modulo_id' => 69,
         'sku_grupo' => 'CBAGV-04',
@@ -3113,7 +3113,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:22',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 195,
         'modulo_id' => 69,
         'sku_grupo' => 'CBAGV-04',
@@ -3129,7 +3129,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:22',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 196,
         'modulo_id' => 70,
         'sku_grupo' => 'CBAPT-01',
@@ -3145,7 +3145,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:22',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 197,
         'modulo_id' => 70,
         'sku_grupo' => 'CBAPT-01',
@@ -3161,7 +3161,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:22',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 198,
         'modulo_id' => 70,
         'sku_grupo' => 'CBAPT-01',
@@ -3177,7 +3177,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:22',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 199,
         'modulo_id' => 70,
         'sku_grupo' => 'CBAPT-01',
@@ -3193,7 +3193,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:22',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 200,
         'modulo_id' => 70,
         'sku_grupo' => 'CBAPT-01',
@@ -3209,7 +3209,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:22',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 201,
         'modulo_id' => 70,
         'sku_grupo' => 'CBAPT-01',
@@ -3225,7 +3225,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:22',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 202,
         'modulo_id' => 70,
         'sku_grupo' => 'CBAPT-01',
@@ -3241,7 +3241,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:22',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 203,
         'modulo_id' => 70,
         'sku_grupo' => 'CBAPT-01',
@@ -3257,7 +3257,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:22',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 204,
         'modulo_id' => 70,
         'sku_grupo' => 'CBAPT-01',
@@ -3273,7 +3273,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:22',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 205,
         'modulo_id' => 71,
         'sku_grupo' => 'CBAPT-02',
@@ -3289,7 +3289,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:22',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 206,
         'modulo_id' => 71,
         'sku_grupo' => 'CBAPT-02',
@@ -3305,7 +3305,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:22',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 207,
         'modulo_id' => 71,
         'sku_grupo' => 'CBAPT-02',
@@ -3321,7 +3321,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:23',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 208,
         'modulo_id' => 71,
         'sku_grupo' => 'CBAPT-02',
@@ -3337,7 +3337,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:23',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 209,
         'modulo_id' => 71,
         'sku_grupo' => 'CBAPT-02',
@@ -3353,7 +3353,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:23',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 210,
         'modulo_id' => 71,
         'sku_grupo' => 'CBAPT-02',
@@ -3369,7 +3369,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:23',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 211,
         'modulo_id' => 71,
         'sku_grupo' => 'CBAPT-02',
@@ -3385,7 +3385,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:23',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 212,
         'modulo_id' => 71,
         'sku_grupo' => 'CBAPT-02',
@@ -3401,7 +3401,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:23',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 213,
         'modulo_id' => 71,
         'sku_grupo' => 'CBAPT-02',
@@ -3417,7 +3417,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:23',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 214,
         'modulo_id' => 72,
         'sku_grupo' => 'CBAPT-03',
@@ -3433,7 +3433,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:23',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 215,
         'modulo_id' => 72,
         'sku_grupo' => 'CBAPT-03',
@@ -3449,7 +3449,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:23',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 216,
         'modulo_id' => 72,
         'sku_grupo' => 'CBAPT-03',
@@ -3465,7 +3465,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:23',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 217,
         'modulo_id' => 72,
         'sku_grupo' => 'CBAPT-03',
@@ -3481,7 +3481,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:23',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 218,
         'modulo_id' => 72,
         'sku_grupo' => 'CBAPT-03',
@@ -3497,7 +3497,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:23',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 219,
         'modulo_id' => 72,
         'sku_grupo' => 'CBAPT-03',
@@ -3513,7 +3513,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:23',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 220,
         'modulo_id' => 72,
         'sku_grupo' => 'CBAPT-03',
@@ -3529,7 +3529,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:23',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 221,
         'modulo_id' => 72,
         'sku_grupo' => 'CBAPT-03',
@@ -3545,7 +3545,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:23',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 222,
         'modulo_id' => 72,
         'sku_grupo' => 'CBAPT-03',
@@ -3561,7 +3561,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:23',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 223,
         'modulo_id' => 73,
         'sku_grupo' => 'CBAPT-04',
@@ -3577,7 +3577,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:23',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 224,
         'modulo_id' => 73,
         'sku_grupo' => 'CBAPT-04',
@@ -3593,7 +3593,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:24',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 225,
         'modulo_id' => 73,
         'sku_grupo' => 'CBAPT-04',
@@ -3609,7 +3609,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:24',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 226,
         'modulo_id' => 73,
         'sku_grupo' => 'CBAPT-04',
@@ -3625,7 +3625,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:24',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 227,
         'modulo_id' => 73,
         'sku_grupo' => 'CBAPT-04',
@@ -3641,7 +3641,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:24',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 228,
         'modulo_id' => 73,
         'sku_grupo' => 'CBAPT-04',
@@ -3657,7 +3657,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:24',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 229,
         'modulo_id' => 73,
         'sku_grupo' => 'CBAPT-04',
@@ -3673,7 +3673,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:24',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 230,
         'modulo_id' => 73,
         'sku_grupo' => 'CBAPT-04',
@@ -3689,7 +3689,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:24',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 231,
         'modulo_id' => 73,
         'sku_grupo' => 'CBAPT-04',
@@ -3705,7 +3705,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:24',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 232,
         'modulo_id' => 74,
         'sku_grupo' => 'CBAPT-05',
@@ -3721,7 +3721,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:24',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 233,
         'modulo_id' => 74,
         'sku_grupo' => 'CBAPT-05',
@@ -3737,7 +3737,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:24',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 234,
         'modulo_id' => 74,
         'sku_grupo' => 'CBAPT-05',
@@ -3753,7 +3753,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:24',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 235,
         'modulo_id' => 74,
         'sku_grupo' => 'CBAPT-05',
@@ -3769,7 +3769,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:24',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 236,
         'modulo_id' => 74,
         'sku_grupo' => 'CBAPT-05',
@@ -3785,7 +3785,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:24',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 237,
         'modulo_id' => 74,
         'sku_grupo' => 'CBAPT-05',
@@ -3801,7 +3801,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:24',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 238,
         'modulo_id' => 74,
         'sku_grupo' => 'CBAPT-05',
@@ -3817,7 +3817,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:24',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 239,
         'modulo_id' => 74,
         'sku_grupo' => 'CBAPT-05',
@@ -3833,7 +3833,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:24',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 240,
         'modulo_id' => 74,
         'sku_grupo' => 'CBAPT-05',
@@ -3849,7 +3849,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:24',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 241,
         'modulo_id' => 75,
         'sku_grupo' => 'CBAVI-01',
@@ -3865,7 +3865,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:24',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 242,
         'modulo_id' => 76,
         'sku_grupo' => 'CBAVI-02',
@@ -3881,7 +3881,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:24',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 243,
         'modulo_id' => 77,
         'sku_grupo' => 'CBAVI-03',
@@ -3897,7 +3897,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:24',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 244,
         'modulo_id' => 78,
         'sku_grupo' => 'CGAGG-01',
@@ -3913,7 +3913,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:24',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 245,
         'modulo_id' => 79,
         'sku_grupo' => 'CGAGG-02',
@@ -3929,7 +3929,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:25',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 246,
         'modulo_id' => 80,
         'sku_grupo' => 'CGAGP-01',
@@ -3945,7 +3945,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:25',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 247,
         'modulo_id' => 81,
         'sku_grupo' => 'CGAGP-02',
@@ -3961,7 +3961,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:25',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 248,
         'modulo_id' => 82,
         'sku_grupo' => 'CTOAB-06',
@@ -3977,7 +3977,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:25',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 249,
         'modulo_id' => 83,
         'sku_grupo' => 'CTOAB-05',
@@ -3993,7 +3993,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:25',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 250,
         'modulo_id' => 84,
         'sku_grupo' => 'CTOAB-07',
@@ -4009,7 +4009,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:25',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 251,
         'modulo_id' => 85,
         'sku_grupo' => 'CTOAB-08',
@@ -4025,7 +4025,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:25',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 252,
         'modulo_id' => 86,
         'sku_grupo' => 'CTOAB-01',
@@ -4041,7 +4041,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:25',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 253,
         'modulo_id' => 87,
         'sku_grupo' => 'CTOAB-02',
@@ -4057,7 +4057,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:25',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 254,
         'modulo_id' => 88,
         'sku_grupo' => 'CTOAB-03',
@@ -4073,7 +4073,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:25',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 255,
         'modulo_id' => 89,
         'sku_grupo' => 'CTOAB-04',
@@ -4089,7 +4089,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:25',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 256,
         'modulo_id' => 90,
         'sku_grupo' => 'CTOCM-01',
@@ -4105,7 +4105,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:25',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 257,
         'modulo_id' => 90,
         'sku_grupo' => 'CTOCM-01',
@@ -4121,7 +4121,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:25',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 258,
         'modulo_id' => 90,
         'sku_grupo' => 'CTOCM-01',
@@ -4137,7 +4137,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:25',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 259,
         'modulo_id' => 91,
         'sku_grupo' => 'CTOCM-02',
@@ -4153,7 +4153,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:25',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 260,
         'modulo_id' => 92,
         'sku_grupo' => 'CTOCM-03',
@@ -4169,7 +4169,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:25',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 261,
         'modulo_id' => 93,
         'sku_grupo' => 'CTOCM-04',
@@ -4185,7 +4185,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:26',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 262,
         'modulo_id' => 94,
         'sku_grupo' => 'CTOPT-01',
@@ -4201,7 +4201,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:26',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 263,
         'modulo_id' => 94,
         'sku_grupo' => 'CTOPT-01',
@@ -4217,7 +4217,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:26',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 264,
         'modulo_id' => 94,
         'sku_grupo' => 'CTOPT-01',
@@ -4233,7 +4233,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:26',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 265,
         'modulo_id' => 94,
         'sku_grupo' => 'CTOPT-01',
@@ -4249,7 +4249,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:26',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 266,
         'modulo_id' => 94,
         'sku_grupo' => 'CTOPT-01',
@@ -4265,7 +4265,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:26',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 267,
         'modulo_id' => 94,
         'sku_grupo' => 'CTOPT-01',
@@ -4281,7 +4281,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:26',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 268,
         'modulo_id' => 95,
         'sku_grupo' => 'CTOPT-02',
@@ -4297,7 +4297,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:26',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 269,
         'modulo_id' => 95,
         'sku_grupo' => 'CTOPT-02',
@@ -4313,7 +4313,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:26',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 270,
         'modulo_id' => 95,
         'sku_grupo' => 'CTOPT-02',
@@ -4329,7 +4329,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:26',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 271,
         'modulo_id' => 95,
         'sku_grupo' => 'CTOPT-02',
@@ -4345,7 +4345,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:26',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 272,
         'modulo_id' => 95,
         'sku_grupo' => 'CTOPT-02',
@@ -4361,7 +4361,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:26',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 273,
         'modulo_id' => 95,
         'sku_grupo' => 'CTOPT-02',
@@ -4377,7 +4377,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:26',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 274,
         'modulo_id' => 96,
         'sku_grupo' => 'CTOPT-03',
@@ -4393,7 +4393,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:26',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 275,
         'modulo_id' => 96,
         'sku_grupo' => 'CTOPT-03',
@@ -4409,7 +4409,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:26',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 276,
         'modulo_id' => 96,
         'sku_grupo' => 'CTOPT-03',
@@ -4425,7 +4425,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:26',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 277,
         'modulo_id' => 96,
         'sku_grupo' => 'CTOPT-03',
@@ -4441,7 +4441,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:26',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 278,
         'modulo_id' => 96,
         'sku_grupo' => 'CTOPT-03',
@@ -4457,7 +4457,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:26',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 279,
         'modulo_id' => 96,
         'sku_grupo' => 'CTOPT-03',
@@ -4473,7 +4473,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:27',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 280,
         'modulo_id' => 97,
         'sku_grupo' => 'CTOPT-04',
@@ -4489,7 +4489,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:27',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 281,
         'modulo_id' => 97,
         'sku_grupo' => 'CTOPT-04',
@@ -4505,7 +4505,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:27',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 282,
         'modulo_id' => 97,
         'sku_grupo' => 'CTOPT-04',
@@ -4521,7 +4521,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:27',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 283,
         'modulo_id' => 97,
         'sku_grupo' => 'CTOPT-04',
@@ -4537,7 +4537,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:27',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 284,
         'modulo_id' => 97,
         'sku_grupo' => 'CTOPT-04',
@@ -4553,7 +4553,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:27',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 285,
         'modulo_id' => 97,
         'sku_grupo' => 'CTOPT-04',
@@ -4569,7 +4569,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:27',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 286,
         'modulo_id' => 98,
         'sku_grupo' => 'CTOPT-05',
@@ -4585,7 +4585,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:27',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 287,
         'modulo_id' => 98,
         'sku_grupo' => 'CTOPT-05',
@@ -4601,7 +4601,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:27',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 288,
         'modulo_id' => 98,
         'sku_grupo' => 'CTOPT-05',
@@ -4617,7 +4617,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:27',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 289,
         'modulo_id' => 98,
         'sku_grupo' => 'CTOPT-05',
@@ -4633,7 +4633,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:27',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 290,
         'modulo_id' => 98,
         'sku_grupo' => 'CTOPT-05',
@@ -4649,7 +4649,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:27',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 291,
         'modulo_id' => 98,
         'sku_grupo' => 'CTOPT-05',
@@ -4665,7 +4665,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:27',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 292,
         'modulo_id' => 99,
         'sku_grupo' => 'CTOPT-06',
@@ -4681,7 +4681,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:27',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 293,
         'modulo_id' => 99,
         'sku_grupo' => 'CTOPT-06',
@@ -4697,7 +4697,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:27',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 294,
         'modulo_id' => 99,
         'sku_grupo' => 'CTOPT-06',
@@ -4713,7 +4713,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:27',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 295,
         'modulo_id' => 99,
         'sku_grupo' => 'CTOPT-06',
@@ -4729,7 +4729,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:27',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 296,
         'modulo_id' => 99,
         'sku_grupo' => 'CTOPT-06',
@@ -4745,7 +4745,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:27',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 297,
         'modulo_id' => 99,
         'sku_grupo' => 'CTOPT-06',
@@ -4761,7 +4761,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:28',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 298,
         'modulo_id' => 100,
         'sku_grupo' => 'OECST-01',
@@ -4777,7 +4777,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:28',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 299,
         'modulo_id' => 101,
         'sku_grupo' => 'OEXST-01',
@@ -4793,7 +4793,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:28',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 300,
         'modulo_id' => 102,
         'sku_grupo' => 'BASGD-01',
@@ -4809,7 +4809,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:28',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 301,
         'modulo_id' => 102,
         'sku_grupo' => 'BASGD-01',
@@ -4825,7 +4825,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:28',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 302,
         'modulo_id' => 102,
         'sku_grupo' => 'BASGD-01',
@@ -4841,7 +4841,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:28',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 303,
         'modulo_id' => 103,
         'sku_grupo' => 'BASGD-02',
@@ -4857,7 +4857,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:28',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 304,
         'modulo_id' => 103,
         'sku_grupo' => 'BASGD-02',
@@ -4873,7 +4873,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:28',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 305,
         'modulo_id' => 103,
         'sku_grupo' => 'BASGD-02',
@@ -4889,7 +4889,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:28',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 306,
         'modulo_id' => 104,
         'sku_grupo' => 'BASGD-03',
@@ -4905,7 +4905,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:28',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 307,
         'modulo_id' => 104,
         'sku_grupo' => 'BASGD-03',
@@ -4921,7 +4921,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:28',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 308,
         'modulo_id' => 104,
         'sku_grupo' => 'BASGD-03',
@@ -4937,7 +4937,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:28',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 309,
         'modulo_id' => 105,
         'sku_grupo' => 'BASMD-01',
@@ -4953,7 +4953,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:28',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 310,
         'modulo_id' => 105,
         'sku_grupo' => 'BASMD-01',
@@ -4969,7 +4969,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:28',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 311,
         'modulo_id' => 105,
         'sku_grupo' => 'BASMD-01',
@@ -4985,7 +4985,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:28',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 312,
         'modulo_id' => 106,
         'sku_grupo' => 'BASMD-02',
@@ -5001,7 +5001,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:28',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 313,
         'modulo_id' => 106,
         'sku_grupo' => 'BASMD-02',
@@ -5017,7 +5017,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:29',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 314,
         'modulo_id' => 106,
         'sku_grupo' => 'BASMD-02',
@@ -5033,7 +5033,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:29',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 315,
         'modulo_id' => 107,
         'sku_grupo' => 'BASPQ-01',
@@ -5049,7 +5049,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:29',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 316,
         'modulo_id' => 107,
         'sku_grupo' => 'BASPQ-01',
@@ -5065,7 +5065,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:29',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 317,
         'modulo_id' => 107,
         'sku_grupo' => 'BASPQ-01',
@@ -5081,7 +5081,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:29',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 318,
         'modulo_id' => 108,
         'sku_grupo' => 'BASPQ-02',
@@ -5097,7 +5097,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:29',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 319,
         'modulo_id' => 108,
         'sku_grupo' => 'BASPQ-02',
@@ -5113,7 +5113,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:29',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 320,
         'modulo_id' => 108,
         'sku_grupo' => 'BASPQ-02',
@@ -5129,7 +5129,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:29',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 321,
         'modulo_id' => 109,
         'sku_grupo' => 'BDWMD-01',
@@ -5145,7 +5145,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:29',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 322,
         'modulo_id' => 109,
         'sku_grupo' => 'BDWMD-01',
@@ -5161,7 +5161,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:29',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 323,
         'modulo_id' => 109,
         'sku_grupo' => 'BDWMD-01',
@@ -5177,7 +5177,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:29',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 324,
         'modulo_id' => 110,
         'sku_grupo' => 'BDWMD-02',
@@ -5193,7 +5193,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:29',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 325,
         'modulo_id' => 110,
         'sku_grupo' => 'BDWMD-02',
@@ -5209,7 +5209,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:29',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 326,
         'modulo_id' => 110,
         'sku_grupo' => 'BDWMD-02',
@@ -5225,7 +5225,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:29',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 327,
         'modulo_id' => 111,
         'sku_grupo' => 'BDWPQ-01',
@@ -5241,7 +5241,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:29',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 328,
         'modulo_id' => 111,
         'sku_grupo' => 'BDWPQ-01',
@@ -5257,7 +5257,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:29',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 329,
         'modulo_id' => 111,
         'sku_grupo' => 'BDWPQ-01',
@@ -5273,7 +5273,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:30',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 330,
         'modulo_id' => 112,
         'sku_grupo' => 'BDWPQ-02',
@@ -5289,7 +5289,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:30',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 331,
         'modulo_id' => 112,
         'sku_grupo' => 'BDWPQ-02',
@@ -5305,7 +5305,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:30',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 332,
         'modulo_id' => 112,
         'sku_grupo' => 'BDWPQ-02',
@@ -5321,7 +5321,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:30',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 333,
         'modulo_id' => 113,
         'sku_grupo' => 'BMDCM-01',
@@ -5337,7 +5337,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:30',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 334,
         'modulo_id' => 113,
         'sku_grupo' => 'BMDCM-01',
@@ -5353,7 +5353,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:30',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 335,
         'modulo_id' => 113,
         'sku_grupo' => 'BMDCM-01',
@@ -5369,7 +5369,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:30',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 336,
         'modulo_id' => 114,
         'sku_grupo' => 'BMDCM-02',
@@ -5385,7 +5385,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:30',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 337,
         'modulo_id' => 115,
         'sku_grupo' => 'BMDGV-01',
@@ -5401,7 +5401,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:30',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 338,
         'modulo_id' => 115,
         'sku_grupo' => 'BMDGV-01',
@@ -5417,7 +5417,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:30',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 339,
         'modulo_id' => 115,
         'sku_grupo' => 'BMDGV-01',
@@ -5433,7 +5433,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:30',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 340,
         'modulo_id' => 116,
         'sku_grupo' => 'BMDGV-02',
@@ -5449,7 +5449,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:30',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 341,
         'modulo_id' => 116,
         'sku_grupo' => 'BMDGV-02',
@@ -5465,7 +5465,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:30',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 342,
         'modulo_id' => 116,
         'sku_grupo' => 'BMDGV-02',
@@ -5481,7 +5481,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:30',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 343,
         'modulo_id' => 117,
         'sku_grupo' => 'BMDPT-01',
@@ -5497,7 +5497,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:30',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 344,
         'modulo_id' => 117,
         'sku_grupo' => 'BMDPT-01',
@@ -5513,7 +5513,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:30',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 345,
         'modulo_id' => 117,
         'sku_grupo' => 'BMDPT-01',
@@ -5529,7 +5529,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:30',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 346,
         'modulo_id' => 118,
         'sku_grupo' => 'BMDPT-02',
@@ -5545,7 +5545,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:30',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 347,
         'modulo_id' => 118,
         'sku_grupo' => 'BMDPT-02',
@@ -5561,7 +5561,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:31',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 348,
         'modulo_id' => 118,
         'sku_grupo' => 'BMDPT-02',
@@ -5577,7 +5577,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:31',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 349,
         'modulo_id' => 119,
         'sku_grupo' => 'BMDPT-03',
@@ -5593,7 +5593,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:31',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 350,
         'modulo_id' => 119,
         'sku_grupo' => 'BMDPT-03',
@@ -5609,7 +5609,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:31',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 351,
         'modulo_id' => 119,
         'sku_grupo' => 'BMDPT-03',
@@ -5625,7 +5625,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:31',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 352,
         'modulo_id' => 120,
         'sku_grupo' => 'MGVST-01',
@@ -5641,7 +5641,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:31',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 353,
         'modulo_id' => 121,
         'sku_grupo' => 'MGVST-03',
@@ -5657,7 +5657,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:31',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 354,
         'modulo_id' => 122,
         'sku_grupo' => 'MGVST-02',
@@ -5673,7 +5673,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:31',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 355,
         'modulo_id' => 123,
         'sku_grupo' => 'MMNST-01',
@@ -5689,7 +5689,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:31',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 356,
         'modulo_id' => 124,
         'sku_grupo' => 'MMNST-07',
@@ -5705,7 +5705,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:31',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 357,
         'modulo_id' => 125,
         'sku_grupo' => 'MMNST-05',
@@ -5721,7 +5721,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:31',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 358,
         'modulo_id' => 126,
         'sku_grupo' => 'MMNST-03',
@@ -5737,7 +5737,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:31',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 359,
         'modulo_id' => 127,
         'sku_grupo' => 'MMNST-08',
@@ -5753,7 +5753,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:31',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 360,
         'modulo_id' => 128,
         'sku_grupo' => 'MMNST-04',
@@ -5769,7 +5769,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:31',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 361,
         'modulo_id' => 129,
         'sku_grupo' => 'MMNST-09',
@@ -5785,7 +5785,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:31',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 362,
         'modulo_id' => 130,
         'sku_grupo' => 'MMNST-02',
@@ -5801,7 +5801,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:31',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 363,
         'modulo_id' => 131,
         'sku_grupo' => 'MMNST-06',
@@ -5817,7 +5817,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:31',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 364,
         'modulo_id' => 132,
         'sku_grupo' => 'SBIST-15',
@@ -5833,7 +5833,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:31',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 365,
         'modulo_id' => 133,
         'sku_grupo' => 'SBIST-08',
@@ -5849,7 +5849,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:31',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 366,
         'modulo_id' => 134,
         'sku_grupo' => 'SBIST-12',
@@ -5865,7 +5865,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:32',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 367,
         'modulo_id' => 135,
         'sku_grupo' => 'SBIST-06',
@@ -5881,7 +5881,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:32',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 368,
         'modulo_id' => 136,
         'sku_grupo' => 'SBIST-07',
@@ -5897,7 +5897,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:32',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 369,
         'modulo_id' => 137,
         'sku_grupo' => 'SBIST-04',
@@ -5913,7 +5913,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:32',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 370,
         'modulo_id' => 138,
         'sku_grupo' => 'SBIST-02',
@@ -5929,7 +5929,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:32',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 371,
         'modulo_id' => 139,
         'sku_grupo' => 'SBIST-03',
@@ -5945,7 +5945,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:32',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 372,
         'modulo_id' => 140,
         'sku_grupo' => 'SBIST-10',
@@ -5961,7 +5961,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:32',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 373,
         'modulo_id' => 141,
         'sku_grupo' => 'SBIST-01',
@@ -5977,7 +5977,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:32',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 374,
         'modulo_id' => 142,
         'sku_grupo' => 'SBIST-11',
@@ -5993,7 +5993,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:32',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 375,
         'modulo_id' => 143,
         'sku_grupo' => 'SBIST-13',
@@ -6009,7 +6009,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:32',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 376,
         'modulo_id' => 144,
         'sku_grupo' => 'SBIST-16',
@@ -6025,7 +6025,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:32',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 377,
         'modulo_id' => 145,
         'sku_grupo' => 'SBIST-09',
@@ -6041,7 +6041,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:32',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 378,
         'modulo_id' => 146,
         'sku_grupo' => 'SBIST-05',
@@ -6057,7 +6057,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:32',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 379,
         'modulo_id' => 147,
         'sku_grupo' => 'SBIST-14',
@@ -6073,7 +6073,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:32',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 380,
         'modulo_id' => 148,
         'sku_grupo' => 'SBUST-03',
@@ -6089,7 +6089,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:32',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 381,
         'modulo_id' => 149,
         'sku_grupo' => 'SBUST-01',
@@ -6105,7 +6105,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:32',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 382,
         'modulo_id' => 150,
         'sku_grupo' => 'SBUST-04',
@@ -6121,7 +6121,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:33',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 383,
         'modulo_id' => 151,
         'sku_grupo' => 'SBUST-02',
@@ -6137,7 +6137,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:33',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 384,
         'modulo_id' => 152,
         'sku_grupo' => 'SMCST-01',
@@ -6153,7 +6153,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:33',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 385,
         'modulo_id' => 153,
         'sku_grupo' => 'SMCST-02',
@@ -6169,7 +6169,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:33',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 386,
         'modulo_id' => 154,
         'sku_grupo' => 'SMCST-03',
@@ -6185,7 +6185,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:33',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 387,
         'modulo_id' => 155,
         'sku_grupo' => 'SMCST-04',
@@ -6201,7 +6201,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:33',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 388,
         'modulo_id' => 156,
         'sku_grupo' => 'STVST-06',
@@ -6217,7 +6217,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:33',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 389,
         'modulo_id' => 157,
         'sku_grupo' => 'STVST-04',
@@ -6233,7 +6233,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:33',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 390,
         'modulo_id' => 158,
         'sku_grupo' => 'STVST-08',
@@ -6249,7 +6249,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:33',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 391,
         'modulo_id' => 159,
         'sku_grupo' => 'STVST-09',
@@ -6265,7 +6265,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:33',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 392,
         'modulo_id' => 160,
         'sku_grupo' => 'STVST-10',
@@ -6281,7 +6281,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:33',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 393,
         'modulo_id' => 161,
         'sku_grupo' => 'STVST-12',
@@ -6297,7 +6297,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:33',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 394,
         'modulo_id' => 162,
         'sku_grupo' => 'STVST-01',
@@ -6313,7 +6313,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:33',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 395,
         'modulo_id' => 163,
         'sku_grupo' => 'STVST-11',
@@ -6329,7 +6329,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:33',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 396,
         'modulo_id' => 164,
         'sku_grupo' => 'STVST-03',
@@ -6345,7 +6345,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:33',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 397,
         'modulo_id' => 165,
         'sku_grupo' => 'STVST-02',
@@ -6361,7 +6361,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:33',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 398,
         'modulo_id' => 166,
         'sku_grupo' => 'STVST-05',
@@ -6377,7 +6377,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:33',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 399,
         'modulo_id' => 167,
         'sku_grupo' => 'STVST-07',
@@ -6393,7 +6393,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:34',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 400,
         'modulo_id' => 168,
         'sku_grupo' => 'FBAPT-01',
@@ -6409,7 +6409,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:34',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 401,
         'modulo_id' => 169,
         'sku_grupo' => 'FESCM-01',
@@ -6425,7 +6425,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:34',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 402,
         'modulo_id' => 170,
         'sku_grupo' => 'FMFST-10',
@@ -6441,7 +6441,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:34',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 403,
         'modulo_id' => 171,
         'sku_grupo' => 'FMFST-02',
@@ -6457,7 +6457,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:34',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 404,
         'modulo_id' => 172,
         'sku_grupo' => 'FMFST-04',
@@ -6473,7 +6473,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:34',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 405,
         'modulo_id' => 173,
         'sku_grupo' => 'FMFST-06',
@@ -6489,7 +6489,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:34',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 406,
         'modulo_id' => 174,
         'sku_grupo' => 'FMFST-09',
@@ -6505,7 +6505,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:34',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 407,
         'modulo_id' => 175,
         'sku_grupo' => 'FMFST-03',
@@ -6521,7 +6521,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:34',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 408,
         'modulo_id' => 176,
         'sku_grupo' => 'FMFST-05',
@@ -6537,7 +6537,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:34',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 409,
         'modulo_id' => 177,
         'sku_grupo' => 'FMFST-11',
@@ -6553,7 +6553,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:34',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 410,
         'modulo_id' => 178,
         'sku_grupo' => 'FMFST-08',
@@ -6569,7 +6569,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:34',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 411,
         'modulo_id' => 179,
         'sku_grupo' => 'FMFST-07',
@@ -6585,7 +6585,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:34',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 412,
         'modulo_id' => 180,
         'sku_grupo' => 'FMFST-12',
@@ -6601,7 +6601,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:34',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 413,
         'modulo_id' => 181,
         'sku_grupo' => 'FMFST-01',
@@ -6617,7 +6617,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:34',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 414,
         'modulo_id' => 182,
         'sku_grupo' => 'QTFHR-04',
@@ -6633,7 +6633,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:34',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 415,
         'modulo_id' => 183,
         'sku_grupo' => 'QTFHR-02',
@@ -6649,7 +6649,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:35',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 416,
         'modulo_id' => 184,
         'sku_grupo' => 'QTFHR-01',
@@ -6665,7 +6665,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:35',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 417,
         'modulo_id' => 185,
         'sku_grupo' => 'QTFHR-03',
@@ -6681,7 +6681,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:35',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 418,
         'modulo_id' => 186,
         'sku_grupo' => 'QTFVT-02',
@@ -6697,7 +6697,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:35',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 419,
         'modulo_id' => 187,
         'sku_grupo' => 'QTFVT-01',
@@ -6713,7 +6713,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:35',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 420,
         'modulo_id' => 188,
         'sku_grupo' => 'QTFVT-03',
@@ -6729,7 +6729,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:35',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 421,
         'modulo_id' => 189,
         'sku_grupo' => 'RCLAB-02',
@@ -6745,7 +6745,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:35',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 422,
         'modulo_id' => 189,
         'sku_grupo' => 'RCLAB-02',
@@ -6761,7 +6761,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:35',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 423,
         'modulo_id' => 189,
         'sku_grupo' => 'RCLAB-02',
@@ -6777,7 +6777,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:35',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 424,
         'modulo_id' => 189,
         'sku_grupo' => 'RCLAB-02',
@@ -6793,7 +6793,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:35',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 425,
         'modulo_id' => 189,
         'sku_grupo' => 'RCLAB-02',
@@ -6809,7 +6809,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:35',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 426,
         'modulo_id' => 189,
         'sku_grupo' => 'RCLAB-02',
@@ -6825,7 +6825,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:35',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 427,
         'modulo_id' => 190,
         'sku_grupo' => 'RCLAB-01',
@@ -6841,7 +6841,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:35',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 428,
         'modulo_id' => 190,
         'sku_grupo' => 'RCLAB-01',
@@ -6857,7 +6857,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:35',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 429,
         'modulo_id' => 190,
         'sku_grupo' => 'RCLAB-01',
@@ -6873,7 +6873,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:35',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 430,
         'modulo_id' => 190,
         'sku_grupo' => 'RCLAB-01',
@@ -6889,7 +6889,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:35',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 431,
         'modulo_id' => 190,
         'sku_grupo' => 'RCLAB-01',
@@ -6905,7 +6905,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:35',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 432,
         'modulo_id' => 190,
         'sku_grupo' => 'RCLAB-01',
@@ -6921,7 +6921,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:35',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 433,
         'modulo_id' => 191,
         'sku_grupo' => 'RCLAB-03',
@@ -6937,7 +6937,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:35',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 434,
         'modulo_id' => 191,
         'sku_grupo' => 'RCLAB-03',
@@ -6953,7 +6953,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:36',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 435,
         'modulo_id' => 191,
         'sku_grupo' => 'RCLAB-03',
@@ -6969,7 +6969,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:36',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 436,
         'modulo_id' => 191,
         'sku_grupo' => 'RCLAB-03',
@@ -6985,7 +6985,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:36',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 437,
         'modulo_id' => 191,
         'sku_grupo' => 'RCLAB-03',
@@ -7001,7 +7001,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:36',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 438,
         'modulo_id' => 191,
         'sku_grupo' => 'RCLAB-03',
@@ -7017,7 +7017,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:36',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 439,
         'modulo_id' => 192,
         'sku_grupo' => 'RCLCM-01',
@@ -7033,7 +7033,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:36',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 440,
         'modulo_id' => 192,
         'sku_grupo' => 'RCLCM-01',
@@ -7049,7 +7049,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:36',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 441,
         'modulo_id' => 193,
         'sku_grupo' => 'RCLCM-02',
@@ -7065,7 +7065,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:36',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 442,
         'modulo_id' => 194,
         'sku_grupo' => 'RCLCM-03',
@@ -7081,7 +7081,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:36',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 443,
         'modulo_id' => 195,
         'sku_grupo' => 'RCLCM-04',
@@ -7097,7 +7097,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:36',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 444,
         'modulo_id' => 196,
         'sku_grupo' => 'RCLCM-05',
@@ -7113,7 +7113,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:36',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 445,
         'modulo_id' => 197,
         'sku_grupo' => 'RCLGV-01',
@@ -7129,7 +7129,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:36',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 446,
         'modulo_id' => 198,
         'sku_grupo' => 'RCLGV-02',
@@ -7145,7 +7145,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:36',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 447,
         'modulo_id' => 198,
         'sku_grupo' => 'RCLGV-02',
@@ -7161,7 +7161,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:36',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 448,
         'modulo_id' => 199,
         'sku_grupo' => 'RCLGV-03',
@@ -7177,7 +7177,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:36',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 449,
         'modulo_id' => 200,
         'sku_grupo' => 'RCLGV-04',
@@ -7193,7 +7193,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:36',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 450,
         'modulo_id' => 200,
         'sku_grupo' => 'RCLGV-04',
@@ -7209,7 +7209,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:36',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 451,
         'modulo_id' => 201,
         'sku_grupo' => 'RCLGV-05',
@@ -7225,7 +7225,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:36',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 452,
         'modulo_id' => 202,
         'sku_grupo' => 'RCLGV-06',
@@ -7241,7 +7241,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:37',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 453,
         'modulo_id' => 202,
         'sku_grupo' => 'RCLGV-06',
@@ -7257,7 +7257,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:37',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 454,
         'modulo_id' => 203,
         'sku_grupo' => 'RCLGV-07',
@@ -7273,7 +7273,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:37',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 455,
         'modulo_id' => 204,
         'sku_grupo' => 'RCLGV-08',
@@ -7289,7 +7289,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:37',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 456,
         'modulo_id' => 204,
         'sku_grupo' => 'RCLGV-08',
@@ -7305,7 +7305,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:37',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 457,
         'modulo_id' => 205,
         'sku_grupo' => 'RCLGV-09',
@@ -7321,7 +7321,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:37',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 458,
         'modulo_id' => 206,
         'sku_grupo' => 'RCLGV-10',
@@ -7337,7 +7337,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:37',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 459,
         'modulo_id' => 206,
         'sku_grupo' => 'RCLGV-10',
@@ -7353,7 +7353,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:37',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 460,
         'modulo_id' => 207,
         'sku_grupo' => 'RCLGV-11',
@@ -7369,7 +7369,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:37',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 461,
         'modulo_id' => 208,
         'sku_grupo' => 'RCLGV-12',
@@ -7385,7 +7385,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:37',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 462,
         'modulo_id' => 208,
         'sku_grupo' => 'RCLGV-12',
@@ -7401,7 +7401,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:37',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 463,
         'modulo_id' => 209,
         'sku_grupo' => 'RCLGV-13',
@@ -7417,7 +7417,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:37',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 464,
         'modulo_id' => 210,
         'sku_grupo' => 'RCLGV-14',
@@ -7433,7 +7433,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:37',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 465,
         'modulo_id' => 210,
         'sku_grupo' => 'RCLGV-14',
@@ -7449,7 +7449,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:37',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 466,
         'modulo_id' => 211,
         'sku_grupo' => 'RCLGV-15',
@@ -7465,7 +7465,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:37',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 467,
         'modulo_id' => 212,
         'sku_grupo' => 'RCLGV-16',
@@ -7481,7 +7481,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:37',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 468,
         'modulo_id' => 212,
         'sku_grupo' => 'RCLGV-16',
@@ -7497,7 +7497,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:37',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 469,
         'modulo_id' => 213,
         'sku_grupo' => 'RCLGV-17',
@@ -7513,7 +7513,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:37',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 470,
         'modulo_id' => 214,
         'sku_grupo' => 'RCLGV-18',
@@ -7529,7 +7529,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:38',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 471,
         'modulo_id' => 214,
         'sku_grupo' => 'RCLGV-18',
@@ -7545,7 +7545,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:38',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 472,
         'modulo_id' => 215,
         'sku_grupo' => 'RCLRE-01',
@@ -7561,7 +7561,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:38',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 473,
         'modulo_id' => 215,
         'sku_grupo' => 'RCLRE-01',
@@ -7577,7 +7577,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:38',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 474,
         'modulo_id' => 215,
         'sku_grupo' => 'RCLRE-01',
@@ -7593,7 +7593,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:38',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 475,
         'modulo_id' => 215,
         'sku_grupo' => 'RCLRE-01',
@@ -7609,7 +7609,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:38',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 476,
         'modulo_id' => 215,
         'sku_grupo' => 'RCLRE-01',
@@ -7625,7 +7625,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:38',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 477,
         'modulo_id' => 215,
         'sku_grupo' => 'RCLRE-01',
@@ -7641,7 +7641,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:38',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 478,
         'modulo_id' => 216,
         'sku_grupo' => 'RCLRE-02',
@@ -7657,7 +7657,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:38',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 479,
         'modulo_id' => 216,
         'sku_grupo' => 'RCLRE-02',
@@ -7673,7 +7673,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:38',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 480,
         'modulo_id' => 216,
         'sku_grupo' => 'RCLRE-02',
@@ -7689,7 +7689,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:38',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 481,
         'modulo_id' => 216,
         'sku_grupo' => 'RCLRE-02',
@@ -7705,7 +7705,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:38',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 482,
         'modulo_id' => 216,
         'sku_grupo' => 'RCLRE-02',
@@ -7721,7 +7721,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:38',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 483,
         'modulo_id' => 216,
         'sku_grupo' => 'RCLRE-02',
@@ -7737,7 +7737,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:38',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 484,
         'modulo_id' => 217,
         'sku_grupo' => 'RCLRE-03',
@@ -7753,7 +7753,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:38',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 485,
         'modulo_id' => 217,
         'sku_grupo' => 'RCLRE-03',
@@ -7769,7 +7769,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:39',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 486,
         'modulo_id' => 217,
         'sku_grupo' => 'RCLRE-03',
@@ -7785,7 +7785,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:39',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 487,
         'modulo_id' => 217,
         'sku_grupo' => 'RCLRE-03',
@@ -7801,7 +7801,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:39',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 488,
         'modulo_id' => 217,
         'sku_grupo' => 'RCLRE-03',
@@ -7817,7 +7817,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:39',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 489,
         'modulo_id' => 217,
         'sku_grupo' => 'RCLRE-03',
@@ -7833,7 +7833,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:39',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 490,
         'modulo_id' => 218,
         'sku_grupo' => 'RCLRE-04',
@@ -7849,7 +7849,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:39',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 491,
         'modulo_id' => 218,
         'sku_grupo' => 'RCLRE-04',
@@ -7865,7 +7865,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:39',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 492,
         'modulo_id' => 218,
         'sku_grupo' => 'RCLRE-04',
@@ -7881,7 +7881,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:39',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 493,
         'modulo_id' => 218,
         'sku_grupo' => 'RCLRE-04',
@@ -7897,7 +7897,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:39',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 494,
         'modulo_id' => 218,
         'sku_grupo' => 'RCLRE-04',
@@ -7913,7 +7913,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:39',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 495,
         'modulo_id' => 218,
         'sku_grupo' => 'RCLRE-04',
@@ -7929,7 +7929,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:39',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 496,
         'modulo_id' => 219,
         'sku_grupo' => 'RCLRE-05',
@@ -7945,7 +7945,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:39',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 497,
         'modulo_id' => 219,
         'sku_grupo' => 'RCLRE-05',
@@ -7961,7 +7961,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:39',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 498,
         'modulo_id' => 219,
         'sku_grupo' => 'RCLRE-05',
@@ -7977,7 +7977,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:39',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 499,
         'modulo_id' => 219,
         'sku_grupo' => 'RCLRE-05',
@@ -7993,7 +7993,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:39',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 500,
         'modulo_id' => 219,
         'sku_grupo' => 'RCLRE-05',
@@ -8009,7 +8009,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:39',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 501,
         'modulo_id' => 219,
         'sku_grupo' => 'RCLRE-05',
@@ -8025,7 +8025,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:40',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 502,
         'modulo_id' => 220,
         'sku_grupo' => 'RCLRE-06',
@@ -8041,7 +8041,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:40',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 503,
         'modulo_id' => 220,
         'sku_grupo' => 'RCLRE-06',
@@ -8057,7 +8057,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:40',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 504,
         'modulo_id' => 220,
         'sku_grupo' => 'RCLRE-06',
@@ -8073,7 +8073,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:40',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 505,
         'modulo_id' => 220,
         'sku_grupo' => 'RCLRE-06',
@@ -8089,7 +8089,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:40',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 506,
         'modulo_id' => 220,
         'sku_grupo' => 'RCLRE-06',
@@ -8105,7 +8105,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:40',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 507,
         'modulo_id' => 220,
         'sku_grupo' => 'RCLRE-06',
@@ -8121,7 +8121,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:40',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 508,
         'modulo_id' => 221,
         'sku_grupo' => 'RCLTB-01',
@@ -8137,7 +8137,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:40',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 509,
         'modulo_id' => 221,
         'sku_grupo' => 'RCLTB-01',
@@ -8153,7 +8153,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:40',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 510,
         'modulo_id' => 221,
         'sku_grupo' => 'RCLTB-01',
@@ -8169,7 +8169,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:40',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 511,
         'modulo_id' => 221,
         'sku_grupo' => 'RCLTB-01',
@@ -8185,7 +8185,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:40',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 512,
         'modulo_id' => 221,
         'sku_grupo' => 'RCLTB-01',
@@ -8201,7 +8201,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:40',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 513,
         'modulo_id' => 221,
         'sku_grupo' => 'RCLTB-01',
@@ -8217,7 +8217,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:40',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 514,
         'modulo_id' => 222,
         'sku_grupo' => 'RCLTB-02',
@@ -8233,7 +8233,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:40',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 515,
         'modulo_id' => 222,
         'sku_grupo' => 'RCLTB-02',
@@ -8249,7 +8249,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:41',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 516,
         'modulo_id' => 222,
         'sku_grupo' => 'RCLTB-02',
@@ -8265,7 +8265,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:41',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 517,
         'modulo_id' => 222,
         'sku_grupo' => 'RCLTB-02',
@@ -8281,7 +8281,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:41',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 518,
         'modulo_id' => 222,
         'sku_grupo' => 'RCLTB-02',
@@ -8297,7 +8297,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:41',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 519,
         'modulo_id' => 222,
         'sku_grupo' => 'RCLTB-02',
@@ -8313,7 +8313,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:41',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 520,
         'modulo_id' => 223,
         'sku_grupo' => 'RCLTB-03',
@@ -8329,7 +8329,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:41',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 521,
         'modulo_id' => 223,
         'sku_grupo' => 'RCLTB-03',
@@ -8345,7 +8345,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:41',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 522,
         'modulo_id' => 223,
         'sku_grupo' => 'RCLTB-03',
@@ -8361,7 +8361,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:41',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 523,
         'modulo_id' => 223,
         'sku_grupo' => 'RCLTB-03',
@@ -8377,7 +8377,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:41',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 524,
         'modulo_id' => 223,
         'sku_grupo' => 'RCLTB-03',
@@ -8393,7 +8393,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:41',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 525,
         'modulo_id' => 223,
         'sku_grupo' => 'RCLTB-03',
@@ -8409,7 +8409,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:41',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 526,
         'modulo_id' => 224,
         'sku_grupo' => 'RCLTB-04',
@@ -8425,7 +8425,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:41',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 527,
         'modulo_id' => 224,
         'sku_grupo' => 'RCLTB-04',
@@ -8441,7 +8441,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:41',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 528,
         'modulo_id' => 224,
         'sku_grupo' => 'RCLTB-04',
@@ -8457,7 +8457,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:41',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 529,
         'modulo_id' => 224,
         'sku_grupo' => 'RCLTB-04',
@@ -8473,7 +8473,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:41',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 530,
         'modulo_id' => 224,
         'sku_grupo' => 'RCLTB-04',
@@ -8489,7 +8489,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:42',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 531,
         'modulo_id' => 224,
         'sku_grupo' => 'RCLTB-04',
@@ -8505,7 +8505,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:42',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 532,
         'modulo_id' => 225,
         'sku_grupo' => 'RCLTB-23',
@@ -8521,7 +8521,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:42',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 533,
         'modulo_id' => 225,
         'sku_grupo' => 'RCLTB-23',
@@ -8537,7 +8537,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:42',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 534,
         'modulo_id' => 225,
         'sku_grupo' => 'RCLTB-23',
@@ -8553,7 +8553,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:42',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 535,
         'modulo_id' => 225,
         'sku_grupo' => 'RCLTB-23',
@@ -8569,7 +8569,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:42',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 536,
         'modulo_id' => 225,
         'sku_grupo' => 'RCLTB-23',
@@ -8585,7 +8585,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:42',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 537,
         'modulo_id' => 225,
         'sku_grupo' => 'RCLTB-23',
@@ -8601,7 +8601,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:42',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 538,
         'modulo_id' => 226,
         'sku_grupo' => 'RCLTB-05',
@@ -8617,7 +8617,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:42',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 539,
         'modulo_id' => 226,
         'sku_grupo' => 'RCLTB-05',
@@ -8633,7 +8633,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:42',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 540,
         'modulo_id' => 226,
         'sku_grupo' => 'RCLTB-05',
@@ -8649,7 +8649,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:42',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 541,
         'modulo_id' => 226,
         'sku_grupo' => 'RCLTB-05',
@@ -8665,7 +8665,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:42',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 542,
         'modulo_id' => 226,
         'sku_grupo' => 'RCLTB-05',
@@ -8681,7 +8681,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:42',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 543,
         'modulo_id' => 226,
         'sku_grupo' => 'RCLTB-05',
@@ -8697,7 +8697,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:42',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 544,
         'modulo_id' => 227,
         'sku_grupo' => 'RCLTB-06',
@@ -8713,7 +8713,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:42',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 545,
         'modulo_id' => 227,
         'sku_grupo' => 'RCLTB-06',
@@ -8729,7 +8729,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:43',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 546,
         'modulo_id' => 227,
         'sku_grupo' => 'RCLTB-06',
@@ -8745,7 +8745,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:43',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 547,
         'modulo_id' => 227,
         'sku_grupo' => 'RCLTB-06',
@@ -8761,7 +8761,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:43',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 548,
         'modulo_id' => 227,
         'sku_grupo' => 'RCLTB-06',
@@ -8777,7 +8777,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:43',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 549,
         'modulo_id' => 227,
         'sku_grupo' => 'RCLTB-06',
@@ -8793,7 +8793,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:43',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 550,
         'modulo_id' => 228,
         'sku_grupo' => 'RCLTB-07',
@@ -8809,7 +8809,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:43',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 551,
         'modulo_id' => 228,
         'sku_grupo' => 'RCLTB-07',
@@ -8825,7 +8825,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:43',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 552,
         'modulo_id' => 228,
         'sku_grupo' => 'RCLTB-07',
@@ -8841,7 +8841,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:43',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 553,
         'modulo_id' => 228,
         'sku_grupo' => 'RCLTB-07',
@@ -8857,7 +8857,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:43',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 554,
         'modulo_id' => 228,
         'sku_grupo' => 'RCLTB-07',
@@ -8873,7 +8873,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:43',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 555,
         'modulo_id' => 228,
         'sku_grupo' => 'RCLTB-07',
@@ -8889,7 +8889,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:43',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 556,
         'modulo_id' => 229,
         'sku_grupo' => 'RCLTB-08',
@@ -8905,7 +8905,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:43',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 557,
         'modulo_id' => 229,
         'sku_grupo' => 'RCLTB-08',
@@ -8921,7 +8921,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:43',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 558,
         'modulo_id' => 229,
         'sku_grupo' => 'RCLTB-08',
@@ -8937,7 +8937,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:43',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 559,
         'modulo_id' => 229,
         'sku_grupo' => 'RCLTB-08',
@@ -8953,7 +8953,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:43',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 560,
         'modulo_id' => 229,
         'sku_grupo' => 'RCLTB-08',
@@ -8969,7 +8969,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:43',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 561,
         'modulo_id' => 229,
         'sku_grupo' => 'RCLTB-08',
@@ -8985,7 +8985,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:44',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 562,
         'modulo_id' => 230,
         'sku_grupo' => 'RCLTB-09',
@@ -9001,7 +9001,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:44',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 563,
         'modulo_id' => 230,
         'sku_grupo' => 'RCLTB-09',
@@ -9017,7 +9017,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:44',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 564,
         'modulo_id' => 230,
         'sku_grupo' => 'RCLTB-09',
@@ -9033,7 +9033,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:44',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 565,
         'modulo_id' => 230,
         'sku_grupo' => 'RCLTB-09',
@@ -9049,7 +9049,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:44',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 566,
         'modulo_id' => 230,
         'sku_grupo' => 'RCLTB-09',
@@ -9065,7 +9065,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:44',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 567,
         'modulo_id' => 230,
         'sku_grupo' => 'RCLTB-09',
@@ -9081,7 +9081,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:44',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 568,
         'modulo_id' => 231,
         'sku_grupo' => 'RCLTB-10',
@@ -9097,7 +9097,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:44',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 569,
         'modulo_id' => 231,
         'sku_grupo' => 'RCLTB-10',
@@ -9113,7 +9113,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:44',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 570,
         'modulo_id' => 231,
         'sku_grupo' => 'RCLTB-10',
@@ -9129,7 +9129,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:44',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 571,
         'modulo_id' => 231,
         'sku_grupo' => 'RCLTB-10',
@@ -9145,7 +9145,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:44',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 572,
         'modulo_id' => 231,
         'sku_grupo' => 'RCLTB-10',
@@ -9161,7 +9161,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:44',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 573,
         'modulo_id' => 231,
         'sku_grupo' => 'RCLTB-10',
@@ -9177,7 +9177,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:44',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 574,
         'modulo_id' => 232,
         'sku_grupo' => 'RCLTB-11',
@@ -9193,7 +9193,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:44',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 575,
         'modulo_id' => 232,
         'sku_grupo' => 'RCLTB-11',
@@ -9209,7 +9209,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:44',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 576,
         'modulo_id' => 232,
         'sku_grupo' => 'RCLTB-11',
@@ -9225,7 +9225,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:44',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 577,
         'modulo_id' => 232,
         'sku_grupo' => 'RCLTB-11',
@@ -9241,7 +9241,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:44',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 578,
         'modulo_id' => 232,
         'sku_grupo' => 'RCLTB-11',
@@ -9257,7 +9257,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:44',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 579,
         'modulo_id' => 232,
         'sku_grupo' => 'RCLTB-11',
@@ -9273,7 +9273,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:45',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 580,
         'modulo_id' => 233,
         'sku_grupo' => 'RCLTB-12',
@@ -9289,7 +9289,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:45',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 581,
         'modulo_id' => 233,
         'sku_grupo' => 'RCLTB-12',
@@ -9305,7 +9305,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:45',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 582,
         'modulo_id' => 233,
         'sku_grupo' => 'RCLTB-12',
@@ -9321,7 +9321,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:45',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 583,
         'modulo_id' => 233,
         'sku_grupo' => 'RCLTB-12',
@@ -9337,7 +9337,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:45',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 584,
         'modulo_id' => 233,
         'sku_grupo' => 'RCLTB-12',
@@ -9353,7 +9353,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:45',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 585,
         'modulo_id' => 233,
         'sku_grupo' => 'RCLTB-12',
@@ -9369,7 +9369,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:45',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 586,
         'modulo_id' => 234,
         'sku_grupo' => 'RCLTB-13',
@@ -9385,7 +9385,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:45',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 587,
         'modulo_id' => 234,
         'sku_grupo' => 'RCLTB-13',
@@ -9401,7 +9401,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:45',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 588,
         'modulo_id' => 234,
         'sku_grupo' => 'RCLTB-13',
@@ -9417,7 +9417,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:45',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 589,
         'modulo_id' => 234,
         'sku_grupo' => 'RCLTB-13',
@@ -9433,7 +9433,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:45',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 590,
         'modulo_id' => 234,
         'sku_grupo' => 'RCLTB-13',
@@ -9449,7 +9449,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:46',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 591,
         'modulo_id' => 234,
         'sku_grupo' => 'RCLTB-13',
@@ -9465,7 +9465,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:46',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 592,
         'modulo_id' => 235,
         'sku_grupo' => 'RCLTB-14',
@@ -9481,7 +9481,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:46',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 593,
         'modulo_id' => 235,
         'sku_grupo' => 'RCLTB-14',
@@ -9497,7 +9497,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:46',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 594,
         'modulo_id' => 235,
         'sku_grupo' => 'RCLTB-14',
@@ -9513,7 +9513,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:46',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 595,
         'modulo_id' => 235,
         'sku_grupo' => 'RCLTB-14',
@@ -9529,7 +9529,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:46',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 596,
         'modulo_id' => 235,
         'sku_grupo' => 'RCLTB-14',
@@ -9545,7 +9545,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:46',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 597,
         'modulo_id' => 235,
         'sku_grupo' => 'RCLTB-14',
@@ -9561,7 +9561,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:46',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 598,
         'modulo_id' => 236,
         'sku_grupo' => 'RCLTB-15',
@@ -9577,7 +9577,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:46',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 599,
         'modulo_id' => 236,
         'sku_grupo' => 'RCLTB-15',
@@ -9593,7 +9593,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:47',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 600,
         'modulo_id' => 236,
         'sku_grupo' => 'RCLTB-15',
@@ -9609,7 +9609,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:47',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 601,
         'modulo_id' => 236,
         'sku_grupo' => 'RCLTB-15',
@@ -9625,7 +9625,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:47',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 602,
         'modulo_id' => 236,
         'sku_grupo' => 'RCLTB-15',
@@ -9641,7 +9641,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:47',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 603,
         'modulo_id' => 236,
         'sku_grupo' => 'RCLTB-15',
@@ -9657,7 +9657,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:47',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 604,
         'modulo_id' => 237,
         'sku_grupo' => 'RCLTB-16',
@@ -9673,7 +9673,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:47',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 605,
         'modulo_id' => 237,
         'sku_grupo' => 'RCLTB-16',
@@ -9689,7 +9689,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:47',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 606,
         'modulo_id' => 237,
         'sku_grupo' => 'RCLTB-16',
@@ -9705,7 +9705,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:47',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 607,
         'modulo_id' => 237,
         'sku_grupo' => 'RCLTB-16',
@@ -9721,7 +9721,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:47',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 608,
         'modulo_id' => 237,
         'sku_grupo' => 'RCLTB-16',
@@ -9737,7 +9737,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:47',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 609,
         'modulo_id' => 237,
         'sku_grupo' => 'RCLTB-16',
@@ -9753,7 +9753,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:47',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 610,
         'modulo_id' => 238,
         'sku_grupo' => 'RCLTB-17',
@@ -9769,7 +9769,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:48',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 611,
         'modulo_id' => 238,
         'sku_grupo' => 'RCLTB-17',
@@ -9785,7 +9785,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:48',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 612,
         'modulo_id' => 238,
         'sku_grupo' => 'RCLTB-17',
@@ -9801,7 +9801,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:48',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 613,
         'modulo_id' => 238,
         'sku_grupo' => 'RCLTB-17',
@@ -9817,7 +9817,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:48',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 614,
         'modulo_id' => 238,
         'sku_grupo' => 'RCLTB-17',
@@ -9833,7 +9833,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:48',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 615,
         'modulo_id' => 238,
         'sku_grupo' => 'RCLTB-17',
@@ -9849,7 +9849,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:48',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 616,
         'modulo_id' => 239,
         'sku_grupo' => 'RCLTB-18',
@@ -9865,7 +9865,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:48',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 617,
         'modulo_id' => 239,
         'sku_grupo' => 'RCLTB-18',
@@ -9881,7 +9881,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:48',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 618,
         'modulo_id' => 239,
         'sku_grupo' => 'RCLTB-18',
@@ -9897,7 +9897,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:48',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 619,
         'modulo_id' => 239,
         'sku_grupo' => 'RCLTB-18',
@@ -9913,7 +9913,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:48',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 620,
         'modulo_id' => 239,
         'sku_grupo' => 'RCLTB-18',
@@ -9929,7 +9929,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:48',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 621,
         'modulo_id' => 239,
         'sku_grupo' => 'RCLTB-18',
@@ -9945,7 +9945,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:49',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 622,
         'modulo_id' => 240,
         'sku_grupo' => 'RCLTB-19',
@@ -9961,7 +9961,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:49',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 623,
         'modulo_id' => 240,
         'sku_grupo' => 'RCLTB-19',
@@ -9977,7 +9977,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:49',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 624,
         'modulo_id' => 240,
         'sku_grupo' => 'RCLTB-19',
@@ -9993,7 +9993,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:49',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 625,
         'modulo_id' => 240,
         'sku_grupo' => 'RCLTB-19',
@@ -10009,7 +10009,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:49',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 626,
         'modulo_id' => 240,
         'sku_grupo' => 'RCLTB-19',
@@ -10025,7 +10025,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:49',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 627,
         'modulo_id' => 240,
         'sku_grupo' => 'RCLTB-19',
@@ -10041,7 +10041,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:49',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 628,
         'modulo_id' => 241,
         'sku_grupo' => 'RCLTB-20',
@@ -10057,7 +10057,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:49',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 629,
         'modulo_id' => 241,
         'sku_grupo' => 'RCLTB-20',
@@ -10073,7 +10073,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:49',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 630,
         'modulo_id' => 241,
         'sku_grupo' => 'RCLTB-20',
@@ -10089,7 +10089,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:49',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 631,
         'modulo_id' => 241,
         'sku_grupo' => 'RCLTB-20',
@@ -10105,7 +10105,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:49',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 632,
         'modulo_id' => 241,
         'sku_grupo' => 'RCLTB-20',
@@ -10121,7 +10121,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:49',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 633,
         'modulo_id' => 241,
         'sku_grupo' => 'RCLTB-20',
@@ -10137,7 +10137,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:49',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 634,
         'modulo_id' => 242,
         'sku_grupo' => 'RCLTB-21',
@@ -10153,7 +10153,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:49',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 635,
         'modulo_id' => 242,
         'sku_grupo' => 'RCLTB-21',
@@ -10169,7 +10169,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:49',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 636,
         'modulo_id' => 242,
         'sku_grupo' => 'RCLTB-21',
@@ -10185,7 +10185,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:49',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 637,
         'modulo_id' => 242,
         'sku_grupo' => 'RCLTB-21',
@@ -10201,7 +10201,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:50',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 638,
         'modulo_id' => 242,
         'sku_grupo' => 'RCLTB-21',
@@ -10217,7 +10217,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:50',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 639,
         'modulo_id' => 242,
         'sku_grupo' => 'RCLTB-21',
@@ -10233,7 +10233,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:50',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 640,
         'modulo_id' => 243,
         'sku_grupo' => 'RCLTB-22',
@@ -10249,7 +10249,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:50',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 641,
         'modulo_id' => 243,
         'sku_grupo' => 'RCLTB-22',
@@ -10265,7 +10265,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:50',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 642,
         'modulo_id' => 243,
         'sku_grupo' => 'RCLTB-22',
@@ -10281,7 +10281,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:50',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 643,
         'modulo_id' => 243,
         'sku_grupo' => 'RCLTB-22',
@@ -10297,7 +10297,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:50',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 644,
         'modulo_id' => 243,
         'sku_grupo' => 'RCLTB-22',
@@ -10313,7 +10313,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:50',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 645,
         'modulo_id' => 243,
         'sku_grupo' => 'RCLTB-22',
@@ -10329,7 +10329,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:50',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 646,
         'modulo_id' => 244,
         'sku_grupo' => 'RVEAB-01',
@@ -10345,7 +10345,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:50',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 647,
         'modulo_id' => 244,
         'sku_grupo' => 'RVEAB-01',
@@ -10361,7 +10361,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:50',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 648,
         'modulo_id' => 244,
         'sku_grupo' => 'RVEAB-01',
@@ -10377,7 +10377,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:50',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 649,
         'modulo_id' => 245,
         'sku_grupo' => 'RVEAB-02',
@@ -10393,7 +10393,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:50',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 650,
         'modulo_id' => 245,
         'sku_grupo' => 'RVEAB-02',
@@ -10409,7 +10409,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:50',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 651,
         'modulo_id' => 245,
         'sku_grupo' => 'RVEAB-02',
@@ -10425,7 +10425,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:51',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 652,
         'modulo_id' => 246,
         'sku_grupo' => 'RVEAB-04',
@@ -10441,7 +10441,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:51',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 653,
         'modulo_id' => 246,
         'sku_grupo' => 'RVEAB-04',
@@ -10457,7 +10457,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:51',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 654,
         'modulo_id' => 246,
         'sku_grupo' => 'RVEAB-04',
@@ -10473,7 +10473,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:51',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 655,
         'modulo_id' => 247,
         'sku_grupo' => 'RVEAB-03',
@@ -10489,7 +10489,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:51',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 656,
         'modulo_id' => 247,
         'sku_grupo' => 'RVEAB-03',
@@ -10505,7 +10505,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:51',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 657,
         'modulo_id' => 247,
         'sku_grupo' => 'RVEAB-03',
@@ -10521,7 +10521,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:51',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 658,
         'modulo_id' => 248,
         'sku_grupo' => 'RVEAB-05',
@@ -10537,7 +10537,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:51',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 659,
         'modulo_id' => 248,
         'sku_grupo' => 'RVEAB-05',
@@ -10553,7 +10553,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:51',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 660,
         'modulo_id' => 249,
         'sku_grupo' => 'RVECM-01',
@@ -10569,7 +10569,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:51',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 661,
         'modulo_id' => 250,
         'sku_grupo' => 'RVECM-02',
@@ -10585,7 +10585,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:51',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 662,
         'modulo_id' => 251,
         'sku_grupo' => 'RVECM-03',
@@ -10601,7 +10601,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:51',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 663,
         'modulo_id' => 251,
         'sku_grupo' => 'RVECM-03',
@@ -10617,7 +10617,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:51',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 664,
         'modulo_id' => 252,
         'sku_grupo' => 'RVECM-04',
@@ -10633,7 +10633,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:52',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 665,
         'modulo_id' => 253,
         'sku_grupo' => 'RVECM-05',
@@ -10649,7 +10649,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:52',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 666,
         'modulo_id' => 254,
         'sku_grupo' => 'RVEGV-01',
@@ -10665,7 +10665,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:52',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 667,
         'modulo_id' => 255,
         'sku_grupo' => 'RVEGV-02',
@@ -10681,7 +10681,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:52',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 668,
         'modulo_id' => 255,
         'sku_grupo' => 'RVEGV-02',
@@ -10697,7 +10697,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:52',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 669,
         'modulo_id' => 256,
         'sku_grupo' => 'RVEGV-03',
@@ -10713,7 +10713,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:52',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 670,
         'modulo_id' => 257,
         'sku_grupo' => 'RVEGV-04',
@@ -10729,7 +10729,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:52',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 671,
         'modulo_id' => 257,
         'sku_grupo' => 'RVEGV-04',
@@ -10745,7 +10745,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:52',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 672,
         'modulo_id' => 258,
         'sku_grupo' => 'RVEGV-05',
@@ -10761,7 +10761,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:52',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 673,
         'modulo_id' => 258,
         'sku_grupo' => 'RVEGV-05',
@@ -10777,7 +10777,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:52',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 674,
         'modulo_id' => 258,
         'sku_grupo' => 'RVEGV-05',
@@ -10793,7 +10793,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:52',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 675,
         'modulo_id' => 258,
         'sku_grupo' => 'RVEGV-05',
@@ -10809,7 +10809,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:52',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 676,
         'modulo_id' => 258,
         'sku_grupo' => 'RVEGV-05',
@@ -10825,7 +10825,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:52',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 677,
         'modulo_id' => 258,
         'sku_grupo' => 'RVEGV-05',
@@ -10841,7 +10841,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:52',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 678,
         'modulo_id' => 259,
         'sku_grupo' => 'RVEGV-06',
@@ -10857,7 +10857,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:52',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 679,
         'modulo_id' => 260,
         'sku_grupo' => 'RVEGV-07',
@@ -10873,7 +10873,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:52',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 680,
         'modulo_id' => 260,
         'sku_grupo' => 'RVEGV-07',
@@ -10889,7 +10889,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:52',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 681,
         'modulo_id' => 261,
         'sku_grupo' => 'RVEGV-08',
@@ -10905,7 +10905,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:52',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 682,
         'modulo_id' => 262,
         'sku_grupo' => 'RVEGV-09',
@@ -10921,7 +10921,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:52',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 683,
         'modulo_id' => 262,
         'sku_grupo' => 'RVEGV-09',
@@ -10937,7 +10937,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:52',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 684,
         'modulo_id' => 263,
         'sku_grupo' => 'RVEGV-10',
@@ -10953,7 +10953,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:53',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 685,
         'modulo_id' => 264,
         'sku_grupo' => 'RVEGV-11',
@@ -10969,7 +10969,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:53',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 686,
         'modulo_id' => 264,
         'sku_grupo' => 'RVEGV-11',
@@ -10985,7 +10985,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:53',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 687,
         'modulo_id' => 265,
         'sku_grupo' => 'RVEGV-12',
@@ -11001,7 +11001,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:53',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 688,
         'modulo_id' => 265,
         'sku_grupo' => 'RVEGV-12',
@@ -11017,7 +11017,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:53',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 689,
         'modulo_id' => 265,
         'sku_grupo' => 'RVEGV-12',
@@ -11033,7 +11033,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:53',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 690,
         'modulo_id' => 265,
         'sku_grupo' => 'RVEGV-12',
@@ -11049,7 +11049,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:53',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 691,
         'modulo_id' => 265,
         'sku_grupo' => 'RVEGV-12',
@@ -11065,7 +11065,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:53',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 692,
         'modulo_id' => 265,
         'sku_grupo' => 'RVEGV-12',
@@ -11081,7 +11081,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:53',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 693,
         'modulo_id' => 266,
         'sku_grupo' => 'RVEGV-13',
@@ -11097,7 +11097,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:53',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 694,
         'modulo_id' => 267,
         'sku_grupo' => 'RVEGV-14',
@@ -11113,7 +11113,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:53',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 695,
         'modulo_id' => 267,
         'sku_grupo' => 'RVEGV-14',
@@ -11129,7 +11129,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:53',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 696,
         'modulo_id' => 268,
         'sku_grupo' => 'RVEGV-15',
@@ -11145,7 +11145,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:53',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 697,
         'modulo_id' => 269,
         'sku_grupo' => 'RVEGV-16',
@@ -11161,7 +11161,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:53',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 698,
         'modulo_id' => 269,
         'sku_grupo' => 'RVEGV-16',
@@ -11177,7 +11177,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:54',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 699,
         'modulo_id' => 270,
         'sku_grupo' => 'RVEGV-17',
@@ -11193,7 +11193,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:54',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 700,
         'modulo_id' => 271,
         'sku_grupo' => 'RVEGV-18',
@@ -11209,7 +11209,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:54',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 701,
         'modulo_id' => 271,
         'sku_grupo' => 'RVEGV-18',
@@ -11225,7 +11225,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:54',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 702,
         'modulo_id' => 272,
         'sku_grupo' => 'RVEGV-19',
@@ -11241,7 +11241,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:54',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 703,
         'modulo_id' => 272,
         'sku_grupo' => 'RVEGV-19',
@@ -11257,7 +11257,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:54',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 704,
         'modulo_id' => 272,
         'sku_grupo' => 'RVEGV-19',
@@ -11273,7 +11273,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:54',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 705,
         'modulo_id' => 272,
         'sku_grupo' => 'RVEGV-19',
@@ -11289,7 +11289,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:54',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 706,
         'modulo_id' => 272,
         'sku_grupo' => 'RVEGV-19',
@@ -11305,7 +11305,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:54',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 707,
         'modulo_id' => 272,
         'sku_grupo' => 'RVEGV-19',
@@ -11321,7 +11321,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:54',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 708,
         'modulo_id' => 273,
         'sku_grupo' => 'RVEGV-20',
@@ -11337,7 +11337,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:54',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 709,
         'modulo_id' => 274,
         'sku_grupo' => 'RVEGV-21',
@@ -11353,7 +11353,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:54',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 710,
         'modulo_id' => 274,
         'sku_grupo' => 'RVEGV-21',
@@ -11369,7 +11369,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:54',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 711,
         'modulo_id' => 275,
         'sku_grupo' => 'RVETB-01',
@@ -11385,7 +11385,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:54',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 712,
         'modulo_id' => 275,
         'sku_grupo' => 'RVETB-01',
@@ -11401,7 +11401,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:54',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 713,
         'modulo_id' => 275,
         'sku_grupo' => 'RVETB-01',
@@ -11417,7 +11417,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:54',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 714,
         'modulo_id' => 276,
         'sku_grupo' => 'RVETB-02',
@@ -11433,7 +11433,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:55',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 715,
         'modulo_id' => 276,
         'sku_grupo' => 'RVETB-02',
@@ -11449,7 +11449,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:55',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 716,
         'modulo_id' => 276,
         'sku_grupo' => 'RVETB-02',
@@ -11465,7 +11465,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:55',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 717,
         'modulo_id' => 277,
         'sku_grupo' => 'RVETB-03',
@@ -11481,7 +11481,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:55',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 718,
         'modulo_id' => 277,
         'sku_grupo' => 'RVETB-03',
@@ -11497,7 +11497,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:55',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 719,
         'modulo_id' => 277,
         'sku_grupo' => 'RVETB-03',
@@ -11513,7 +11513,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:55',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 720,
         'modulo_id' => 278,
         'sku_grupo' => 'RVETB-04',
@@ -11529,7 +11529,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:55',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 721,
         'modulo_id' => 278,
         'sku_grupo' => 'RVETB-04',
@@ -11545,7 +11545,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:55',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 722,
         'modulo_id' => 278,
         'sku_grupo' => 'RVETB-04',
@@ -11561,7 +11561,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:55',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 723,
         'modulo_id' => 279,
         'sku_grupo' => 'RVETB-06',
@@ -11577,7 +11577,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:55',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 724,
         'modulo_id' => 279,
         'sku_grupo' => 'RVETB-06',
@@ -11593,7 +11593,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:55',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 725,
         'modulo_id' => 279,
         'sku_grupo' => 'RVETB-06',
@@ -11609,7 +11609,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:55',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 726,
         'modulo_id' => 280,
         'sku_grupo' => 'RVETB-05',
@@ -11625,7 +11625,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:55',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 727,
         'modulo_id' => 280,
         'sku_grupo' => 'RVETB-05',
@@ -11641,7 +11641,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:55',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 728,
         'modulo_id' => 280,
         'sku_grupo' => 'RVETB-05',
@@ -11657,7 +11657,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:56',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 729,
         'modulo_id' => 281,
         'sku_grupo' => 'RVETB-07',
@@ -11673,7 +11673,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:56',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 730,
         'modulo_id' => 281,
         'sku_grupo' => 'RVETB-07',
@@ -11689,7 +11689,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:56',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 731,
         'modulo_id' => 281,
         'sku_grupo' => 'RVETB-07',
@@ -11705,7 +11705,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:56',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 732,
         'modulo_id' => 282,
         'sku_grupo' => 'RVETB-08',
@@ -11721,7 +11721,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:56',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 733,
         'modulo_id' => 282,
         'sku_grupo' => 'RVETB-08',
@@ -11737,7 +11737,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:56',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 734,
         'modulo_id' => 282,
         'sku_grupo' => 'RVETB-08',
@@ -11753,7 +11753,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:56',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 735,
         'modulo_id' => 283,
         'sku_grupo' => 'RVETB-10',
@@ -11769,7 +11769,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:56',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 736,
         'modulo_id' => 283,
         'sku_grupo' => 'RVETB-10',
@@ -11785,7 +11785,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:56',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 737,
         'modulo_id' => 283,
         'sku_grupo' => 'RVETB-10',
@@ -11801,7 +11801,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:56',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 738,
         'modulo_id' => 284,
         'sku_grupo' => 'RVETB-09',
@@ -11817,7 +11817,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:57',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 739,
         'modulo_id' => 284,
         'sku_grupo' => 'RVETB-09',
@@ -11833,7 +11833,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:57',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 740,
         'modulo_id' => 284,
         'sku_grupo' => 'RVETB-09',
@@ -11849,7 +11849,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:57',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 741,
         'modulo_id' => 285,
         'sku_grupo' => 'RVETB-11',
@@ -11865,7 +11865,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:57',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 742,
         'modulo_id' => 285,
         'sku_grupo' => 'RVETB-11',
@@ -11881,7 +11881,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:57',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 743,
         'modulo_id' => 285,
         'sku_grupo' => 'RVETB-11',
@@ -11897,7 +11897,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:57',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 744,
         'modulo_id' => 286,
         'sku_grupo' => 'RVETB-13',
@@ -11913,7 +11913,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:57',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 745,
         'modulo_id' => 286,
         'sku_grupo' => 'RVETB-13',
@@ -11929,7 +11929,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:57',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 746,
         'modulo_id' => 286,
         'sku_grupo' => 'RVETB-13',
@@ -11945,7 +11945,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:57',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 747,
         'modulo_id' => 287,
         'sku_grupo' => 'RVETB-12',
@@ -11961,7 +11961,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:57',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 748,
         'modulo_id' => 287,
         'sku_grupo' => 'RVETB-12',
@@ -11977,7 +11977,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:57',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 749,
         'modulo_id' => 287,
         'sku_grupo' => 'RVETB-12',
@@ -11993,7 +11993,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:57',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 750,
         'modulo_id' => 288,
         'sku_grupo' => 'RVETB-14',
@@ -12009,7 +12009,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:57',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 751,
         'modulo_id' => 288,
         'sku_grupo' => 'RVETB-14',
@@ -12025,7 +12025,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:57',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 752,
         'modulo_id' => 288,
         'sku_grupo' => 'RVETB-14',
@@ -12041,7 +12041,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:58',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 753,
         'modulo_id' => 289,
         'sku_grupo' => 'RVETB-16',
@@ -12057,7 +12057,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:58',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 754,
         'modulo_id' => 289,
         'sku_grupo' => 'RVETB-16',
@@ -12073,7 +12073,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:58',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 755,
         'modulo_id' => 289,
         'sku_grupo' => 'RVETB-16',
@@ -12089,7 +12089,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:58',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 756,
         'modulo_id' => 290,
         'sku_grupo' => 'RVETB-15',
@@ -12105,7 +12105,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:58',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 757,
         'modulo_id' => 290,
         'sku_grupo' => 'RVETB-15',
@@ -12121,7 +12121,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:58',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 758,
         'modulo_id' => 290,
         'sku_grupo' => 'RVETB-15',
@@ -12137,7 +12137,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:58',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 759,
         'modulo_id' => 291,
         'sku_grupo' => 'RVETB-17',
@@ -12153,7 +12153,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:58',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 760,
         'modulo_id' => 291,
         'sku_grupo' => 'RVETB-17',
@@ -12169,7 +12169,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:58',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 761,
         'modulo_id' => 291,
         'sku_grupo' => 'RVETB-17',
@@ -12185,7 +12185,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:58',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 762,
         'modulo_id' => 292,
         'sku_grupo' => 'RVETB-18',
@@ -12201,7 +12201,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:58',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 763,
         'modulo_id' => 292,
         'sku_grupo' => 'RVETB-18',
@@ -12217,7 +12217,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:58',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 764,
         'modulo_id' => 292,
         'sku_grupo' => 'RVETB-18',
@@ -12233,7 +12233,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:59',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 765,
         'modulo_id' => 293,
         'sku_grupo' => 'RVETB-19',
@@ -12249,7 +12249,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:59',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 766,
         'modulo_id' => 293,
         'sku_grupo' => 'RVETB-19',
@@ -12265,7 +12265,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:59',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 767,
         'modulo_id' => 293,
         'sku_grupo' => 'RVETB-19',
@@ -12281,7 +12281,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:59',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 768,
         'modulo_id' => 294,
         'sku_grupo' => 'RVETB-20',
@@ -12297,7 +12297,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:59',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 769,
         'modulo_id' => 294,
         'sku_grupo' => 'RVETB-20',
@@ -12313,7 +12313,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:59',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 770,
         'modulo_id' => 294,
         'sku_grupo' => 'RVETB-20',
@@ -12329,7 +12329,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:59',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 771,
         'modulo_id' => 295,
         'sku_grupo' => 'RVETB-21',
@@ -12345,7 +12345,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:59',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 772,
         'modulo_id' => 295,
         'sku_grupo' => 'RVETB-21',
@@ -12361,7 +12361,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:59',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 773,
         'modulo_id' => 295,
         'sku_grupo' => 'RVETB-21',
@@ -12377,7 +12377,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:59',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 774,
         'modulo_id' => 296,
         'sku_grupo' => 'RVETB-22',
@@ -12393,7 +12393,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:59',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 775,
         'modulo_id' => 296,
         'sku_grupo' => 'RVETB-22',
@@ -12409,7 +12409,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:59',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 776,
         'modulo_id' => 296,
         'sku_grupo' => 'RVETB-22',
@@ -12425,7 +12425,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:59',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 777,
         'modulo_id' => 297,
         'sku_grupo' => 'RVETB-24',
@@ -12441,7 +12441,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:59',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 778,
         'modulo_id' => 297,
         'sku_grupo' => 'RVETB-24',
@@ -12457,7 +12457,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:59',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 779,
         'modulo_id' => 297,
         'sku_grupo' => 'RVETB-24',
@@ -12473,7 +12473,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 22:59:59',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 780,
         'modulo_id' => 298,
         'sku_grupo' => 'RVETB-23',
@@ -12489,7 +12489,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 23:00:00',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 781,
         'modulo_id' => 298,
         'sku_grupo' => 'RVETB-23',
@@ -12505,7 +12505,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 23:00:00',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 782,
         'modulo_id' => 298,
         'sku_grupo' => 'RVETB-23',
@@ -12521,7 +12521,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 23:00:00',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 783,
         'modulo_id' => 299,
         'sku_grupo' => 'RVETB-25',
@@ -12537,7 +12537,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 23:00:00',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 784,
         'modulo_id' => 299,
         'sku_grupo' => 'RVETB-25',
@@ -12553,7 +12553,7 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 23:00:00',
         'deleted_at' => NULL,
     ],
-      [
+    [
         'id' => 785,
         'modulo_id' => 299,
         'sku_grupo' => 'RVETB-25',
@@ -12569,11 +12569,14 @@ class SkulistadoSeeder extends Seeder
         'updated_at' => '2018-12-02 23:00:00',
         'deleted_at' => NULL,
     ],
-  ]);
-
+]);
+$this->command->getOutput()->progressStart(10);
 foreach ($skulistados as $value) {
-  Skulistado::create($value);
+    sleep(1);
+    Skulistado::create($value);
+    $this->command->getOutput()->progressAdvance();
 }
+$this->command->getOutput()->progressFinish();
 
 
 }

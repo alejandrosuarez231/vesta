@@ -79,8 +79,8 @@ class SkulistadoController extends Controller
 
     public function showList($sku_grupo)
     {
-      dd($sku_grupo);
-      $lista = Skulistado::where('sku_grupo',$sku_grupo)->get();
+      // dd($sku_grupo);
+      $lista = Skulistado::where('modulo_id',$sku_grupo)->get();
       dd($lista);
       return view('backend.skus.showList', compact('lista'));
     }

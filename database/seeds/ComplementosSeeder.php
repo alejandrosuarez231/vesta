@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Complemento;
 
 class ComplementosSeeder extends Seeder
 {
@@ -16,7 +17,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 1,
         "modulo_id" => 1,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -31,7 +32,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 2,
         "modulo_id" => 2,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -46,7 +47,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 3,
         "modulo_id" => 3,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -61,7 +62,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 4,
         "modulo_id" => 4,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -76,7 +77,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 5,
         "modulo_id" => 5,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -91,7 +92,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 6,
         "modulo_id" => 6,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -106,7 +107,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 7,
         "modulo_id" => 7,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -121,7 +122,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 8,
         "modulo_id" => 8,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -136,7 +137,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 9,
         "modulo_id" => 9,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -151,7 +152,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 10,
         "modulo_id" => 10,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -166,7 +167,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 11,
         "modulo_id" => 11,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -181,7 +182,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 12,
         "modulo_id" => 12,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -196,7 +197,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 13,
         "modulo_id" => 13,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -211,7 +212,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 14,
         "modulo_id" => 14,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -226,7 +227,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 15,
         "modulo_id" => 15,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -241,7 +242,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 16,
         "modulo_id" => 16,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -256,7 +257,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 17,
         "modulo_id" => 17,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -271,7 +272,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 18,
         "modulo_id" => 18,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -286,7 +287,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 19,
         "modulo_id" => 19,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -301,7 +302,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 20,
         "modulo_id" => 20,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -316,7 +317,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 21,
         "modulo_id" => 21,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -331,7 +332,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 22,
         "modulo_id" => 22,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -346,7 +347,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 23,
         "modulo_id" => 23,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -361,7 +362,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 24,
         "modulo_id" => 24,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -376,7 +377,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 25,
         "modulo_id" => 25,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -391,7 +392,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 26,
         "modulo_id" => 26,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -406,7 +407,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 27,
         "modulo_id" => 27,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -421,7 +422,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 28,
         "modulo_id" => 28,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -436,7 +437,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 29,
         "modulo_id" => 31,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -451,7 +452,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 30,
         "modulo_id" => 32,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -466,7 +467,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 31,
         "modulo_id" => 33,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -481,7 +482,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 32,
         "modulo_id" => 34,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -496,7 +497,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 33,
         "modulo_id" => 35,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -511,7 +512,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 34,
         "modulo_id" => 36,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -526,7 +527,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 35,
         "modulo_id" => 37,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -541,7 +542,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 36,
         "modulo_id" => 38,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -556,7 +557,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 37,
         "modulo_id" => 39,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -571,7 +572,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 38,
         "modulo_id" => 40,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -586,7 +587,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 39,
         "modulo_id" => 41,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -601,7 +602,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 40,
         "modulo_id" => 42,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -616,7 +617,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 41,
         "modulo_id" => 43,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -631,7 +632,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 42,
         "modulo_id" => 44,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -646,7 +647,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 43,
         "modulo_id" => 45,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -661,7 +662,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 44,
         "modulo_id" => 46,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -676,7 +677,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 45,
         "modulo_id" => 47,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -691,7 +692,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 46,
         "modulo_id" => 48,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -706,7 +707,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 47,
         "modulo_id" => 49,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -721,7 +722,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 48,
         "modulo_id" => 50,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -736,7 +737,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 49,
         "modulo_id" => 51,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -751,7 +752,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 50,
         "modulo_id" => 52,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -766,7 +767,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 51,
         "modulo_id" => 53,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -781,7 +782,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 52,
         "modulo_id" => 54,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -796,7 +797,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 53,
         "modulo_id" => 55,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -811,7 +812,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 54,
         "modulo_id" => 56,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -826,7 +827,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 55,
         "modulo_id" => 57,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -841,7 +842,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 56,
         "modulo_id" => 58,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -856,7 +857,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 57,
         "modulo_id" => 59,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -871,7 +872,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 58,
         "modulo_id" => 60,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -886,7 +887,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 59,
         "modulo_id" => 61,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -901,7 +902,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 60,
         "modulo_id" => 62,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -916,7 +917,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 61,
         "modulo_id" => 63,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -931,7 +932,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 62,
         "modulo_id" => 64,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -946,7 +947,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 63,
         "modulo_id" => 65,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -961,7 +962,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 64,
         "modulo_id" => 66,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -976,7 +977,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 65,
         "modulo_id" => 67,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -991,7 +992,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 66,
         "modulo_id" => 68,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1006,7 +1007,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 67,
         "modulo_id" => 69,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1021,7 +1022,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 68,
         "modulo_id" => 70,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1036,7 +1037,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 69,
         "modulo_id" => 71,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1051,7 +1052,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 70,
         "modulo_id" => 72,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1066,7 +1067,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 71,
         "modulo_id" => 73,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1081,7 +1082,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 72,
         "modulo_id" => 74,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1096,7 +1097,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 73,
         "modulo_id" => 75,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1111,7 +1112,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 74,
         "modulo_id" => 76,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1126,7 +1127,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 75,
         "modulo_id" => 77,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1141,7 +1142,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 76,
         "modulo_id" => 78,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1156,7 +1157,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 77,
         "modulo_id" => 79,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1171,7 +1172,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 78,
         "modulo_id" => 80,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1186,7 +1187,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 79,
         "modulo_id" => 81,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1201,7 +1202,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 80,
         "modulo_id" => 82,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1216,7 +1217,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 81,
         "modulo_id" => 83,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1231,7 +1232,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 82,
         "modulo_id" => 84,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1246,7 +1247,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 83,
         "modulo_id" => 85,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1261,7 +1262,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 84,
         "modulo_id" => 86,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1276,7 +1277,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 85,
         "modulo_id" => 87,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1291,7 +1292,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 86,
         "modulo_id" => 88,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1306,7 +1307,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 87,
         "modulo_id" => 89,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1321,7 +1322,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 88,
         "modulo_id" => 90,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1336,7 +1337,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 89,
         "modulo_id" => 91,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1351,7 +1352,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 90,
         "modulo_id" => 92,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1366,7 +1367,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 91,
         "modulo_id" => 93,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1381,7 +1382,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 92,
         "modulo_id" => 94,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1396,7 +1397,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 93,
         "modulo_id" => 95,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1411,7 +1412,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 94,
         "modulo_id" => 96,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1426,7 +1427,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 95,
         "modulo_id" => 97,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1441,7 +1442,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 96,
         "modulo_id" => 98,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1456,7 +1457,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 97,
         "modulo_id" => 99,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1471,7 +1472,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 98,
         "modulo_id" => 102,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1486,7 +1487,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 99,
         "modulo_id" => 103,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1501,7 +1502,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 100,
         "modulo_id" => 104,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1516,7 +1517,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 101,
         "modulo_id" => 105,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1531,7 +1532,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 102,
         "modulo_id" => 106,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1546,7 +1547,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 103,
         "modulo_id" => 107,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1561,7 +1562,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 104,
         "modulo_id" => 108,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1576,7 +1577,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 105,
         "modulo_id" => 109,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1591,7 +1592,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 106,
         "modulo_id" => 110,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1606,7 +1607,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 107,
         "modulo_id" => 111,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1621,7 +1622,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 108,
         "modulo_id" => 112,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1636,7 +1637,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 109,
         "modulo_id" => 113,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1651,7 +1652,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 110,
         "modulo_id" => 114,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1666,7 +1667,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 111,
         "modulo_id" => 115,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1681,7 +1682,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 112,
         "modulo_id" => 116,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1696,7 +1697,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 113,
         "modulo_id" => 117,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1711,7 +1712,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 114,
         "modulo_id" => 118,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1726,7 +1727,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 115,
         "modulo_id" => 119,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1741,7 +1742,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 116,
         "modulo_id" => 120,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1756,7 +1757,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 117,
         "modulo_id" => 121,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1771,7 +1772,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 118,
         "modulo_id" => 122,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1786,7 +1787,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 119,
         "modulo_id" => 123,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1801,7 +1802,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 120,
         "modulo_id" => 124,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1816,7 +1817,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 121,
         "modulo_id" => 125,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1831,7 +1832,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 122,
         "modulo_id" => 126,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1846,7 +1847,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 123,
         "modulo_id" => 127,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1861,7 +1862,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 124,
         "modulo_id" => 128,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1876,7 +1877,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 125,
         "modulo_id" => 129,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1891,7 +1892,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 126,
         "modulo_id" => 130,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1906,7 +1907,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 127,
         "modulo_id" => 131,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1921,7 +1922,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 128,
         "modulo_id" => 132,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1936,7 +1937,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 129,
         "modulo_id" => 133,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1951,7 +1952,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 130,
         "modulo_id" => 134,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1966,7 +1967,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 131,
         "modulo_id" => 135,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1981,7 +1982,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 132,
         "modulo_id" => 136,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -1996,7 +1997,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 133,
         "modulo_id" => 137,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2011,7 +2012,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 134,
         "modulo_id" => 138,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2026,7 +2027,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 135,
         "modulo_id" => 139,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2041,7 +2042,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 136,
         "modulo_id" => 140,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2056,7 +2057,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 137,
         "modulo_id" => 141,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2071,7 +2072,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 138,
         "modulo_id" => 142,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2086,7 +2087,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 139,
         "modulo_id" => 143,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2101,7 +2102,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 140,
         "modulo_id" => 144,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2116,7 +2117,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 141,
         "modulo_id" => 145,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2131,7 +2132,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 142,
         "modulo_id" => 146,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2146,7 +2147,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 143,
         "modulo_id" => 147,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2161,7 +2162,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 144,
         "modulo_id" => 148,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2176,7 +2177,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 145,
         "modulo_id" => 149,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2191,7 +2192,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 146,
         "modulo_id" => 150,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2206,7 +2207,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 147,
         "modulo_id" => 151,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2221,7 +2222,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 148,
         "modulo_id" => 152,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2236,7 +2237,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 149,
         "modulo_id" => 153,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2251,7 +2252,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 150,
         "modulo_id" => 154,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2266,7 +2267,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 151,
         "modulo_id" => 155,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2281,7 +2282,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 152,
         "modulo_id" => 156,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2296,7 +2297,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 153,
         "modulo_id" => 157,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2311,7 +2312,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 154,
         "modulo_id" => 158,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2326,7 +2327,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 155,
         "modulo_id" => 159,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2341,7 +2342,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 156,
         "modulo_id" => 160,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2356,7 +2357,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 157,
         "modulo_id" => 161,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2371,7 +2372,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 158,
         "modulo_id" => 162,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2386,7 +2387,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 159,
         "modulo_id" => 163,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2401,7 +2402,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 160,
         "modulo_id" => 164,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2416,7 +2417,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 161,
         "modulo_id" => 165,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2431,7 +2432,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 162,
         "modulo_id" => 166,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2446,7 +2447,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 163,
         "modulo_id" => 167,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2461,7 +2462,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 164,
         "modulo_id" => 168,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2476,7 +2477,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 165,
         "modulo_id" => 169,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2491,7 +2492,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 166,
         "modulo_id" => 170,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2506,7 +2507,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 167,
         "modulo_id" => 171,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2521,7 +2522,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 168,
         "modulo_id" => 172,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2536,7 +2537,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 169,
         "modulo_id" => 173,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2551,7 +2552,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 170,
         "modulo_id" => 174,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2566,7 +2567,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 171,
         "modulo_id" => 175,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2581,7 +2582,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 172,
         "modulo_id" => 176,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2596,7 +2597,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 173,
         "modulo_id" => 177,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2611,7 +2612,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 174,
         "modulo_id" => 178,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2626,7 +2627,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 175,
         "modulo_id" => 179,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2641,7 +2642,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 176,
         "modulo_id" => 180,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2656,7 +2657,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 177,
         "modulo_id" => 181,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2671,7 +2672,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 178,
         "modulo_id" => 182,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2686,7 +2687,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 179,
         "modulo_id" => 183,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2701,7 +2702,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 180,
         "modulo_id" => 184,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2716,7 +2717,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 181,
         "modulo_id" => 185,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2731,7 +2732,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 182,
         "modulo_id" => 186,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2746,7 +2747,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 183,
         "modulo_id" => 187,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2761,7 +2762,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 184,
         "modulo_id" => 188,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2776,7 +2777,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 185,
         "modulo_id" => 189,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2791,7 +2792,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 186,
         "modulo_id" => 190,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2806,7 +2807,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 187,
         "modulo_id" => 191,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2821,7 +2822,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 188,
         "modulo_id" => 192,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2836,7 +2837,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 189,
         "modulo_id" => 193,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2851,7 +2852,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 190,
         "modulo_id" => 194,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2866,7 +2867,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 191,
         "modulo_id" => 195,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2881,7 +2882,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 192,
         "modulo_id" => 196,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2896,7 +2897,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 193,
         "modulo_id" => 197,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2911,7 +2912,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 194,
         "modulo_id" => 198,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2926,7 +2927,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 195,
         "modulo_id" => 199,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2941,7 +2942,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 196,
         "modulo_id" => 200,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2956,7 +2957,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 197,
         "modulo_id" => 201,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2971,7 +2972,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 198,
         "modulo_id" => 202,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -2986,7 +2987,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 199,
         "modulo_id" => 203,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3001,7 +3002,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 200,
         "modulo_id" => 204,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3016,7 +3017,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 201,
         "modulo_id" => 205,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3031,7 +3032,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 202,
         "modulo_id" => 206,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3046,7 +3047,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 203,
         "modulo_id" => 207,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3061,7 +3062,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 204,
         "modulo_id" => 208,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3076,7 +3077,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 205,
         "modulo_id" => 209,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3091,7 +3092,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 206,
         "modulo_id" => 210,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3106,7 +3107,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 207,
         "modulo_id" => 211,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3121,7 +3122,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 208,
         "modulo_id" => 212,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3136,7 +3137,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 209,
         "modulo_id" => 213,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3151,7 +3152,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 210,
         "modulo_id" => 214,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3166,7 +3167,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 211,
         "modulo_id" => 215,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3181,7 +3182,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 212,
         "modulo_id" => 216,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3196,7 +3197,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 213,
         "modulo_id" => 217,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3211,7 +3212,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 214,
         "modulo_id" => 218,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3226,7 +3227,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 215,
         "modulo_id" => 219,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3241,7 +3242,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 216,
         "modulo_id" => 220,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3256,7 +3257,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 217,
         "modulo_id" => 221,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3271,7 +3272,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 218,
         "modulo_id" => 222,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3286,7 +3287,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 219,
         "modulo_id" => 223,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3301,7 +3302,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 220,
         "modulo_id" => 224,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3316,7 +3317,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 221,
         "modulo_id" => 225,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3331,7 +3332,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 222,
         "modulo_id" => 226,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3346,7 +3347,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 223,
         "modulo_id" => 227,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3361,7 +3362,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 224,
         "modulo_id" => 228,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3376,7 +3377,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 225,
         "modulo_id" => 229,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3391,7 +3392,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 226,
         "modulo_id" => 230,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3406,7 +3407,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 227,
         "modulo_id" => 231,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3421,7 +3422,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 228,
         "modulo_id" => 232,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3436,7 +3437,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 229,
         "modulo_id" => 233,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3451,7 +3452,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 230,
         "modulo_id" => 234,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3466,7 +3467,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 231,
         "modulo_id" => 235,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3481,7 +3482,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 232,
         "modulo_id" => 236,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3496,7 +3497,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 233,
         "modulo_id" => 237,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3511,7 +3512,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 234,
         "modulo_id" => 238,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3526,7 +3527,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 235,
         "modulo_id" => 239,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3541,7 +3542,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 236,
         "modulo_id" => 240,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3556,7 +3557,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 237,
         "modulo_id" => 241,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3571,7 +3572,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 238,
         "modulo_id" => 242,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3586,7 +3587,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 239,
         "modulo_id" => 243,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3601,7 +3602,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 240,
         "modulo_id" => 244,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3616,7 +3617,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 241,
         "modulo_id" => 245,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3631,7 +3632,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 242,
         "modulo_id" => 246,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3646,7 +3647,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 243,
         "modulo_id" => 247,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3661,7 +3662,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 244,
         "modulo_id" => 248,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3676,7 +3677,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 245,
         "modulo_id" => 249,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3691,7 +3692,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 246,
         "modulo_id" => 250,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3706,7 +3707,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 247,
         "modulo_id" => 251,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3721,7 +3722,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 248,
         "modulo_id" => 252,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3736,7 +3737,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 249,
         "modulo_id" => 253,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3751,7 +3752,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 250,
         "modulo_id" => 254,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3766,7 +3767,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 251,
         "modulo_id" => 255,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3781,7 +3782,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 252,
         "modulo_id" => 256,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3796,7 +3797,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 253,
         "modulo_id" => 257,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3811,7 +3812,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 254,
         "modulo_id" => 258,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3826,7 +3827,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 255,
         "modulo_id" => 259,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3841,7 +3842,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 256,
         "modulo_id" => 260,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3856,7 +3857,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 257,
         "modulo_id" => 261,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3871,7 +3872,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 258,
         "modulo_id" => 262,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3886,7 +3887,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 259,
         "modulo_id" => 263,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3901,7 +3902,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 260,
         "modulo_id" => 264,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3916,7 +3917,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 261,
         "modulo_id" => 265,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3931,7 +3932,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 262,
         "modulo_id" => 266,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3946,7 +3947,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 263,
         "modulo_id" => 267,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3961,7 +3962,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 264,
         "modulo_id" => 268,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3976,7 +3977,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 265,
         "modulo_id" => 269,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -3991,7 +3992,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 266,
         "modulo_id" => 270,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4006,7 +4007,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 267,
         "modulo_id" => 271,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4021,7 +4022,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 268,
         "modulo_id" => 272,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4036,7 +4037,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 269,
         "modulo_id" => 273,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4051,7 +4052,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 270,
         "modulo_id" => 274,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4066,7 +4067,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 271,
         "modulo_id" => 275,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4081,7 +4082,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 272,
         "modulo_id" => 276,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4096,7 +4097,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 273,
         "modulo_id" => 277,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4111,7 +4112,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 274,
         "modulo_id" => 278,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4126,7 +4127,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 275,
         "modulo_id" => 279,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4141,7 +4142,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 276,
         "modulo_id" => 280,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4156,7 +4157,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 277,
         "modulo_id" => 281,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4171,7 +4172,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 278,
         "modulo_id" => 282,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4186,7 +4187,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 279,
         "modulo_id" => 283,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4201,7 +4202,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 280,
         "modulo_id" => 284,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4216,7 +4217,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 281,
         "modulo_id" => 285,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4231,7 +4232,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 282,
         "modulo_id" => 286,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4246,7 +4247,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 283,
         "modulo_id" => 287,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4261,7 +4262,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 284,
         "modulo_id" => 288,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4276,7 +4277,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 285,
         "modulo_id" => 289,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4291,7 +4292,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 286,
         "modulo_id" => 290,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4306,7 +4307,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 287,
         "modulo_id" => 291,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4321,7 +4322,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 288,
         "modulo_id" => 292,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4336,7 +4337,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 289,
         "modulo_id" => 293,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4351,7 +4352,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 290,
         "modulo_id" => 294,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4366,7 +4367,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 291,
         "modulo_id" => 295,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4381,7 +4382,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 292,
         "modulo_id" => 296,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4396,7 +4397,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 293,
         "modulo_id" => 297,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4411,7 +4412,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 294,
         "modulo_id" => 298,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,
@@ -4426,7 +4427,7 @@ class ComplementosSeeder extends Seeder
       [
         "id" => 295,
         "modulo_id" => 299,
-        "producto" => NULL,
+        "skulistado_id" => NULL,
         "descripcion" => NULL,
         "categoria_id" => 1,
         "cantidad" => 1,

@@ -50,7 +50,6 @@ class PiezaController extends Controller
         'modulo_id' => 'bail|required',
         'piezas_modulo_id.*' => 'bail|required',
         'materiale_id.*' => 'required',
-        'descripcion' => 'nullable',
         'largo' => 'nullable',
         'largo_sup' => 'nullable',
         'largo_inf' => 'nullable',
@@ -65,12 +64,10 @@ class PiezaController extends Controller
       $modulo = Modulo::findOrFail($request->modulo_id[0]);
 
       for ($i=0; $i <= count($request->modulo_id) - 1 ; $i++) {
-        $acronimo = Pieza_modulo::findOrFail($request->piezas_modulo_id[$i]);
         DB::table('piezas')->insert([
           'modulo_id' => $request->modulo_id[$i],
           'piezas_modulo_id' => $request->piezas_modulo_id[$i],
           'materiale_id' => $request->materiale_id[$i],
-          'descripcion' => $acronimo->acronimo . '-' . $modulo->sku_grupo,
           'largo' => $request->largo[$i],
           'largo_sup' => $request->largo_sup[$i],
           'largo_inf' => $request->largo_inf[$i],
@@ -86,51 +83,6 @@ class PiezaController extends Controller
 
       toast('Registros creado!','success','top-right');
       return redirect('/backend/modulos');
-    }
-
-    public function generarDescripcion($modulo_id)
-    {
-      $piezas = Pieza::with('pieza_modulo:id,acronimo','modulo:id,sku_grupo')
-      ->where('modulo_id',$modulo_id)
-      ->whereNull('descripcion')
-      ->get();
-
-      foreach ($piezas as $key => $value) {
-        Pieza::findOrFail($value->id)->update(['descripcion' => $value->pieza_modulo->acronimo .'-'.$value->modulo->sku_grupo]);
-      }
-      toast('Descripcion Generada!','success','top-right');
-      return redirect()->route('piezassku.piezas.show',['modulo_id' => $modulo_id]);
-    }
-
-    public function generaLoteDescripciones()
-    {
-      $piezas = Pieza::with('pieza_modulo','modulo:id,sku_grupo')
-      ->whereNull('descripcion')
-      ->get();
-      // dd($piezas->first());
-      foreach ($piezas as $key => $value) {
-        // $data = collect([
-        //   'skulistado_id' => $value,
-        //   'descripcion' => $value->pieza_modulo->acronimo .'-'.$value->modulo->sku_grupo,
-        //   'largo' => $value->pieza_modulo->formula_largo,
-        //   'largo_sup' => $value->pieza_modulo->largo_sup,
-        //   'largo_inf' => $value->pieza_modulo->largo_inf,
-        //   'ancho' => $value->pieza_modulo->formula_ancho,
-        //   'ancho_izq' => $value->pieza_modulo->ancho_izq,
-        //   'ancho_der' => $value->pieza_modulo->ancho_der,
-        //   'mecanizado1' => $value->pieza_modulo->mecanizado1,
-        //   'mecanizado2' => $value->pieza_modulo->mecanizado2
-        // ]);
-        // dd($piezas->first(),$data);
-        Pieza::findOrFail($value->id)
-        ->update([
-          'descripcion' => $value->pieza_modulo->acronimo .'-'.$value->modulo->sku_grupo,
-          'largo' => $value->pieza_modulo->formula_largo,
-          'ancho' => $value->pieza_modulo->formula_ancho,
-        ]);
-      }
-      toast('Descripcion Generada!','success','top-right');
-      return redirect()->route('modulos.index');
     }
 
     /**

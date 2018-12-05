@@ -91,8 +91,6 @@ Route::resource('/backend/modulos/piezas', 'PiezasModuloController');
 
 /* Definicion de piezas */
 Route::get('backend/piezas/create/{id}','PiezaController@createBySku')->name('piezassku.piezas.create');
-Route::get('/generarDescripcion/{modulo_id}', 'PiezaController@generarDescripcion')->name('piezassku.piezas.generadescripcion');
-Route::get('/generarDescripcionLote', 'PiezaController@generaLoteDescripciones')->name('piezassku.piezas.generaLoteDescripciones');
 Route::get('/aprobarPiezas/{id}', 'PiezaController@aprobar')->name('piezassku.piezas.aprobar');
 Route::get('/editPiezaData/{modulo_id}', 'PiezaController@editPiezaData')->name('piezassku.piezas.editdata');
 Route::resource('backend/piezas', 'PiezaController',['as' => 'piezassku'])->except([

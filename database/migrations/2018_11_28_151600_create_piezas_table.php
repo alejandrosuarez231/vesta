@@ -17,10 +17,10 @@ class CreatePiezasTable extends Migration
         Schema::create('piezas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('modulo_id')->index();
-            $table->string('skulistado_id')->index()->nullable();
+            // $table->string('skulistado_id')->index()->nullable();
             $table->integer('piezas_modulo_id')->index();
             $table->integer('materiale_id');
-            $table->string('descripcion')->nullable();
+            // $table->string('descripcion')->nullable();
             $table->integer('cantidad');
             $table->string('largo')->nullable();
             $table->string('largo_sup')->nullable();
