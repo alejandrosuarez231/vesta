@@ -16,14 +16,14 @@ class CreateComplementosTable extends Migration
         // Schema::dropIfExists('complementos');
         Schema::create('complementos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('modulo_id');
+            $table->integer('modulo_id')->index();
             $table->string('producto')->nullable();
             $table->string('descripcion')->nullable();
-            $table->integer('categoria_id');
+            $table->integer('categoria_id')->index();
             $table->integer('cantidad');
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
-            $table->integer('approved_by')->nullable();
+            $table->integer('created_by')->index()->nullable();
+            $table->integer('updated_by')->index()->nullable();
+            $table->integer('approved_by')->index()->nullable();
             $table->timestamp('approved_on')->nullable();
             $table->timestamps();
             $table->softDeletes();

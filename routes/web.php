@@ -119,7 +119,7 @@ Route::resource('/backend/modulos', 'ModuloController');
 Route::get('/makeSKU/{tipo}/{subtipo}/{categoria}', 'SkuController@makeSku')->name('sku.make');
 Route::get('/makeSkuPadre/{id}', 'SkuController@makeSkuPadre')->name('sku.makeskupadre');
 Route::get('/makeSkuPadrelote', 'SkuController@makeSkuPadreLote')->name('sku.makeskupadrelote'); // Generar lote de SKU's
-Route::get('/backend/skus/showList/{sku_grupo}', 'SkulistadoController@showList')->name('sku.showList');
+Route::get('/backend/skus/showList/{sku_grupo}', 'SkulistadoController@showList')->name('skus.showList');
 Route::get('/dataskuslist', 'SkulistadoController@indexData')->name('data.skuslist');
 Route::resource('/backend/skus', 'SkulistadoController');
 

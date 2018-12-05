@@ -136,6 +136,7 @@ class ModuloController extends Controller
       $fondos = Fondo::whereIn('id',explode(",",$modulo->fondos))->get();
 
       $piezas = Pieza::with('pieza_modulo:id,tipo_pieza','materiale:id,nombre')->where('modulo_id',$id)->get();
+      // dd($piezas);
       $descripciones = collect();
       foreach ($piezas as $key => $value) {
         $descripciones->push($value->descripcion);

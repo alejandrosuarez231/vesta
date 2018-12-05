@@ -16,9 +16,9 @@ class CreatePiezasTable extends Migration
         // Schema::dropIfExists('piezas');
         Schema::create('piezas', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('modulo_id');
-            $table->string('producto')->nullable();
-            $table->integer('piezas_modulo_id');
+            $table->integer('modulo_id')->index();
+            $table->string('skulistado_id')->index()->nullable();
+            $table->integer('piezas_modulo_id')->index();
             $table->integer('materiale_id');
             $table->string('descripcion')->nullable();
             $table->integer('cantidad');
@@ -30,9 +30,9 @@ class CreatePiezasTable extends Migration
             $table->string('ancho_der')->nullable();
             $table->string('mecanizado1')->nullable();
             $table->string('mecanizado2')->nullable();
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
-            $table->integer('approved_by')->nullable();
+            $table->integer('created_by')->index()->nullable();
+            $table->integer('updated_by')->index()->nullable();
+            $table->integer('approved_by')->index()->nullable();
             $table->timestamp('approved_on')->nullable();
             $table->timestamps();
             $table->softDeletes();

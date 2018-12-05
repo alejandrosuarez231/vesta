@@ -5,7 +5,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md">
-			<h3>Piezas</h3>
+			<h3>Piezas {{ $piezas->first()->modulo->sku_grupo }}</h3>
 			<ul class="nav">
 				@if ($piezas->where('descripcion',null)->count() > 0)
 				<li class="nav-item">
@@ -25,10 +25,11 @@
 
 	<div class="row">
 		<div class="col-md">
-			{{-- {{ dd($piezas) }} --}}
-			<table class="table table-inverse">
+			{{-- {{ dd($piezas->first()->modulo->sku_grupo) }} --}}
+			<table class="table table-inverse table-striped">
 				<thead>
 					<tr>
+						<th>SKU/Padre</th>
 						<th>Pieza</th>
 						<th>Material</th>
 						<th>Descripcion</th>
@@ -47,6 +48,9 @@
 				<tbody>
 					@foreach ($piezas as $element)
 					<tr>
+						<td>
+							{{ @$element->skulistado->sku_padre }}
+						</td>
 						<td>{{$element->pieza_modulo->tipo_pieza}}</td>
 						<td>{{$element->materiale->nombre}}</td>
 						<td>{{$element->descripcion}}</td>

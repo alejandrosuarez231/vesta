@@ -24,9 +24,8 @@
   <div class="row">
     <div class="col-md">
       <div class="card p-2">
-        <p>SKU Grupo <strong>{{ $modulo->nombre }}</strong></p>
         <div class="card-block p-2">
-          <h4 class="card-title">{{ $modulo->sku_grupo }}</h4>
+          <h4 class="card-title">SKU Grupo <strong class="text-primary">{{ $modulo->sku_grupo }}</strong></h4>
           <p class="card-text">
             <div class="row">
               <div class="col-md-5">
@@ -52,7 +51,7 @@
         <div class="card-deck">
           <div class="card">
             <div class="card-block p-2">
-              <h4 class="card-title">Ancho</h4>
+              <h4 class="card-title text-primary">Ancho</h4>
               <p class="card-text p-2">
                 <span class="lead">Ancho Minimo: {{ $modulo->ancho_minimo }}</span> <br>
                 <span class="lead">Ancho Maximo: {{ $modulo->ancho_maximo }}</span> <br>
@@ -63,7 +62,7 @@
           </div>
           <div class="card">
             <div class="card-block p-2">
-              <h4 class="card-title">Alto</h4>
+              <h4 class="card-title text-primary">Alto</h4>
               <p class="card-text p-2">
                 <span class="lead">Alto Minimo: {{ $modulo->alto_minimo }}</span> <br>
                 <span class="lead">Alto Maximo: {{ $modulo->alto_maximo }}</span> <br>
@@ -74,7 +73,7 @@
           </div>
           <div class="card">
             <div class="card-block p-2">
-              <h4 class="card-title">Profundidad</h4>
+              <h4 class="card-title text-primary">Profundidad</h4>
               <p class="card-text p-2">
                 <span class="lead">Profundidad Minima: {{ $modulo->profundidad_minima }}</span> <br>
                 <span class="lead">Profundidad Maxima: {{ $modulo->profundidad_maxima }}</span> <br>
@@ -92,36 +91,36 @@
     <div class="col-md-6">
       <div class="card p-2">
         <div class="card-block">
-          <h4 class="card-title">Piezas</h4>
-          <div class="row">
-            <div class="col-md">
-              <span>SKU's: <strong><small>{{ $descripciones->implode(", ") }}</small></strong></span><br>
-            </div>
-          </div>
+          <h4 class="card-title text-primary">Piezas</h4>
+          @foreach ($piezas as $element)
           <div class="row">
             <div class="col-md">
               <p>
-                <span>Tipo/Pieza: <strong>{{ $piezas->first()->pieza_modulo->tipo_pieza }}</strong></span><br>
-                <span>Material: <strong>{{ $piezas->first()->materiale->nombre }}</strong></span><br>
-                <span>Mecanizado1: <strong>{{ $piezas->first()->mecanizado1 }}</strong></span><br>
-                <span>Mecanizado2: <strong>{{ $piezas->first()->mecanizado2 }}</strong></span><br>
+                <span>Descripcion: <strong>{{ $element->descripcion }}</strong></span><br>
+              </p>
+              <p>
+                <span>Tipo/Pieza: <strong>{{ $element->pieza_modulo->tipo_pieza }}</strong></span><br>
+                <span>Material: <strong>{{ $element->materiale->nombre }}</strong></span><br>
+                <span>Mecanizado1: <strong>{{ $element->mecanizado1 }}</strong></span><br>
+                <span>Mecanizado2: <strong>{{ $element->mecanizado2 }}</strong></span><br>
               </p>
             </div>
             <div class="col-md">
               <p>
-                <span>Largo: <strong>{{ $piezas->first()->largo }}</strong></span><br>
-                <span>Largo Sup: <strong>{{ $piezas->first()->largo_sup }}</strong></span><br>
-                <span>Largo Inf: <strong>{{ $piezas->first()->largo_inf }}</strong></span><br>
+                <span>Largo: <strong>{{ $element->largo }}</strong></span><br>
+                <span>Largo Sup: <strong>{{ $element->largo_sup }}</strong></span><br>
+                <span>Largo Inf: <strong>{{ $element->largo_inf }}</strong></span><br>
               </p>
             </div>
             <div class="col-md">
               <p>
-                <span>Ancho: <strong>{{ $piezas->first()->ancho }}</strong></span><br>
-                <span>Ancho Sup: <strong>{{ $piezas->first()->ancho_sup }}</strong></span><br>
-                <span>Ancho Inf: <strong>{{ $piezas->first()->ancho_inf }}</strong></span><br>
+                <span>Ancho: <strong>{{ $element->ancho }}</strong></span><br>
+                <span>Ancho Sup: <strong>{{ $element->ancho_sup }}</strong></span><br>
+                <span>Ancho Inf: <strong>{{ $element->ancho_inf }}</strong></span><br>
               </p>
             </div>
           </div>
+          @endforeach
         </div>
       </div>
     </div>
@@ -135,7 +134,7 @@
     <div class="col-md-6">
       <div class="card p-2">
         <div class="card-block">
-          <h4 class="card-title">Componentes </h4>
+          <h4 class="card-title text-primary">Componentes </h4>
           @foreach ($complementos as $element)
           <div class="row">
             <div class="col-md">

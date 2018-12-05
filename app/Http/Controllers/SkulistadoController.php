@@ -37,7 +37,7 @@ class SkulistadoController extends Controller
     ->addColumn('action', function ($skus) {
       return '
       <a href="skus/'.$skus->id.'/edit " titlle="Editar" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-      <a href="skus/'.$skus->id.'" titlle="" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
+      <a href="/backend/skus/showList/'.$skus->id.'" titlle="" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
       ';
     })
     ->rawColumns(['activo', 'action'])
@@ -74,12 +74,14 @@ class SkulistadoController extends Controller
      */
     public function show($id)
     {
-
+      dd($id);
     }
 
     public function showList($sku_grupo)
     {
+      dd($sku_grupo);
       $lista = Skulistado::where('sku_grupo',$sku_grupo)->get();
+      dd($lista);
       return view('backend.skus.showList', compact('lista'));
     }
 

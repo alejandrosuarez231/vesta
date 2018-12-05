@@ -41,6 +41,7 @@ class DatabaseSeeder extends Seeder
           PiezasModulosSeeder::class,
           ComplementosModulosSeeder::class,
           PiezasSeeder::class,
+          ComplementosSeeder::class,
         ]);
     }
 }

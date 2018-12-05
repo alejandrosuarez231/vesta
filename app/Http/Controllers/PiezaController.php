@@ -104,9 +104,30 @@ class PiezaController extends Controller
 
     public function generaLoteDescripciones()
     {
-      $piezas = Pieza::with('pieza_modulo:id,acronimo','modulo:id,sku_grupo')->whereNull('descripcion')->get();
+      $piezas = Pieza::with('pieza_modulo','modulo:id,sku_grupo')
+      ->whereNull('descripcion')
+      ->get();
+      // dd($piezas->first());
       foreach ($piezas as $key => $value) {
-        Pieza::findOrFail($value->id)->update(['descripcion' => $value->pieza_modulo->acronimo .'-'.$value->modulo->sku_grupo]);
+        // $data = collect([
+        //   'skulistado_id' => $value,
+        //   'descripcion' => $value->pieza_modulo->acronimo .'-'.$value->modulo->sku_grupo,
+        //   'largo' => $value->pieza_modulo->formula_largo,
+        //   'largo_sup' => $value->pieza_modulo->largo_sup,
+        //   'largo_inf' => $value->pieza_modulo->largo_inf,
+        //   'ancho' => $value->pieza_modulo->formula_ancho,
+        //   'ancho_izq' => $value->pieza_modulo->ancho_izq,
+        //   'ancho_der' => $value->pieza_modulo->ancho_der,
+        //   'mecanizado1' => $value->pieza_modulo->mecanizado1,
+        //   'mecanizado2' => $value->pieza_modulo->mecanizado2
+        // ]);
+        // dd($piezas->first(),$data);
+        Pieza::findOrFail($value->id)
+        ->update([
+          'descripcion' => $value->pieza_modulo->acronimo .'-'.$value->modulo->sku_grupo,
+          'largo' => $value->pieza_modulo->formula_largo,
+          'ancho' => $value->pieza_modulo->formula_ancho,
+        ]);
       }
       toast('Descripcion Generada!','success','top-right');
       return redirect()->route('modulos.index');
@@ -120,8 +141,9 @@ class PiezaController extends Controller
      */
     public function show($modulo_id)
     {
-      $piezas = Pieza::with('pieza_modulo:id,tipo_pieza,acronimo','materiale:id,nombre','creado:id,name')
+      $piezas = Pieza::with('modulo:id,sku_grupo','skulistado:id,modulo_id,sku_padre','pieza_modulo:id,tipo_pieza,acronimo','materiale:id,nombre','creado:id,name')
       ->where('modulo_id',$modulo_id)->get();
+      // dd($piezas);
       return view('backend.piezas.show', compact('piezas','modulo_id'));
     }
 
