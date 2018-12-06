@@ -10,6 +10,9 @@ use App\Modulo;
 use App\Sap;
 use App\Fondo;
 use App\Skulistado;
+use App\Pieza;
+use App\Complemento;
+use App\Pieza_sku;
 
 
 class SkuController extends Controller
@@ -70,7 +73,7 @@ class SkuController extends Controller
                     'descripcion' => NULL,
                     'sap_id' => $modulo->saps,
                     'fondo_id' => $modulo->fondos,
-                    'activo' => 0
+                    'activo' => 1
                 ]);
             }
         }else if($cantidad_saps == 1 && $cantidad_fondos > 1){
@@ -89,7 +92,7 @@ class SkuController extends Controller
                     'descripcion' => NULL,
                     'sap_id' => (int) $modulo->saps,
                     'fondo_id' => $fondotipo[$i]->id,
-                    'activo' => 0
+                    'activo' => 1
                 ]);
             }
         }else if($cantidad_saps > 1 && $cantidad_fondos == 1){
@@ -108,7 +111,7 @@ class SkuController extends Controller
                     'descripcion' => NULL,
                     'sap_id' => $sisape[$i]->id,
                     'fondo_id' => (int) $modulo->fondos,
-                    'activo' => 0
+                    'activo' => 1
                 ]);
             }
             // dd($skus);
@@ -128,7 +131,7 @@ class SkuController extends Controller
                         'descripcion' => NULL,
                         'sap_id' => $sisape[$e]->id,
                         'fondo_id' => $fondotipo[$i]->id,
-                        'activo' => 0
+                        'activo' => 1
                     ]);
                 }
             }
@@ -148,7 +151,7 @@ class SkuController extends Controller
                         'descripcion' => NULL,
                         'sap_id' => $sisape[$i]->id,
                         'fondo_id' => $fondotipo[$e]->id,
-                        'activo' => 0
+                        'activo' => 1
                     ]);
                 }
             }
@@ -168,7 +171,7 @@ class SkuController extends Controller
                         'descripcion' => NULL,
                         'sap_id' => $sisape[$e]->id,
                         'fondo_id' => $fondotipo[$i]->id,
-                        'activo' => 0
+                        'activo' => 1
                     ]);
                 }
             }
@@ -180,7 +183,29 @@ class SkuController extends Controller
         $list = Skulistado::where('sku_grupo',$modulo->sku_grupo)->get();
         if($list->count() == 0){
             foreach ($skus as $key => $value) {
-                Skulistado::create($value);
+                $skulistado = Skulistado::create($value);
+                // dd($skulistado);
+                $piezasLists = Pieza::with('pieza_modulo:id,acronimo')->where('modulo_id',$skulistado->modulo_id)->get();
+                if($piezasLists->count() > 0){
+                    foreach ($piezasLists as $key => $value){
+                        $pieza = new Pieza_sku();
+                        $pieza->modulo_id = $value->modulo_id;
+                        $pieza->skulistado_id = $skulistado->id;
+                        $pieza->piezas_modulo_id = $value->piezas_modulo_id;
+                        $pieza->materiale_id = $value->materiale_id;
+                        $pieza->descripcion = $value->pieza_modulo->acronimo.'-'.$skulistado->sku_padre;
+                        $pieza->cantidad = $value->cantidad;
+                        $pieza->largo = $value->largo;
+                        $pieza->largo_sup = $value->largo_sup;
+                        $pieza->largo_inf = $value->largo_inf;
+                        $pieza->ancho = $value->ancho;
+                        $pieza->ancho_izq = $value->ancho_izq;
+                        $pieza->ancho_der = $value->ancho_der;
+                        $pieza->created_by = auth()->id();
+                        $pieza->save();
+                    }
+                    // dd($skulistado,$piezasLists);
+                }
             }
         }
 
