@@ -54,6 +54,16 @@ class Complemento extends Model
       return $this->belongsTo(Categoria::class);
     }
     /**
+     * Complemento belongs to Creado.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function creado()
+    {
+        // belongsTo(RelatedModel, foreignKey = creado_id, keyOnRelatedModel = id)
+        return $this->belongsTo(User::class,'created_by');
+    }
+    /**
      * Complemento belongs to Aprobado.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

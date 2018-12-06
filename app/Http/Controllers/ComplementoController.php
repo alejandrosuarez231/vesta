@@ -76,7 +76,8 @@ class ComplementoController extends Controller
      */
     public function show(Complemento $complemento)
     {
-      return view('/backend/complementos/show');
+      $complementos = Complemento::with('modulo:id,sku_grupo','categoria:id,nombre','creado:id,name')->where('modulo_id',$complemento->id)->get();
+      return view('/backend/complementos/show',compact('complementos'));
     }
 
     /**

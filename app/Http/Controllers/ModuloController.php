@@ -39,7 +39,9 @@ class ModuloController extends Controller
       if($modulo->complemento->count() == 0){
         $botones .= '<a href="../backend/complementos/create/'.$modulo->id.'" class="btn btn-sm btn-light text-success mr-2" data-toggle="tooltip" data-placement="top" title="Agregar Complementos"><i class="far fa-plus-square"></i></a></span>';
       }else {
-        $botones .= '<a href="../backend/complementos/'.$modulo->id.'/edit" class="btn btn-sm btn-light text-primary mr-2" data-toggle="tooltip" data-placement="top" title="Editar Complementos"><i class="far fa-edit"></i></a></span>';
+        $botones .= '<a href="../backend/complementos/'.$modulo->id.'/edit" class="btn btn-sm btn-light text-primary mr-2" data-toggle="tooltip" data-placement="top" title="Editar Complementos"><i class="far fa-edit"></i></a></span>
+        <a href="/backend/complementos/'.$modulo->id.'" class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="top" title="Ver Complementos"><i class="fas fa-eye"></i></a>
+        ';
       }
       return $botones;
     })
@@ -48,14 +50,12 @@ class ModuloController extends Controller
         return '
         <span>
         <a href="modulos/'.$modulo->id.'/edit " class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Editar Modulo"><i class="fas fa-edit"></i></a>
-        <a href="modulos/'.$modulo->id.'" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Ver Modulo"><i class="fas fa-eye"></i></a>
         <a href="../makeSkuPadre/'.$modulo->id.'" class="btn btn-sm btn-danger float-right" title="Construir" data-toggle="tooltip" data-placement="top"><i class="fas fa-cubes"></i></a>
         ';
       }else {
         return '
       <span>
       <a href="modulos/'.$modulo->id.'/edit " class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Editar Modulo"><i class="fas fa-edit"></i></a>
-      <a href="modulos/'.$modulo->id.'" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Ver Modulo"><i class="fas fa-eye"></i></a>
       ';
       }
 
