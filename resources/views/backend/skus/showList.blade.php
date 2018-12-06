@@ -76,8 +76,8 @@
               </tr>
             </thead>
             <tbody>
-              {{-- {{ dd($skus->first()->piezas) }} --}}
-              @foreach ($skus->first()->piezas as $element)
+              {{-- {{ dd( $skus->first()->piezas->where('skulistado_id',$skus->first()->id) ) }} --}}
+              @foreach ( $skus->first()->piezas->where('skulistado_id',$skus->first()->id) as $element )
               <tr>
                 <td>{{ $element->pieza->tipo_pieza }}</td>
                 <td>{{ $element->materiale->nombre }}</td>
@@ -111,7 +111,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach ($skus->first()->complementos as $element)
+              @foreach ($skus->first()->complementos->where('skulistado_id',$skus->first()->id) as $element)
               <tr>
                 <td>{{ $element->categoria->nombre }}</td>
                 <td>{{ $element->descripcion }}</td>

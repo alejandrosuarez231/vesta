@@ -81,7 +81,7 @@ class SkulistadoController extends Controller
     {
       // dd($sku_grupo);
       $skus = Skulistado::with('piezas','complementos')->where('id',$sku_grupo)->get();
-      // dd($lista);
+      // dd($skus);
       return view('backend.skus.showList', compact('skus'));
     }
 
