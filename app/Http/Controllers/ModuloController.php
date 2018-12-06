@@ -23,6 +23,7 @@ class ModuloController extends Controller
   public function indexData()
   {
     $modulos = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre','sap:id,valor','fondo:id,valor','pieza','complemento','aprobado:id,name')->get();
+    // dd($modulos->first());
 
     return Datatables::of($modulos)
     ->addColumn('other', function($modulo){
@@ -43,12 +44,21 @@ class ModuloController extends Controller
       return $botones;
     })
     ->addColumn('action', function ($modulo) {
-      return '
+      if($modulo->pieza->count() > 0 && $modulo->complemento->count() > 0){
+        return '
+        <span>
+        <a href="modulos/'.$modulo->id.'/edit " class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Editar Modulo"><i class="fas fa-edit"></i></a>
+        <a href="modulos/'.$modulo->id.'" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Ver Modulo"><i class="fas fa-eye"></i></a>
+        <a href="../makeSkuPadre/'.$modulo->id.'" class="btn btn-sm btn-danger float-right" title="Construir" data-toggle="tooltip" data-placement="top"><i class="fas fa-cubes"></i></a>
+        ';
+      }else {
+        return '
       <span>
       <a href="modulos/'.$modulo->id.'/edit " class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Editar Modulo"><i class="fas fa-edit"></i></a>
       <a href="modulos/'.$modulo->id.'" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Ver Modulo"><i class="fas fa-eye"></i></a>
-      <a href="#" class="btn btn-sm btn-danger float-right" title="Construir" data-toggle="tooltip" data-placement="top"><i class="fas fa-cubes"></i></a>
       ';
+      }
+
     })
     ->rawColumns(['test','other','action'])
     ->toJson();

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateComponenteSkusTable extends Migration
+class CreateComplementoSkusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateComponenteSkusTable extends Migration
      */
     public function up()
     {
-        Schema::create('componente_skus', function (Blueprint $table) {
+        Schema::create('complemento_skus', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('modulo_id')->index();
             $table->string('skulistado_id')->index()->nullable();
@@ -35,6 +35,6 @@ class CreateComponenteSkusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('componente_skus');
+        Schema::dropIfExists('complemento_skus');
     }
 }

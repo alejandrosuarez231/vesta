@@ -120,7 +120,6 @@ Route::get('/makeSkuPadrelote', 'SkuController@makeSkuPadreLote')->name('sku.mak
 Route::get('/backend/skus/showList/{sku_grupo}', 'SkulistadoController@showList')->name('skus.showList');
 Route::get('/dataskuslist', 'SkulistadoController@indexData')->name('data.skuslist');
 Route::resource('/backend/skus', 'SkulistadoController');
-
 /* Herrajes */
 Route::resource('/backend/correderas', 'CorrederaController');
 Route::resource('/backend/bisagras', 'BisagraController');

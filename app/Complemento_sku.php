@@ -3,28 +3,27 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Pieza_sku extends Model
+class Complemento_sku extends Model
 {
-  use SoftDeletes;
   /**
    * The database table used by the model.
    *
    * @var string
    */
-  protected $table = 'pieza_skus';
+  protected $table = 'complemento_skus';
   protected $guarded = ['id'];
-  protected $dates = ['approved_on','created_at','updated_at','deleted_at'];
+  protected $dates = ['created_at','updated_at','deleted_at','approved_on'];
+
   /**
    * Fields that can be mass assigned.
    *
    * @var array
    */
-  protected $fillable = ['modulo_id', 'skulistado_id', 'piezas_modulo_id', 'materiale_id', 'descripcion', 'cantidad', 'largo', 'largo_sup', 'largo_inf', 'ancho', 'ancho_izq', 'ancho_der', 'mecanizado1', 'mecanizado2', 'created_by', 'updated_by', 'approved_by', 'approved_on'];
+  protected $fillable = ['modulo_id', 'skulistado_id', 'descripcion', 'categoria_id', 'cantidad', 'created_by', 'updated_by', 'approved_by'];
 
   /**
-   * Pieza_sku belongs to Modulo.
+   * Componente_sku belongs to Modulo.
    *
    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
    */
@@ -33,8 +32,9 @@ class Pieza_sku extends Model
     // belongsTo(RelatedModel, foreignKey = modulo_id, keyOnRelatedModel = id)
     return $this->belongsTo(Modulo::class);
   }
+
   /**
-   * Pieza_sku belongs to Skulistado.
+   * Componente_sku belongs to Skulistado.
    *
    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
    */
@@ -45,25 +45,14 @@ class Pieza_sku extends Model
   }
 
   /**
-   * Pieza_sku belongs to Pieza.
+   * Componente_sku belongs to Categoria.
    *
    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
    */
-  public function pieza()
+  public function categoria()
   {
-    // belongsTo(RelatedModel, foreignKey = pieza_id, keyOnRelatedModel = id)
-    return $this->belongsTo(Pieza_modulo::class,'piezas_modulo_id');
-  }
-
-  /**
-   * Pieza_sku belongs to Materiale.
-   *
-   * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-   */
-  public function materiale()
-  {
-    // belongsTo(RelatedModel, foreignKey = materiale_id, keyOnRelatedModel = id)
-    return $this->belongsTo(Materiale::class);
+    // belongsTo(RelatedModel, foreignKey = categoria_id, keyOnRelatedModel = id)
+    return $this->belongsTo(Categoria::class);
   }
 
   /**
@@ -87,5 +76,4 @@ class Pieza_sku extends Model
     // belongsTo(RelatedModel, foreignKey = aprobado_id, keyOnRelatedModel = id)
     return $this->belongsTo(User::class,'approved_by');
   }
-
 }

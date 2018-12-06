@@ -84,4 +84,26 @@ class Skulistado extends Model
   	// belongsTo(RelatedModel, foreignKey = fondo_id, keyOnRelatedModel = id)
   	return $this->belongsTo(Fondo::class);
   }
+
+  /**
+   * Skulistado has many Piezas.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function piezas()
+  {
+    // hasMany(RelatedModel, foreignKeyOnRelatedModel = skulistado_id, localKey = id)
+    return $this->hasMany(Pieza_sku::class,'modulo_id','modulo_id')->with('pieza','materiale');
+  }
+
+  /**
+   * Skulistado has many Complementos.
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\HasMany
+   */
+  public function complementos()
+  {
+    // hasMany(RelatedModel, foreignKeyOnRelatedModel = skulistado_id, localKey = id)
+    return $this->hasMany(Complemento_sku::class,'modulo_id','modulo_id')->with('categoria');
+  }
 }

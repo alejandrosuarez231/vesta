@@ -12,6 +12,7 @@ use App\Fondo;
 use App\Skulistado;
 use App\Pieza;
 use App\Complemento;
+use App\Complemento_sku;
 use App\Pieza_sku;
 
 
@@ -204,9 +205,22 @@ class SkuController extends Controller
                         $pieza->created_by = auth()->id();
                         $pieza->save();
                     }
-                    // dd($skulistado,$piezasLists);
+                }
+                $complementosList = Complemento:: with('categoria:id,acronimo')->where('modulo_id',$skulistado->modulo_id)->get();
+                if ($complementosList->count() > 0) {
+                    foreach ($complementosList as $key => $value) {
+                        $complemento = new Complemento_sku();
+                        $complemento->modulo_id = $value->modulo_id;
+                        $complemento->skulistado_id = $skulistado->id;
+                        $complemento->descripcion = $value->categoria->acronimo.'-'.$skulistado->sku_padre;
+                        $complemento->categoria_id = $value->categoria_id;
+                        $complemento->cantidad = $value->cantidad;
+                        $complemento->created_by = auth()->id();
+                        $complemento->save();
+                    }
                 }
             }
+            // dd($complementosList,$complemento);
         }
 
         toast('Registros creados!','success','top-right');
