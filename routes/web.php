@@ -48,6 +48,7 @@ Route::resource('/backend/subtipos','SubtipoController');
 /*Categorias*/
 Route::get('/datacategorias', 'CategoriasController@indexData')->name('data.categorias');
 Route::get('/categoriasFiltro/{id}', 'CategoriasController@categoriasFiltro')->name('data.categoriasfiltro');
+Route::get('/categoriainSkulistado', 'CategoriasController@searchCategoriaSkulistados');
 Route::resource('/backend/categorias', 'CategoriasController');
 
 Route::get('/dataUnidades', 'UnidadController@indexData')->name('data.unidades');
@@ -97,6 +98,9 @@ Route::resource('backend/piezas', 'PiezaController',['as' => 'piezassku'])->exce
   'index','create','destroy'
 ]);
 
+/* Piezas SKU Padres Piezas */
+Route::get('/piezasSkuPadre/{skulistado_id}', 'PiezaSkuController@getPiezas');
+
 /* Modulo-Complementos */
 Route::get('/dataModulosComplementos', 'ComplementoModuloController@indexData')->name('data.moduloscomplementos');
 Route::get('/aprobarComplementos/{id}', 'ComplementoController@aprobar')->name('complementosku.complementos.aprobar');
@@ -118,6 +122,7 @@ Route::get('/makeSKU/{tipo}/{subtipo}/{categoria}', 'SkuController@makeSku')->na
 Route::get('/makeSkuPadre/{id}', 'SkuController@makeSkuPadre')->name('sku.makeskupadre');
 Route::get('/makeSkuPadrelote', 'SkuController@makeSkuPadreLote')->name('sku.makeskupadrelote'); // Generar lote de SKU's
 Route::get('/backend/skus/showList/{sku_grupo}', 'SkulistadoController@showList')->name('skus.showList');
+Route::get('/searchSkuListado/{tipo}/{subtipo}/{categoria}/{sap}/{fondo}', 'SkulistadoController@searchSku');
 Route::get('/dataskuslist', 'SkulistadoController@indexData')->name('data.skuslist');
 Route::resource('/backend/skus', 'SkulistadoController');
 /* Herrajes */

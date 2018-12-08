@@ -44,16 +44,27 @@ class SkulistadoController extends Controller
     ->make(true);
   }
 
+  public function searchSku($tipo,$subtipo,$categoria,$sap,$fondo)
+  {
+    $resultado = Skulistado::with('tipo:id,nombre', 'subtipo:id,nombre', 'categoria:id,nombre', 'sap:id,valor', 'fondo:id,valor')
+    ->where('tipo_id',$tipo)
+    ->where('subtipo_id',$subtipo)
+    ->where('categoria_id',$categoria)
+    ->where('sap_id',$sap)
+    ->where('fondo_id',$fondo)
+    ->get();
+    return $resultado->first();
+  }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
+  /**
+  * Show the form for creating a new resource.
+  *
+  * @return \Illuminate\Http\Response
+  */
+  public function create()
+  {
         //
-    }
+  }
 
     /**
      * Store a newly created resource in storage.

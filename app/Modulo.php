@@ -30,13 +30,16 @@ class Modulo extends Model
         return $query->where('approved_by',$flag);
     }
 
-    // public function getCantidadPiezasAttribute(){
-    //     return $this->pieza->count();
-    // }
-
-    // public function getCantidadComplementosAttribute(){
-    //     return $this->complemento->count();
-    // }
+    /**
+     * Modulo has many Skulistado.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function skulistado()
+    {
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = modulo_id, localKey = id)
+        return $this->hasMany(Skulistado::class);
+    }
 
 
     /**

@@ -49,6 +49,13 @@ class PiezaSkuController extends Controller
         //
     }
 
+    public function getPiezas($skulistado_id)
+    {
+        $piezas = Pieza_sku::with('pieza:id,tipo_pieza','materiale:id,nombre')
+        ->where('skulistado_id',$skulistado_id)->get();
+        return $piezas;
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

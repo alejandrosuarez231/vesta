@@ -34,6 +34,16 @@ class CategoriasController extends Controller
         ->make(true);
     }
 
+    public function searchCategoriaSkulistados()
+    {
+        $skulistados = \App\Skulistado::with('categoria')->select('categoria_id')->groupby('categoria_id')->get();
+        $categorias = collect();
+        foreach ($skulistados as $key => $value) {
+            $categorias->push(['label' => $value->categoria->nombre, 'value' => $value->categoria_id]);
+        }
+        return $categorias;
+    }
+
     /**
      * Show the form for creating a new resource.
      *

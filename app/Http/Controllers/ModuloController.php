@@ -22,8 +22,8 @@ class ModuloController extends Controller
 
   public function indexData()
   {
-    $modulos = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre','sap:id,valor','fondo:id,valor','pieza','complemento','aprobado:id,name')->get();
-    // dd($modulos->first());
+    $modulos = Modulo::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre','sap:id,valor','fondo:id,valor','pieza','complemento','aprobado:id,name','skulistado')->get();
+    // dd($modulos->take(10));
 
     return Datatables::of($modulos)
     ->addColumn('other', function($modulo){
@@ -53,10 +53,14 @@ class ModuloController extends Controller
         <a href="../makeSkuPadre/'.$modulo->id.'" class="btn btn-sm btn-danger float-right" title="Construir" data-toggle="tooltip" data-placement="top"><i class="fas fa-cubes"></i></a>
         ';
       }else {
-        return '
-      <span>
-      <a href="modulos/'.$modulo->id.'/edit " class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Editar Modulo"><i class="fas fa-edit"></i></a>
-      ';
+        if($modulo->skulistado->count() > 0 ){
+          return $modulo->skulistado->count();
+        }else {
+          return '
+          <span>
+          <a href="modulos/'.$modulo->id.'/edit " class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Editar Modulo"><i class="fas fa-edit"></i></a>
+          ';
+        }
       }
 
     })
