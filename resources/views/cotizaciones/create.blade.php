@@ -89,10 +89,11 @@
                   </select>
                 </div>
                 <div class="form-group col-md">
-                  <select name="" class="form-control form-control-sm">
+                  {!! Form::select('marca_corredera', \App\Marca::pluck('nombre','id'), null, ['class'=>'form-control-sm form-control','placeholder'=>'Marca Coredera']) !!}
+                  {{-- <select name="" class="form-control form-control-sm">
                     <option value="" disabled selected>Marca</option>
-                    {{-- <option v-for="item in MarcasGavList" :value="item.value">@{{ item.label }}</option> --}}
-                  </select>
+                    <option v-for="item in MarcasGavList" :value="item.value">@{{ item.label }}</option>
+                  </select> --}}
                 </div>
               </div>
 
@@ -111,10 +112,11 @@
                   </select>
                 </div>
                 <div class="form-group col-md">
-                  <select name="" class="form-control form-control-sm">
+                  {!! Form::select('marca_bisagra', \App\Marca::pluck('nombre','id'), null, ['class'=>'form-control-sm form-control','placeholder'=>'Marca Bisagra']) !!}
+                  {{-- <select name="" class="form-control form-control-sm">
                     <option value="" disabled selected>Marca</option>
-                    {{-- <option v-for="item in MarcasBisList" :value="item.value">@{{ item.label }}</option> --}}
-                  </select>
+                    <option v-for="item in MarcasBisList" :value="item.value">@{{ item.label }}</option>
+                  </select> --}}
                 </div>
               </div>
 
