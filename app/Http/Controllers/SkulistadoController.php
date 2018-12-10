@@ -53,7 +53,8 @@ class SkulistadoController extends Controller
     ->where('sap_id',$sap)
     ->where('fondo_id',$fondo)
     ->get();
-    return $resultado->first();
+    dd($resultado);
+    return $resultado;
   }
 
   /**
@@ -85,7 +86,8 @@ class SkulistadoController extends Controller
      */
     public function show($id)
     {
-      dd($id);
+      $sku = Skulistado::with('tipo:id,nombre','subtipo:id,nombre','categoria:id,nombre','sap:id,valor','fondo:id,valor')->findOrFail($id);
+      return $sku;
     }
 
     public function showList($sku_grupo)

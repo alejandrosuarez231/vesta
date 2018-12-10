@@ -23,6 +23,13 @@ class Skulistado extends Model
 
 	protected $guarded = ['id'];
   protected $dates = ['created_at','updated_at','deleted_at'];
+  protected $appends = ['Uid'];
+
+  public function getUidAttribute()
+  {
+    $uid = $this->tipo_id.$this->subtipo_id.$this->categoria_id.$this->sap_id.$this->fondo_id;
+    return (int) $uid;
+  }
 
   /**
    * Skulistado belongs to Modulo.

@@ -12572,7 +12572,6 @@ class SkulistadoSeeder extends Seeder
 ]);
 $this->command->getOutput()->progressStart(785);
 foreach ($skulistados as $value) {
-    sleep(1);
     Skulistado::create($value);
     $this->command->getOutput()->progressAdvance();
 }

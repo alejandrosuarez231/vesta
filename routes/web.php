@@ -107,6 +107,8 @@ Route::get('/aprobarComplementos/{id}', 'ComplementoController@aprobar')->name('
 Route::get('/editComplementoData/{modulo_id}', 'ComplementoController@editComplementoData')->name('complementosku.complementos.editar');
 Route::resource('/backend/modulos/complementos', 'ComplementoModuloController');
 
+Route::get('/showComplementosSKU/{id}', 'ComplementoSkuController@show');
+
 /* Definicion de complementos */
 Route::get('backend/complementos/create/{id}','ComplementoController@createBySku')->name('complementosku.complementos.create');
 Route::resource('backend/complementos', 'ComplementoController',['as' => 'complementosku'])->except([
@@ -114,6 +116,10 @@ Route::resource('backend/complementos', 'ComplementoController',['as' => 'comple
 ]);
 
 Route::resource('/backend/modulos', 'ModuloController');
+
+/* Proceso para Cotizar */
+Route::get('/getSkuPadre/{uid}', 'CotizarController@getSkuPadre');
+
 
 
 /* SKU Lista */
@@ -124,7 +130,8 @@ Route::get('/makeSkuPadrelote', 'SkuController@makeSkuPadreLote')->name('sku.mak
 Route::get('/backend/skus/showList/{sku_grupo}', 'SkulistadoController@showList')->name('skus.showList');
 Route::get('/searchSkuListado/{tipo}/{subtipo}/{categoria}/{sap}/{fondo}', 'SkulistadoController@searchSku');
 Route::get('/dataskuslist', 'SkulistadoController@indexData')->name('data.skuslist');
-Route::resource('/backend/skus', 'SkulistadoController');
+Route::get('/showSkuPadre/{id}', 'SkulistadoController@show');
+Route::resource('/backend/skus', 'SkulistadoController')->except(['show']);
 /* Herrajes */
 Route::resource('/backend/correderas', 'CorrederaController');
 Route::resource('/backend/bisagras', 'BisagraController');

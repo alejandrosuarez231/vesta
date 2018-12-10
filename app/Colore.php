@@ -19,7 +19,7 @@ class Colore extends Model
    *
    * @var array
    */
-  protected $fillable = ['nombre'];
+  protected $fillable = ['nombre','acronimo'];
   /**
    * Colore has many Producto.
    *
