@@ -121,6 +121,7 @@
               <a class="dropdown-item" href="{{ url('backend/unidades') }}" title="Unidades">Unidades</a>
               <a class="dropdown-item" href="{{ url('backend/marcas') }}" title="Marcas">Marcas</a>
               <a class="dropdown-item" href="{{ url('backend/colores') }}" title="Colores">Colores</a>
+              <a class="dropdown-item" href="{{ url('backend/tableros') }}" title="Tableros">Tableros</a>
               <a class="dropdown-item" href="{{ url('backend/materiales') }}" title="Materiales">Materiales</a>
               <a class="dropdown-item" href="{{ url('backend/confparts') }}" title="ConfParts">Conf-Mat</a>
               <a class="dropdown-item" href="{{ url('backend/confmats') }}" title="ConfMats">Asig-Mat</a>

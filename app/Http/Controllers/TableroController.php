@@ -14,7 +14,8 @@ class TableroController extends Controller
      */
     public function index()
     {
-        //
+      $tableros = Tablero::with('categoria:id,nombre','colore:id,nombre,acronimo')->get();
+      return view('backend.tableros.index', compact('tableros'));
     }
 
     /**
@@ -82,4 +83,4 @@ class TableroController extends Controller
     {
         //
     }
-}
+  }

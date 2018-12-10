@@ -60,6 +60,9 @@ Route::resource('/backend/marcas', 'MarcaController');
 Route::get('/dataColores', 'ColoreController@indexData')->name('data.colores');
 Route::resource('/backend/colores','ColoreController');
 
+/* Tableros */
+Route::resource('/backend/tableros', 'TableroController');
+
 Route::get('/dataMateriales', 'MaterialeController@indexData')->name('data.materiales');
 Route::get('/MaterialEditData/{id}', 'MaterialeController@editData')->name('data.materialesedit');
 Route::get('/setMaterial/{tipo}/{subtipo}', 'MaterialeController@setMaterial');

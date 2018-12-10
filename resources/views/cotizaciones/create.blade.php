@@ -154,28 +154,36 @@
                 {!! Form::number('espesor_fondo', null, ['class' => 'form-control form-control-sm','placeholder' => 'Espesor Fondo']) !!}
               </div>
               <div class="form-group mr-2">
-                <select name="material_caja" class="form-control form-control-sm" >
+                {!! Form::select('material_caja', \App\Tablero::with('colore')->get()->pluck('colore.nombre','id'), null, ['class'=>'form-control-sm form-control
+                ','placeholder'=>'Material Caja']) !!}
+                {{-- <select name="material_caja" class="form-control form-control-sm" >
                   <option disabled selected value="">Material Caja</option>
-                  {{-- <option v-for="item in matcaja" :value="item.value">@{{ item.label }}</option> --}}
-                </select>
+                  <option v-for="item in matcaja" :value="item.value">@{{ item.label }}</option>
+                </select> --}}
               </div>
               <div class="form-group mr-2">
-                <select name="material_frente" class="form-control form-control-sm" >
+                {!! Form::select('material_frente', \App\Tablero::with('colore')->get()->pluck('colore.nombre','id'), null, ['class'=>'form-control-sm form-control
+                ','placeholder'=>'Material Frente']) !!}
+                {{-- <select name="material_frente" class="form-control form-control-sm" >
                   <option disabled selected value="">Material Frente</option>
-                  {{-- <option v-for="item in matfrente" :value="item.value">@{{ item.label }}</option> --}}
-                </select>
+                  <option v-for="item in matfrente" :value="item.value">@{{ item.label }}</option>
+                </select> --}}
               </div>
               <div class="form-group mr-2">
-                <select name="material_fondo" class="form-control form-control-sm" >
+                {!! Form::select('material_fondo', \App\Tablero::with('colore')->get()->pluck('colore.nombre','id'), null, ['class'=>'form-control-sm form-control
+                ','placeholder'=>'Material Fondo']) !!}
+                {{-- <select name="material_fondo" class="form-control form-control-sm" >
                   <option disabled selected value="">Material Fondo</option>
-                  {{-- <option v-for="item in matfondo" :value="item.value">@{{ item.label }}</option> --}}
-                </select>
+                  <option v-for="item in matfondo" :value="item.value">@{{ item.label }}</option>
+                </select> --}}
               </div>
               <div class="form-group mr-2">
-                <select name="material_gaveta" class="form-control form-control-sm" >
+                {!! Form::select('material_gaveta', \App\Tablero::with('colore')->get()->pluck('colore.nombre','id'), null, ['class'=>'form-control-sm form-control
+                ','placeholder'=>'Material Gaveta']) !!}
+                {{-- <select name="material_gaveta" class="form-control form-control-sm" >
                   <option disabled selected value="">Material Gaveta</option>
-                  {{-- <option v-for="item in matgaveta" :value="item.value">@{{ item.label }}</option> --}}
-                </select>
+                  <option v-for="item in matgaveta" :value="item.value">@{{ item.label }}</option>
+                </select> --}}
               </div>
             </div>
           </div>

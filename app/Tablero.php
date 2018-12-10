@@ -22,7 +22,7 @@ class Tablero extends Model
    *
    * @var array
    */
-  protected $fillable = ['categoria_id','colore_id','4','15','18','19','25'];
+  protected $fillable = ['categoria_id','colore_id','C4','C15','C18','C19','C25'];
 
   /**
    * Tablero belongs to Categoria.
