@@ -64,13 +64,13 @@
 
               <div class="form-row">
                 <div class="form-group col-md-4">
-                  {!! Form::text('ancho', null, ['class' => 'form-control form-control-sm','placeholder'=>'Ancho', 'v-model' => 'ancho','@change' => 'setAncho()']) !!}
+                  {!! Form::text('ancho', null, ['class' => 'form-control form-control-sm','placeholder'=>'Ancho', 'v-model' => 'ancho','@blur'=>'setAncho()']) !!}
                 </div>
                 <div class="form-group col-md-4">
-                  {!! Form::text('alto', null, ['class' => 'form-control form-control-sm','placeholder'=>'Alto', 'v-model' => 'alto','@change' => 'setAlto()']) !!}
+                  {!! Form::text('alto', null, ['class' => 'form-control form-control-sm','placeholder'=>'Alto', 'v-model' => 'alto']) !!}
                 </div>
                 <div class="form-group col-md-4">
-                  {!! Form::text('profundidad', null, ['class' => 'form-control form-control-sm','placeholder'=>'Profundidad', 'v-model' => 'profundidad','@change' => 'setProfundidad()']) !!}
+                  {!! Form::text('profundidad', null, ['class' => 'form-control form-control-sm','placeholder'=>'Profundidad', 'v-model' => 'profundidad']) !!}
                 </div>
               </div>
 
@@ -194,7 +194,7 @@
     </div>
   </div>
 
-  <div class="row mt-2" v-if="skus.length > 0">
+  <div class="row mt-2" {{-- v-if="skus.length > 0" --}}>
     <div class="col-md">
       <table class="table table-bordered table-inverse table-hover">
         <caption>SKU's</caption>
@@ -222,7 +222,7 @@
     </div>
   </div>
 
-  <div class="row mt-2" v-if="piezas.length > 0">
+  <div class="row mt-2" {{-- v-if="piezas.length > 0" --}}>
     <div class="col-md">
       <table class="table table-bordered table-inverse table-hover">
         <caption>Piezas</caption>
@@ -232,13 +232,21 @@
             <th>Material</th>
             <th>Descripcion</th>
             <th>Largo</th>
+            <th>Valor</th>
             <th>L-Sup</th>
+            <th>Valor</th>
             <th>L-Inf</th>
+            <th>Valor</th>
             <th>Ancho</th>
+            <th>Valor</th>
             <th>A-Izq</th>
+            <th>Valor</th>
             <th>A-Der</th>
-            <th>Mecanizado</th>
-            <th>Mecanizado</th>
+            <th>Valor</th>
+            <th>Mec 1</th>
+            <th>Valor</th>
+            <th>Mec 2</th>
+            <th>Valor</th>
             <th class="text-right">Cantidad</th>
           </tr>
         </thead>
@@ -248,13 +256,21 @@
             <td>@{{ pieza.materiale.nombre }}</td>
             <td>@{{ pieza.descripcion }}</td>
             <td class="text-right">@{{ pieza.largo }}</td>
+            <td class="text-right">@{{ pieza.vl }}</td>
             <td class="text-right">@{{ pieza.largo_sup }}</td>
+            <td class="text-right">@{{ pieza.vls }}</td>
             <td class="text-right">@{{ pieza.largo_inf }}</td>
+            <td class="text-right">@{{ pieza.vli }}</td>
             <td class="text-right">@{{ pieza.ancho }}</td>
+            <td class="text-right">@{{ pieza.va }}</td>
             <td class="text-right">@{{ pieza.ancho_izq }}</td>
+            <td class="text-right">@{{ pieza.vai }}</td>
             <td class="text-right">@{{ pieza.ancho_der }}</td>
-            <td>@{{ pieza.mecanizado1 }}</td>
-            <td>@{{ pieza.mecanizado2 }}</td>
+            <td class="text-right">@{{ pieza.vad }}</td>
+            <td class="text-right">@{{ pieza.mecanizado1 }}</td>
+            <td class="text-right">@{{ pieza.vm1 }}</td>
+            <td class="text-right">@{{ pieza.mecanizado2 }}</td>
+            <td class="text-right">@{{ pieza.vm2 }}</td>
             <td class="text-right">@{{ pieza.cantidad }}</td>
           </tr>
         </tbody>
@@ -263,7 +279,7 @@
   </div>
 
 
-  <div class="row mt-2" v-if="complementos.length > 0">
+  <div class="row mt-2" {{-- v-if="complementos.length > 0" --}}>
     <div class="col-md">
       <table class="table table-bordered table-inverse table-hover">
         <caption>Complementos</caption>
@@ -312,7 +328,7 @@
       complementos: [],
       ancho: '',
       alto: '',
-      profundidad: ''
+      profundidad: '',
     },
 
     watch: {
@@ -346,7 +362,7 @@
       getSkuPadre: function(index){
         if(this.tipo_id && this.subtipo_id && this.categoria_id && this.sap_id && this.fondo_id){
           var uid = this.tipo_id + this.subtipo_id + this.categoria_id + this.sap_id + this.fondo_id;
-          console.log(uid);
+          // console.log(uid);
           axios.get('/getSkuPadre/' + uid)
           .then( response => {
             this.skulistado_id = response.data;
@@ -370,7 +386,7 @@
         }
       },
       addSKU: function(){
-        console.log(this.skulistado_id);
+        // console.log(this.skulistado_id);
         /* SKU */
         axios.get('/showSkuPadre/' + this.skulistado_id)
         .then(response => {
@@ -401,78 +417,9 @@
         })
       },
       setAncho: function(){
-        if(this.ancho >= 100){
+        if(this.ancho){
           this.piezas.filter(pieza => {
-            if (pieza.largo == 'A') {
-              return pieza.largo = this.ancho
-            }
-
-            if (pieza.largo_sup == 'A') {
-              return pieza.largo_sup = this.ancho
-            }
-            if (pieza.largo_inf == 'A') {
-              return pieza.largo_inf = this.ancho
-            }
-
-            if (pieza.ancho == 'A') {
-              return pieza.ancho = this.ancho
-            }
-            if (pieza.ancho_izq == 'A') {
-              return pieza.ancho_izq = this.ancho
-            }
-            if (pieza.ancho_der == 'A') {
-              return pieza.ancho_der = this.ancho
-            }
-          })
-        }
-      },
-      setAlto: function(){
-        if(this.alto >= 100){
-          this.piezas.filter(pieza => {
-            if (pieza.largo == 'H') {
-              return pieza.largo = this.alto
-            }
-            if (pieza.largo_sup == 'H') {
-              return pieza.largo_sup = this.alto
-            }
-            if (pieza.largo_inf == 'H') {
-              return pieza.largo_inf = this.alto
-            }
-
-            if (pieza.ancho == 'H') {
-              return pieza.ancho = this.alto
-            }
-            if (pieza.ancho_izq == 'H') {
-              return pieza.ancho_izq = this.alto
-            }
-            if (pieza.ancho_der == 'H') {
-              return pieza.ancho_der = this.alto
-            }
-          })
-        }
-      },
-      setProfundidad: function(){
-        if(this.profundidad >= 100){
-          this.piezas.filter(pieza => {
-            if (pieza.largo == 'P') {
-              return pieza.largo = this.profundidad
-            }
-            if (pieza.largo_sup == 'P') {
-              return pieza.largo_sup = this.profundidad
-            }
-            if (pieza.largo_inf == 'P') {
-              return pieza.largo_inf = this.profundidad
-            }
-
-            if (pieza.ancho == 'P') {
-              return pieza.ancho = this.profundidad
-            }
-            if (pieza.ancho_izq == 'P') {
-              return pieza.ancho_izq = this.profundidad
-            }
-            if (pieza.ancho_der == 'P') {
-              return pieza.ancho_der = this.profundidad
-            }
+            pieza.vl = pieza.largo.replace(/A/g, this.ancho);
           })
         }
       }

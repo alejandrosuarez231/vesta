@@ -131,7 +131,9 @@ class CategoriasSeeder extends Seeder
         ['subtipo_id' => 39, 'nombre' => 'Gavetas', 'acronimo' => 'GV'],
         ['subtipo_id' => 39, 'nombre' => 'Proyecto', 'acronimo' => 'PY'],
         ['subtipo_id' => 39, 'nombre' => 'Tubo', 'acronimo' => 'TB'],
-        ['subtipo_id' => 40, 'nombre' => 'Proyecto', 'acronimo' => 'PY']
+        ['subtipo_id' => 40, 'nombre' => 'Proyecto', 'acronimo' => 'PY'],
+        ['subtipo_id' => 30, 'nombre' => 'Complementos', 'acronimo' => 'CM'],
+        ['subtipo_id' => 15, 'nombre' => 'Complementos', 'acronimo' => 'CM']
     ]);
 }
 }
