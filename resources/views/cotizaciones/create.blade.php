@@ -64,7 +64,7 @@
 
               <div class="form-row">
                 <div class="form-group col-md-4">
-                  {!! Form::text('ancho', null, ['class' => 'form-control form-control-sm','placeholder'=>'Ancho', 'v-model' => 'ancho','@blur'=>'setAncho()']) !!}
+                  {!! Form::text('ancho', null, ['class' => 'form-control form-control-sm','placeholder'=>'Ancho', 'v-model' => 'ancho']) !!}
                 </div>
                 <div class="form-group col-md-4">
                   {!! Form::text('alto', null, ['class' => 'form-control form-control-sm','placeholder'=>'Alto', 'v-model' => 'alto']) !!}
@@ -329,6 +329,16 @@
       ancho: '',
       alto: '',
       profundidad: '',
+
+      vl: '',
+      vls: '',
+      vli: '',
+      va: '',
+      vai: '',
+      vad: '',
+      A: '',
+      H: '',
+      P: '',
     },
 
     watch: {
@@ -355,6 +365,22 @@
             console.log(error)
           })
         }
+      },
+      profundidad(){
+        console.log(this.profundidad.length);
+        if(this.ancho && this.alto && this.profundidad){
+          this.A = this.ancho;
+          this.H = this.alto;
+          this.P = this.profundidad;
+          console.log('Asignado valores');
+        }
+        var cantidadPiezas = this.piezas.length;
+        for (var i = this.piezas.length - 1; i >= 0; i--) {
+          this.vl[i] = this.piezas[i].largo.replace(/A{1}/g, this.A);
+          this.vl[i] = this.vl[i].replace(/H{1}/g, this.H);
+          this.vl[i] = this.vl[i].replace(/P{1}/g, this.P);
+        }
+        console.log('Listo');
       }
     },
 
@@ -415,13 +441,6 @@
         .catch(function(error){
           console.log(error)
         })
-      },
-      setAncho: function(){
-        if(this.ancho){
-          this.piezas.filter(pieza => {
-            pieza.vl = pieza.largo.replace(/A/g, this.ancho);
-          })
-        }
       }
     }
   })
