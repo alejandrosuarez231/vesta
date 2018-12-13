@@ -70,7 +70,7 @@
                   {!! Form::text('alto', null, ['class' => 'form-control form-control-sm','placeholder'=>'Alto', 'v-model' => 'alto']) !!}
                 </div>
                 <div class="form-group col-md-4">
-                  {!! Form::text('profundidad', null, ['class' => 'form-control form-control-sm','placeholder'=>'Profundidad', 'v-model' => 'profundidad']) !!}
+                  {!! Form::text('profundidad', null, ['class' => 'form-control form-control-sm','placeholder'=>'Profundidad', 'v-model' => 'profundidad','@blur' => 'setForm()']) !!}
                 </div>
               </div>
 
@@ -329,7 +329,7 @@
       ancho: '',
       alto: '',
       profundidad: '',
-      vl: [],
+      pieza_calc: [],
     },
 
     computed: {},
@@ -359,59 +359,20 @@
           })
         }
       },
-      ancho: function(){
-        if(this.piezas.length > 0 && this.ancho){
-          for (var i = 0; i < this.piezas.length; i++) {
-
-            if(this.piezas[i].largo !== null && this.piezas[i].largo.split("").length > 1){
-              this.piezas[i].vl = this.piezas[i].largo.split("A").join(this.ancho);
-            }else if(this.piezas[i].largo !== null && this.piezas[i].largo.split("").length == 1) {
-              this.piezas[i].vl = this.piezas[i].largo.replace("A", this.ancho);
-            }
-
-            if(this.piezas[i].largo_sup !== null && this.piezas[i].largo_sup.split("").length > 1){
-              this.piezas[i].vls = this.piezas[i].largo_sup.split("A").join(this.ancho);
-            }else if(this.piezas[i].largo_sup !== null && this.piezas[i].largo_sup.split("").length == 1) {
-              this.piezas[i].vls = this.piezas[i].largo_sup.replace("A", this.ancho);
-            }
-
-            if(this.piezas[i].largo_inf !== null && this.piezas[i].largo_inf.split("").length > 1){
-              this.piezas[i].vli = this.piezas[i].largo_inf.split("A").join(this.ancho);
-            }else if(this.piezas[i].largo_inf !== null && this.piezas[i].largo_inf.split("").length == 1) {
-              this.piezas[i].vli = this.piezas[i].largo_inf.replace("A", this.ancho);
-            }
-
-            if(this.piezas[i].ancho !== null && this.piezas[i].ancho.split("").length > 1){
-              this.piezas[i].va = this.piezas[i].ancho.split("A").join(this.ancho);
-            }else if(this.piezas[i].ancho !== null && this.piezas[i].ancho.split("").length == 1) {
-              this.piezas[i].va = this.piezas[i].ancho.replace("A", this.ancho);
-            }
-            if(this.piezas[i].ancho_izq !== null && this.piezas[i].ancho_izq.split("").length > 1){
-              this.piezas[i].vai = this.piezas[i].ancho_izq.split("A").join(this.ancho);
-            }else if(this.piezas[i].ancho_izq !== null && this.piezas[i].ancho_izq.split("").length == 1) {
-              this.piezas[i].vai = this.piezas[i].ancho_izq.replace("A", this.ancho);
-            }
-
-            if(this.piezas[i].ancho_der !== null && this.piezas[i].ancho_der.split("").length > 1){
-              this.piezas[i].vad = this.piezas[i].ancho_der.split("A").join(this.ancho);
-            }else if(this.piezas[i].ancho_der !== null && this.piezas[i].ancho_der.split("").length == 1) {
-              this.piezas[i].vad = this.piezas[i].ancho_der.replace("A", this.ancho);
-            }
-
-          }
+      piezas: function(){
+        if(this.piezas.length > 0){
+          // console.log(this.piezas);
         }
       },
+      ancho: function(){
+        
+      },
       alto: function(){
-        if(this.piezas.length > 0 && this.ancho && this.alto){
-          for (var i = 0; i < this.piezas.length; i++) {
-            if(this.piezas[i].vl && this.piezas[i].vl !== null && this.piezas[i].vl.length > 1){
-              if(this.piezas[i].vl.search("H") > -1){
-                console.log(this.piezas[i].vl.search("H"));
-              }
-            }
-          }
-        }
-      }
+        
+      },
+      profundidad: function(){
+
+      },
     },
 
     methods: {
@@ -455,7 +416,28 @@
         axios.get('/piezasSkuPadre/' + this.skulistado_id)
         .then( response => {
           for (var i = 0; i < response.data.length; i++) {
-            this.piezas.push(response.data[i]);
+            // if(this.piezas.length == 1){
+            //   this.piezas.shift();
+            // }
+            this.piezas.push({
+                id: response.data[i].id,
+                modulo_id: response.data[i].modulo_id,
+                skulistado_id: response.data[i].skulistado_id,
+                materiale_id: response.data[i].materiale_id,
+                descripcion: response.data[i].descripcion,
+                cantidad: response.data[i].cantidad,
+                largo: response.data[i].largo,
+                largo_sup: response.data[i].largo_sup,
+                largo_inf: response.data[i].largo_inf,
+                ancho: response.data[i].ancho,
+                ancho_izq: response.data[i].ancho_izq,
+                ancho_der: response.data[i].ancho_der,
+                mecanizado1: response.data[i].mecanizado1,
+                mecanizado2: response.data[i].mecanizado2,
+                pieza: response.data[i].pieza,
+                materiale: response.data[i].materiale
+              });
+            
           }
         })
         .catch(function(error){
@@ -472,8 +454,48 @@
           console.log(error)
         })
       },
-      setForm: function(columna,patron,reemplazo){
-        columna.value = columna.value.split(patron).join(reemplazo);
+      setForm: function(){
+        if(this.piezas.length > 0 && this.ancho && this.alto && this.profundidad){
+          var ancho = this.ancho;
+          var alto = this.alto;
+          var profundidad = this.profundidad;
+          /* Largo */
+          this.piezas = this.piezas.filter(function(pieza){
+            if(pieza.largo.length >= 1){
+              return pieza.vl =  Math.round(eval((pieza.largo.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad))) * 100) / 100 ;
+            }
+          })
+          /* Largo Sup */
+          // this.piezas = this.piezas.filter(function(pieza){
+          //   if(pieza.largo_sup.length >= 1){
+          //     return pieza.vls =  Math.round(eval((pieza.largo_sup.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad))) * 100) / 100 ;
+          //   }
+          // })
+          /* Largo Inf */
+          // this.piezas = this.piezas.filter(function(pieza){
+          //   if(pieza.largo_inf.length >= 1){
+          //     return pieza.vli =  Math.round(eval((pieza.largo_inf.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad))) * 100) / 100 ;
+          //   }
+          // })
+          /* Ancho */
+          this.piezas = this.piezas.filter(function(pieza){
+            if(pieza.ancho.length >= 1){
+              return pieza.va =  Math.round(eval((pieza.ancho.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad))) * 100) / 100 ;
+            }
+          })
+          /* Ancho Izq */
+          // this.piezas = this.piezas.filter(function(pieza){
+          //   if(pieza.ancho_izq.length >= 1){
+          //     return pieza.vai =  Math.round(eval((pieza.ancho_izq.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad))) * 100) / 100 ;
+          //   }
+          // })
+          /* Ancho Der */
+          // this.piezas = this.piezas.filter(function(pieza){
+          //   if(pieza.ancho_der.length >= 1){
+          //     return pieza.vad =  Math.round(eval((pieza.ancho_der.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad))) * 100) / 100 ;
+          //   }
+          // })
+        }
       }
     }
   })
