@@ -64,16 +64,36 @@
 
               <div class="form-row">
                 <div class="form-group col-md-4">
-                  {!! Form::text('ancho', null, ['class' => 'form-control form-control-sm','placeholder'=>'Ancho', 'v-model' => 'ancho']) !!}
+                  {!! Form::text('ancho', null, ['class' => 'form-control form-control-sm', 'placeholder'=>'A', 'v-model' => 'ancho']) !!}
                 </div>
                 <div class="form-group col-md-4">
-                  {!! Form::text('alto', null, ['class' => 'form-control form-control-sm','placeholder'=>'Alto', 'v-model' => 'alto']) !!}
+                  {!! Form::text('alto', null, ['class' => 'form-control form-control-sm', 'placeholder'=>'H', 'v-model' => 'alto']) !!}
                 </div>
                 <div class="form-group col-md-4">
-                  {!! Form::text('profundidad', null, ['class' => 'form-control form-control-sm','placeholder'=>'Profundidad', 'v-model' => 'profundidad','@blur' => 'setForm()']) !!}
+                  {!! Form::text('profundidad', null, ['class' => 'form-control form-control-sm', 'placeholder'=>'P', 'v-model' => 'profundidad','@blur' => 'setForm()']) !!}
                 </div>
               </div>
 
+              <div class="form-group mr-2">
+                {!! Form::text('espesor_caja', null, ['class' => 'form-control form-control-sm', 'placeholder' => 'EC', 'v-model' => 'EC']) !!}
+              </div>
+              <div class="form-group mr-2">
+                {!! Form::text('espesor_frente', null, ['class' => 'form-control form-control-sm', 'placeholder' => 'EF', 'v-model' => 'EF']) !!}
+              </div>
+              <div class="form-group mr-2">
+                {!! Form::text('espesor_fondo', null, ['class' => 'form-control form-control-sm', 'placeholder' => 'EO', 'v-model' => 'EO']) !!}
+              </div>
+              <div class="form-group mr-2">
+                {!! Form::text('espesor_gaveta', null, ['class' => 'form-control form-control-sm', 'placeholder' => 'EG', 'v-model' => 'EG']) !!}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md">
+          <div class="card">
+            <div class="card-body">
+              <h6 class="card-title">Materiales</h6>
               <div class="form-row">
                 <div class="form-group col-md">
                   <select class="form-control form-control-sm" name="tipo_gaveta">
@@ -136,24 +156,6 @@
                     <option value="4">Exterior Inferior</option>
                   </select>
                 </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md">
-          <div class="card">
-            <div class="card-body">
-              <h6 class="card-title">Materiales</h6>
-              <div class="form-group mr-2">
-                {!! Form::number('espesor_caja', null, ['class' => 'form-control form-control-sm','placeholder' => 'Espesor Caja']) !!}
-              </div>
-              <div class="form-group mr-2">
-                {!! Form::number('espesor_frente', null, ['class' => 'form-control form-control-sm','placeholder' => 'Espesor Frente']) !!}
-              </div>
-              <div class="form-group mr-2">
-                {!! Form::number('espesor_fondo', null, ['class' => 'form-control form-control-sm','placeholder' => 'Espesor Fondo']) !!}
               </div>
               <div class="form-group mr-2">
                 {!! Form::select('material_caja', \App\Tablero::with('colore')->get()->pluck('colore.nombre','id'), null, ['class'=>'form-control-sm form-control
@@ -365,10 +367,10 @@
         }
       },
       ancho: function(){
-        
+
       },
       alto: function(){
-        
+
       },
       profundidad: function(){
 
@@ -420,23 +422,23 @@
             //   this.piezas.shift();
             // }
             this.piezas.push({
-                id: response.data[i].id,
-                modulo_id: response.data[i].modulo_id,
-                skulistado_id: response.data[i].skulistado_id,
-                materiale_id: response.data[i].materiale_id,
-                descripcion: response.data[i].descripcion,
-                cantidad: response.data[i].cantidad,
-                largo: response.data[i].largo,
-                largo_sup: response.data[i].largo_sup,
-                largo_inf: response.data[i].largo_inf,
-                ancho: response.data[i].ancho,
-                ancho_izq: response.data[i].ancho_izq,
-                ancho_der: response.data[i].ancho_der,
-                mecanizado1: response.data[i].mecanizado1,
-                mecanizado2: response.data[i].mecanizado2,
-                pieza: response.data[i].pieza,
-                materiale: response.data[i].materiale
-              });
+              id: response.data[i].id,
+              modulo_id: response.data[i].modulo_id,
+              skulistado_id: response.data[i].skulistado_id,
+              materiale_id: response.data[i].materiale_id,
+              descripcion: response.data[i].descripcion,
+              cantidad: response.data[i].cantidad,
+              largo: response.data[i].largo,
+              largo_sup: response.data[i].largo_sup,
+              largo_inf: response.data[i].largo_inf,
+              ancho: response.data[i].ancho,
+              ancho_izq: response.data[i].ancho_izq,
+              ancho_der: response.data[i].ancho_der,
+              mecanizado1: response.data[i].mecanizado1,
+              mecanizado2: response.data[i].mecanizado2,
+              pieza: response.data[i].pieza,
+              materiale: response.data[i].materiale
+            });
             
           }
         })
@@ -459,42 +461,19 @@
           var ancho = this.ancho;
           var alto = this.alto;
           var profundidad = this.profundidad;
+          //  modelo de muestra
+          var XXXX = null; //Espesor de caja EC
+          var XXXX1 = null; //Espesor de Frente EF
+          var XXXX2 = null; //Espesor de fondo EO
+          var XXXX3 = null; //Espesor de gaveta EG
           /* Largo */
           this.piezas = this.piezas.filter(function(pieza){
-            if(pieza.largo.length >= 1){
-              return pieza.vl =  Math.round(eval((pieza.largo.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad))) * 100) / 100 ;
-            }
+            return pieza.vl =  Math.round(eval((pieza.largo.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad))) * 100) / 100 ;
           })
-          /* Largo Sup */
-          // this.piezas = this.piezas.filter(function(pieza){
-          //   if(pieza.largo_sup.length >= 1){
-          //     return pieza.vls =  Math.round(eval((pieza.largo_sup.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad))) * 100) / 100 ;
-          //   }
-          // })
-          /* Largo Inf */
-          // this.piezas = this.piezas.filter(function(pieza){
-          //   if(pieza.largo_inf.length >= 1){
-          //     return pieza.vli =  Math.round(eval((pieza.largo_inf.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad))) * 100) / 100 ;
-          //   }
-          // })
           /* Ancho */
           this.piezas = this.piezas.filter(function(pieza){
-            if(pieza.ancho.length >= 1){
-              return pieza.va =  Math.round(eval((pieza.ancho.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad))) * 100) / 100 ;
-            }
+            return pieza.va =  Math.round(eval((pieza.ancho.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad))) * 100) / 100 ;
           })
-          /* Ancho Izq */
-          // this.piezas = this.piezas.filter(function(pieza){
-          //   if(pieza.ancho_izq.length >= 1){
-          //     return pieza.vai =  Math.round(eval((pieza.ancho_izq.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad))) * 100) / 100 ;
-          //   }
-          // })
-          /* Ancho Der */
-          // this.piezas = this.piezas.filter(function(pieza){
-          //   if(pieza.ancho_der.length >= 1){
-          //     return pieza.vad =  Math.round(eval((pieza.ancho_der.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad))) * 100) / 100 ;
-          //   }
-          // })
         }
       }
     }
