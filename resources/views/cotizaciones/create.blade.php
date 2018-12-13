@@ -232,21 +232,21 @@
             <th>Material</th>
             <th>Descripcion</th>
             <th>Largo</th>
-            <th>Valor</th>
+            <th class="text-center">VL</th>
             <th>L-Sup</th>
-            <th>Valor</th>
+            <th class="text-center">VLS</th>
             <th>L-Inf</th>
-            <th>Valor</th>
+            <th class="text-center">VLI</th>
             <th>Ancho</th>
-            <th>Valor</th>
+            <th class="text-center">VA</th>
             <th>A-Izq</th>
-            <th>Valor</th>
+            <th class="text-center">VAI</th>
             <th>A-Der</th>
-            <th>Valor</th>
+            <th class="text-center">VAD</th>
             <th>Mec 1</th>
-            <th>Valor</th>
+            <th class="text-center">Valor</th>
             <th>Mec 2</th>
-            <th>Valor</th>
+            <th class="text-center">Valor</th>
             <th class="text-right">Cantidad</th>
           </tr>
         </thead>
@@ -329,17 +329,10 @@
       ancho: '',
       alto: '',
       profundidad: '',
-
-      vl: '',
-      vls: '',
-      vli: '',
-      va: '',
-      vai: '',
-      vad: '',
-      A: '',
-      H: '',
-      P: '',
+      vl: [],
     },
+
+    computed: {},
 
     watch: {
       tipo_id(){
@@ -366,21 +359,58 @@
           })
         }
       },
-      profundidad(){
-        console.log(this.profundidad.length);
-        if(this.ancho && this.alto && this.profundidad){
-          this.A = this.ancho;
-          this.H = this.alto;
-          this.P = this.profundidad;
-          console.log('Asignado valores');
+      ancho: function(){
+        if(this.piezas.length > 0 && this.ancho){
+          for (var i = 0; i < this.piezas.length; i++) {
+
+            if(this.piezas[i].largo !== null && this.piezas[i].largo.split("").length > 1){
+              this.piezas[i].vl = this.piezas[i].largo.split("A").join(this.ancho);
+            }else if(this.piezas[i].largo !== null && this.piezas[i].largo.split("").length == 1) {
+              this.piezas[i].vl = this.piezas[i].largo.replace("A", this.ancho);
+            }
+
+            if(this.piezas[i].largo_sup !== null && this.piezas[i].largo_sup.split("").length > 1){
+              this.piezas[i].vls = this.piezas[i].largo_sup.split("A").join(this.ancho);
+            }else if(this.piezas[i].largo_sup !== null && this.piezas[i].largo_sup.split("").length == 1) {
+              this.piezas[i].vls = this.piezas[i].largo_sup.replace("A", this.ancho);
+            }
+
+            if(this.piezas[i].largo_inf !== null && this.piezas[i].largo_inf.split("").length > 1){
+              this.piezas[i].vli = this.piezas[i].largo_inf.split("A").join(this.ancho);
+            }else if(this.piezas[i].largo_inf !== null && this.piezas[i].largo_inf.split("").length == 1) {
+              this.piezas[i].vli = this.piezas[i].largo_inf.replace("A", this.ancho);
+            }
+
+            if(this.piezas[i].ancho !== null && this.piezas[i].ancho.split("").length > 1){
+              this.piezas[i].va = this.piezas[i].ancho.split("A").join(this.ancho);
+            }else if(this.piezas[i].ancho !== null && this.piezas[i].ancho.split("").length == 1) {
+              this.piezas[i].va = this.piezas[i].ancho.replace("A", this.ancho);
+            }
+            if(this.piezas[i].ancho_izq !== null && this.piezas[i].ancho_izq.split("").length > 1){
+              this.piezas[i].vai = this.piezas[i].ancho_izq.split("A").join(this.ancho);
+            }else if(this.piezas[i].ancho_izq !== null && this.piezas[i].ancho_izq.split("").length == 1) {
+              this.piezas[i].vai = this.piezas[i].ancho_izq.replace("A", this.ancho);
+            }
+
+            if(this.piezas[i].ancho_der !== null && this.piezas[i].ancho_der.split("").length > 1){
+              this.piezas[i].vad = this.piezas[i].ancho_der.split("A").join(this.ancho);
+            }else if(this.piezas[i].ancho_der !== null && this.piezas[i].ancho_der.split("").length == 1) {
+              this.piezas[i].vad = this.piezas[i].ancho_der.replace("A", this.ancho);
+            }
+
+          }
         }
-        var cantidadPiezas = this.piezas.length;
-        for (var i = this.piezas.length - 1; i >= 0; i--) {
-          this.vl[i] = this.piezas[i].largo.replace(/A{1}/g, this.A);
-          this.vl[i] = this.vl[i].replace(/H{1}/g, this.H);
-          this.vl[i] = this.vl[i].replace(/P{1}/g, this.P);
+      },
+      alto: function(){
+        if(this.piezas.length > 0 && this.ancho && this.alto){
+          for (var i = 0; i < this.piezas.length; i++) {
+            if(this.piezas[i].vl && this.piezas[i].vl !== null && this.piezas[i].vl.length > 1){
+              if(this.piezas[i].vl.search("H") > -1){
+                console.log(this.piezas[i].vl.search("H"));
+              }
+            }
+          }
         }
-        console.log('Listo');
       }
     },
 
@@ -441,6 +471,9 @@
         .catch(function(error){
           console.log(error)
         })
+      },
+      setForm: function(columna,patron,reemplazo){
+        columna.value = columna.value.split(patron).join(reemplazo);
       }
     }
   })
