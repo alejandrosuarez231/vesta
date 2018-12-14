@@ -64,28 +64,34 @@
 
               <div class="form-row">
                 <div class="form-group col-md-4">
-                  {!! Form::text('ancho', null, ['class' => 'form-control form-control-sm', 'placeholder'=>'A', 'v-model' => 'ancho']) !!}
+                  {!! Form::text('ancho', null, ['class' => 'form-control form-control-sm', 'title' => 'Alto', 'placeholder'=>'A', 'v-model' => 'ancho']) !!}
                 </div>
                 <div class="form-group col-md-4">
-                  {!! Form::text('alto', null, ['class' => 'form-control form-control-sm', 'placeholder'=>'H', 'v-model' => 'alto']) !!}
+                  {!! Form::text('alto', null, ['class' => 'form-control form-control-sm', 'title' => 'Ancho', 'placeholder'=>'H', 'v-model' => 'alto']) !!}
                 </div>
                 <div class="form-group col-md-4">
-                  {!! Form::text('profundidad', null, ['class' => 'form-control form-control-sm', 'placeholder'=>'P', 'v-model' => 'profundidad','@blur' => 'setForm()']) !!}
+                  {!! Form::text('profundidad', null, ['class' => 'form-control form-control-sm', 'title' => 'Profundidad', 'placeholder'=>'P', 'v-model' => 'profundidad','@blur' => 'setForm()']) !!}
                 </div>
               </div>
 
-              <div class="form-group mr-2">
-                {!! Form::text('espesor_caja', null, ['class' => 'form-control form-control-sm', 'placeholder' => 'EC', 'v-model' => 'EC']) !!}
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  {!! Form::text('espesor_caja', null, ['class' => 'form-control form-control-sm', 'title' => 'Espesor Caja', 'placeholder' => 'EC', 'v-model' => 'espesor_caja']) !!}
+                </div>
+                <div class="form-group col-md-6">
+                  {!! Form::text('espesor_frente', null, ['class' => 'form-control form-control-sm', 'title' => 'Espesor Frente', 'placeholder' => 'EF', 'v-model' => 'espesor_frente']) !!}
+                </div>
               </div>
-              <div class="form-group mr-2">
-                {!! Form::text('espesor_frente', null, ['class' => 'form-control form-control-sm', 'placeholder' => 'EF', 'v-model' => 'EF']) !!}
+
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  {!! Form::text('espesor_fondo', null, ['class' => 'form-control form-control-sm', 'title' => 'Espesor Fondo', 'placeholder' => 'EO', 'v-model' => 'espesor_fondo']) !!}
+                </div>
+                <div class="form-group col-md-6">
+                  {!! Form::text('espesor_gaveta', null, ['class' => 'form-control form-control-sm', 'title' => 'Espesor Gaveta', 'placeholder' => 'EG', 'v-model' => 'espesor_gaveta','@blur' => 'setArea()']) !!}
+                </div>
               </div>
-              <div class="form-group mr-2">
-                {!! Form::text('espesor_fondo', null, ['class' => 'form-control form-control-sm', 'placeholder' => 'EO', 'v-model' => 'EO']) !!}
-              </div>
-              <div class="form-group mr-2">
-                {!! Form::text('espesor_gaveta', null, ['class' => 'form-control form-control-sm', 'placeholder' => 'EG', 'v-model' => 'EG']) !!}
-              </div>
+
             </div>
           </div>
         </div>
@@ -109,7 +115,7 @@
                   </select>
                 </div>
                 <div class="form-group col-md">
-                  {!! Form::select('marca_corredera', \App\Marca::pluck('nombre','id'), null, ['class'=>'form-control-sm form-control','placeholder'=>'Marca Coredera']) !!}
+                  {!! Form::select('marca_corredera', \App\Marca::pluck('nombre','id'), null, ['class'=>'form-control-sm form-control','placeholder'=>'Marca Corredera']) !!}
                   {{-- <select name="" class="form-control form-control-sm">
                     <option value="" disabled selected>Marca</option>
                     <option v-for="item in MarcasGavList" :value="item.value">@{{ item.label }}</option>
@@ -196,7 +202,7 @@
     </div>
   </div>
 
-  <div class="row mt-2" {{-- v-if="skus.length > 0" --}}>
+  <div class="row mt-2" v-if="skus.length > 0">
     <div class="col-md">
       <table class="table table-bordered table-inverse table-hover">
         <caption>SKU's</caption>
@@ -224,7 +230,7 @@
     </div>
   </div>
 
-  <div class="row mt-2" {{-- v-if="piezas.length > 0" --}}>
+  <div class="row mt-2" v-if="piezas.length > 0">
     <div class="col-md">
       <table class="table table-bordered table-inverse table-hover">
         <caption>Piezas</caption>
@@ -234,22 +240,17 @@
             <th>Material</th>
             <th>Descripcion</th>
             <th>Largo</th>
-            <th class="text-center">VL</th>
-            <th>L-Sup</th>
-            <th class="text-center">VLS</th>
-            <th>L-Inf</th>
-            <th class="text-center">VLI</th>
+            <th>VL</th>
             <th>Ancho</th>
-            <th class="text-center">VA</th>
+            <th>VA</th>
+            <th>Area</th>
+            <th>L-Sup</th>
+            <th>L-Inf</th>
             <th>A-Izq</th>
-            <th class="text-center">VAI</th>
             <th>A-Der</th>
-            <th class="text-center">VAD</th>
             <th>Mec 1</th>
-            <th class="text-center">Valor</th>
             <th>Mec 2</th>
-            <th class="text-center">Valor</th>
-            <th class="text-right">Cantidad</th>
+            <th>Cantidad</th>
           </tr>
         </thead>
         <tbody>
@@ -259,20 +260,15 @@
             <td>@{{ pieza.descripcion }}</td>
             <td class="text-right">@{{ pieza.largo }}</td>
             <td class="text-right">@{{ pieza.vl }}</td>
-            <td class="text-right">@{{ pieza.largo_sup }}</td>
-            <td class="text-right">@{{ pieza.vls }}</td>
-            <td class="text-right">@{{ pieza.largo_inf }}</td>
-            <td class="text-right">@{{ pieza.vli }}</td>
             <td class="text-right">@{{ pieza.ancho }}</td>
             <td class="text-right">@{{ pieza.va }}</td>
+            <td class="text-right">@{{ pieza.area }}</td>
+            <td class="text-right">@{{ pieza.largo_sup }}</td>
+            <td class="text-right">@{{ pieza.largo_inf }}</td>
             <td class="text-right">@{{ pieza.ancho_izq }}</td>
-            <td class="text-right">@{{ pieza.vai }}</td>
             <td class="text-right">@{{ pieza.ancho_der }}</td>
-            <td class="text-right">@{{ pieza.vad }}</td>
             <td class="text-right">@{{ pieza.mecanizado1 }}</td>
-            <td class="text-right">@{{ pieza.vm1 }}</td>
             <td class="text-right">@{{ pieza.mecanizado2 }}</td>
-            <td class="text-right">@{{ pieza.vm2 }}</td>
             <td class="text-right">@{{ pieza.cantidad }}</td>
           </tr>
         </tbody>
@@ -281,7 +277,7 @@
   </div>
 
 
-  <div class="row mt-2" {{-- v-if="complementos.length > 0" --}}>
+  <div class="row mt-2" v-if="complementos.length > 0">
     <div class="col-md">
       <table class="table table-bordered table-inverse table-hover">
         <caption>Complementos</caption>
@@ -331,6 +327,10 @@
       ancho: '',
       alto: '',
       profundidad: '',
+      espesor_caja: '',
+      espesor_frente: '',
+      espesor_fondo: '',
+      espesor_gaveta: '',
       pieza_calc: [],
     },
 
@@ -439,7 +439,7 @@
               pieza: response.data[i].pieza,
               materiale: response.data[i].materiale
             });
-            
+
           }
         })
         .catch(function(error){
@@ -461,19 +461,33 @@
           var ancho = this.ancho;
           var alto = this.alto;
           var profundidad = this.profundidad;
-          //  modelo de muestra
-          var XXXX = null; //Espesor de caja EC
-          var XXXX1 = null; //Espesor de Frente EF
-          var XXXX2 = null; //Espesor de fondo EO
-          var XXXX3 = null; //Espesor de gaveta EG
+
           /* Largo */
           this.piezas = this.piezas.filter(function(pieza){
-            return pieza.vl =  Math.round(eval((pieza.largo.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad))) * 100) / 100 ;
+            return pieza.vl =  Math.round( eval( (pieza.largo.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad) ) ) * 100) / 100 ;
           })
           /* Ancho */
           this.piezas = this.piezas.filter(function(pieza){
             return pieza.va =  Math.round(eval((pieza.ancho.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad))) * 100) / 100 ;
           })
+        }
+      },
+      setArea: function(){
+        if(this.piezas.length > 0 && this.espesor_caja && this.espesor_frente && this.espesor_fondo &&  this.espesor_gaveta){
+          var ec = this.espesor_caja; //Espesor de caja EC
+          var ef = this.espesor_frente; //Espesor de Frente EF
+          var eo = this.espesor_fondo; //Espesor de fondo EO
+          var eg = this.espesor_gaveta; //Espesor de gaveta EG
+
+          /* Calculos de area */
+          this.piezas = this.piezas.filter(function(pieza){
+            if(pieza.largo_sup !== null){
+              return pieza.largo_sup = pieza.largo_sup.replace(/X{1}/g, (Math.round(eval(pieza.vl) * 100) /100) / 1000000 );
+            }else {
+              return pieza.largo_sup = pieza.largo_sup;
+            }
+          })
+
         }
       }
     }

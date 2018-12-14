@@ -24,12 +24,9 @@
           <tr>
             <th>Categoria</th>
             <th>Color</th>
-            <th class="text-center">4</th>
-            <th class="text-center">15</th>
-            <th class="text-center">16</th>
-            <th class="text-center">18</th>
-            <th class="text-center">19</th>
-            <th class="text-center">25</th>
+            <th class="text-center">Espesor</th>
+            <th class="text-center">Costo</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         {{-- {{ dd($tableros) }} --}}
@@ -38,12 +35,9 @@
           <tr>
             <td>{{ @$element->categoria->nombre }}</td>
             <td>{{ $element->colore->nombre }}</td>
-            <td class="text-right">{{ $element->C4 }}</td>
-            <td class="text-right">{{ $element->C15 }}</td>
-            <td class="text-right">{{ $element->C16 }}</td>
-            <td class="text-right">{{ $element->C18 }}</td>
-            <td class="text-right">{{ $element->C19 }}</td>
-            <td class="text-right">{{ $element->C25 }}</td>
+            <td class="text-right">{{ $element->espesor }}</td>
+            <td class="text-right">{{ $element->costo }}</td>
+            <td class="text-right"></td>
           </tr>
           @endforeach
         </tbody>
