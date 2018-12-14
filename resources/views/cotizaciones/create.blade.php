@@ -76,19 +76,20 @@
 
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  {!! Form::text('espesor_caja', null, ['class' => 'form-control form-control-sm', 'title' => 'Espesor Caja', 'placeholder' => 'EC', 'v-model' => 'espesor_caja']) !!}
+                  {{-- {!! Form::text('espesor_caja', null, ['class' => 'form-control form-control-sm', 'title' => 'Espesor Caja', 'placeholder' => 'EC', 'v-model' => 'espesor_caja']) !!} --}}
+                  {!! Form::select('espesor_caja', ['4'=>'4','15'=>'15','18'=>'18','25'=>'25'], null, ['class' => 'form-control form-control-sm', 'title' => 'Espesor Caja', 'placeholder' => 'EC', 'v-model' => 'espesor_caja']) !!}
                 </div>
                 <div class="form-group col-md-6">
-                  {!! Form::text('espesor_frente', null, ['class' => 'form-control form-control-sm', 'title' => 'Espesor Frente', 'placeholder' => 'EF', 'v-model' => 'espesor_frente']) !!}
+                  {!! Form::select('espesor_frente', ['4'=>'4','15'=>'15','18'=>'18','25'=>'25'], null, ['class' => 'form-control form-control-sm', 'title' => 'Espesor Frente', 'placeholder' => 'EF', 'v-model' => 'espesor_frente']) !!}
                 </div>
               </div>
 
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  {!! Form::text('espesor_fondo', null, ['class' => 'form-control form-control-sm', 'title' => 'Espesor Fondo', 'placeholder' => 'EO', 'v-model' => 'espesor_fondo']) !!}
+                  {!! Form::select('espesor_fondo', ['4'=>'4','15'=>'15','18'=>'18','25'=>'25'], null, ['class' => 'form-control form-control-sm', 'title' => 'Espesor Fondo', 'placeholder' => 'EO', 'v-model' => 'espesor_fondo']) !!}
                 </div>
                 <div class="form-group col-md-6">
-                  {!! Form::text('espesor_gaveta', null, ['class' => 'form-control form-control-sm', 'title' => 'Espesor Gaveta', 'placeholder' => 'EG', 'v-model' => 'espesor_gaveta','@blur' => 'setArea()']) !!}
+                  {!! Form::select('espesor_gaveta', ['4'=>'4','15'=>'15','18'=>'18','25'=>'25'], null, ['class' => 'form-control form-control-sm', 'title' => 'Espesor Gaveta', 'placeholder' => 'EG', 'v-model' => 'espesor_gaveta','@blur' => 'setArea()']) !!}
                 </div>
               </div>
 
