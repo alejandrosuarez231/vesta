@@ -236,7 +236,7 @@
         <tbody>
           <tr v-for="(sku, index) in skus" track-by="index">
             <td class="text-center">@{{ sku.id }}</td>
-            <td class="text-center">@{{ sku.indice = index }}</td>
+            <td class="text-center">@{{ sku.indice = index + 1 }}</td>
             <td>
               <input class="form-control-plaintext text-center" type="text" id="etiqueta" name="etiqueta" :value="sku.indice">
             </td>
@@ -260,6 +260,7 @@
         <caption>Piezas</caption>
         <thead>
           <tr>
+            <th>ID</th>
             <th>Indice</th>
             <th>Pieza</th>
             <th>Material</th>
@@ -283,6 +284,7 @@
         </thead>
         <tbody>
           <tr v-for="(pieza, index) in piezas" track-by="index">
+            <td>@{{ pieza.id }}</td>
             <td class="text-center">@{{ pieza.indice }}</td>
             <td>@{{ pieza.pieza.tipo_pieza }}</td>
             <td>@{{ pieza.materiale.nombre }}</td>
@@ -315,6 +317,8 @@
         <caption>Complementos</caption>
         <thead>
           <tr>
+            <th>ID</th>
+            <th>Indice</th>
             <th>Categoria</th>
             <th>Descripcion</th>
             <th class="text-right">Cantidad</th>
@@ -322,6 +326,8 @@
         </thead>
         <tbody>
           <tr v-for="(complemento, index) in complementos" track-by="index">
+            <td>@{{ complemento.id }}</td>
+            <td>@{{ complemento.indice }}</td>
             <td>@{{ complemento.categoria.nombre }}</td>
             <td>@{{ complemento.descripcion }}</td>
             <td class="text-right">@{{ complemento.cantidad }}</td>
@@ -365,6 +371,7 @@
       espesor_fondo: '',
       espesor_gaveta: '',
       pieza_calc: [],
+      indice: ''
     },
 
     computed: {},
@@ -394,9 +401,14 @@
           })
         }
       },
+      skus: function(){
+        if(this.skus.length > 0){
+          this.addPiezas(this.skus.length);
+        }
+      },
       piezas: function(){
         if(this.piezas.length > 0){
-          // console.log(this.piezas);
+          this.addComplementos(this.skus.length);
         }
       },
       ancho: function(){
@@ -426,11 +438,6 @@
                 text: 'SKU Padre no encontrado!',
                 footer: '<a href>Esta seguro que existe?</a>'
               })
-              // this.tipo_id = null;
-              // this.subtipo_id = null;
-              // this.categoria_id = null;
-              // this.sap_id = null;
-              // this.fondo_id = null;
             }
           })
           .catch(function(error){
@@ -443,27 +450,21 @@
         /* SKU */
         axios.get('/showSkuPadre/' + this.skulistado_id)
         .then(response => {
+          // console.log(response.data);
           this.skus.push(response.data);
         })
         .catch(function(error){
           console.log(error)
         })
+      },
+      addPiezas: function(idx){
         /* Piezas */
         axios.get('/piezasSkuPadre/' + this.skulistado_id)
         .then( response => {
           for (var i = 0; i < response.data.length; i++) {
-            // if(this.piezas.length == 1){
-            //   this.piezas.shift();
-            // }
-            var num = this.skus.length;
-            if(num == 0){
-              var numIndex = 1;
-            }else {
-              var numIndex = this.skus.length;
-            }
             this.piezas.push({
               id: response.data[i].id,
-              indice: numIndex,
+              indice: idx,
               modulo_id: response.data[i].modulo_id,
               skulistado_id: response.data[i].skulistado_id,
               materiale_id: response.data[i].materiale_id,
@@ -480,18 +481,30 @@
               mecanizado2: response.data[i].mecanizado2,
               pieza: response.data[i].pieza,
               materiale: response.data[i].materiale
-            });
-
+            })
           }
         })
         .catch(function(error){
           console.log(error)
         })
+      },
+      addComplementos: function(idx){
         /* Complementos */
         axios.get('/showComplementosSKU/' + this.skulistado_id)
         .then( response => {
           for (var i = 0; i < response.data.length; i++) {
-            this.complementos.push(response.data[i]);
+            console.log(response.data[i]);
+            this.complementos.push({
+              id: response.data[i].id,
+              skulistado_id: response.data[i].skulistado_id,
+              modulo_id: response.data[i].modulo_id,
+              indice: idx,
+              categoria_id: response.data[i].categoria_id,
+              categoria: response.data[i].categoria.nombre,
+              descripcion: response.data[i].descripcion,
+              cantidad: response.data[i].cantidad
+            });
+            // this.complementos.push(response.data[i]);
           }
         })
         .catch(function(error){
