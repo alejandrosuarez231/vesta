@@ -53,6 +53,9 @@
               <div class="form-group mt-2 mr-2">
                 {!! Form::select('fondo_id', \App\Fondo::pluck('valor','id'), null, ['class' => 'form-control form-control-sm','placeholder' => 'Fondos', 'v-model' => 'fondo_id','@change'=>'getSkuPadre()']) !!}
               </div>
+              <div class="form-group mt-2 mr-2">
+                <span class="lead text-primary">Modulo: @{{ nombreModulo }}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -70,53 +73,93 @@
                   {!! Form::text('alto', null, ['class' => 'form-control form-control-sm', 'title' => 'Ancho', 'placeholder'=>'H', 'v-model' => 'alto']) !!}
                 </div>
                 <div class="form-group col-md-4">
-                  {!! Form::text('profundidad', null, ['class' => 'form-control form-control-sm', 'title' => 'Profundidad', 'placeholder'=>'P', 'v-model' => 'profundidad','@blur' => 'setForm()']) !!}
+                  {!! Form::text('profundidad', null, ['class' => 'form-control form-control-sm', 'title' => 'Profundidad', 'placeholder'=>'P', 'v-model' => 'profundidad','@blur' => 'setForm(); setArea()
+                  setArea();']) !!}
                 </div>
               </div>
 
               <div class="form-row">
-                <div class="form-group col-md-6">
-                  {{-- {!! Form::text('espesor_caja', null, ['class' => 'form-control form-control-sm', 'title' => 'Espesor Caja', 'placeholder' => 'EC', 'v-model' => 'espesor_caja']) !!} --}}
-                  {!! Form::select('espesor_caja', ['4'=>'4','15'=>'15','18'=>'18','25'=>'25'], null, ['class' => 'form-control form-control-sm', 'title' => 'Espesor Caja', 'placeholder' => 'EC', 'v-model' => 'espesor_caja']) !!}
-                </div>
-                <div class="form-group col-md-6">
-                  {!! Form::select('espesor_frente', ['4'=>'4','15'=>'15','18'=>'18','25'=>'25'], null, ['class' => 'form-control form-control-sm', 'title' => 'Espesor Frente', 'placeholder' => 'EF', 'v-model' => 'espesor_frente']) !!}
-                </div>
+                <div class="form-group mr-2">
+                  {!! Form::select('material_caja', \App\Tablero::with('colore')->get()->pluck('colore.nombre','id'), null, ['class'=>'form-control-sm form-control
+                  ','placeholder'=>'Material Caja']) !!}
+                {{-- <select name="material_caja" class="form-control form-control-sm" >
+                  <option disabled selected value="">Material Caja</option>
+                  <option v-for="item in matcaja" :value="item.value">@{{ item.label }}</option>
+                </select> --}}
               </div>
-
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  {!! Form::select('espesor_fondo', ['4'=>'4','15'=>'15','18'=>'18','25'=>'25'], null, ['class' => 'form-control form-control-sm', 'title' => 'Espesor Fondo', 'placeholder' => 'EO', 'v-model' => 'espesor_fondo']) !!}
-                </div>
-                <div class="form-group col-md-6">
-                  {!! Form::select('espesor_gaveta', ['4'=>'4','15'=>'15','18'=>'18','25'=>'25'], null, ['class' => 'form-control form-control-sm', 'title' => 'Espesor Gaveta', 'placeholder' => 'EG', 'v-model' => 'espesor_gaveta','@blur' => 'setArea()']) !!}
-                </div>
+              <div class="form-group mr-2">
+                {!! Form::select('material_frente', \App\Tablero::with('colore')->get()->pluck('colore.nombre','id'), null, ['class'=>'form-control-sm form-control
+                ','placeholder'=>'Material Frente']) !!}
+                {{-- <select name="material_frente" class="form-control form-control-sm" >
+                  <option disabled selected value="">Material Frente</option>
+                  <option v-for="item in matfrente" :value="item.value">@{{ item.label }}</option>
+                </select> --}}
               </div>
-
             </div>
+
+
+            <div class="form-row">
+              <div class="form-group mr-2">
+                {!! Form::select('material_fondo', \App\Tablero::with('colore')->get()->pluck('colore.nombre','id'), null, ['class'=>'form-control-sm form-control
+                ','placeholder'=>'Material Fondo']) !!}
+                {{-- <select name="material_fondo" class="form-control form-control-sm" >
+                  <option disabled selected value="">Material Fondo</option>
+                  <option v-for="item in matfondo" :value="item.value">@{{ item.label }}</option>
+                </select> --}}
+              </div>
+              <div class="form-group mr-2">
+                {!! Form::select('material_gaveta', \App\Tablero::with('colore')->get()->pluck('colore.nombre','id'), null, ['class'=>'form-control-sm form-control
+                ','placeholder'=>'Material Gaveta']) !!}
+                {{-- <select name="material_gaveta" class="form-control form-control-sm" >
+                  <option disabled selected value="">Material Gaveta</option>
+                  <option v-for="item in matgaveta" :value="item.value">@{{ item.label }}</option>
+                </select> --}}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                {{-- {!! Form::text('espesor_caja', null, ['class' => 'form-control form-control-sm', 'title' => 'Espesor Caja', 'placeholder' => 'EC', 'v-model' => 'espesor_caja']) !!} --}}
+                {!! Form::select('espesor_caja', ['4'=>'4','15'=>'15','18'=>'18','25'=>'25'], null, ['class' => 'form-control form-control-sm', 'title' => 'Espesor Caja', 'placeholder' => 'EC', 'v-model' => 'espesor_caja']) !!}
+              </div>
+              <div class="form-group col-md-6">
+                {!! Form::select('espesor_frente', ['4'=>'4','15'=>'15','18'=>'18','25'=>'25'], null, ['class' => 'form-control form-control-sm', 'title' => 'Espesor Frente', 'placeholder' => 'EF', 'v-model' => 'espesor_frente']) !!}
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                {!! Form::select('espesor_fondo', ['4'=>'4','15'=>'15','18'=>'18','25'=>'25'], null, ['class' => 'form-control form-control-sm', 'title' => 'Espesor Fondo', 'placeholder' => 'EO', 'v-model' => 'espesor_fondo']) !!}
+              </div>
+              <div class="form-group col-md-6">
+                {!! Form::select('espesor_gaveta', ['4'=>'4','15'=>'15','18'=>'18','25'=>'25'], null, ['class' => 'form-control form-control-sm', 'title' => 'Espesor Gaveta', 'placeholder' => 'EG', 'v-model' => 'espesor_gaveta']) !!}
+              </div>
+            </div>
+
           </div>
         </div>
+      </div>
 
-        <div class="col-md">
-          <div class="card">
-            <div class="card-body">
-              <h6 class="card-title">Materiales</h6>
-              <div class="form-row">
-                <div class="form-group col-md">
-                  <select class="form-control form-control-sm" name="tipo_gaveta">
-                    <option value="" disabled selected>Tipo Gaveta</option>
-                    {{-- <option v-for="item in gavetas" :value="item.value">@{{ item.label }}</option> --}}
-                  </select>
-                </div>
-                <div class="form-group col-md">
-                  <select class="form-control form-control-sm" name="tipo_gaveta_prop">
-                    <option value="" disabled selected>Pro/Ext</option>
-                    <option value="1">Con Freno</option>
-                    <option value="2">Sin Freno</option>
-                  </select>
-                </div>
-                <div class="form-group col-md">
-                  {!! Form::select('marca_corredera', \App\Marca::pluck('nombre','id'), null, ['class'=>'form-control-sm form-control','placeholder'=>'Marca Corredera']) !!}
+      <div class="col-md">
+        <div class="card">
+          <div class="card-body">
+            <h6 class="card-title">Materiales</h6>
+            <div class="form-row">
+              <div class="form-group col-md">
+                <select class="form-control form-control-sm" name="tipo_gaveta">
+                  <option value="" disabled selected>Tipo Gaveta</option>
+                  {{-- <option v-for="item in gavetas" :value="item.value">@{{ item.label }}</option> --}}
+                </select>
+              </div>
+              <div class="form-group col-md">
+                <select class="form-control form-control-sm" name="tipo_gaveta_prop">
+                  <option value="" disabled selected>Pro/Ext</option>
+                  <option value="1">Con Freno</option>
+                  <option value="2">Sin Freno</option>
+                </select>
+              </div>
+              <div class="form-group col-md">
+                {!! Form::select('marca_corredera', \App\Marca::pluck('nombre','id'), null, ['class'=>'form-control-sm form-control','placeholder'=>'Marca Corredera']) !!}
                   {{-- <select name="" class="form-control form-control-sm">
                     <option value="" disabled selected>Marca</option>
                     <option v-for="item in MarcasGavList" :value="item.value">@{{ item.label }}</option>
@@ -164,38 +207,6 @@
                   </select>
                 </div>
               </div>
-              <div class="form-group mr-2">
-                {!! Form::select('material_caja', \App\Tablero::with('colore')->get()->pluck('colore.nombre','id'), null, ['class'=>'form-control-sm form-control
-                ','placeholder'=>'Material Caja']) !!}
-                {{-- <select name="material_caja" class="form-control form-control-sm" >
-                  <option disabled selected value="">Material Caja</option>
-                  <option v-for="item in matcaja" :value="item.value">@{{ item.label }}</option>
-                </select> --}}
-              </div>
-              <div class="form-group mr-2">
-                {!! Form::select('material_frente', \App\Tablero::with('colore')->get()->pluck('colore.nombre','id'), null, ['class'=>'form-control-sm form-control
-                ','placeholder'=>'Material Frente']) !!}
-                {{-- <select name="material_frente" class="form-control form-control-sm" >
-                  <option disabled selected value="">Material Frente</option>
-                  <option v-for="item in matfrente" :value="item.value">@{{ item.label }}</option>
-                </select> --}}
-              </div>
-              <div class="form-group mr-2">
-                {!! Form::select('material_fondo', \App\Tablero::with('colore')->get()->pluck('colore.nombre','id'), null, ['class'=>'form-control-sm form-control
-                ','placeholder'=>'Material Fondo']) !!}
-                {{-- <select name="material_fondo" class="form-control form-control-sm" >
-                  <option disabled selected value="">Material Fondo</option>
-                  <option v-for="item in matfondo" :value="item.value">@{{ item.label }}</option>
-                </select> --}}
-              </div>
-              <div class="form-group mr-2">
-                {!! Form::select('material_gaveta', \App\Tablero::with('colore')->get()->pluck('colore.nombre','id'), null, ['class'=>'form-control-sm form-control
-                ','placeholder'=>'Material Gaveta']) !!}
-                {{-- <select name="material_gaveta" class="form-control form-control-sm" >
-                  <option disabled selected value="">Material Gaveta</option>
-                  <option v-for="item in matgaveta" :value="item.value">@{{ item.label }}</option>
-                </select> --}}
-              </div>
             </div>
           </div>
         </div>
@@ -209,22 +220,34 @@
         <caption>SKU's</caption>
         <thead>
           <tr>
+            <th>ID</th>
+            <th>Indice</th>
+            <th>Etiqueta</th>
             <th>SKU</th>
             <th>Tipo</th>
             <th>Subtipo</th>
             <th>Categoria</th>
             <th>SAP</th>
             <th>Fondo</th>
+            <th>Costo/MP</th>
+            <th>Costo/Canto</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(sku, index) in skus" track-by="index">
+            <td class="text-center">@{{ sku.id }}</td>
+            <td class="text-center">@{{ sku.indice = index }}</td>
+            <td>
+              <input class="form-control-plaintext text-center" type="text" id="etiqueta" name="etiqueta" :value="sku.indice">
+            </td>
             <td>@{{ sku.sku_padre }}</td>
             <td>@{{ sku.tipo.nombre }}</td>
             <td>@{{ sku.subtipo.nombre }}</td>
             <td>@{{ sku.categoria.nombre }}</td>
             <td>@{{ sku.sap.valor }}</td>
             <td>@{{ sku.fondo.valor }}</td>
+            <td>CostoMP</td>
+            <td>CostoCanto</td>
           </tr>
         </tbody>
       </table>
@@ -237,6 +260,7 @@
         <caption>Piezas</caption>
         <thead>
           <tr>
+            <th>Indice</th>
             <th>Pieza</th>
             <th>Material</th>
             <th>Descripcion</th>
@@ -245,10 +269,13 @@
             <th>Ancho</th>
             <th>VA</th>
             <th>Area</th>
+            <th>Costo/MP</th>
             <th>L-Sup</th>
             <th>L-Inf</th>
             <th>A-Izq</th>
             <th>A-Der</th>
+            <th>ml/Canto</th>
+            <th>Costo/Canto</th>
             <th>Mec 1</th>
             <th>Mec 2</th>
             <th>Cantidad</th>
@@ -256,6 +283,7 @@
         </thead>
         <tbody>
           <tr v-for="(pieza, index) in piezas" track-by="index">
+            <td class="text-center">@{{ pieza.indice }}</td>
             <td>@{{ pieza.pieza.tipo_pieza }}</td>
             <td>@{{ pieza.materiale.nombre }}</td>
             <td>@{{ pieza.descripcion }}</td>
@@ -264,10 +292,13 @@
             <td class="text-right">@{{ pieza.ancho }}</td>
             <td class="text-right">@{{ pieza.va }}</td>
             <td class="text-right">@{{ pieza.area }}</td>
+            <td class="text-right"></td>
             <td class="text-right">@{{ pieza.largo_sup }}</td>
             <td class="text-right">@{{ pieza.largo_inf }}</td>
             <td class="text-right">@{{ pieza.ancho_izq }}</td>
             <td class="text-right">@{{ pieza.ancho_der }}</td>
+            <td class="text-right"></td>
+            <td class="text-right"></td>
             <td class="text-right">@{{ pieza.mecanizado1 }}</td>
             <td class="text-right">@{{ pieza.mecanizado2 }}</td>
             <td class="text-right">@{{ pieza.cantidad }}</td>
@@ -319,6 +350,7 @@
       sap_id: '',
       fondo_id: '',
       sku_padre_id: '',
+      nombreModulo: '',
       skus: [],
       skulistado_id: '',
       subtipo_list: '',
@@ -385,7 +417,8 @@
           // console.log(uid);
           axios.get('/getSkuPadre/' + uid)
           .then( response => {
-            this.skulistado_id = response.data;
+            this.skulistado_id = response.data.id;
+            this.nombreModulo = response.data.modulo.nombre;
             if(this.skulistado_id == 0){
               Swal({
                 type: 'error',
@@ -393,11 +426,11 @@
                 text: 'SKU Padre no encontrado!',
                 footer: '<a href>Esta seguro que existe?</a>'
               })
-              this.tipo_id = null;
-              this.subtipo_id = null;
-              this.categoria_id = null;
-              this.sap_id = null;
-              this.fondo_id = null;
+              // this.tipo_id = null;
+              // this.subtipo_id = null;
+              // this.categoria_id = null;
+              // this.sap_id = null;
+              // this.fondo_id = null;
             }
           })
           .catch(function(error){
@@ -422,8 +455,15 @@
             // if(this.piezas.length == 1){
             //   this.piezas.shift();
             // }
+            var num = this.skus.length;
+            if(num == 0){
+              var numIndex = 1;
+            }else {
+              var numIndex = this.skus.length;
+            }
             this.piezas.push({
               id: response.data[i].id,
+              indice: numIndex,
               modulo_id: response.data[i].modulo_id,
               skulistado_id: response.data[i].skulistado_id,
               materiale_id: response.data[i].materiale_id,
@@ -435,6 +475,7 @@
               ancho: response.data[i].ancho,
               ancho_izq: response.data[i].ancho_izq,
               ancho_der: response.data[i].ancho_der,
+              area: null,
               mecanizado1: response.data[i].mecanizado1,
               mecanizado2: response.data[i].mecanizado2,
               pieza: response.data[i].pieza,
@@ -463,33 +504,26 @@
           var alto = this.alto;
           var profundidad = this.profundidad;
 
-          /* Largo */
-          this.piezas = this.piezas.filter(function(pieza){
-            return pieza.vl =  Math.round( eval( (pieza.largo.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad) ) ) * 100) / 100 ;
-          })
-          /* Ancho */
-          this.piezas = this.piezas.filter(function(pieza){
-            return pieza.va =  Math.round(eval((pieza.ancho.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad))) * 100) / 100 ;
-          })
-        }
-      },
-      setArea: function(){
-        if(this.piezas.length > 0 && this.espesor_caja && this.espesor_frente && this.espesor_fondo &&  this.espesor_gaveta){
           var ec = this.espesor_caja; //Espesor de caja EC
           var ef = this.espesor_frente; //Espesor de Frente EF
           var eo = this.espesor_fondo; //Espesor de fondo EO
           var eg = this.espesor_gaveta; //Espesor de gaveta EG
 
-          /* Calculos de area */
+          /* Largo */
           this.piezas = this.piezas.filter(function(pieza){
-            if(pieza.largo_sup !== null){
-              return pieza.largo_sup = pieza.largo_sup.replace(/X{1}/g, (Math.round(eval(pieza.vl) * 100) /100) / 1000000 );
-            }else {
-              return pieza.largo_sup = pieza.largo_sup;
-            }
+            return pieza.vl =  eval( (pieza.largo.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad) ) );
           })
-
+          /* Ancho */
+          this.piezas = this.piezas.filter(function(pieza){
+            return pieza.va =  eval((pieza.ancho.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad) ));
+          })
         }
+      },
+      setArea: function(){
+        this.piezas.filter(function(pieza){
+          pieza.area = (pieza.vl * pieza.va) / 1000000;
+          return pieza.area;
+        });
       }
     }
   })

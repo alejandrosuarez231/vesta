@@ -9,9 +9,9 @@ class CotizarController extends Controller
 {
     public function getSkuPadre($uid)
     {
-      $skupadre = Skulistado::All();
+      $skupadre = Skulistado::with('modulo:id,nombre')->get();
       if ( $skupadre->where('uid',$uid)->count() == 1 ) {
-        return $skupadre->where('uid',$uid)->first()->id;
+        return $skupadre->where('uid',$uid)->first();
       }else {
         return 0;
       }
