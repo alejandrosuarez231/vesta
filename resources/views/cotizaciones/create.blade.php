@@ -73,8 +73,7 @@
                   {!! Form::text('alto', null, ['class' => 'form-control form-control-sm', 'title' => 'Ancho', 'placeholder'=>'H', 'v-model' => 'alto']) !!}
                 </div>
                 <div class="form-group col-md-4">
-                  {!! Form::text('profundidad', null, ['class' => 'form-control form-control-sm', 'title' => 'Profundidad', 'placeholder'=>'P', 'v-model' => 'profundidad','@blur' => 'setForm(); setArea()
-                  setArea();']) !!}
+                  {!! Form::text('profundidad', null, ['class' => 'form-control form-control-sm', 'title' => 'Profundidad', 'placeholder'=>'P', 'v-model' => 'profundidad']) !!}
                 </div>
               </div>
 
@@ -236,18 +235,18 @@
         <tbody>
           <tr v-for="(sku, index) in skus" track-by="index">
             <td class="text-center">@{{ sku.id }}</td>
-            <td class="text-center">@{{ sku.indice = index + 1 }}</td>
+            <td class="text-center" v-on:click="setProp(index)">@{{ sku.indice = index + 1 }}</td>
             <td>
-              <input class="form-control-plaintext text-center" type="text" id="etiqueta" name="etiqueta" :value="sku.indice">
+              <input class="form-control-plaintext form-control-sm text-center" type="text" id="etiqueta[]" name="etiqueta[]" value="" v-model="sku.etiqueta">
             </td>
             <td>@{{ sku.sku_padre }}</td>
-            <td>@{{ sku.tipo.nombre }}</td>
-            <td>@{{ sku.subtipo.nombre }}</td>
-            <td>@{{ sku.categoria.nombre }}</td>
-            <td>@{{ sku.sap.valor }}</td>
-            <td>@{{ sku.fondo.valor }}</td>
-            <td>CostoMP</td>
-            <td>CostoCanto</td>
+            <td>@{{ sku.tipo }}</td>
+            <td>@{{ sku.subtipo }}</td>
+            <td>@{{ sku.categoria }}</td>
+            <td>@{{ sku.sap }}</td>
+            <td>@{{ sku.fondo }}</td>
+            <td>@{{ sku.cmp }}</td>
+            <td>@{{ sku.ccn }}</td>
           </tr>
         </tbody>
       </table>
@@ -345,9 +344,7 @@
   var app = new Vue({
     el: '#app',
 
-    created(){
-
-    },
+    created(){},
 
     data: {
       tipo_id: '',
@@ -371,7 +368,8 @@
       espesor_fondo: '',
       espesor_gaveta: '',
       pieza_calc: [],
-      indice: ''
+      indice: '',
+      contador: 0,
     },
 
     computed: {},
@@ -411,15 +409,10 @@
           this.addComplementos(this.skus.length);
         }
       },
-      ancho: function(){
-
-      },
-      alto: function(){
-
-      },
-      profundidad: function(){
-
-      },
+      complementos: function(){},
+      ancho: function(){},
+      alto: function(){},
+      profundidad: function(){},
     },
 
     methods: {
@@ -446,16 +439,42 @@
         }
       },
       addSKU: function(){
-        // console.log(this.skulistado_id);
-        /* SKU */
-        axios.get('/showSkuPadre/' + this.skulistado_id)
-        .then(response => {
-          // console.log(response.data);
-          this.skus.push(response.data);
-        })
-        .catch(function(error){
-          console.log(error)
-        })
+        if(this.ancho && this.alto && this.profundidad && this.espesor_caja && this.espesor_frente && this.espesor_fondo && this.espesor_gaveta){
+          /* SKU */
+          axios.get('/showSkuPadre/' + this.skulistado_id)
+          .then(response => {
+            this.skus.push({
+              id: response.data.id,
+              indice: '',
+              etiqueta: this.contador += 1,
+              sku_padre: response.data.sku_padre,
+              tipo_id: response.data.tipo_id,
+              tipo: response.data.tipo.nombre,
+              subtipo_id: response.data.subtipo_id,
+              subtipo: response.data.subtipo.nombre,
+              categoria_id: response.data.categoria_id,
+              categoria: response.data.categoria.nombre,
+              sap_id: response.data.sap_id,
+              sap: response.data.sap.valor,
+              fondo_id: response.data.fondo_id,
+              fondo: response.data.fondo.valor,
+              alto: this.alto,
+              ancho: this.ancho,
+              profundidad: this.profundidad,
+              espesor_caja: this.espesor_caja,
+              espesor_frente: this.espesor_frente,
+              espesor_fondo: this.espesor_fondo,
+              espesor_gaveta: this.espesor_gaveta,
+              cmp: '',
+              ccn: ''
+            })
+          })
+          .catch(function(error){
+            console.log(error)
+          });
+        }else {
+          alert('Defina las propiedades');
+        }
       },
       addPiezas: function(idx){
         /* Piezas */
@@ -493,7 +512,6 @@
         axios.get('/showComplementosSKU/' + this.skulistado_id)
         .then( response => {
           for (var i = 0; i < response.data.length; i++) {
-            console.log(response.data[i]);
             this.complementos.push({
               id: response.data[i].id,
               skulistado_id: response.data[i].skulistado_id,
@@ -511,32 +529,34 @@
           console.log(error)
         })
       },
-      setForm: function(){
-        if(this.piezas.length > 0 && this.ancho && this.alto && this.profundidad){
-          var ancho = this.ancho;
-          var alto = this.alto;
-          var profundidad = this.profundidad;
+      setForm: function(idx){
+        // console.log( this.skus[this.skus.length - 1] );
+        var ancho = this.skus[idx].ancho; //Ancho
+        var alto = this.skus[idx].alto; //Alto
+        var profundidad = this.skus[idx].profundidad; //Profundidad
+        var ec = this.skus[idx].espesor_caja; //Espesor de caja EC
+        var ef = this.skus[idx].espesor_frente; //Espesor de Frente EF
+        var eo = this.skus[idx].espesor_fondo; //Espesor de fondo EO
+        var eg = this.skus[idx].espesor_gaveta; //Espesor de gaveta EG
 
-          var ec = this.espesor_caja; //Espesor de caja EC
-          var ef = this.espesor_frente; //Espesor de Frente EF
-          var eo = this.espesor_fondo; //Espesor de fondo EO
-          var eg = this.espesor_gaveta; //Espesor de gaveta EG
+        /* Largo */
+        this.piezas = this.piezas.filter(function(pieza){
+          return pieza.vl = eval((pieza.largo.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad).replace(/EC/g,ec).replace(/EF/g,ef).replace(/EO/g,eo).replace(/EG/g,eg)));
+        })
 
-          /* Largo */
-          this.piezas = this.piezas.filter(function(pieza){
-            return pieza.vl =  eval( (pieza.largo.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad) ) );
-          })
-          /* Ancho */
-          this.piezas = this.piezas.filter(function(pieza){
-            return pieza.va =  eval((pieza.ancho.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad) ));
-          })
-        }
+        /* Ancho */
+        this.piezas = this.piezas.filter(function(pieza){
+          return pieza.va = eval((pieza.ancho.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad).replace(/EC/g,ec).replace(/EF/g,ef).replace(/EO/g,eo).replace(/EG/g,eg)));
+        })
       },
       setArea: function(){
         this.piezas.filter(function(pieza){
           pieza.area = (pieza.vl * pieza.va) / 1000000;
           return pieza.area;
         });
+      },
+      setProp: function(index){
+        alert(index);
       }
     }
   })
