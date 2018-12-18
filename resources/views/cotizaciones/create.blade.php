@@ -289,9 +289,9 @@
             <td>@{{ pieza.materiale.nombre }}</td>
             <td>@{{ pieza.descripcion }}</td>
             <td class="text-right">@{{ pieza.largo }}</td>
-            <td class="text-right">@{{ pieza.vl }}</td>
+            <td class="text-right">@{{ pieza.vl = this.piezas[index].largo.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad).replace(/EC/g,ec).replace(/EF/g,ef).replace(/EO/g,eo).replace(/EG/g,eg) }}</td>
             <td class="text-right">@{{ pieza.ancho }}</td>
-            <td class="text-right">@{{ pieza.va }}</td>
+            <td class="text-right">@{{ pieza.va = this.piezas[index].ancho.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad).replace(/EC/g,ec).replace(/EF/g,ef).replace(/EO/g,eo).replace(/EG/g,eg) }}</td>
             <td class="text-right">@{{ pieza.area }}</td>
             <td class="text-right"></td>
             <td class="text-right">@{{ pieza.largo_sup }}</td>
@@ -369,7 +369,7 @@
       espesor_gaveta: '',
       pieza_calc: [],
       indice: '',
-      contador: 0,
+      contador: null,
     },
 
     computed: {},
@@ -399,16 +399,12 @@
           })
         }
       },
+      skulistado_id: function(){},
       skus: function(){
-        if(this.skus.length > 0){
-          this.addPiezas(this.skus.length);
-        }
+        this.addPiezas(this.skus.length);
+        // this.setForm();
       },
-      piezas: function(){
-        if(this.piezas.length > 0){
-          this.addComplementos(this.skus.length);
-        }
-      },
+      piezas: function(){},
       complementos: function(){},
       ancho: function(){},
       alto: function(){},
@@ -439,7 +435,7 @@
         }
       },
       addSKU: function(){
-        if(this.ancho && this.alto && this.profundidad && this.espesor_caja && this.espesor_frente && this.espesor_fondo && this.espesor_gaveta){
+        if(this.skulistado_id && this.ancho && this.alto && this.profundidad && this.espesor_caja && this.espesor_frente && this.espesor_fondo && this.espesor_gaveta){
           /* SKU */
           axios.get('/showSkuPadre/' + this.skulistado_id)
           .then(response => {
@@ -490,9 +486,11 @@
               descripcion: response.data[i].descripcion,
               cantidad: response.data[i].cantidad,
               largo: response.data[i].largo,
+              vl: null,
               largo_sup: response.data[i].largo_sup,
               largo_inf: response.data[i].largo_inf,
               ancho: response.data[i].ancho,
+              va: null,
               ancho_izq: response.data[i].ancho_izq,
               ancho_der: response.data[i].ancho_der,
               area: null,
@@ -529,25 +527,23 @@
           console.log(error)
         })
       },
-      setForm: function(idx){
-        // console.log( this.skus[this.skus.length - 1] );
-        var ancho = this.skus[idx].ancho; //Ancho
-        var alto = this.skus[idx].alto; //Alto
-        var profundidad = this.skus[idx].profundidad; //Profundidad
-        var ec = this.skus[idx].espesor_caja; //Espesor de caja EC
-        var ef = this.skus[idx].espesor_frente; //Espesor de Frente EF
-        var eo = this.skus[idx].espesor_fondo; //Espesor de fondo EO
-        var eg = this.skus[idx].espesor_gaveta; //Espesor de gaveta EG
-
+      setForm: function(){
+        var idx = this.skus[this.skus.length - 1];
+        var ancho = idx.ancho; //Ancho
+        var alto = idx.alto; //Alto
+        var profundidad = idx.profundidad; //Profundidad
+        var ec = idx.espesor_caja; //Espesor de caja EC
+        var ef = idx.espesor_frente; //Espesor de Frente EF
+        var eo = idx.espesor_fondo; //Espesor de fondo EO
+        var eg = idx.espesor_gaveta; //Espesor de gaveta EG
         /* Largo */
-        this.piezas = this.piezas.filter(function(pieza){
-          return pieza.vl = eval((pieza.largo.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad).replace(/EC/g,ec).replace(/EF/g,ef).replace(/EO/g,eo).replace(/EG/g,eg)));
-        })
-
+        // this.piezas = this.piezas.filter(function(pieza){
+        //   return pieza.vl = eval((pieza.largo.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad).replace(/EC/g,ec).replace(/EF/g,ef).replace(/EO/g,eo).replace(/EG/g,eg)));
+        // })
         /* Ancho */
-        this.piezas = this.piezas.filter(function(pieza){
-          return pieza.va = eval((pieza.ancho.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad).replace(/EC/g,ec).replace(/EF/g,ef).replace(/EO/g,eo).replace(/EG/g,eg)));
-        })
+        // this.piezas = this.piezas.filter(function(pieza){
+        //   return pieza.va = eval((pieza.ancho.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad).replace(/EC/g,ec).replace(/EF/g,ef).replace(/EO/g,eo).replace(/EG/g,eg)));
+        // })
       },
       setArea: function(){
         this.piezas.filter(function(pieza){
@@ -555,9 +551,7 @@
           return pieza.area;
         });
       },
-      setProp: function(index){
-        alert(index);
-      }
+      setProp: function(index){}
     }
   })
 </script>

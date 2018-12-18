@@ -23,7 +23,7 @@
 
   <div class="row">
     <div class="col-md">
-      <table class="table" id="modulos-table"  data-page-length="50">
+      <table class="table table-hover" id="modulos-table"  data-page-length="50">
         <caption>Lista de Modulos</caption>
         <thead>
           <tr>
