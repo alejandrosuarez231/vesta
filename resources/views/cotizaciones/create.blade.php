@@ -79,13 +79,13 @@
 
               <div class="form-row">
                 <div class="form-group mr-2">
-                  {{-- {!! Form::select('material_caja', \App\Tablero::with('colore')->get()->pluck('colore.nombre','colore.nombre'), null, ['class'=>'form-control-sm form-control
-                  ','placeholder'=>'Material Caja', 'v-model' => 'material_caja']) !!} --}}
+                  {!! Form::select('material_caja', \App\Tablero::with('colore')->get()->pluck('colore.nombre','colore.nombre'), null, ['class'=>'form-control-sm form-control
+                  ','placeholder'=>'Material Caja', 'v-model' => 'material_caja']) !!}
 
-                  <select name="material_caja" class="form-control form-control-sm" v-model="material_caja" @change="getEspesoresPemitidos()">
+                  {{-- <select name="material_caja" class="form-control form-control-sm" v-model="material_caja" @change="getEspesoresPemitidos()">
                     <option disabled selected value="">Material Caja</option>
                     <option v-for="item in espesoresList" :value="item.value">@{{ item.label }}</option>
-                  </select>
+                  </select> --}}
 
                 </div>
                 <div class="form-group mr-2">
@@ -147,56 +147,59 @@
             <h6 class="card-title">Materiales</h6>
             <div class="form-row">
               <div class="form-group col-md">
-                <select class="form-control form-control-sm" name="tipo_gaveta">
+                {!! Form::select('tipo_gaveta', \App\Corredera::pluck('tipo','id'), null, ['class' => 'form-control form-control-sm', 'placeholder' => 'Tipo Gaveta']) !!}
+                {{-- <select class="form-control form-control-sm" name="tipo_gaveta">
                   <option value="" disabled selected>Tipo Gaveta</option>
-                  {{-- <option v-for="item in gavetas" :value="item.value">@{{ item.label }}</option> --}}
-                </select>
+                  <option v-for="item in gavetas" :value="item.value">@{{ item.label }}</option>
+                </select> --}}
               </div>
-              <div class="form-group col-md">
+              {{-- <div class="form-group col-md">
                 <select class="form-control form-control-sm" name="tipo_gaveta_prop">
                   <option value="" disabled selected>Pro/Ext</option>
                   <option value="1">Con Freno</option>
                   <option value="2">Sin Freno</option>
                 </select>
-              </div>
-              <div class="form-group col-md">
+              </div> --}}
+              {{-- <div class="form-group col-md">
                 {!! Form::select('marca_corredera', \App\Marca::pluck('nombre','id'), null, ['class'=>'form-control-sm form-control','placeholder'=>'Marca Corredera']) !!}
-                  {{-- <select name="" class="form-control form-control-sm">
+                  <select name="" class="form-control form-control-sm">
                     <option value="" disabled selected>Marca</option>
                     <option v-for="item in MarcasGavList" :value="item.value">@{{ item.label }}</option>
-                  </select> --}}
-                </div>
+                  </select>
+                </div> --}}
               </div>
 
               <div class="form-row">
                 <div class="form-group col-md">
-                  <select class="form-control form-control-sm" name="tipo_bisagra">
+                  {!! Form::select('tipo_bisagra', \App\Bisagra::pluck('tipo','id'), null, ['class' => 'form-control form-control-sm','placeholder' =>'Tipo Bisagra']) !!}
+                  {{-- <select class="form-control form-control-sm" name="tipo_bisagra">
                     <option value="" disabled selected>Tipo Bisagras</option>
-                    {{-- <option v-for="item in bisagras" :value="item.value">@{{ item.label }}</option> --}}
-                  </select>
+                    <option v-for="item in bisagras" :value="item.value">@{{ item.label }}</option>
+                  </select> --}}
                 </div>
-                <div class="form-group col-md">
+                {{-- <div class="form-group col-md">
                   <select class="form-control form-control-sm" name="bisagra_tipo_prop">
                     <option value="" disabled selected>Pro/Ext</option>
                     <option value="1">Con Freno</option>
                     <option value="2">Sin Freno</option>
                   </select>
-                </div>
-                <div class="form-group col-md">
+                </div> --}}
+                {{-- <div class="form-group col-md">
                   {!! Form::select('marca_bisagra', \App\Marca::pluck('nombre','id'), null, ['class'=>'form-control-sm form-control','placeholder'=>'Marca Bisagra']) !!}
-                  {{-- <select name="" class="form-control form-control-sm">
+                  <select name="" class="form-control form-control-sm">
                     <option value="" disabled selected>Marca</option>
                     <option v-for="item in MarcasBisList" :value="item.value">@{{ item.label }}</option>
-                  </select> --}}
-                </div>
+                  </select>
+                </div> --}}
               </div>
 
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <select class="form-control form-control-sm" name="tirador">
+                  {!! Form::select('tipo_tirador', \App\Tiradore::pluck('tipo','id'), null, ['class' => 'form-control form-control-sm','placeholder' =>'Tipo Tirador']) !!}
+                  {{-- <select class="form-control form-control-sm" name="tirador">
                     <option value="" disabled selected>Tirador</option>
-                    {{-- <option v-for="item in tiradores" :value="item.value">@{{ item.label }}</option> --}}
-                  </select>
+                    <option v-for="item in tiradores" :value="item.value">@{{ item.label }}</option>
+                  </select> --}}
                 </div>
                 <div class="form-group col-md-6">
                   <select class="form-control form-control-sm" name="posicion_tirador" >
@@ -410,6 +413,7 @@
       skulistado_id: function(){},
       skus: function(){
         this.addPiezas(this.skus.length);
+        this.addComplementos(this.skus.length);
         // this.setForm();
       },
       piezas: function(){
