@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Tablero;
 use Illuminate\Http\Request;
+use DB;
 
 class TableroController extends Controller
 {
@@ -16,6 +17,28 @@ class TableroController extends Controller
     {
       $tableros = Tablero::with('categoria:id,nombre','colore:id,nombre,acronimo')->get();
       return view('backend.tableros.index', compact('tableros'));
+    }
+
+    public function getEspesoreCaja($espesores)
+    {
+      $array = explode(",",$espesores);
+      $colores = DB::table('tableros')
+      ->join('colores','tableros.colore_id','colores.id')
+      ->whereIn('espesor',$array)
+      ->select('tableros.id',DB::raw('CONCAT(colores.nombre,"-",tableros.espesor) AS color'), 'colores.acronimo')
+      ->get();
+
+      $resultados = collect();
+
+      foreach ($colores as $key => $value) {
+        $resultados->push([
+          'value' => $value->id,
+          'item' => $value->color,
+          'acronimo' => $value->acronimo
+        ]);
+      }
+      // $resultados = $resultados->pluck('color','id');
+      return $resultados;
     }
 
     /**

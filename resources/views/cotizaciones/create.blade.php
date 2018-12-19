@@ -79,16 +79,18 @@
 
               <div class="form-row">
                 <div class="form-group mr-2">
-                  {!! Form::select('material_caja', \App\Tablero::with('colore')->get()->pluck('colore.nombre','id'), null, ['class'=>'form-control-sm form-control
-                  ','placeholder'=>'Material Caja']) !!}
-                {{-- <select name="material_caja" class="form-control form-control-sm" >
-                  <option disabled selected value="">Material Caja</option>
-                  <option v-for="item in matcaja" :value="item.value">@{{ item.label }}</option>
-                </select> --}}
-              </div>
-              <div class="form-group mr-2">
-                {!! Form::select('material_frente', \App\Tablero::with('colore')->get()->pluck('colore.nombre','id'), null, ['class'=>'form-control-sm form-control
-                ','placeholder'=>'Material Frente']) !!}
+                  {{-- {!! Form::select('material_caja', \App\Tablero::with('colore')->get()->pluck('colore.nombre','colore.nombre'), null, ['class'=>'form-control-sm form-control
+                  ','placeholder'=>'Material Caja', 'v-model' => 'material_caja']) !!} --}}
+
+                  <select name="material_caja" class="form-control form-control-sm" v-model="material_caja" @change="getEspesoresPemitidos()">
+                    <option disabled selected value="">Material Caja</option>
+                    <option v-for="item in espesoresList" :value="item.value">@{{ item.label }}</option>
+                  </select>
+
+                </div>
+                <div class="form-group mr-2">
+                  {!! Form::select('material_frente', \App\Tablero::with('colore')->get()->pluck('colore.nombre','colore.nombre'), null, ['class'=>'form-control-sm form-control
+                  ','placeholder'=>'Material Frente','v-model' => 'material_frente']) !!}
                 {{-- <select name="material_frente" class="form-control form-control-sm" >
                   <option disabled selected value="">Material Frente</option>
                   <option v-for="item in matfrente" :value="item.value">@{{ item.label }}</option>
@@ -99,16 +101,16 @@
 
             <div class="form-row">
               <div class="form-group mr-2">
-                {!! Form::select('material_fondo', \App\Tablero::with('colore')->get()->pluck('colore.nombre','id'), null, ['class'=>'form-control-sm form-control
-                ','placeholder'=>'Material Fondo']) !!}
+                {!! Form::select('material_fondo', \App\Tablero::with('colore')->get()->pluck('colore.nombre','colore.nombre'), null, ['class'=>'form-control-sm form-control
+                ','placeholder'=>'Material Fondo', 'v-model' => 'material_fondo']) !!}
                 {{-- <select name="material_fondo" class="form-control form-control-sm" >
                   <option disabled selected value="">Material Fondo</option>
                   <option v-for="item in matfondo" :value="item.value">@{{ item.label }}</option>
                 </select> --}}
               </div>
               <div class="form-group mr-2">
-                {!! Form::select('material_gaveta', \App\Tablero::with('colore')->get()->pluck('colore.nombre','id'), null, ['class'=>'form-control-sm form-control
-                ','placeholder'=>'Material Gaveta']) !!}
+                {!! Form::select('material_gaveta', \App\Tablero::with('colore')->get()->pluck('colore.nombre','colore.nombre'), null, ['class'=>'form-control-sm form-control
+                ','placeholder'=>'Material Gaveta', 'v-model' => 'material_gaveta']) !!}
                 {{-- <select name="material_gaveta" class="form-control form-control-sm" >
                   <option disabled selected value="">Material Gaveta</option>
                   <option v-for="item in matgaveta" :value="item.value">@{{ item.label }}</option>
@@ -289,9 +291,9 @@
             <td>@{{ pieza.materiale.nombre }}</td>
             <td>@{{ pieza.descripcion }}</td>
             <td class="text-right">@{{ pieza.largo }}</td>
-            <td class="text-right">@{{ pieza.vl = this.piezas[index].largo.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad).replace(/EC/g,ec).replace(/EF/g,ef).replace(/EO/g,eo).replace(/EG/g,eg) }}</td>
+            <td class="text-right">@{{ pieza.vl }}</td>
             <td class="text-right">@{{ pieza.ancho }}</td>
-            <td class="text-right">@{{ pieza.va = this.piezas[index].ancho.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad).replace(/EC/g,ec).replace(/EF/g,ef).replace(/EO/g,eo).replace(/EG/g,eg) }}</td>
+            <td class="text-right">@{{ pieza.va }}</td>
             <td class="text-right">@{{ pieza.area }}</td>
             <td class="text-right"></td>
             <td class="text-right">@{{ pieza.largo_sup }}</td>
@@ -363,6 +365,12 @@
       ancho: '',
       alto: '',
       profundidad: '',
+      espesoresList: '',
+      espesor_caja_permitido: '',
+      material_caja: '',
+      material_frente: '',
+      material_fondo: '',
+      material_gaveta: '',
       espesor_caja: '',
       espesor_frente: '',
       espesor_fondo: '',
@@ -404,7 +412,9 @@
         this.addPiezas(this.skus.length);
         // this.setForm();
       },
-      piezas: function(){},
+      piezas: function(){
+        this.setForm(this.skus[this.skus.length - 1].indice - 1);
+      },
       complementos: function(){},
       ancho: function(){},
       alto: function(){},
@@ -418,21 +428,25 @@
           // console.log(uid);
           axios.get('/getSkuPadre/' + uid)
           .then( response => {
+            console.log(response.data);
             this.skulistado_id = response.data.id;
+            this.espesor_caja_permitido = response.data.modulo.espesor_caja_permitido;
             this.nombreModulo = response.data.modulo.nombre;
-            if(this.skulistado_id == 0){
-              Swal({
-                type: 'error',
-                title: 'Oops...',
-                text: 'SKU Padre no encontrado!',
-                footer: '<a href>Esta seguro que existe?</a>'
-              })
-            }
           })
           .catch(function(error){
             console.log(error)
           })
         }
+      },
+      getEspesoresPemitidos: function(){
+        axios.get('/getEspesoreCaja/' + this.espesor_caja_permitido)
+        .then( response => {
+          console.log(response.data);
+          this.espesoresList = response.data;
+        })
+        .catch(function(error){
+          console.log(error)
+        })
       },
       addSKU: function(){
         if(this.skulistado_id && this.ancho && this.alto && this.profundidad && this.espesor_caja && this.espesor_frente && this.espesor_fondo && this.espesor_gaveta){
@@ -442,6 +456,7 @@
             this.skus.push({
               id: response.data.id,
               indice: '',
+              modulo_id: response.data.modulo_id,
               etiqueta: this.contador += 1,
               sku_padre: response.data.sku_padre,
               tipo_id: response.data.tipo_id,
@@ -527,30 +542,28 @@
           console.log(error)
         })
       },
-      setForm: function(){
-        var idx = this.skus[this.skus.length - 1];
-        var ancho = idx.ancho; //Ancho
-        var alto = idx.alto; //Alto
-        var profundidad = idx.profundidad; //Profundidad
-        var ec = idx.espesor_caja; //Espesor de caja EC
-        var ef = idx.espesor_frente; //Espesor de Frente EF
-        var eo = idx.espesor_fondo; //Espesor de fondo EO
-        var eg = idx.espesor_gaveta; //Espesor de gaveta EG
-        /* Largo */
-        // this.piezas = this.piezas.filter(function(pieza){
-        //   return pieza.vl = eval((pieza.largo.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad).replace(/EC/g,ec).replace(/EF/g,ef).replace(/EO/g,eo).replace(/EG/g,eg)));
-        // })
-        /* Ancho */
-        // this.piezas = this.piezas.filter(function(pieza){
-        //   return pieza.va = eval((pieza.ancho.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad).replace(/EC/g,ec).replace(/EF/g,ef).replace(/EO/g,eo).replace(/EG/g,eg)));
-        // })
+      setForm: function(idx){
+        var ancho = this.skus[idx].ancho; //Ancho
+        var alto = this.skus[idx].alto; //Alto
+        var profundidad = this.skus[idx].profundidad; //Profundidad
+        var ec = this.skus[idx].espesor_caja; //Espesor de caja EC
+        var ef = this.skus[idx].espesor_frente; //Espesor de Frente EF
+        var eo = this.skus[idx].espesor_fondo; //Espesor de fondo EO
+        var eg = this.skus[idx].espesor_gaveta; //Espesor de gaveta EG
+
+        var idxreg = idx + 1;
+        for (var i = 0; i < this.piezas.length; i++) {
+          if(this.piezas[i].indice == idxreg){
+            /* Ancho */
+            this.piezas[i].vl = eval((this.piezas[i].largo.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad).replace(/EC/g,ec).replace(/EF/g,ef).replace(/EO/g,eo).replace(/EG/g,eg)));
+            /* Alto */
+            this.piezas[i].va = eval((this.piezas[i].ancho.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad).replace(/EC/g,ec).replace(/EF/g,ef).replace(/EO/g,eo).replace(/EG/g,eg)));
+            /* Area */
+            this.piezas[i].area = (this.piezas[i].vl * this.piezas[i].va) / 1000000;
+          }
+        }
       },
-      setArea: function(){
-        this.piezas.filter(function(pieza){
-          pieza.area = (pieza.vl * pieza.va) / 1000000;
-          return pieza.area;
-        });
-      },
+      setArea: function(){},
       setProp: function(index){}
     }
   })
