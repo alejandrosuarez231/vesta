@@ -69,6 +69,12 @@ class ComplementoModuloController extends Controller
         //
     }
 
+    public function getCosto($id)
+    {
+      $complementos = Complemento_Modulo::findOrFail($id);
+      return $complementos->costo;
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

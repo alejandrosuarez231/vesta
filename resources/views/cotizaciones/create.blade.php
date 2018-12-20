@@ -351,7 +351,9 @@
   var app = new Vue({
     el: '#app',
 
-    created(){},
+    created(){
+      axios.get('/getCosto/1').then( response => { this.costocanto = response.data }).catch(function(error) { console.log(error)});
+    },
 
     data: {
       tipo_id: '',
@@ -386,6 +388,7 @@
       pieza_calc: [],
       indice: '',
       contador: null,
+      costocanto: 0,
     },
 
     computed: {
@@ -536,7 +539,7 @@
               espesor_fondo: this.espesor_fondo,
               espesor_gaveta: this.espesor_gaveta,
               cmp: 0,
-              ccn: 0
+              ccn: 0,
             })
           })
           .catch(function(error){
@@ -615,6 +618,7 @@
 
         var idxreg = idx + 1;
         var totalcosto = [];
+        var cmlsub = [];
         for (var i = 0; i < this.piezas.length; i++) {
           if(this.piezas[i].indice == idxreg){
             /* Ancho */
@@ -645,27 +649,35 @@
             this.piezas[i].costomp = parseFloat(this.piezas[i].area * costo).toFixed(2);
             totalcosto[i] = this.piezas[i].costomp;
 
+            /* Costo Canto */
+            if(this.piezas[i].largo_sup){
+              this.piezas[i].largo_sup = this.piezas[i].largo_sup.replace(/X{1}/g,this.piezas[i].vl);
+            }
+            if(this.piezas[i].largo_inf){
+              this.piezas[i].largo_inf = this.piezas[i].largo_inf.replace(/X{1}/g,this.piezas[i].vl);
+            }
+
             if(this.piezas[i].ancho_izq){
-              var canto1 = this.piezas[i].va;
-            }else {
-              var canto1 = null;
+              this.piezas[i].ancho_izq = this.piezas[i].ancho_izq.replace(/X{1}/g,this.piezas[i].va);
             }
             if(this.piezas[i].ancho_der){
-              var canto2 = this.piezas[i].va;
-            }else {
-              var canto2 = null;
+              this.piezas[i].ancho_der = this.piezas[i].ancho_der.replace(/X{1}/g,this.piezas[i].va);
             }
-            this.piezas[i].cml = canto1 + canto2;
+
+            if( (eval(this.piezas[i].largo_sup + '+' + this.piezas[i].largo_inf + '+' + this.piezas[i].ancho_izq + '+' + this.piezas[i].ancho_der) /1000) > 0 ){
+              this.piezas[i].cml = eval(this.piezas[i].largo_sup + '+' + this.piezas[i].largo_inf + '+' + this.piezas[i].ancho_izq + '+' + this.piezas[i].ancho_der) /1000;
+            }
+
             if(this.piezas[i].cml > 0){
-              this.piezas[i].cml = eval(this.piezas[i].vl + canto1 + canto2) / 1000;
+              this.piezas[i].ccn = parseFloat(this.piezas[i].cml * this.costocanto).toFixed(2);
             }
-            if(this.piezas[i].cml > 0){
-              /* se debe buscar el costo del canto en la table complementos modulo */
-              this.piezas[i].ccn = parseFloat(eval(this.piezas[i].cml * 0.6)).toFixed(2);
-            }
+            /* Costo Canto */
+            // this.piezas[i].cnn = parseFloat(this.piezas[i].area * costo).toFixed(2);
+            // totalcostocanto[i] = this.piezas[i].cnn;
           }
         }
         this.skus[idx].cmp = parseFloat(eval(totalcosto.join('+'))).toFixed(2);
+        // this.skus[idx].ccn = parseFloat(eval(totalcostocanto.join('+'))).toFixed(2);
       },
       setArea: function(){},
       setProp: function(index){}

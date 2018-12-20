@@ -110,6 +110,7 @@ Route::get('/piezasSkuPadre/{skulistado_id}', 'PiezaSkuController@getPiezas');
 Route::get('/dataModulosComplementos', 'ComplementoModuloController@indexData')->name('data.moduloscomplementos');
 Route::get('/aprobarComplementos/{id}', 'ComplementoController@aprobar')->name('complementosku.complementos.aprobar');
 Route::get('/editComplementoData/{modulo_id}', 'ComplementoController@editComplementoData')->name('complementosku.complementos.editar');
+Route::get('/getCosto/{id}', 'ComplementoModuloController@getCosto')->name('complementosku.getCosto');
 Route::resource('/backend/modulos/complementos', 'ComplementoModuloController');
 
 Route::get('/showComplementosSKU/{id}', 'ComplementoSkuController@show');
