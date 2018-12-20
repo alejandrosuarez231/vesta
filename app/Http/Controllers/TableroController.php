@@ -41,6 +41,25 @@ class TableroController extends Controller
       return $resultados;
     }
 
+    public function costoMP($color,$espesor)
+    {
+      $tableros = Tablero::with('colore:id,nombre')
+      ->where('colore_id', $color)
+      ->where('espesor', $espesor)
+      ->get();
+      $resultado = collect();
+      foreach ($tableros as $key => $value) {
+        $resultado->push([
+          'id' => $value->id,
+          'color' => $value->colore->nombre,
+          'espesor' => $value->espesor,
+          'costo' => $value->costo
+        ]);
+      }
+      // dd($color,$espesor,$tableros);
+      return $resultado->first();
+    }
+
     /**
      * Show the form for creating a new resource.
      *

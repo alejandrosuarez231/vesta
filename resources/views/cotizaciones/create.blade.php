@@ -79,7 +79,7 @@
 
               <div class="form-row">
                 <div class="form-group mr-2">
-                  {!! Form::select('material_caja', \App\Tablero::with('colore')->get()->pluck('colore.nombre','colore.nombre'), null, ['class'=>'form-control-sm form-control
+                  {!! Form::select('material_caja', \App\Colore::pluck('nombre','id'), null, ['class'=>'form-control-sm form-control
                   ','placeholder'=>'Material Caja', 'v-model' => 'material_caja']) !!}
 
                   {{-- <select name="material_caja" class="form-control form-control-sm" v-model="material_caja" @change="getEspesoresPemitidos()">
@@ -89,7 +89,7 @@
 
                 </div>
                 <div class="form-group mr-2">
-                  {!! Form::select('material_frente', \App\Tablero::with('colore')->get()->pluck('colore.nombre','colore.nombre'), null, ['class'=>'form-control-sm form-control
+                  {!! Form::select('material_frente', \App\Colore::pluck('nombre','id'), null, ['class'=>'form-control-sm form-control
                   ','placeholder'=>'Material Frente','v-model' => 'material_frente']) !!}
                 {{-- <select name="material_frente" class="form-control form-control-sm" >
                   <option disabled selected value="">Material Frente</option>
@@ -101,7 +101,7 @@
 
             <div class="form-row">
               <div class="form-group mr-2">
-                {!! Form::select('material_fondo', \App\Tablero::with('colore')->get()->pluck('colore.nombre','colore.nombre'), null, ['class'=>'form-control-sm form-control
+                {!! Form::select('material_fondo', \App\Colore::pluck('nombre','id'), null, ['class'=>'form-control-sm form-control
                 ','placeholder'=>'Material Fondo', 'v-model' => 'material_fondo']) !!}
                 {{-- <select name="material_fondo" class="form-control form-control-sm" >
                   <option disabled selected value="">Material Fondo</option>
@@ -109,7 +109,7 @@
                 </select> --}}
               </div>
               <div class="form-group mr-2">
-                {!! Form::select('material_gaveta', \App\Tablero::with('colore')->get()->pluck('colore.nombre','colore.nombre'), null, ['class'=>'form-control-sm form-control
+                {!! Form::select('material_gaveta', \App\Colore::pluck('nombre','id'), null, ['class'=>'form-control-sm form-control
                 ','placeholder'=>'Material Gaveta', 'v-model' => 'material_gaveta']) !!}
                 {{-- <select name="material_gaveta" class="form-control form-control-sm" >
                   <option disabled selected value="">Material Gaveta</option>
@@ -120,8 +120,10 @@
 
             <div class="form-row">
               <div class="form-group col-md-6">
-                {{-- {!! Form::text('espesor_caja', null, ['class' => 'form-control form-control-sm', 'title' => 'Espesor Caja', 'placeholder' => 'EC', 'v-model' => 'espesor_caja']) !!} --}}
-                {!! Form::select('espesor_caja', ['4'=>'4','15'=>'15','18'=>'18','25'=>'25'], null, ['class' => 'form-control form-control-sm', 'title' => 'Espesor Caja', 'placeholder' => 'EC', 'v-model' => 'espesor_caja']) !!}
+                <select name="espesor_caja" id="espesor_caja" class="form-control form-control-sm" title="Espesor Caja" v-model="espesor_caja">
+                  <option value="" disabled>EC</option>
+                  <option v-for="espesor in espesoresList" :value="espesor">@{{ espesor }}</option>
+                </select>
               </div>
               <div class="form-group col-md-6">
                 {!! Form::select('espesor_frente', ['4'=>'4','15'=>'15','18'=>'18','25'=>'25'], null, ['class' => 'form-control form-control-sm', 'title' => 'Espesor Frente', 'placeholder' => 'EF', 'v-model' => 'espesor_frente']) !!}
@@ -250,8 +252,8 @@
             <td>@{{ sku.categoria }}</td>
             <td>@{{ sku.sap }}</td>
             <td>@{{ sku.fondo }}</td>
-            <td>@{{ sku.cmp }}</td>
-            <td>@{{ sku.ccn }}</td>
+            <td class="text-right">@{{ sku.cmp }}</td>
+            <td class="text-right">@{{ sku.ccn }}</td>
           </tr>
         </tbody>
       </table>
@@ -298,13 +300,13 @@
             <td class="text-right">@{{ pieza.ancho }}</td>
             <td class="text-right">@{{ pieza.va }}</td>
             <td class="text-right">@{{ pieza.area }}</td>
-            <td class="text-right"></td>
+            <td class="text-right">@{{ pieza.costomp }}</td>
             <td class="text-right">@{{ pieza.largo_sup }}</td>
             <td class="text-right">@{{ pieza.largo_inf }}</td>
             <td class="text-right">@{{ pieza.ancho_izq }}</td>
             <td class="text-right">@{{ pieza.ancho_der }}</td>
-            <td class="text-right"></td>
-            <td class="text-right"></td>
+            <td class="text-right">@{{ pieza.cml }}</td>
+            <td class="text-right">@{{ pieza.ccn }}</td>
             <td class="text-right">@{{ pieza.mecanizado1 }}</td>
             <td class="text-right">@{{ pieza.mecanizado2 }}</td>
             <td class="text-right">@{{ pieza.cantidad }}</td>
@@ -368,7 +370,6 @@
       ancho: '',
       alto: '',
       profundidad: '',
-      espesoresList: '',
       espesor_caja_permitido: '',
       material_caja: '',
       material_frente: '',
@@ -378,12 +379,22 @@
       espesor_frente: '',
       espesor_fondo: '',
       espesor_gaveta: '',
+      costocaja: 0.00,
+      costofrente: 0.00,
+      costofondo: 0.00,
+      costogaveta: 0.00,
       pieza_calc: [],
       indice: '',
       contador: null,
     },
 
-    computed: {},
+    computed: {
+      espesoresList: function(){
+        if(this.espesor_caja_permitido){
+          return this.espesor_caja_permitido.split(',');
+        }
+      }
+    },
 
     watch: {
       tipo_id(){
@@ -423,6 +434,50 @@
       ancho: function(){},
       alto: function(){},
       profundidad: function(){},
+      espesor_caja: function(){
+        if(this.material_caja && this.espesor_caja){
+          axios.get('/costoMP/' + this.material_caja + '/' + this.espesor_caja)
+          .then( response => {
+            this.costocaja = response.data.costo;
+          })
+          .catch(function(error){
+            console.log(error)
+          })
+        }
+      },
+      espesor_frente: function(){
+        if(this.material_frente && this.espesor_frente){
+          axios.get('/costoMP/' + this.material_frente + '/' + this.espesor_frente)
+          .then( response => {
+            this.costofrente = response.data.costo;
+          })
+          .catch(function(error){
+            console.log(error)
+          })
+        }
+      },
+      espesor_fondo: function(){
+        if(this.material_fondo && this.espesor_fondo){
+          axios.get('/costoMP/' + this.material_fondo + '/' + this.espesor_fondo)
+          .then( response => {
+            this.costofondo = response.data.costo;
+          })
+          .catch(function(error){
+            console.log(error)
+          })
+        }
+      },
+      espesor_gaveta: function(){
+        if(this.material_gaveta && this.espesor_gaveta){
+          axios.get('/costoMP/' + this.material_gaveta + '/' + this.espesor_gaveta)
+          .then( response => {
+            this.costogaveta = response.data.costo;
+          })
+          .catch(function(error){
+            console.log(error)
+          })
+        }
+      }
     },
 
     methods: {
@@ -480,8 +535,8 @@
               espesor_frente: this.espesor_frente,
               espesor_fondo: this.espesor_fondo,
               espesor_gaveta: this.espesor_gaveta,
-              cmp: '',
-              ccn: ''
+              cmp: 0,
+              ccn: 0
             })
           })
           .catch(function(error){
@@ -512,7 +567,10 @@
               va: null,
               ancho_izq: response.data[i].ancho_izq,
               ancho_der: response.data[i].ancho_der,
+              cml: null,
+              ccn: null,
               area: null,
+              costomp: null,
               mecanizado1: response.data[i].mecanizado1,
               mecanizado2: response.data[i].mecanizado2,
               pieza: response.data[i].pieza,
@@ -535,7 +593,7 @@
               modulo_id: response.data[i].modulo_id,
               indice: idx,
               categoria_id: response.data[i].categoria_id,
-              categoria: response.data[i].categoria.nombre,
+              categoria: response.data[i].categoria,
               descripcion: response.data[i].descripcion,
               cantidad: response.data[i].cantidad
             });
@@ -556,6 +614,7 @@
         var eg = this.skus[idx].espesor_gaveta; //Espesor de gaveta EG
 
         var idxreg = idx + 1;
+        var totalcosto = [];
         for (var i = 0; i < this.piezas.length; i++) {
           if(this.piezas[i].indice == idxreg){
             /* Ancho */
@@ -564,8 +623,49 @@
             this.piezas[i].va = eval((this.piezas[i].ancho.replace(/A{1}/g, ancho).replace(/H{1}/g,alto).replace(/P{1}/g,profundidad).replace(/EC/g,ec).replace(/EF/g,ef).replace(/EO/g,eo).replace(/EG/g,eg)));
             /* Area */
             this.piezas[i].area = (this.piezas[i].vl * this.piezas[i].va) / 1000000;
+            var costo = null;
+            switch (this.piezas[i].materiale_id) {
+              case 1:
+              costo = this.costocaja;
+              break;
+              case 2:
+              costo = this.costofrente;
+              break;
+              case 3:
+              costo = this.costofondo;
+              break;
+              case 4:
+              costo = this.costogaveta;
+              break;
+              default:
+              costo = 0;
+              break;
+            }
+            /* Costo MP */
+            this.piezas[i].costomp = parseFloat(this.piezas[i].area * costo).toFixed(2);
+            totalcosto[i] = this.piezas[i].costomp;
+
+            if(this.piezas[i].ancho_izq){
+              var canto1 = this.piezas[i].va;
+            }else {
+              var canto1 = null;
+            }
+            if(this.piezas[i].ancho_der){
+              var canto2 = this.piezas[i].va;
+            }else {
+              var canto2 = null;
+            }
+            this.piezas[i].cml = canto1 + canto2;
+            if(this.piezas[i].cml > 0){
+              this.piezas[i].cml = eval(this.piezas[i].vl + canto1 + canto2) / 1000;
+            }
+            if(this.piezas[i].cml > 0){
+              /* se debe buscar el costo del canto en la table complementos modulo */
+              this.piezas[i].ccn = parseFloat(eval(this.piezas[i].cml * 0.6)).toFixed(2);
+            }
           }
         }
+        this.skus[idx].cmp = parseFloat(eval(totalcosto.join('+'))).toFixed(2);
       },
       setArea: function(){},
       setProp: function(index){}

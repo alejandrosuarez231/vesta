@@ -62,6 +62,7 @@ Route::resource('/backend/colores','ColoreController');
 
 /* Tableros */
 Route::get('/getEspesoreCaja/{espesores}', 'TableroController@getEspesoreCaja')->name('tableros.getEspesoreCaja');
+Route::get('/costoMP/{color}/{espesor}', 'TableroController@costoMP')->name('tableros.costoMP');
 Route::resource('/backend/tableros', 'TableroController');
 
 Route::get('/dataMateriales', 'MaterialeController@indexData')->name('data.materiales');
