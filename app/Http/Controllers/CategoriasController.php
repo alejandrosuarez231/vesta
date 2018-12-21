@@ -16,7 +16,7 @@ class CategoriasController extends Controller
      */
     public function index()
     {
-        return view('backend.categorias.index');
+      return view('backend.categorias.index');
     }
 
     /**
@@ -26,22 +26,22 @@ class CategoriasController extends Controller
      */
     public function indexData()
     {
-        $categorias = Categoria::all();
-        return Datatables::of($categorias->all())
-        ->addColumn('action', function ($categoria) {
-            return '<a href="categorias/'.$categoria->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>';
-        })
-        ->make(true);
+      $categorias = Categoria::all();
+      return Datatables::of($categorias->all())
+      ->addColumn('action', function ($categoria) {
+        return '<a href="categorias/'.$categoria->id.'/edit " class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>';
+      })
+      ->make(true);
     }
 
     public function searchCategoriaSkulistados()
     {
-        $skulistados = \App\Skulistado::with('categoria')->select('categoria_id')->groupby('categoria_id')->get();
-        $categorias = collect();
-        foreach ($skulistados as $key => $value) {
-            $categorias->push(['label' => $value->categoria->nombre, 'value' => $value->categoria_id]);
-        }
-        return $categorias;
+      $skulistados = \App\Skulistado::with('categoria')->select('categoria_id')->groupby('categoria_id')->get();
+      $categorias = collect();
+      foreach ($skulistados as $key => $value) {
+        $categorias->push(['label' => $value->categoria->nombre, 'value' => $value->categoria_id]);
+      }
+      return $categorias;
     }
 
     /**
@@ -51,7 +51,7 @@ class CategoriasController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -76,13 +76,19 @@ class CategoriasController extends Controller
         //
     }
 
+    public function getCostoCategoria($id)
+    {
+      $costo = Categoria::findOrFail($id);
+      return $costo->costo;
+    }
+
     public function categoriasFiltro($subtipo){
-        $categoria = Categoria::where('subtipo_id',$subtipo)->get();
-        $categoriaList = collect();
-        foreach ($categoria as $key => $value) {
-            $categoriaList->push(['label' => $value->nombre, 'value' => $value->id, 'subtext' => $value->subtipo_id]);
-        }
-        return $categoriaList->toJson();
+      $categoria = Categoria::where('subtipo_id',$subtipo)->get();
+      $categoriaList = collect();
+      foreach ($categoria as $key => $value) {
+        $categoriaList->push(['label' => $value->nombre, 'value' => $value->id, 'subtext' => $value->subtipo_id]);
+      }
+      return $categoriaList->toJson();
     }
 
     /**
@@ -93,7 +99,9 @@ class CategoriasController extends Controller
      */
     public function edit($id)
     {
-        //
+      $categoria = Categoria::findOrFail($id);
+      // dd($categoria);
+      return view('backend.categorias.edit', compact('categoria'));
     }
 
     /**
@@ -105,7 +113,11 @@ class CategoriasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $categoria = Categoria::findOrFail($id);
+      $categoria->update(['costo' => $request->costo]);
+      toast('Registro Actualizado!','success','top-right');
+      return redirect('backend/categorias');
+
     }
 
     /**
@@ -118,4 +130,4 @@ class CategoriasController extends Controller
     {
         //
     }
-}
+  }

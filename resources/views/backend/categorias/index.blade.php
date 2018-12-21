@@ -26,6 +26,7 @@
               <th>Id</th>
               <th>Nombre</th>
               <th>Acronimo</th>
+              <th>Costo</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -49,6 +50,7 @@
       {data: 'id', name: 'id', title: 'Id'},
       {data: 'nombre', name: 'nombre', title: 'Nombre'},
       {data: 'acronimo', name: 'acronimo', title: 'Acronimo', className: 'text-center'},
+      {data: 'costo', name: 'costo', title: 'Costo', className: 'text-right'},
       {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center'}
       ],
       "language": {

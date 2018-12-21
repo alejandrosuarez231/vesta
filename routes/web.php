@@ -49,6 +49,7 @@ Route::resource('/backend/subtipos','SubtipoController');
 Route::get('/datacategorias', 'CategoriasController@indexData')->name('data.categorias');
 Route::get('/categoriasFiltro/{id}', 'CategoriasController@categoriasFiltro')->name('data.categoriasfiltro');
 Route::get('/categoriainSkulistado', 'CategoriasController@searchCategoriaSkulistados');
+Route::get('/getCostoCategoria/{id}', 'CategoriasController@getCostoCategoria')->name('categorias.getCostoCategoria');
 Route::resource('/backend/categorias', 'CategoriasController');
 
 Route::get('/dataUnidades', 'UnidadController@indexData')->name('data.unidades');

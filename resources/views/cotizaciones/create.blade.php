@@ -237,6 +237,8 @@
             <th>Fondo</th>
             <th>Costo/MP</th>
             <th>Costo/Canto</th>
+            <th>Costo/Complementos</th>
+            <th>Total</th>
           </tr>
         </thead>
         <tbody>
@@ -254,6 +256,8 @@
             <td>@{{ sku.fondo }}</td>
             <td class="text-right">@{{ sku.cmp }}</td>
             <td class="text-right">@{{ sku.ccn }}</td>
+            <td class="text-right">@{{ sku.ccp = parseFloat(totalComp).toFixed(2) }}</td>
+            <td class="text-right">@{{ sku.total = parseFloat(sku.cmp) + parseFloat(sku.ccn) + parseFloat(sku.ccp) }}</td>
           </tr>
         </tbody>
       </table>
@@ -328,6 +332,8 @@
             <th>Categoria</th>
             <th>Descripcion</th>
             <th class="text-right">Cantidad</th>
+            <th class="text-right">Costo</th>
+            <th class="text-right">Subtotal</th>
           </tr>
         </thead>
         <tbody>
@@ -337,6 +343,8 @@
             <td>@{{ complemento.categoria.nombre }}</td>
             <td>@{{ complemento.descripcion }}</td>
             <td class="text-right">@{{ complemento.cantidad }}</td>
+            <td class="text-right">@{{ complemento.costo }}</td>
+            <td class="text-right">@{{ complemento.subtotal }}</td>
           </tr>
         </tbody>
       </table>
@@ -389,6 +397,7 @@
       indice: '',
       contador: null,
       costocanto: 0,
+      sum: [],
     },
 
     computed: {
@@ -396,6 +405,12 @@
         if(this.espesor_caja_permitido){
           return this.espesor_caja_permitido.split(',');
         }
+      },
+      totalComp: function(){
+        console.log(this.complementos);
+        return this.complementos.reduce(function(total, item){
+          return total + parseFloat(item.subtotal).toFixed(2);
+        },0);
       }
     },
 
@@ -433,7 +448,10 @@
       piezas: function(){
         this.setForm(this.skus[this.skus.length - 1].indice - 1);
       },
-      complementos: function(){},
+      complementos: function(){
+        this.setComp();
+        this.setSubtotalComp(this.complementos.length - 1);
+      },
       ancho: function(){},
       alto: function(){},
       profundidad: function(){},
@@ -490,7 +508,7 @@
           // console.log(uid);
           axios.get('/getSkuPadre/' + uid)
           .then( response => {
-            console.log(response.data);
+            // console.log(response.data);
             this.skulistado_id = response.data.id;
             this.espesor_caja_permitido = response.data.modulo.espesor_caja_permitido;
             this.nombreModulo = response.data.modulo.nombre;
@@ -540,6 +558,8 @@
               espesor_gaveta: this.espesor_gaveta,
               cmp: 0,
               ccn: 0,
+              ccp: 0,
+              total: 0,
             })
           })
           .catch(function(error){
@@ -598,7 +618,9 @@
               categoria_id: response.data[i].categoria_id,
               categoria: response.data[i].categoria,
               descripcion: response.data[i].descripcion,
-              cantidad: response.data[i].cantidad
+              cantidad: response.data[i].cantidad,
+              costo: '',
+              subtotal: '',
             });
             // this.complementos.push(response.data[i]);
           }
@@ -618,6 +640,7 @@
 
         var idxreg = idx + 1;
         var totalcosto = [];
+        totalcostocanto = [];
         var cmlsub = [];
         for (var i = 0; i < this.piezas.length; i++) {
           if(this.piezas[i].indice == idxreg){
@@ -670,16 +693,34 @@
 
             if(this.piezas[i].cml > 0){
               this.piezas[i].ccn = parseFloat(this.piezas[i].cml * this.costocanto).toFixed(2);
+            }else if(this.piezas[i].cml == null){
+              this.piezas[i].ccn = 0;
             }
+            // console.log(this.piezas[i].ccn);
+
             /* Costo Canto */
-            // this.piezas[i].cnn = parseFloat(this.piezas[i].area * costo).toFixed(2);
-            // totalcostocanto[i] = this.piezas[i].cnn;
+            this.piezas[i].cnn = parseFloat(this.piezas[i].ccn).toFixed(2);
+            totalcostocanto[i] =  this.piezas[i].cnn;
           }
         }
         this.skus[idx].cmp = parseFloat(eval(totalcosto.join('+'))).toFixed(2);
-        // this.skus[idx].ccn = parseFloat(eval(totalcostocanto.join('+'))).toFixed(2);
+        this.skus[idx].ccn = parseFloat(eval(totalcostocanto.join('+'))).toFixed(2);
       },
-      setArea: function(){},
+      setComp: function(){
+        this.complementos.filter(item => {
+          // console.log(item.categoria_id);
+          axios.get('/getCostoCategoria/' + item.categoria_id)
+          .then(response => {
+            item.costo = parseFloat(response.data).toFixed(2)
+            // console.log(item.costo);
+            item.subtotal = parseFloat(item.cantidad * item.costo).toFixed(2)
+          })
+          .catch(function(error){
+            console.log(error)
+          })
+        })
+      },
+      setSubtotalComp: function(idx){},
       setProp: function(index){}
     }
   })
