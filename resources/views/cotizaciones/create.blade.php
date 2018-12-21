@@ -407,9 +407,10 @@
         }
       },
       totalComp: function(){
-        console.log(this.complementos);
+        var array = [];
         return this.complementos.reduce(function(total, item){
-          return total + parseFloat(item.subtotal).toFixed(2);
+          array.push(parseFloat(item.subtotal));
+          return eval(array.join('+'));
         },0);
       }
     },
