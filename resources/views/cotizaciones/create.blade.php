@@ -330,7 +330,7 @@
             <th>ID</th>
             <th>Indice</th>
             <th>Categoria</th>
-            <th>Descripcion</th>
+            <th>Item</th>
             <th class="text-right">Cantidad</th>
             <th class="text-right">Costo</th>
             <th class="text-right">Subtotal</th>
@@ -341,7 +341,7 @@
             <td>@{{ complemento.id }}</td>
             <td>@{{ complemento.indice }}</td>
             <td>@{{ complemento.categoria.nombre }}</td>
-            <td>@{{ complemento.descripcion }}</td>
+            <td>Item Invetario</td>
             <td class="text-right">@{{ complemento.cantidad }}</td>
             <td class="text-right">@{{ complemento.costo }}</td>
             <td class="text-right">@{{ complemento.subtotal }}</td>
